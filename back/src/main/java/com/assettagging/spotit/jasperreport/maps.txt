@@ -1,0 +1,6 @@
+asmt_0001 : Competency Category
+asmt_0003 : spotit Specification
+asmt_0004 : Question by Competency Category
+asmt_0005 : User
+asmt_0006 : spotit Taken by Staff
+asmt_0007 : spotit Schema

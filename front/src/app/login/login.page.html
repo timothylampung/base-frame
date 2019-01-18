@@ -1,0 +1,36 @@
+<div class="login-body">
+    <div class="card login-panel ui-fluid">
+        <div class="ui-g">
+            <ng-container [formGroup]="loginForm">
+                <div class="ui-g-12">
+              <span class="md-inputfield">
+                  <input pInputText
+                         id="username"
+                         type="text"
+                         autocomplete="off"
+                         formControlName="username">
+                  <label for="username">Username</label>
+              </span>
+                </div>
+                <div class="ui-g-12">
+            <span class="md-inputfield">
+                <input pInputText
+                       id="password"
+                       type="password"
+                       autocomplete="off"
+                       formControlName="password">
+                <label for="password">Password</label>
+            </span>
+                </div>
+                <div class="ui-g-12">
+                    <button type="button"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+                            (click)="login()"
+                            [disabled]="!loginForm.valid || (isLoading$ | async)">
+                        <span class="ui-button-text ui-c">Sign In</span>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

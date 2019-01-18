@@ -1,0 +1,15 @@
+<span class="md-inputfield">
+    <p-autoComplete #p
+                    id="department"
+                    [formControl]="innerFormControl"
+                    [suggestions]="departments"
+                    [forceSelection]="true"
+                    [emptyMessage]="'Tiada Rekod'"
+                    (completeMethod)="search($event)"
+                    field="code">
+        <ng-template let-value pTemplate="item">
+            <span>{{value?.code}} - {{value?.description}}</span>
+        </ng-template>
+    </p-autoComplete>
+    <label for="department" [hidden]="hideFloatLabel">Jabatan</label>
+</span>

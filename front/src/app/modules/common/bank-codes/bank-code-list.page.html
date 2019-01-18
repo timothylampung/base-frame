@@ -1,0 +1,45 @@
+<div class="ui-g">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <div class="ui-g form-group">
+                <h1>{{title}}</h1>
+                <div class="ui-g-12">
+                    <div class="ui-g-1">
+                        <label for="keyword">Carian</label>
+                    </div>
+                    <div class="ui-g-6">
+                        <input pInputText type="text" name="keyword" id="keyword">
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-button-toolbar-mr">
+                    <button pButton type="button" label="Cari"
+                            icon="fa fa-search"
+                            (click)="search()"></button>
+                </div>
+            </div>
+        </div>
+        <div class="card card-w-title">
+            <p-table #dt
+                     [columns]="cols"
+                     [value]="bankCodes$ | async"
+                     [selectionMode]="'single'">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th style="width: 20%">Code</th>
+                        <th style="width: 80%">Description</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr [pSelectableRow]="rowData">
+                        <td>
+                            {{rowData?.code}}
+                        </td>
+                        <td>
+                            {{rowData?.description}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

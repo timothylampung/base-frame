@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+.ui-button-toolbar-mr > * {
+    margin-right: 5px;
+}
+
+.ui-button-toolbar-mb > * {
+    margin-bottom: 5px;
+}
+
+.page-action {
+    position: fixed;
+    bottom: 0;
+}
