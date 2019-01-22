@@ -4,7 +4,7 @@ public class DexSupervisorImpl extends DexActorImpl implements DexSupervisor{
 
     public DexSupervisorImpl() {
         super();
-        setActorType(DexActorType.APPLICANT);
+        setActorType(DexActorType.SUPERVISOR);
     }
 
     @Override
