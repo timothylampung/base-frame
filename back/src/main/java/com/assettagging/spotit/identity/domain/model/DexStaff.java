@@ -8,9 +8,8 @@ import com.assettagging.spotit.common.domain.model.DexPositionCode;
  */
 public interface DexStaff extends DexActor {
 
-    DexPositionCode getPositionCode();
 
-    void setPositionCode(DexPositionCode positionCode);
+    String getStaffCode();
 
-
+    void setStaffCode(String staffCode);
 }

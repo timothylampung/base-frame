@@ -13,24 +13,24 @@ import javax.persistence.*;
 @Table(name = "DEX_STAF")
 public class DexStaffImpl extends DexActorImpl implements DexStaff {
 
+    @Column(name = "STAFF_CODE")
+    private String staffCode;
+
+    @Override
+    public String getStaffCode() {
+        return staffCode;
+    }
+
+    @Override
+    public void setStaffCode(String staffCode) {
+        this.staffCode = staffCode;
+    }
+
     public DexStaffImpl() {
         super();
         setActorType(DexActorType.STAFF);
     }
 
-    @ManyToOne(targetEntity = DexPositionCodeImpl.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "POSITION_CODE_ID")
-    private DexPositionCode positionCode;
-
-    @Override
-    public DexPositionCode getPositionCode() {
-        return positionCode;
-    }
-
-    @Override
-    public void setPositionCode(DexPositionCode positionCode) {
-        this.positionCode = positionCode;
-    }
 
     public Class<?> getInterfaceClass() {
         return DexStaff.class;
