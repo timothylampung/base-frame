@@ -22,4 +22,34 @@ public class DexLocationImpl implements DexLocation{
     @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
