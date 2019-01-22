@@ -8,7 +8,5 @@ public class DexFacilityManagerImpl extends DexActorImpl implements DexFacilityM
     }
 
     @Override
-    public Class<?> getInterfaceClass() {
-        return DexFacilityManager.class;
-    }
+    public Class<?> getInterfaceClass() { return DexFacilityManager.class; }
 }
