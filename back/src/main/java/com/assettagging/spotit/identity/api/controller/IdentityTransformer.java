@@ -130,7 +130,7 @@ public class IdentityTransformer {
         vo.setAddress1(e.getAddress1());
         vo.setAddress2(e.getAddress2());
         vo.setAddress3(e.getAddress3());
-        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
+//        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
         return vo;
     }
 

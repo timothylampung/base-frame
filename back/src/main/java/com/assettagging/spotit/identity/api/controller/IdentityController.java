@@ -262,7 +262,7 @@ public class IdentityController {
         staff.setMobile(vo.getMobile());
         staff.setFax(vo.getFax());
         staff.setPhone(vo.getPhone());
-        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+//        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
         identityService.saveStaff(staff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
@@ -276,7 +276,7 @@ public class IdentityController {
         staff.setEmail(vo.getEmail());
         staff.setMobile(vo.getMobile());
         staff.setPhone(vo.getPhone());
-        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+//        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
         identityService.updateStaff(staff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
