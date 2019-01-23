@@ -37,13 +37,17 @@ public class IdentityServiceImpl implements IdentityService {
     public IdentityServiceImpl(EntityManager entityManager, SecurityService securityService,
                                DexPrincipalDao principalDao, DexUserDao userDao,
                                DexGroupDao groupDao,
-                               DexStaffDao staffDao) {
+                               DexStaffDao staffDao,
+                               DexFacilityManagerDao facilityManagerDao,
+                               DexSupervisorDao supervisorDao,
+                               DexTechnicianDao technicianDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
         this.principalDao = principalDao;
         this.userDao = userDao;
         this.groupDao = groupDao;
         this.staffDao = staffDao;
+
     }
 
     //==============================================================================================
@@ -378,4 +382,5 @@ public class IdentityServiceImpl implements IdentityService {
         staffDao.remove(staff, securityService.getCurrentUser());
         entityManager.flush();
     }
+
 }

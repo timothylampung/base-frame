@@ -8,10 +8,10 @@ import com.assettagging.spotit.identity.domain.model.DexActorImpl;
 
 import javax.persistence.*;
 
-@Entity(name = "DexDexMaintenanceRequest")
+@Entity(name = "DexMaintenanceRequest")
 @Table(name = "DEX_MNTC")
-public class DexMaintenanceRequestImpl extends DexMetadata implements DexMaintenanceRequest {
 
+public class DexMaintenanceRequestImpl extends DexMetadata implements DexMaintenanceRequest {
 
     @Id
     @Column(name = "ID")
@@ -31,7 +31,6 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCATION_ID", nullable = false)
     private DexLocation location;
-
 
     @Override
     public DexActor getRequester() {

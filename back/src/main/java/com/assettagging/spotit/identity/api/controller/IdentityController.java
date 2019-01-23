@@ -251,7 +251,7 @@ public class IdentityController {
     }
 
     @PostMapping(value = "/staff")
-    public ResponseEntity<String> saveStaff(@RequestBody Staff vo){
+    public ResponseEntity<String> saveStaff(@RequestBody Staff vo) {
         DexStaff staff = new DexStaffImpl();
         staff.setIdentityNo(vo.getIdentityNo());
         staff.setCode(vo.getCode());
@@ -287,5 +287,4 @@ public class IdentityController {
         identityService.removeStaff(staff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-
 }
