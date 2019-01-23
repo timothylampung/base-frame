@@ -3,6 +3,7 @@ package com.assettagging.spotit.asset.domain.model;
 import com.assettagging.spotit.core.domain.DexMetadata;
 import com.assettagging.spotit.identity.domain.model.DexActor;
 import com.assettagging.spotit.identity.domain.model.DexActorImpl;
+import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -103,5 +104,10 @@ public class DexAssetImpl extends DexMetadata implements DexAsset {
     @Override
     public void setAssetCode(DexAssetCode assetCode) {
         this.assetCode = assetCode;
+    }
+
+    @Override
+    public Class<?> getInterfaceClass() {
+        return DexAsset.class;
     }
 }

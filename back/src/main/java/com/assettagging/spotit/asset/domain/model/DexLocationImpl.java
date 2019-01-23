@@ -1,6 +1,7 @@
 package com.assettagging.spotit.asset.domain.model;
 
 import com.assettagging.spotit.core.domain.DexMetadata;
+import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,17 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     @GeneratedValue(generator = "SQ_DEX_LCTN")
     @SequenceGenerator(name = "SQ_DEX_LCTN", sequenceName = "SQ_DEX_LCTN", allocationSize = 1)
     private Long id;
+
+    @Embedded
     private DexMetadata metadata;
+
+    @NotNull
+    @Column(name = "CODE")
+    private String code;
+
+    @NotNull
+    @Column(name = "DESCRIPTION")
+    private String description;
 
 
     @Override
@@ -28,15 +39,6 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     public void setMetadata(DexMetadata metadata) {
         this.metadata = metadata;
     }
-
-    @NotNull
-    @Column(name = "CODE")
-    private String code;
-
-    @NotNull
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     @Override
     public Long getId() {
         return id;
@@ -65,5 +67,10 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Class<?> getInterfaceClass() {
+        return DexLocation.class;
     }
 }
