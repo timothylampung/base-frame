@@ -4,11 +4,7 @@ import com.assettagging.spotit.core.domain.DexMetaObject;
 import com.assettagging.spotit.core.domain.DexMetadata;
 
 public interface DexLocation  extends DexMetaObject{
-    DexMetadata getMetadata();
 
-    void setMetadata(DexMetadata metadata);
-
-    Long getId();
 
     void setId(Long id);
 
@@ -19,4 +15,16 @@ public interface DexLocation  extends DexMetaObject{
     String getDescription();
 
     void setDescription(String description);
+
+    DexLocation getParent();
+
+    void setParent(DexLocation parent);
+
+    String getAddress();
+
+    void setAddress(String address);
+
+    String getName();
+
+    void setName(String name);
 }

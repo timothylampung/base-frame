@@ -30,6 +30,23 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     private String description;
 
 
+    @ManyToOne(targetEntity = DexLocationImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARENT_ID")
+    private DexLocation parent;
+
+    @NotNull
+    @Column(name = "ADDRESS")
+    private String Address;
+
+    @NotNull
+    @Column(name = "NAME")
+    private String Name;
+
+
+
+
+
+
     @Override
     public DexMetadata getMetadata() {
         return metadata;
@@ -67,6 +84,37 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     @Override
     public void setDescription(String description) {
         this.description = description;
+
+    }
+
+    @Override
+    public DexLocation getParent() {
+        return parent;
+    }
+
+    @Override
+    public void setParent(DexLocation parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public String getAddress() {
+        return Address;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    @Override
+    public String getName() {
+        return Name;
+    }
+
+    @Override
+    public void setName(String name) {
+        Name = name;
     }
 
     @Override
