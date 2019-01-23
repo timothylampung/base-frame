@@ -3,18 +3,14 @@ package com.assettagging.spotit.asset.domain.model;
 import com.assettagging.spotit.core.domain.DexMetaObject;
 import com.assettagging.spotit.core.domain.DexMetadata;
 
-public interface DexAsset  {
-    Long getId();
-
-    void setId(Long id);
-
+public interface DexAssetCode {
     DexMetadata getMetadata();
 
     void setMetadata(DexMetadata metadata);
 
-    DexLocation getLocation();
+    Long getId();
 
-    void setLocation(DexLocation location);
+    void setId(Long id);
 
     String getCode();
 
@@ -23,8 +19,4 @@ public interface DexAsset  {
     String getDescription();
 
     void setDescription(String description);
-
-    DexAssetCode getAssetCode();
-
-    void setAssetCode(DexAssetCode assetCode);
 }

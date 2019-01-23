@@ -5,19 +5,19 @@ import com.assettagging.spotit.core.domain.DexMetadata;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "DexLocation")
-@Table(name = "DEX_LCTN")
+@Entity(name = "DexAssetCode")
+@Table(name = "DEX_ASST_CODE")
+public class DexAssetCodeImpl implements DexAssetCode {
 
-
-public class DexLocationImpl extends DexMetadata implements DexLocation{
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_DEX_LCTN")
-    @SequenceGenerator(name = "SQ_DEX_LCTN", sequenceName = "SQ_DEX_LCTN", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_DEX_ASST_CODE")
+    @SequenceGenerator(name = "SQ_DEX_ASST_CODE", sequenceName = "SQ_DEX_ASST_CODE", allocationSize = 1)
     private Long id;
-    private DexMetadata metadata;
 
+    @Embedded
+    private DexMetadata metadata;
 
     @Override
     public DexMetadata getMetadata() {
@@ -31,7 +31,7 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
 
     @NotNull
     @Column(name = "CODE")
-    private String code;
+    private String Code;
 
     @NotNull
     @Column(name = "DESCRIPTION")
@@ -49,12 +49,12 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
 
     @Override
     public String getCode() {
-        return code;
+        return Code;
     }
 
     @Override
     public void setCode(String code) {
-        this.code = code;
+        Code = code;
     }
 
     @Override
@@ -67,3 +67,5 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
         this.description = description;
     }
 }
+
+

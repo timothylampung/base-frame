@@ -23,6 +23,27 @@
         primary key (ID)
     );
 
+    create table DEX_ASST (
+        ID int8 not null,
+        CODE varchar(255),
+        DESCRIPTION varchar(255),
+        primary key (ID)
+    );
+
+    create table DEX_ASST_CODE (
+        ID int8 not null,
+        CODE varchar(255),
+        DESCRIPTION varchar(255),
+        primary key (ID)
+    );
+
+    create table DEX_ATVT (
+        ID int8 not null,
+        CODE varchar(255),
+        DESCRIPTION varchar(255),
+        primary key (ID)
+    );
+
     create table DEX_BANK (
         ID int8 not null,
         ADDRESS varchar(255) not null,
@@ -109,6 +130,13 @@
         GROUP_ID int8,
         PRINCIPAL_ID int8,
         primary key (GROUP_ID, PRINCIPAL_ID)
+    );
+
+    create table DEX_LCTN (
+        ID int8 not null,
+        CODE varchar(255),
+        DESCRIPTION varchar(255),
+        primary key (ID)
     );
 
     create table DEX_MODL (
@@ -209,8 +237,8 @@
     );
 
     create table DEX_STAF (
+        STAFF_CODE varchar(255),
         ID int8 not null,
-        POSITION_CODE_ID int8,
         primary key (ID)
     );
 
@@ -220,6 +248,13 @@
         REAL_NAME varchar(255) not null,
         ID int8 not null,
         ACTOR_ID int8,
+        primary key (ID)
+    );
+
+    create table DEX_WODR (
+        ID int8 not null,
+        CODE varchar(255),
+        DESCRIPTION varchar(255),
         primary key (ID)
     );
 
@@ -233,17 +268,17 @@
         add constraint uc_DEX_GRDE_CODE_1 unique (CODE);
 
     alter table DEX_GROP 
-        add constraint FK75649754A08194C8 
+        add constraint FK756497546D425AB6 
         foreign key (ID) 
         references DEX_PCPL;
 
     alter table DEX_GROP_MMBR 
-        add constraint FK8997BFFB89E8EBD9 
+        add constraint FK8997BFFBA9E5D8C7 
         foreign key (GROUP_ID) 
         references DEX_GROP;
 
     alter table DEX_GROP_MMBR 
-        add constraint FK8997BFFBD6C37279 
+        add constraint FK8997BFFBA3843867 
         foreign key (PRINCIPAL_ID) 
         references DEX_PCPL;
 
@@ -257,7 +292,7 @@
         add constraint uc_DEX_PCPL_1 unique (NAME);
 
     alter table DEX_PCPL_ROLE 
-        add constraint FKD7E32D3ED6C37279 
+        add constraint FKD7E32D3EA3843867 
         foreign key (PRINCIPAL_ID) 
         references DEX_PCPL;
 
@@ -268,17 +303,12 @@
         add constraint uc_DEX_RFRN_NO_1 unique (CODE);
 
     alter table DEX_SMDL 
-        add constraint FK7569F7AA96DE80CA 
+        add constraint FK7569F7AAE2393E1C 
         foreign key (MODULE_ID) 
         references DEX_MODL;
 
     alter table DEX_STAF 
-        add constraint FK756A118E43151BA1 
-        foreign key (POSITION_CODE_ID) 
-        references DEX_PSTN_CODE;
-
-    alter table DEX_STAF 
-        add constraint FK756A118EDA4C8A8F 
+        add constraint FK756A118EFA49777D 
         foreign key (ID) 
         references DEX_ACTR;
 
@@ -286,16 +316,22 @@
         add constraint uc_DEX_USER_1 unique (EMAIL);
 
     alter table DEX_USER 
-        add constraint FK756AF71377EB0519 
+        add constraint FK756AF71397E7F207 
         foreign key (ACTOR_ID) 
         references DEX_ACTR;
 
     alter table DEX_USER 
-        add constraint FK756AF713A08194C8 
+        add constraint FK756AF7136D425AB6 
         foreign key (ID) 
         references DEX_PCPL;
 
     create sequence SQ_DEX_ACTR;
+
+    create sequence SQ_DEX_ASST;
+
+    create sequence SQ_DEX_ASST_CODE;
+
+    create sequence SQ_DEX_ATVT;
 
     create sequence SQ_DEX_BANK;
 
@@ -306,6 +342,8 @@
     create sequence SQ_DEX_GRDE_CODE;
 
     create sequence SQ_DEX_GROP_MMBR;
+
+    create sequence SQ_DEX_LCTN;
 
     create sequence SQ_DEX_MODL;
 
@@ -318,3 +356,103 @@
     create sequence SQ_DEX_RFRN_NO;
 
     create sequence SQ_DEX_SMDL;
+
+    create sequence SQ_DEX_WODR;
+
+    alter table DEX_GROP 
+        drop constraint FK756497546D425AB6;
+
+    alter table DEX_GROP_MMBR 
+        drop constraint FK8997BFFBA9E5D8C7;
+
+    alter table DEX_GROP_MMBR 
+        drop constraint FK8997BFFBA3843867;
+
+    alter table DEX_PCPL_ROLE 
+        drop constraint FKD7E32D3EA3843867;
+
+    alter table DEX_SMDL 
+        drop constraint FK7569F7AAE2393E1C;
+
+    alter table DEX_STAF 
+        drop constraint FK756A118EFA49777D;
+
+    alter table DEX_USER 
+        drop constraint FK756AF71397E7F207;
+
+    alter table DEX_USER 
+        drop constraint FK756AF7136D425AB6;
+
+    drop table if exists DEX_ACTR cascade;
+
+    drop table if exists DEX_ASST cascade;
+
+    drop table if exists DEX_ASST_CODE cascade;
+
+    drop table if exists DEX_ATVT cascade;
+
+    drop table if exists DEX_BANK cascade;
+
+    drop table if exists DEX_CNFG cascade;
+
+    drop table if exists DEX_FORM cascade;
+
+    drop table if exists DEX_GRDE_CODE cascade;
+
+    drop table if exists DEX_GROP cascade;
+
+    drop table if exists DEX_GROP_MMBR cascade;
+
+    drop table if exists DEX_LCTN cascade;
+
+    drop table if exists DEX_MODL cascade;
+
+    drop table if exists DEX_PCPL cascade;
+
+    drop table if exists DEX_PCPL_ROLE cascade;
+
+    drop table if exists DEX_PSTN_CODE cascade;
+
+    drop table if exists DEX_RFRN_NO cascade;
+
+    drop table if exists DEX_SMDL cascade;
+
+    drop table if exists DEX_STAF cascade;
+
+    drop table if exists DEX_USER cascade;
+
+    drop table if exists DEX_WODR cascade;
+
+    drop sequence SQ_DEX_ACTR;
+
+    drop sequence SQ_DEX_ASST;
+
+    drop sequence SQ_DEX_ASST_CODE;
+
+    drop sequence SQ_DEX_ATVT;
+
+    drop sequence SQ_DEX_BANK;
+
+    drop sequence SQ_DEX_CNFG;
+
+    drop sequence SQ_DEX_FORM;
+
+    drop sequence SQ_DEX_GRDE_CODE;
+
+    drop sequence SQ_DEX_GROP_MMBR;
+
+    drop sequence SQ_DEX_LCTN;
+
+    drop sequence SQ_DEX_MODL;
+
+    drop sequence SQ_DEX_PCPL;
+
+    drop sequence SQ_DEX_PCPL_ROLE;
+
+    drop sequence SQ_DEX_PSTN_CODE;
+
+    drop sequence SQ_DEX_RFRN_NO;
+
+    drop sequence SQ_DEX_SMDL;
+
+    drop sequence SQ_DEX_WODR;
