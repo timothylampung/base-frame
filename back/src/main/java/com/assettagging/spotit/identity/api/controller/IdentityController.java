@@ -2,11 +2,10 @@ package com.assettagging.spotit.identity.api.controller;
 
 import com.assettagging.spotit.common.business.service.CommonService;
 import com.assettagging.spotit.identity.api.vo.*;
+import com.assettagging.spotit.identity.business.service.ActorService;
 import com.assettagging.spotit.identity.domain.model.*;
-import com.assettagging.spotit.identity.api.vo.*;
 import com.assettagging.spotit.identity.business.service.IdentityService;
 import com.assettagging.spotit.identity.domain.dao.RecursiveGroupException;
-import com.assettagging.spotit.identity.domain.model.*;
 import com.assettagging.spotit.security.business.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +28,17 @@ public class IdentityController {
     private static final Logger LOG = LoggerFactory.getLogger(IdentityController.class);
 
     private IdentityService identityService;
+    private ActorService actorService;
     private SecurityService securityService;
     private IdentityTransformer identityTransformer;
     private CommonService commonService;
 
     @Autowired
     public IdentityController(IdentityService identityService,
-                              SecurityService securityService,
+                              ActorService actorService, SecurityService securityService,
                               IdentityTransformer identityTransformer, CommonService commonService) {
         this.identityService = identityService;
+        this.actorService = actorService;
         this.securityService = securityService;
         this.identityTransformer = identityTransformer;
         this.commonService = commonService;
@@ -287,4 +288,11 @@ public class IdentityController {
         identityService.removeStaff(staff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+
+
+    @GetMapping(value = "/actors")
+    public ResponseEntity<List<Actor>> findAllActors() {
+        return ResponseEntity.ok(identityTransformer.toActors(actorService.findAllActors()));
+    }
+
 }

@@ -47,8 +47,8 @@ public class DexActorDaoImpl extends GenericDaoSupport<Long, DexActor> implement
     @Override
     public List<DexActor> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select a from DexActor a where " +
-                "(a.firstName like upper(:filter)" +
-                "or a.lastName like upper(:filter)) " +
+                "(a.name like upper(:filter)" +
+                "or a.name like upper(:filter)) " +
                 "order by a.name");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         return query.getResultList();
@@ -68,8 +68,8 @@ public class DexActorDaoImpl extends GenericDaoSupport<Long, DexActor> implement
     @Override
     public List<DexActor> find(String filter, DexActorType type, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select a from DexActor a where " +
-                "(a.firsName like upper(:filter)" +
-                "or a.lastName like upper(:filter)) " +
+                "(a.name like upper(:filter)" +
+                "or a.name like upper(:filter)) " +
                 "and a.actorType = :actorType " +
                 "order by a.name");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
@@ -82,8 +82,8 @@ public class DexActorDaoImpl extends GenericDaoSupport<Long, DexActor> implement
     @Override
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(a) from DexActor a where " +
-                "(upper(a.firstName) like upper(:filter)  " +
-                "or upper(a.lastName) like upper(:filter))  " +
+                "(upper(a.name) like upper(:filter)  " +
+                "or upper(a.name) like upper(:filter))  " +
                 "and a.metadata.state = :state");
         query.setParameter("state", DexMetaState.ACTIVE);
         return ((Long) query.getSingleResult()).intValue();
@@ -92,8 +92,8 @@ public class DexActorDaoImpl extends GenericDaoSupport<Long, DexActor> implement
     @Override
     public Integer count(String filter, DexActorType type) {
         Query query = entityManager.createQuery("select count(a) from DexActor a where " +
-                "(upper(a.firstName) like upper(:filter)  " +
-                "or upper(a.lastName) like upper(:filter))  " +
+                "(upper(a.name) like upper(:filter)  " +
+                "or upper(a.name) like upper(:filter))  " +
                 "and a.actorType = :actorType " +
                 "and a.metadata.state = :state");
         query.setParameter("state", DexMetaState.ACTIVE);

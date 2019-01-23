@@ -2,6 +2,8 @@ package com.assettagging.spotit.identity.api.controller;
 
 
 import com.assettagging.spotit.common.api.controller.CommonTransformer;
+import com.assettagging.spotit.core.api.MetaState;
+import com.assettagging.spotit.core.domain.DexMetadata;
 import com.assettagging.spotit.identity.api.vo.*;
 import com.assettagging.spotit.identity.domain.model.*;
 import com.assettagging.spotit.identity.api.vo.*;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,5 +142,31 @@ public class IdentityTransformer {
                 .map((e1) -> toStaffVo(e1))
                 .collect(Collectors.toList());
         return vos;
+    }
+
+    public Actor toActor(DexActor e) {
+        if (null == e) return null;
+        Actor vo = new Actor();
+        vo.setActorType(ActorType.get(e.getActorType().ordinal()));
+        vo.setAddress1(e.getAddress1());
+        vo.setAddress2(e.getAddress2());
+        vo.setAddress3(e.getAddress3());
+        vo.setCode(e.getCode());
+        vo.setEmail(e.getEmail());
+        vo.setFax(e.getFax());
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setMobile(e.getMobile());
+        vo.setName(e.getName());
+        vo.setPhone(e.getPhone());
+        DexMetadata metadata = e.getMetadata();
+        vo.setCreatedDate(metadata.getCreatedDate());
+        vo.setDeletedDate(metadata.getDeletedDate());
+        vo.setModifiedDate(metadata.getModifiedDate());
+        vo.setMetaState(MetaState.get(metadata.getState().ordinal()));
+        return vo;
+    }
+
+    public List<Actor> toActors(List<DexActor> e) {
+        return e.stream().map(this::toActor).collect(Collectors.toList());
     }
 }
