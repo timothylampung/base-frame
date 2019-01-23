@@ -5,6 +5,7 @@ import com.assettagging.spotit.asset.domain.model.DexAssetImpl;
 import com.assettagging.spotit.core.domain.DexMetadata;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexComponent")
 @Table(name = "DEX_COMP")
@@ -50,6 +51,20 @@ public class DexComponentImpl extends DexMetadata implements DexComponent {
     @Override
     public Class<?> getInterfaceClass() {
         return DexComponent.class;
+    }
+
+    @NotNull
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

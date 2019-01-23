@@ -6,6 +6,10 @@ import com.assettagging.spotit.core.domain.DexMetaObject;
 public interface DexComponent extends DexMetaObject {
     void setId(Long id);
 
+    String getDescription();
+
+    void setDescription(String description);
+
     DexPartCode getPartCode();
 
     void setPartCode(DexPartCode partCode);

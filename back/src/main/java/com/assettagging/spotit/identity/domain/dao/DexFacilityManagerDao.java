@@ -2,7 +2,6 @@ package com.assettagging.spotit.identity.domain.dao;
 
 import com.assettagging.spotit.core.domain.GenericDao;
 import com.assettagging.spotit.identity.domain.model.DexFacilityManager;
-import com.assettagging.spotit.identity.domain.model.DexStaff;
 
 import java.util.List;
 
