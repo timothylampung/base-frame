@@ -7,6 +7,5 @@ public enum DexActorType {
     STAFF, //0
     FACILITY_MANAGER,
     SUPERVISOR,
-    TECHNICIAN,
-    APPLICANT, //1
+    TECHNICIAN
 }

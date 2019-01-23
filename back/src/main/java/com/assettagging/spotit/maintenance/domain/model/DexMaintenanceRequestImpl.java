@@ -13,6 +13,7 @@ import javax.persistence.*;
 
 public class DexMaintenanceRequestImpl extends DexMetadata implements DexMaintenanceRequest {
 
+
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "SQ_MNTC_REQ")
@@ -31,6 +32,7 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCATION_ID", nullable = false)
     private DexLocation location;
+
 
     @Override
     public DexActor getRequester() {

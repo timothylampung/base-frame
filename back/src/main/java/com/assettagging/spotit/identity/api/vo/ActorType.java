@@ -6,7 +6,9 @@ package com.assettagging.spotit.identity.api.vo;
 public enum ActorType {
 
     STAFF, //0
-    APPLICANT; //1
+    FACILITY_MANAGER,
+    SUPERVISOR,
+    TECHNICIAN;
 
     public static ActorType get(int index) {
         return values()[index];
