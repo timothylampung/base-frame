@@ -1,12 +1,14 @@
 package com.assettagging.spotit.workorder.domain.model;
 
 import com.assettagging.spotit.asset.domain.model.DexAsset;
+import com.assettagging.spotit.asset.domain.model.DexAssetImpl;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
+import com.assettagging.spotit.asset.domain.model.DexLocationImpl;
 import com.assettagging.spotit.core.domain.DexMetadata;
 import com.assettagging.spotit.identity.domain.model.DexActor;
-import com.assettagging.spotit.inventory.domain.model.DexPartCode;
-import com.assettagging.spotit.inventory.domain.model.DexPartCodeImpl;
+import com.assettagging.spotit.identity.domain.model.DexActorImpl;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
+import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,42 +27,32 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     @Embedded
     private DexMetadata dexMetadata;
 
-
-    @OneToOne(targetEntity = DexActor.class,
+    @OneToOne(targetEntity = DexActorImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "REPORTER_ID", nullable = false)
     private DexActor reporter;
 
 
-    @OneToOne(targetEntity = DexActor.class,
+    @OneToOne(targetEntity = DexActorImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSIGNEE_ID", nullable = false)
     private DexActor assignee;
 
-    @OneToOne(targetEntity = DexMaintenanceRequest.class,
+    @OneToOne(targetEntity = DexMaintenanceRequestImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "MAINTENANCE_REQUEST_ID", nullable = true)
     private DexMaintenanceRequest MaintenanceRequestId;
 
-    @OneToOne(targetEntity = DexLocation.class,
+    @OneToOne(targetEntity = DexLocationImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCATION_ID", nullable = false)
     private DexLocation LocationId;
 
 
-    @OneToOne(targetEntity = DexAsset.class,
+    @OneToOne(targetEntity = DexAssetImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_ID", nullable = true)
     private DexAsset AssetId;
-
-
-
-
-
-
-
-
-
 
     @NotNull
     @Column(name = "CODE")
@@ -69,8 +61,6 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
-
-
 
     @Override
     public Long getId() {
@@ -92,9 +82,6 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     public void setMetadata(DexMetadata metadata) {
         this.dexMetadata =metadata;
     }
-
-
-
 
 
     @Override

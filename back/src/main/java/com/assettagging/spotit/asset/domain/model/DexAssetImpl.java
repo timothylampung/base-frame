@@ -10,9 +10,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexAset")
 @Table(name = "DEX_ASST")
-
-
-
 public class DexAssetImpl extends DexMetadata implements DexAsset {
 
 
