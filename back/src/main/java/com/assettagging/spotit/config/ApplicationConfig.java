@@ -20,6 +20,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
         "com.assettagging.spotit.common",
 
         // modules todo: add new module
+        "com.assettagging.spotit.asset",
+        "com.assettagging.spotit.workorder",
+        "com.assettagging.spotit.maintenance",
 
         //report vo
 })

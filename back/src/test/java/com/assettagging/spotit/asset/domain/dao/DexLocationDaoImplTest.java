@@ -1,7 +1,6 @@
 package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.Inventory.domain.dao.DexComponentDaoImplTest;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.helper.IdentityServiceHelper;
 import com.assettagging.spotit.identity.business.service.IdentityService;

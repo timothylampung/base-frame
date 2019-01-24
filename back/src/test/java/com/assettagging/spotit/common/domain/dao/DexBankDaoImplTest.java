@@ -51,7 +51,7 @@ public class DexBankDaoImplTest extends AbstractTest {
         bank.setDescription("DESC");
         bank.setEmail("asdasd@sds.com");
         bank.setName("Name");
-        bank.setPersonInCharge("Persopn in chrfge");
+        bank.setPersonInCharge("Persopn in charge");
         bank.setRemarks("Remarks");
         bank.setStatus(DexBankStatus.Active);
         bank.setType(DexBankType.Branch);
