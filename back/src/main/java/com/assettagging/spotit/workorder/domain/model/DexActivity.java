@@ -7,9 +7,9 @@ import com.assettagging.spotit.core.domain.DexMetadata;
 public interface DexActivity  extends DexMetaObject  {
     void setId(Long id);
 
-    DexAsset getWorkOrder();
+    DexWorkOrder getWorkOrder();
 
-    void setWorkOrder(DexAsset workOrder);
+    void setWorkOrder(DexWorkOrder workOrder);
 
     String getCode();
 

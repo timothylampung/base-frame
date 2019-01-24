@@ -26,7 +26,7 @@ public class DexActivityImpl extends DexMetadata implements DexActivity {
     @ManyToOne(targetEntity = DexWorkOrderImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "WORK_ORDER_ID", nullable = false)
-    private DexAsset workOrder;
+    private DexWorkOrder workOrder;
 
     @NotNull
     @Column(name = "CODE")
@@ -63,12 +63,12 @@ public class DexActivityImpl extends DexMetadata implements DexActivity {
     }
 
     @Override
-    public DexAsset getWorkOrder() {
+    public DexWorkOrder getWorkOrder() {
         return workOrder;
     }
 
     @Override
-    public void setWorkOrder(DexAsset workOrder) {
+    public void setWorkOrder(DexWorkOrder workOrder) {
         this.workOrder = workOrder;
     }
 
