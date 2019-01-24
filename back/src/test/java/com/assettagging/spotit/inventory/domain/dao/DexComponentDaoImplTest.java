@@ -1,8 +1,7 @@
-package com.assettagging.spotit.Inventory.domain.dao;
+package com.assettagging.spotit.inventory.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.inventory.domain.dao.DexComponentDao;
 import com.assettagging.spotit.inventory.domain.model.DexComponent;
 import org.junit.Test;
 import org.slf4j.Logger;

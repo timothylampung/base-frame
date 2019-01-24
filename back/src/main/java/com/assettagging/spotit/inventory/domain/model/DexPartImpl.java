@@ -5,6 +5,7 @@ import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexPart")
 @Table(name = "DEX_PART")
@@ -29,6 +30,20 @@ public class DexPartImpl extends DexMetadata implements DexPart {
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "WORK_ORDER_ID", nullable = true)
     private DexWorkOrder workOrder;
+
+    @NotNull
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public void setId(Long id) {
