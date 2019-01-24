@@ -7,6 +7,7 @@ import com.assettagging.spotit.identity.domain.model.DexActor;
 import com.assettagging.spotit.identity.domain.model.DexActorImpl;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexMaintenanceRequest")
 @Table(name = "DEX_MNTC")
@@ -33,6 +34,28 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
     @JoinColumn(name = "LOCATION_ID", nullable = false)
     private DexLocation location;
 
+    @NotNull
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    public DexLocation getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(DexLocation location) {
+        this.location = location;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @Override
     public DexActor getRequester() {
