@@ -23,7 +23,7 @@ public class DexBankDaoImpl extends GenericDaoSupport<Long, DexBank> implements 
 
     @Override
     public DexBank findBankByCode(String code) {
-        Query q = entityManager.createQuery("select e from DexBank e where e.code =: code")
+        Query q = entityManager.createQuery("select e from DexBank e where e.code =:code")
                 .setParameter("code",code);
         return (DexBank) q.getSingleResult();
     }
@@ -36,7 +36,7 @@ public class DexBankDaoImpl extends GenericDaoSupport<Long, DexBank> implements 
 
     @Override
     public List<DexBank> findBankByBranch(String branch) {
-        Query q = entityManager.createQuery("select e from DexBank e where e.branch =: branch")
+        Query q = entityManager.createQuery("select e from DexBank e where e.branch =:branch")
                 .setParameter("branch",branch);
         return (List<DexBank>) q.getResultList();    }
 

@@ -5,6 +5,7 @@ import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.common.domain.dao.DexBankDao;
 import com.assettagging.spotit.common.domain.model.DexBank;
 import com.assettagging.spotit.identity.business.service.IdentityService;
+import com.assettagging.spotit.identity.domain.dao.DexUserDao;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -22,16 +24,15 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
 
 
     @Autowired
-    private IdentityService identityService;
+    private DexUserDao dexUserDao;
     @Autowired
     private DexAssetCodeDao DexAssetCodeDao;
+    @Autowired
+    private EntityManager entityManager;
 
 
-//    @Test
-//    public void findAllAssetCodes() {
-//
-//        List<DexAssetCode> allAssetCodes = DexAssetCodeDao.findAllAssetCodes();
-//    }
+
+
 
 
     @Test
