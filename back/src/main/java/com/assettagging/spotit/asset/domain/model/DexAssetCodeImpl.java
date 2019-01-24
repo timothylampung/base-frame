@@ -32,7 +32,7 @@ public class DexAssetCodeImpl implements DexAssetCode {
 
     @NotNull
     @Column(name = "CODE")
-    private String Code;
+    private String code;
 
     @NotNull
     @Column(name = "DESCRIPTION")
@@ -50,12 +50,12 @@ public class DexAssetCodeImpl implements DexAssetCode {
 
     @Override
     public String getCode() {
-        return Code;
+        return code;
     }
 
     @Override
     public void setCode(String code) {
-        Code = code;
+        this.code = code;
     }
 
     @Override

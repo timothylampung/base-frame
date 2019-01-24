@@ -3,7 +3,6 @@ package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.asset.domain.model.DexAssetCodeImpl;
-import com.assettagging.spotit.common.domain.model.DexBank;
 import com.assettagging.spotit.common.domain.model.DexBankImpl;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import org.slf4j.Logger;
@@ -28,12 +27,12 @@ public class DexAssetCodeDaoImpl extends GenericDaoSupport<Long, DexAssetCode> i
         return q.getResultList();
     }
 
-//    @Override
-//    public DexAssetCode findAssetCodeByCode(String code) {
-//        Query q = entityManager.createQuery("select e from DexAssetCode e where e.code =: code")
-//                .setParameter("code",code);
-//        return (DexAssetCode) q.getSingleResult();
-//    }
+    @Override
+    public DexAssetCode findAssetCodeByCode(String code) {
+        Query q = entityManager.createQuery("select e from DexAssetCode e where e.code =:code")
+                .setParameter("code",code);
+        return (DexAssetCode) q.getSingleResult();
+    }
 
 
 

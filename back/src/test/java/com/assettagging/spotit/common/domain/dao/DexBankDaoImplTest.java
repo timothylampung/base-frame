@@ -39,7 +39,7 @@ public class DexBankDaoImplTest extends AbstractTest {
 
     @Test
     @Transactional
-    @Rollback(true)
+    @Rollback(false)
     public void saveBank(){
         DexUser user = userDao.findByUsername("nazifah.rosli");
 
@@ -67,6 +67,10 @@ public class DexBankDaoImplTest extends AbstractTest {
 
     @Test
     public void findBankByCode() {
+
+        DexBank findBankByCode = dexBankDao.findBankByCode("CODE");
+        LOG.debug("TESTING {} ",findBankByCode.getContactNo() );
+
     }
 
     @Test

@@ -1,8 +1,7 @@
 package com.assettagging.spotit.asset.domain.dao;
 
 
-import com.assettagging.spotit.asset.domain.model.DexAssetCode;
-import com.assettagging.spotit.asset.domain.model.DexAssetCodeImpl;
+
 import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.asset.domain.model.DexLocationImpl;
 import com.assettagging.spotit.common.domain.model.DexBankImpl;
@@ -29,12 +28,12 @@ public class DexLocationDaoImpl extends GenericDaoSupport<Long, DexLocation> imp
         return q.getResultList();
     }
 
-//    @Override
-//    public DexAssetCode findAssetCodeByCode(String code) {
-//        Query q = entityManager.createQuery("select e from DexAssetCode e where e.code =: code")
-//                .setParameter("code",code);
-//        return (DexAssetCode) q.getSingleResult();
-//    }
+    @Override
+    public DexLocation findLocationByCode(String code) {
+        Query q = entityManager.createQuery("select e from DexLocation e where e.code =:code")
+                .setParameter("code",code);
+        return (DexLocation) q.getSingleResult();
+    }
 
 
 

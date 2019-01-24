@@ -36,6 +36,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
 
 
     @Test
+    @Transactional
     @Rollback(false)
     public void findDexAssetCodeTest() {
         List<DexAssetCode> assetCodes = DexAssetCodeDao.findAllAssetCodes();
@@ -46,16 +47,15 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
 
 
 
-//    @Test
-//    @Rollback(false)
-//
-//
-//    public void findDexAssetCodeByCode() {
-//        String code = "AC01";
-//        DexAssetCode DexAssetByCode =  DexAssetCodeDao.findAssetCodeByCode(code);
-//
-//        LOG.debug("TEST: " + DexAssetByCode.getDescription());
-//
-//    }
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void findDexAssetCodeByCode() {
+        String code = "AC01";
+        DexAssetCode DexAssetCodeByCode =  DexAssetCodeDao.findAssetCodeByCode(code);
+
+        LOG.debug("TEST: " + DexAssetCodeByCode.getDescription());
+
+    }
 
 }
