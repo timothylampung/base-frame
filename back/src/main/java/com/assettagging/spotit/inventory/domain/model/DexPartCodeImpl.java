@@ -19,6 +19,20 @@ public class DexPartCodeImpl extends DexMetadata implements DexPartCode {
     @Embedded
     private DexMetadata metadata;
 
+    @NotNull
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public void setId(Long id) {
         this.id = id;
