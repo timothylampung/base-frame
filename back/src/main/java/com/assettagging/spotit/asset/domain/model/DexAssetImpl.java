@@ -8,7 +8,7 @@ import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "DexAset")
+@Entity(name = "DexAsset")
 @Table(name = "DEX_ASST")
 public class DexAssetImpl extends DexMetadata implements DexAsset {
 
