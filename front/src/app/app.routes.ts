@@ -24,6 +24,14 @@ export const routes: Routes = [
         component: AppShellComponent,
         canActivate: [AuthGuard],
         children: [
+            {path: 'asset',
+                children: [
+                    {
+                        path: 'asset-codes/list',
+                        component: AssetCodeListPage,
+                    },
+                ]
+            },
             {
                 path: 'administration',
                 children: [
@@ -72,14 +80,20 @@ export const routes: Routes = [
                         component: PositionCodeListPage,
                     },
 
-                    //TODO: Change to Asset Path
-                    {
-                        path: 'asset-codes/list',
-                        component: AssetCodeListPage,
-                    },
+
                 ]
+
             }
         ]
+    },
+
+    {path: 'asset',
+        children: [
+            {
+                path: 'asset-codes/list',
+                component: AssetCodeListPage,
+            },
+            ]
     },
 
     {path: '**', component: NotFoundPage}
