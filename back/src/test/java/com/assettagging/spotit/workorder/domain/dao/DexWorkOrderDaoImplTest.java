@@ -5,7 +5,9 @@ import com.assettagging.spotit.asset.domain.dao.DexAssetCodeDao;
 import com.assettagging.spotit.asset.domain.dao.DexAssetCodeDaoImplTest;
 import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.identity.domain.dao.DexUserDao;
+import com.assettagging.spotit.identity.domain.model.DexUser;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
 import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -56,4 +58,26 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
             LOG.debug("TEST: " + workOrder.getDescription());
         }
     }
+
+
+
+//    @Test
+//    @Transactional
+//    @Rollback(false)
+//    public void saveWorkOrder(){
+//        DexUser user = dexUserDao.findByUsername("nazifah.rosli");
+//
+//        DexWorkOrder workOrder = new DexWorkOrderImpl();
+//        workOrder.setCode("WO02");
+//        workOrder.setDescription("DESKRIPSI");
+//        workOrder.setWorkOrder(long);
+//
+//        LOG.debug("----------------------prepared------------------------ {} ",workOrder.getAssetId() );
+//        dexWorkOrderDao.save(workOrder, user);
+//
+//        entityManager.flush();
+//        DexworkOrder savedworkOrder = dexworkOrderDao.findworkOrderByCode("CODE");
+//        LOG.debug("--------------------saved-------------------------- {} ",savedworkOrder.getContactNo() );
+//
+//    }
 }

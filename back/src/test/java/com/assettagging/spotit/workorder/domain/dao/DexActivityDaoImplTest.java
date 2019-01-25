@@ -4,6 +4,7 @@ import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.identity.domain.dao.DexUserDao;
 import com.assettagging.spotit.identity.domain.model.DexUser;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
+import com.assettagging.spotit.workorder.domain.model.DexActivityImpl;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class DexActivityDaoImplTest extends AbstractTest {
     @Autowired
     private DexActivityDao dexActivityDao;
 
-
+//
 //    @Test
 //    @Transactional
 //    @Rollback(false)
@@ -40,17 +41,9 @@ public class DexActivityDaoImplTest extends AbstractTest {
 //        DexUser user = userDao.findByUsername("nazifah.rosli");
 //
 //        DexActivity activity = new DexActivityImpl();
-//        activity.setAddress("TEST ADDRESS");
-//        activity.setBranch("BRANCH");
-//        activity.setCode("CODE");
-//        activity.setContactNo("213098192032");
+//        activity.setCode("AT02");
 //        activity.setDescription("DESC");
-//        activity.setEmail("asdasd@sds.com");
-//        activity.setName("Name");
-//        activity.setPersonInCharge("Persopn in charge");
-//        activity.setRemarks("Remarks");
-//        activity.setStatus(DexActivityStatus.Active);
-//        activity.setType(DexActivityType.Branch);
+//        activity.setWorkOrder(long);
 //
 //        LOG.debug("----------------------prepared------------------------ {} ",activity.getContactNo() );
 //        dexActivityDao.save(activity, user);

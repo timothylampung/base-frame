@@ -15,6 +15,7 @@ import {BankCodeListPage} from "./modules/common/bank-codes/bank-code-list.page"
 import {StaffListPage} from "./modules/identity/staffs/staff-list.page";
 import {BeneficiaryListPage} from "./modules/identity/beneficiary/beneficiary-list.page";
 import {PositionCodeListPage} from "./modules/common/position-codes/position-code-list.page";
+import {AssetCodeListPage} from "./modules/asset/asset-codes/asset-code-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -70,10 +71,17 @@ export const routes: Routes = [
                         path: 'position-codes/list',
                         component: PositionCodeListPage,
                     },
+
+                    //TODO: Change to Asset Path
+                    {
+                        path: 'asset-codes/list',
+                        component: AssetCodeListPage,
+                    },
                 ]
             }
         ]
     },
+
     {path: '**', component: NotFoundPage}
 ];
 

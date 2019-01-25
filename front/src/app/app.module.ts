@@ -27,6 +27,7 @@ import {IdentityService} from './services/identity.service';
 import {IdentityModule} from './modules/identity/identity.module';
 import {CommonModule} from './modules/common/common.module';
 import {AutofocusDirective} from "./directives/autofocus.directive";
+import {AssetModule} from "./modules/asset/asset.module";
 
 
 
@@ -42,6 +43,7 @@ import {AutofocusDirective} from "./directives/autofocus.directive";
         SharedModule,
         CommonModule,
         IdentityModule,
+        AssetModule,
 
     ],
     declarations: [
