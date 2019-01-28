@@ -1,8 +1,11 @@
 package com.assettagging.spotit.maintenance.domain.dao;
 
+import com.assettagging.spotit.common.domain.model.DexGradeCode;
+import com.assettagging.spotit.core.domain.DexMetaState;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
+import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -17,9 +20,48 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
 
     public DexMaintenanceRequestDaoImpl() { super(DexMaintenanceRequestImpl.class); }
 
+    @Override
     public List<DexMaintenanceRequest> findAllMaintenanceRequest() {
         Query q = entityManager.createQuery("select e from DexMaintenanceRequest e");
         return q.getResultList();
     }
+
+    @Override
+    public DexMaintenanceRequest findByCode(String code) {
+        Query query = entityManager.createQuery("select e from DexMaintenanceRequest e where e.code  =:code and  " +
+                " s.metadata.state = :state");
+        query.setParameter("code", code);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return (DexMaintenanceRequest) query.getSingleResult();
+
+
+    }
+
+    @Override
+    public List<DexMaintenanceRequest> find(String filter, Integer offset, Integer limit) {
+        Query query = entityManager.createQuery("select s from DexMaintenanceRequest s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<DexMaintenanceRequest>) query.getResultList();
+    }
+
+    @Override
+    public Integer count(String filter) {
+        Query query = entityManager.createQuery("select count(s) from DexMaintenanceRequest s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+
+
 
 }

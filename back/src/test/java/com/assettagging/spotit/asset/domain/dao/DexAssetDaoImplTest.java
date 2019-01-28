@@ -46,7 +46,7 @@ public class DexAssetDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findDexAssetByCode() {
         String code = "AS01";
-        DexAsset DexAssetByCode =  dexAssetDao.findAssetByCode(code);
+        DexAsset DexAssetByCode =  dexAssetDao.findAssetByAssetCode(code);
 
         LOG.debug("TEST: " + DexAssetByCode.getDescription());
 
