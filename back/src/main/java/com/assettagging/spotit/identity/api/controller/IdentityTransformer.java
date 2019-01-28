@@ -169,4 +169,81 @@ public class IdentityTransformer {
     public List<Actor> toActors(List<DexActor> e) {
         return e.stream().map(this::toActor).collect(Collectors.toList());
     }
+
+    //==============================================================================================
+    // FACILITY MANAGER
+    //==============================================================================================
+
+    public List<FacilityManager> toFacilityManagersVos(List<DexFacilityManager> e) {
+        List<FacilityManager> vos = e.stream()
+                .map((e1) -> toFacilityManagerVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+
+    public FacilityManager toFacilityManagerVo(DexFacilityManager e) {
+        if (null == e) return null;
+        FacilityManager vo = new FacilityManager();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setName(e.getName());
+        vo.setEmail(e.getEmail());
+        vo.setAddress1(e.getAddress1());
+        vo.setAddress2(e.getAddress2());
+        vo.setAddress3(e.getAddress3());
+//        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
+        return vo;
+    }
+
+    //==============================================================================================
+    // SUPERVISOR
+    //==============================================================================================
+
+    public List<Supervisor> toSupervisorsVos(List<DexSupervisor> e) {
+        List<Supervisor> vos = e.stream()
+                .map((e1) -> toSupervisorVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+
+    public Supervisor toSupervisorVo(DexSupervisor e) {
+        if (null == e) return null;
+        Supervisor vo = new Supervisor();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setName(e.getName());
+        vo.setEmail(e.getEmail());
+        vo.setAddress1(e.getAddress1());
+        vo.setAddress2(e.getAddress2());
+        vo.setAddress3(e.getAddress3());
+//        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
+        return vo;    }
+
+    //==============================================================================================
+    // TECHNICIAN
+    //==============================================================================================
+
+    public List<Technician> toTechniciansVos(List<DexTechnician> e) {
+        List<Technician> vos = e.stream()
+                .map((e1) -> toTechnicianVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+
+    public Technician toTechnicianVo(DexTechnician e) {
+        if (null == e) return null;
+        Technician vo = new Technician();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setIdentityNo(e.getIdentityNo());
+        vo.setName(e.getName());
+        vo.setEmail(e.getEmail());
+        vo.setAddress1(e.getAddress1());
+        vo.setAddress2(e.getAddress2());
+        vo.setAddress3(e.getAddress3());
+//        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
+        return vo;
+    }
 }

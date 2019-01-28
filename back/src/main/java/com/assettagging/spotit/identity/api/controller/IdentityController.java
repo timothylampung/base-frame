@@ -295,4 +295,218 @@ public class IdentityController {
         return ResponseEntity.ok(identityTransformer.toActors(actorService.findAllActors()));
     }
 
+    // =============================================================================================
+    // FACILITY MANAGER
+    // =============================================================================================
+
+    @GetMapping(value = "/facility-managers", params = {"page"})
+    public ResponseEntity<FacilityManagerResult> findPagedFacilityManagers(@RequestParam Integer page) {
+        Integer count = identityService.countFacilityManager();
+        List<DexFacilityManager> facilityManagers = identityService.findFacilityManagers((page - 1) * LIMIT, LIMIT);
+        return new ResponseEntity<FacilityManagerResult>(
+                new FacilityManagerResult(
+                        identityTransformer.toFacilityManagersVos(facilityManagers),
+                        count
+                ), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/facility-managers")
+    public ResponseEntity<List<FacilityManager>> findFacilityManagers() {
+        return new ResponseEntity<List<FacilityManager>>(identityTransformer.toFacilityManagersVos(
+                identityService.findFacilityManagers(0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+
+//    @GetMapping(value = "/facility-manager/{identityNo}")
+//    public ResponseEntity<FacilityManager> findFacilityManagerByIdentityNo(@PathVariable String identityNo) {
+//        return new ResponseEntity<FacilityManager>(identityTransformer.toFacilityManagerVo(
+//                identityService.findFacilityManagerByIdentityNo(identityNo)), HttpStatus.OK);
+//    }
+
+    @GetMapping(value = "/facility-manager/{code}")
+    public ResponseEntity<FacilityManager> findFacilityManagerByCode(@PathVariable String code) {
+        return new ResponseEntity<FacilityManager>(identityTransformer.toFacilityManagerVo(
+                identityService.findFacilityManagerByCode(code)), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/facility-manager")
+    public ResponseEntity<String> saveFacilityManager(@RequestBody FacilityManager vo) {
+        DexFacilityManager facilityManager = new DexFacilityManagerImpl();
+        facilityManager.setIdentityNo(vo.getIdentityNo());
+        facilityManager.setCode(vo.getCode());
+        facilityManager.setName(vo.getName());
+        facilityManager.setAddress1(vo.getAddress1());
+        facilityManager.setAddress2(vo.getAddress2());
+        facilityManager.setEmail(vo.getEmail());
+        facilityManager.setMobile(vo.getMobile());
+        facilityManager.setFax(vo.getFax());
+        facilityManager.setPhone(vo.getPhone());
+//        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+        identityService.saveFacilityManager(facilityManager);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/facility-manager/{code}")
+    public ResponseEntity<String> updateFacilityManager(@PathVariable String code, @RequestBody FacilityManager vo) {
+        DexFacilityManager facilityManager = identityService.findFacilityManagerByCode(code);
+        facilityManager.setIdentityNo(vo.getIdentityNo());
+        facilityManager.setCode(vo.getCode());
+        facilityManager.setName(vo.getName());
+        facilityManager.setEmail(vo.getEmail());
+        facilityManager.setMobile(vo.getMobile());
+        facilityManager.setPhone(vo.getPhone());
+//        facilityManager.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+        identityService.updateFacilityManager(facilityManager);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/facility-manager/{code}")
+    public ResponseEntity<String> removeFacilityManager(@PathVariable String code) {
+        DexFacilityManager facilityManager = identityService.findFacilityManagerByCode(code);
+        identityService.removeFacilityManager(facilityManager);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    // =============================================================================================
+    // SUPERVISOR
+    // =============================================================================================
+
+    @GetMapping(value = "/supervisors", params = {"page"})
+    public ResponseEntity<SupervisorResult> findPagedSupervisors(@RequestParam Integer page) {
+        Integer count = identityService.countSupervisor();
+        List<DexSupervisor> supervisors = identityService.findSupervisors((page - 1) * LIMIT, LIMIT);
+        return new ResponseEntity<SupervisorResult>(
+                new SupervisorResult(
+                        identityTransformer.toSupervisorsVos(supervisors),
+                        count
+                ), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/supervisors")
+    public ResponseEntity<List<Supervisor>> findSupervisors() {
+        return new ResponseEntity<List<Supervisor>>(identityTransformer.toSupervisorsVos(
+                identityService.findSupervisors(0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+
+//    @GetMapping(value = "/supervisor/{identityNo}")
+//    public ResponseEntity<Supervisor> findSupervisorByIdentityNo(@PathVariable String identityNo) {
+//        return new ResponseEntity<Supervisor>(identityTransformer.toSupervisorVo(
+//                identityService.findSupervisorByIdentityNo(identityNo)), HttpStatus.OK);
+//    }
+
+    @GetMapping(value = "/supervisor/{code}")
+    public ResponseEntity<Supervisor> findSupervisorByCode(@PathVariable String code) {
+        return new ResponseEntity<Supervisor>(identityTransformer.toSupervisorVo(
+                identityService.findSupervisorByCode(code)), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/supervisor")
+    public ResponseEntity<String> saveSupervisor(@RequestBody Supervisor vo) {
+        DexSupervisor supervisor = new DexSupervisorImpl();
+        supervisor.setIdentityNo(vo.getIdentityNo());
+        supervisor.setCode(vo.getCode());
+        supervisor.setName(vo.getName());
+        supervisor.setAddress1(vo.getAddress1());
+        supervisor.setAddress2(vo.getAddress2());
+        supervisor.setEmail(vo.getEmail());
+        supervisor.setMobile(vo.getMobile());
+        supervisor.setFax(vo.getFax());
+        supervisor.setPhone(vo.getPhone());
+//        supervisor.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+        identityService.saveSupervisor(supervisor);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/supervisor/{code}")
+    public ResponseEntity<String> updateSupervisor(@PathVariable String code, @RequestBody Supervisor vo) {
+        DexSupervisor supervisor = identityService.findSupervisorByCode(code);
+        supervisor.setIdentityNo(vo.getIdentityNo());
+        supervisor.setCode(vo.getCode());
+        supervisor.setName(vo.getName());
+        supervisor.setEmail(vo.getEmail());
+        supervisor.setMobile(vo.getMobile());
+        supervisor.setPhone(vo.getPhone());
+//        supervisor.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+        identityService.updateSupervisor(supervisor);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/supervisor/{code}")
+    public ResponseEntity<String> removeSupervisor(@PathVariable String code) {
+        DexSupervisor supervisor = identityService.findSupervisorByCode(code);
+        identityService.removeSupervisor(supervisor);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
+    // =============================================================================================
+    // TECHNICIAN
+    // =============================================================================================
+
+    @GetMapping(value = "/technicians", params = {"page"})
+    public ResponseEntity<TechnicianResult> findPagedTechnicians(@RequestParam Integer page) {
+        Integer count = identityService.countTechnician();
+        List<DexTechnician> technicians = identityService.findTechnicians((page - 1) * LIMIT, LIMIT);
+        return new ResponseEntity<TechnicianResult>(
+                new TechnicianResult(
+                        identityTransformer.toTechniciansVos(technicians),
+                        count
+                ), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/technicians")
+    public ResponseEntity<List<Technician>> findTechnicians() {
+        return new ResponseEntity<List<Technician>>(identityTransformer.toTechniciansVos(
+                identityService.findTechnicians(0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+
+//    @GetMapping(value = "/technician/{identityNo}")
+//    public ResponseEntity<Technician> findTechnicianByIdentityNo(@PathVariable String identityNo) {
+//        return new ResponseEntity<Technician>(identityTransformer.toTechnicianVo(
+//                identityService.findTechnicianByIdentityNo(identityNo)), HttpStatus.OK);
+//    }
+
+    @GetMapping(value = "/technician/{code}")
+    public ResponseEntity<Technician> findTechnicianByCode(@PathVariable String code) {
+        return new ResponseEntity<Technician>(identityTransformer.toTechnicianVo(
+                identityService.findTechnicianByCode(code)), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/technician")
+    public ResponseEntity<String> saveTechnician(@RequestBody Technician vo) {
+        DexTechnician technician = new DexTechnicianImpl();
+        technician.setIdentityNo(vo.getIdentityNo());
+        technician.setCode(vo.getCode());
+        technician.setName(vo.getName());
+        technician.setAddress1(vo.getAddress1());
+        technician.setAddress2(vo.getAddress2());
+        technician.setEmail(vo.getEmail());
+        technician.setMobile(vo.getMobile());
+        technician.setFax(vo.getFax());
+        technician.setPhone(vo.getPhone());
+//        technician.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+        identityService.saveTechnician(technician);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/technician/{code}")
+    public ResponseEntity<String> updateTechnician(@PathVariable String code, @RequestBody Technician vo) {
+        DexTechnician technician = identityService.findTechnicianByCode(code);
+        technician.setIdentityNo(vo.getIdentityNo());
+        technician.setCode(vo.getCode());
+        technician.setName(vo.getName());
+        technician.setEmail(vo.getEmail());
+        technician.setMobile(vo.getMobile());
+        technician.setPhone(vo.getPhone());
+//        technician.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
+        identityService.updateTechnician(technician);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/technician/{code}")
+    public ResponseEntity<String> removeTechnician(@PathVariable String code) {
+        DexTechnician technician = identityService.findTechnicianByCode(code);
+        identityService.removeTechnician(technician);
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
 }
