@@ -28,13 +28,18 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
     }
 
     @Override
-    public DexAsset findAssetByCode(String code) {
+    public DexAsset findAssetByAssetCode(String code) {
         Query q = entityManager.createQuery("select e from DexAsset e where e.code =:code")
                 .setParameter("code",code);
         return (DexAsset) q.getSingleResult();
     }
 
-
+    @Override
+    public DexAsset findAssetByLocation(String location) {
+        Query q = entityManager.createQuery("select e from DexAsset e where e.location =:location")
+                .setParameter("location",location);
+        return (DexAsset) q.getSingleResult();
+    }
 
 
 }
