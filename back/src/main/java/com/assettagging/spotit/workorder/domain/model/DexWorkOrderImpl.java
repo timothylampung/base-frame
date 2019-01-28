@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "DexWorkOrder")
 @Table(name = "DEX_WODR")
 
+@Embeddable
 public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
 
     @Id
@@ -25,7 +26,7 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     private Long id;
 
     @Embedded
-    private DexMetadata dexMetadata;
+    private DexMetadata metadata;
 
     @OneToOne(targetEntity = DexActorImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -75,12 +76,12 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
 
     @Override
     public DexMetadata getMetadata() {
-        return this.dexMetadata;
+        return this.metadata;
     }
 
     @Override
     public void setMetadata(DexMetadata metadata) {
-        this.dexMetadata =metadata;
+        this.metadata =metadata;
     }
 
 
@@ -106,12 +107,12 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
 
     @Override
     public DexMetadata getDexMetadata() {
-        return dexMetadata;
+        return metadata;
     }
 
     @Override
     public void setDexMetadata(DexMetadata dexMetadata) {
-        this.dexMetadata = dexMetadata;
+        this.metadata = dexMetadata;
     }
 
     @Override

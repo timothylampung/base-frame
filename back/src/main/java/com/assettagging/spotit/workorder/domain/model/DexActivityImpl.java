@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "DexActivity")
 @Table(name = "DEX_ATVT")
 
-
 public class DexActivityImpl extends DexMetadata implements DexActivity {
 
     @Id
