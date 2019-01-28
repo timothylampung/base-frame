@@ -32,6 +32,9 @@ public class IdentityServiceImpl implements IdentityService {
     private DexUserDao userDao;
     private DexGroupDao groupDao;
     private DexStaffDao staffDao;
+    private DexFacilityManagerDao facilityManagerDao;
+    private DexSupervisorDao supervisorDao;
+    private DexTechnicianDao technicianDao;
 
     @Autowired
     public IdentityServiceImpl(EntityManager entityManager, SecurityService securityService,
@@ -383,6 +386,145 @@ public class IdentityServiceImpl implements IdentityService {
         entityManager.flush();
     }
 
+    //==============================================================================================
+    // FACILITY MANAGER
+    //==============================================================================================
+
+    @Override
+    public DexFacilityManager findFacilityManagerByIdentityNo(String identityNo) {
+        return facilityManagerDao.findFacilityManagerByIdentityNo(identityNo);
+    }
+
+    @Override
+    public DexFacilityManager findFacilityManagerByCode(String code) {
+        return facilityManagerDao.findFacilityManagerByCode(code);
+    }
+
+    @Override
+    public List<DexFacilityManager> findFacilityManagers(Integer offset, Integer limit) {
+        return facilityManagerDao.find(offset, limit);
+    }
+
+    @Override
+    public Integer countFacilityManager() {
+        return facilityManagerDao.count();
+    }
+
+    @Override
+    public Integer countFacilityManager(String filter) {
+        return facilityManagerDao.count(filter);
+    }
+
+    @Override
+    public void saveFacilityManager(DexFacilityManager facilityManager) {
+        facilityManagerDao.save(facilityManager, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateFacilityManager(DexFacilityManager facilityManager) {
+        facilityManagerDao.update(facilityManager, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void removeFacilityManager(DexFacilityManager facilityManager) {
+        facilityManagerDao.remove(facilityManager, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    //==============================================================================================
+    // SUPERVISOR
+    //==============================================================================================
+
+    @Override
+    public DexSupervisor findSupervisorByIdentityNo(String identityNo) {
+        return supervisorDao.findSupervisorByIdentityNo(identityNo);
+    }
+
+    @Override
+    public DexSupervisor findSupervisorByCode(String code) {
+        return supervisorDao.findSupervisorByCode(code);
+    }
+
+    @Override
+    public List<DexSupervisor> findSupervisors(Integer offset, Integer limit) {
+        return supervisorDao.find(offset, limit);
+    }
+
+    @Override
+    public Integer countSupervisor() {
+        return supervisorDao.count();
+    }
+
+    @Override
+    public Integer countSupervisor(String filter) {
+        return supervisorDao.count(filter);
+    }
+
+    @Override
+    public void saveSupervisor(DexSupervisor supervisor) {
+        supervisorDao.save(supervisor, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateSupervisor(DexSupervisor supervisor) {
+        supervisorDao.update(supervisor, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void removeSupervisor(DexSupervisor supervisor) {
+        supervisorDao.remove(supervisor, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    //==============================================================================================
+    // TECHNICIAN
+    //==============================================================================================
+
+    @Override
+    public DexTechnician findTechnicianByIdentityNo(String identityNo) {
+        return technicianDao.findTechnicianByIdentityNo(identityNo);
+    }
+
+    @Override
+    public DexTechnician findTechnicianByCode(String code) {
+        return technicianDao.findTechnicianByCode(code);    }
+
+    @Override
+    public List<DexTechnician> findTechnicians(Integer offset, Integer limit) {
+        return technicianDao.find(offset, limit);
+    }
+
+    @Override
+    public Integer countTechnician() {
+        return technicianDao.count();
+    }
+
+    @Override
+    public Integer countTechnician(String filter) {
+        return technicianDao.count(filter);
+    }
+
+    @Override
+    public void saveTechnician(DexTechnician technician) {
+        technicianDao.save(technician, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateTechnician(DexTechnician technician) {
+        technicianDao.update(technician, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void removeTechnician(DexTechnician technician) {
+        technicianDao.remove(technician, securityService.getCurrentUser());
+        entityManager.flush();
+    }
 
 
 }

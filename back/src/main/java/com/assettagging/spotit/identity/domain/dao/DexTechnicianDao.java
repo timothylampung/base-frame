@@ -10,8 +10,6 @@ public interface DexTechnicianDao extends GenericDao<Long, DexTechnician> {
 
     List<DexTechnician> find(String filter, Integer offset, Integer limit);
 
-    DexTechnician findByCode(String code);
-
     DexTechnician findTechnicianByIdentityNo(String identityNo);
 
     DexTechnician findTechnicianByCode(String code);
