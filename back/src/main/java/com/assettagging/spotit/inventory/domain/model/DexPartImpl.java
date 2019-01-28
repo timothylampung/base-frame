@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexPart")
 @Table(name = "DEX_PART")
-
 public class DexPartImpl extends DexMetadata implements DexPart {
 
     @Id
@@ -72,21 +71,21 @@ public class DexPartImpl extends DexMetadata implements DexPart {
 
     @Override
     public Long getId() {
-        return null;
+        return this.id;
     }
 
     @Override
     public DexMetadata getMetadata() {
-        return null;
+        return this.metadata;
     }
 
     @Override
     public void setMetadata(DexMetadata metadata) {
-
+        this.metadata = metadata;
     }
 
     @Override
     public Class<?> getInterfaceClass() {
-        return null;
+        return DexPart.class;
     }
 }
