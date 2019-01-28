@@ -33,13 +33,13 @@ public interface DexWorkOrder extends DexMetaObject {
 
     DexMaintenanceRequest getMaintenanceRequestId();
 
-    void setMaintenanceRequestId(DexMaintenanceRequest maintenanceRequestId);
+    void setMaintenanceRequest(DexMaintenanceRequest maintenanceRequestId);
 
     DexLocation getLocationId();
 
-    void setLocationId(DexLocation locationId);
+    void setLocation(DexLocation locationId);
 
     DexAsset getAssetId();
 
-    void setAssetId(DexAsset assetId);
+    void setAsset(DexAsset assetId);
 }

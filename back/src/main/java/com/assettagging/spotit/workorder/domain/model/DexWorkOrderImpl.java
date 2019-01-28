@@ -29,13 +29,13 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
 
     @OneToOne(targetEntity = DexActorImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "REPORTER_ID", nullable = false)
+    @JoinColumn(name = "REPORTER_ID", nullable = true)
     private DexActor reporter;
 
 
     @OneToOne(targetEntity = DexActorImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ASSIGNEE_ID", nullable = false)
+    @JoinColumn(name = "ASSIGNEE_ID", nullable = true)
     private DexActor assignee;
 
     @OneToOne(targetEntity = DexMaintenanceRequestImpl.class,
@@ -45,7 +45,7 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
 
     @OneToOne(targetEntity = DexLocationImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "LOCATION_ID", nullable = false)
+    @JoinColumn(name = "LOCATION_ID", nullable = true)
     private DexLocation LocationId;
 
 
@@ -140,7 +140,7 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     }
 
     @Override
-    public void setMaintenanceRequestId(DexMaintenanceRequest maintenanceRequestId) {
+    public void setMaintenanceRequest(DexMaintenanceRequest maintenanceRequestId) {
         MaintenanceRequestId = maintenanceRequestId;
     }
 
@@ -150,7 +150,7 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     }
 
     @Override
-    public void setLocationId(DexLocation locationId) {
+    public void setLocation(DexLocation locationId) {
         LocationId = locationId;
     }
 
@@ -160,7 +160,7 @@ public class DexWorkOrderImpl extends DexMetadata implements DexWorkOrder {
     }
 
     @Override
-    public void setAssetId(DexAsset assetId) {
+    public void setAsset(DexAsset assetId) {
         AssetId = assetId;
     }
 
