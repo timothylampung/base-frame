@@ -62,8 +62,6 @@ public class AssetServiceImpl implements AssetService {
         return assetCodeDao.count();
     }
 
-
-
     @Override
     public void saveAssetCode(DexAssetCode AssetCode) {
         assetCodeDao.save(AssetCode, securityService.getCurrentUser());
@@ -81,6 +79,10 @@ public class AssetServiceImpl implements AssetService {
         assetCodeDao.remove(AssetCode, securityService.getCurrentUser());
         entityManager.flush();
     }
+
+    //====================================================================================================
+    // LOCATION
+    //====================================================================================================
 
     @Override
     public DexLocation findLocationById(Long id) {
@@ -122,38 +124,50 @@ public class AssetServiceImpl implements AssetService {
 
     }
 
+    //====================================================================================================
+    // ASSET
+    //====================================================================================================
+
     @Override
     public DexAsset findAssetById(Long id) {
-        return null;
+       return assetDao.findById(id);
     }
 
     @Override
-    public DexAsset findAssetByCode(String code) {
-        return null;
+    public DexAsset findAssetByAssetCode(String code) {
+        return assetDao.findAssetByAssetCode(code);
+    }
+
+    @Override
+    public DexAsset findAssetByLocation(String location) {
+        return assetDao.findAssetByLocation(location);
     }
 
     @Override
     public List<DexAsset> findAssets(String filter, Integer offset, Integer limit) {
-        return null;
+        return assetDao.find(offset, limit);
     }
 
     @Override
     public Integer countAsset() {
-        return null;
+        return assetDao.count();
     }
 
     @Override
     public void saveAsset(DexAsset Asset) {
-
+        assetDao.save(Asset, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
     @Override
     public void updateAsset(DexAsset Asset) {
-
+        assetDao.update(Asset, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
     @Override
     public void removeAsset(DexAsset Asset) {
-
+        assetDao.remove(Asset, securityService.getCurrentUser());
+        entityManager.flush();
     }
 }
