@@ -24,7 +24,7 @@ public class AssetServiceImpl implements AssetService {
 
     private EntityManager entityManager;
     private SecurityService securityService;
-    private DexAssetCodeDao assetCodeDao;
+//    private DexAssetCodeDao assetCodeDao;
     private DexAssetDao assetDao;
     private DexLocationDao locationDao;
 
@@ -33,11 +33,12 @@ public class AssetServiceImpl implements AssetService {
                             DexAssetCodeDao assetCodeDao, DexAssetDao assetDao, DexLocationDao locationDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
-        this.assetCodeDao = assetCodeDao;
+//        this.assetCodeDao = assetCodeDao;
         this.assetDao = assetDao;
         this.locationDao = locationDao;
     }
 
+/*
     //====================================================================================================
     // ASSET CODE
     //====================================================================================================
@@ -79,6 +80,7 @@ public class AssetServiceImpl implements AssetService {
         assetCodeDao.remove(AssetCode, securityService.getCurrentUser());
         entityManager.flush();
     }
+*/
 
     //====================================================================================================
     // LOCATION

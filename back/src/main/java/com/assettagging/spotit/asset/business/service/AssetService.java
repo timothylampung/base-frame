@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AssetService {
 
-    //==============================================================================================
+/*    //==============================================================================================
     // ASSET CODE
     //==============================================================================================
 
@@ -24,7 +24,7 @@ public interface AssetService {
 
     void updateAssetCode(DexAssetCode AssetCode);
 
-    void removeAssetCode(DexAssetCode AssetCode);
+    void removeAssetCode(DexAssetCode AssetCode);*/
 
     //==============================================================================================
     // LOCATION
@@ -53,7 +53,7 @@ public interface AssetService {
     DexAsset findAssetById(Long id);
 
     DexAsset findAssetByAssetCode(String code);
-    
+
     DexAsset findAssetByLocation(String location);
 
     List<DexAsset> findAssets(String filter, Integer offset, Integer limit);

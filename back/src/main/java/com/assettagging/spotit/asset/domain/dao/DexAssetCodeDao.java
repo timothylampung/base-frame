@@ -12,5 +12,4 @@ public interface DexAssetCodeDao extends GenericDao <Long, DexAssetCode> {
 
     List<DexAssetCode> findAllAssetCodes();
 
-    DexAssetCode findByCode(String code);
 }
