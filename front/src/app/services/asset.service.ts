@@ -1,5 +1,3 @@
-
-
 import {environment} from '../../environments/environment';
 import {Injectable} from "@angular/core";
 import {AssetCode, AssetCodeResult} from "../modules/asset/asset-codes/asset-code-model";
