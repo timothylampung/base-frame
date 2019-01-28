@@ -2,7 +2,6 @@ package com.assettagging.spotit.identity.business.service;
 
 import com.assettagging.spotit.identity.domain.dao.RecursiveGroupException;
 import com.assettagging.spotit.identity.domain.model.*;
-import com.assettagging.spotit.identity.domain.model.*;
 
 import java.util.List;
 import java.util.Set;
@@ -130,5 +129,64 @@ public interface IdentityService {
 
     void removeStaff(DexStaff staff);
 
+    // =============================================================================================
+    // FACILITY MANAGER
+    // =============================================================================================
+
+    DexFacilityManager findFacilityManagerByIdentityNo(String identityNo);
+
+    DexFacilityManager findFacilityManagerByCode(String code);
+
+    List<DexFacilityManager> findFacilityManagers(Integer offset, Integer limit);
+
+    Integer countFacilityManager();
+
+    Integer countFacilityManager(String filter);
+
+    void saveFacilityManager(DexFacilityManager facilityManager);
+
+    void updateFacilityManager(DexFacilityManager facilityManager);
+
+    void removeFacilityManager(DexFacilityManager facilityManager);
+
+    // =============================================================================================
+    // SUPERVISOR
+    // =============================================================================================
+
+    DexSupervisor findSupervisorByIdentityNo(String identityNo);
+
+    DexSupervisor findSupervisorByCode(String code);
+
+    List<DexSupervisor> findSupervisors(Integer offset, Integer limit);
+
+    Integer countSupervisor();
+
+    Integer countSupervisor(String filter);
+
+    void saveSupervisor(DexSupervisor supervisor);
+
+    void updateSupervisor(DexSupervisor supervisor);
+
+    void removeSupervisor(DexSupervisor supervisor);
+
+    // =============================================================================================
+    // TECHNICIAN
+    // =============================================================================================
+
+    DexTechnician findTechnicianByIdentityNo(String identityNo);
+
+    DexTechnician findTechnicianByCode(String code);
+
+    List<DexTechnician> findTechnicians(Integer offset, Integer limit);
+
+    Integer countTechnician();
+
+    Integer countTechnician(String filter);
+
+    void saveTechnician(DexTechnician technician);
+
+    void updateTechnician(DexTechnician technician);
+
+    void removeTechnician(DexTechnician technician);
 }
 
