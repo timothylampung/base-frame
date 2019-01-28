@@ -46,7 +46,7 @@ public class DexBankDaoImplTest extends AbstractTest {
         DexBank bank = new DexBankImpl();
         bank.setAddress("TEST ADDRESS");
         bank.setBranch("BRANCH");
-        bank.setCode("CODE");
+        bank.setCode("CODE79");
         bank.setContactNo("213098192032");
         bank.setDescription("DESC");
         bank.setEmail("asdasd@sds.com");
@@ -76,9 +76,17 @@ public class DexBankDaoImplTest extends AbstractTest {
     @Test
     public void findAllBanks() {
         List<DexBank> allBanks = dexBankDao.findAllBanks();
+        for (DexBank allBank : allBanks) {
+
+            {
+                LOG.debug("TESTOOOOOOO " + allBank.getCode());
+            }
+        }
     }
 
     @Test
     public void findBankByBranch() {
     }
+
+
 }

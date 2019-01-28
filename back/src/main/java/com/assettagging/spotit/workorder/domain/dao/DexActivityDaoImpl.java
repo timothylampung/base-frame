@@ -1,5 +1,7 @@
 package com.assettagging.spotit.workorder.domain.dao;
 
+import com.assettagging.spotit.common.domain.model.DexGradeCode;
+import com.assettagging.spotit.core.domain.DexMetaState;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import com.assettagging.spotit.identity.domain.model.DexUser;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
@@ -56,6 +58,34 @@ public class DexActivityDaoImpl extends GenericDaoSupport<Long, DexActivity> imp
             LOG.debug("error occurred", e);
         }
     }
+
+    @Override
+    public List<DexActivity> find(String filter, Integer offset, Integer limit) {
+        Query query = entityManager.createQuery("select s from DexActivity s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<DexActivity>) query.getResultList();
+    }
+
+
+    @Override
+    public Integer count(String filter) {
+        Query query = entityManager.createQuery("select count(s) from DexActivity s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+
+
 
 
 }

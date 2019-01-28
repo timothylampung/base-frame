@@ -43,7 +43,7 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findWorkOrderByCode() {
 
-        String code = "WO01";
+        String code = "CODE_@#!";
         DexWorkOrder dexWorkOrderByCode =  dexWorkOrderDao.findWorkOrderByCode(code);
 
         LOG.debug("TEST: " + dexWorkOrderByCode.getDescription());

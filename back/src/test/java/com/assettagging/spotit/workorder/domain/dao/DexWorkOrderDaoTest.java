@@ -35,7 +35,7 @@ public class DexWorkOrderDaoTest extends AbstractTest {
         DexWorkOrder workOrder = new DexWorkOrderImpl();
         workOrder.setAsset(null);
         workOrder.setAssignee(null);
-        workOrder.setCode("CODE_@#!");
+        workOrder.setCode("CODE_69");
         workOrder.setDescription("DEXS");
         workOrder.setLocation(null);
         workOrder.setMaintenanceRequest(null);
