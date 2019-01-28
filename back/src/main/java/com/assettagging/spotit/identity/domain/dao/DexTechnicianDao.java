@@ -12,4 +12,9 @@ public interface DexTechnicianDao extends GenericDao<Long, DexTechnician> {
 
     DexTechnician findByCode(String code);
 
+    DexTechnician findTechnicianByIdentityNo(String identityNo);
+
+    DexTechnician findTechnicianByCode(String code);
+
+    Integer count(String filter);
 }

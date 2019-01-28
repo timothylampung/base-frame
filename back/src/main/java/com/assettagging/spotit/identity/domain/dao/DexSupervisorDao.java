@@ -11,4 +11,10 @@ public interface DexSupervisorDao extends GenericDao<Long, DexSupervisor> {
     List<DexSupervisor> find(String filter, Integer offset, Integer limit);
 
     DexSupervisor findByCode(String code);
+
+    DexSupervisor findSupervisorByIdentityNo(String identityNo);
+
+    DexSupervisor findSupervisorByCode(String code);
+
+    Integer count(String filter);
 }

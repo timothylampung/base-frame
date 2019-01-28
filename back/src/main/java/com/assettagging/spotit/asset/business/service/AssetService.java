@@ -52,7 +52,9 @@ public interface AssetService {
 
     DexAsset findAssetById(Long id);
 
-    DexAsset findAssetByCode(String code);
+    DexAsset findAssetByAssetCode(String code);
+    
+    DexAsset findAssetByLocation(String location);
 
     List<DexAsset> findAssets(String filter, Integer offset, Integer limit);
 

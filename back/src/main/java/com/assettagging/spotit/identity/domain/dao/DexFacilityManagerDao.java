@@ -10,4 +10,10 @@ public interface DexFacilityManagerDao extends GenericDao<Long, DexFacilityManag
     List<DexFacilityManager> find(String filter, Integer offset, Integer limit);
 
     DexFacilityManager findByCode(String code);
+
+    DexFacilityManager findFacilityManagerByIdentityNo(String identityNo);
+
+    DexFacilityManager findFacilityManagerByCode(String code);
+
+    Integer count(String filter);
 }

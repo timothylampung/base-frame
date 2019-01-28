@@ -6,10 +6,10 @@ import com.assettagging.spotit.core.domain.GenericDao;
 import java.util.List;
 
 public interface DexAssetDao extends GenericDao <Long, DexAsset> {
+  
+  List<DexAsset> findAllAssets();
+    
+  DexAsset findAssetByAssetCode(String code);
 
-
-  DexAsset findAssetByCode(String code);
-
-    List<DexAsset> findAllAssets();
-
+  DexAsset findAssetByLocation(String location);
 }
