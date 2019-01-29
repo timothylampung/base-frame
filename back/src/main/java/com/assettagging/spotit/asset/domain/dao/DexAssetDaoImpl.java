@@ -3,6 +3,7 @@ package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.asset.domain.model.DexAsset;
 import com.assettagging.spotit.asset.domain.model.DexAssetImpl;
+import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.common.domain.model.DexBankImpl;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import org.slf4j.Logger;
@@ -28,16 +29,17 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
     }
 
     @Override
-    public DexAsset findAssetByAssetCode(String code) {
-        Query q = entityManager.createQuery("select e from DexAsset e where e.code =:code")
-                .setParameter("code",code);
-        return (DexAsset) q.getSingleResult();
+    public List<DexAsset> findAssetByLocation(DexLocation location) {
+        Query q = entityManager.createQuery("select e from DexAsset e where " +
+                "e.location =:location")
+                .setParameter("location", location);
+        return q.getResultList();
     }
 
     @Override
-    public DexAsset findAssetByLocation(String location) {
-        Query q = entityManager.createQuery("select e from DexAsset e where e.location =:location")
-                .setParameter("location",location);
+    public DexAsset findAssetByAssetCode(String code) {
+        Query q = entityManager.createQuery("select e from DexAsset e where e.code =:code")
+                .setParameter("code", code);
         return (DexAsset) q.getSingleResult();
     }
 

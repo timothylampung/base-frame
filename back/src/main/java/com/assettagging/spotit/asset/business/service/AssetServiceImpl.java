@@ -24,7 +24,7 @@ public class AssetServiceImpl implements AssetService {
 
     private EntityManager entityManager;
     private SecurityService securityService;
-//    private DexAssetCodeDao assetCodeDao;
+    private DexAssetCodeDao assetCodeDao;
     private DexAssetDao assetDao;
     private DexLocationDao locationDao;
 
@@ -33,67 +33,25 @@ public class AssetServiceImpl implements AssetService {
                             DexAssetCodeDao assetCodeDao, DexAssetDao assetDao, DexLocationDao locationDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
-//        this.assetCodeDao = assetCodeDao;
+        this.assetCodeDao = assetCodeDao;
         this.assetDao = assetDao;
         this.locationDao = locationDao;
     }
 
-/*
     //====================================================================================================
     // ASSET CODE
     //====================================================================================================
 
-    @Override
-    public DexAssetCode findAssetCodeById(Long id) {
-        return assetCodeDao.findById(id);
-    }
 
-    @Override
-    public DexAssetCode findAssetCodeByCode(String code) {
-        return assetCodeDao.findByCode(code);
-    }
-
-    @Override
-    public List<DexAssetCode> findAssetCodes(String filter, Integer offset, Integer limit) {
-        return assetCodeDao.find( offset, limit);
-    }
-
-    @Override
-    public Integer countAssetCode() {
-        return assetCodeDao.count();
-    }
-
-    @Override
-    public void saveAssetCode(DexAssetCode AssetCode) {
-        assetCodeDao.save(AssetCode, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void updateAssetCode(DexAssetCode AssetCode) {
-        assetCodeDao.update(AssetCode, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void removeAssetCode(DexAssetCode AssetCode) {
-        assetCodeDao.remove(AssetCode, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-*/
-
-    //====================================================================================================
-    // LOCATION
-    //====================================================================================================
 
     @Override
     public DexLocation findLocationById(Long id) {
-        return null;
+        return locationDao.findById(id);
     }
 
     @Override
     public DexLocation findLocationByCode(String code) {
-        return null;
+        return locationDao.findLocationByCode(code);
     }
 
     @Override
@@ -103,36 +61,32 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public Integer countLocation() {
-        return null;
+        return locationDao.count();
+    }
+
+
+    @Override
+    public void saveLocation(DexLocation location) {
+        locationDao.save(location, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
     @Override
-    public Integer countLocation(String filter) {
-        return null;
-    }
-
-    @Override
-    public void saveLocation(DexLocation Location) {
+    public void updateLocation(DexLocation location) {
+        locationDao.update(location, securityService.getCurrentUser());
+        entityManager.flush();
 
     }
 
     @Override
-    public void updateLocation(DexLocation Location) {
-
+    public void removeLocation(DexLocation location) {
+        locationDao.delete(location, securityService.getCurrentUser());
+        entityManager.flush();
     }
-
-    @Override
-    public void removeLocation(DexLocation Location) {
-
-    }
-
-    //====================================================================================================
-    // ASSET
-    //====================================================================================================
 
     @Override
     public DexAsset findAssetById(Long id) {
-       return assetDao.findById(id);
+        return assetDao.findById(id);
     }
 
     @Override
@@ -141,14 +95,15 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public DexAsset findAssetByLocation(String location) {
+    public List<DexAsset> findAssetByLocation(DexLocation location) {
         return assetDao.findAssetByLocation(location);
     }
 
     @Override
-    public List<DexAsset> findAssets(String filter, Integer offset, Integer limit) {
-        return assetDao.find(offset, limit);
+    public List<DexAsset> findAssetsByLocation(DexLocation location) {
+        return assetDao.findAssetByLocation(location);
     }
+
 
     @Override
     public Integer countAsset() {
@@ -156,20 +111,20 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public void saveAsset(DexAsset Asset) {
-        assetDao.save(Asset, securityService.getCurrentUser());
+    public void saveAsset(DexAsset asset) {
+        assetDao.save(asset, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void updateAsset(DexAsset Asset) {
-        assetDao.update(Asset, securityService.getCurrentUser());
+    public void updateAsset(DexAsset asset) {
+        assetDao.update(asset, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void removeAsset(DexAsset Asset) {
-        assetDao.remove(Asset, securityService.getCurrentUser());
+    public void removeAsset(DexAsset asset) {
+        assetDao.remove(asset, securityService.getCurrentUser());
         entityManager.flush();
     }
 }

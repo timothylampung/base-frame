@@ -38,13 +38,11 @@ public interface AssetService {
 
     Integer countLocation();
 
-    Integer countLocation(String filter);
+    void saveLocation(DexLocation location);
 
-    void saveLocation(DexLocation Location);
+    void updateLocation(DexLocation location);
 
-    void updateLocation(DexLocation Location);
-
-    void removeLocation(DexLocation Location);
+    void removeLocation(DexLocation location);
 
     //==============================================================================================
     // ASSET
@@ -54,15 +52,15 @@ public interface AssetService {
 
     DexAsset findAssetByAssetCode(String code);
 
-    DexAsset findAssetByLocation(String location);
+    List<DexAsset> findAssetByLocation(DexLocation location);
 
-    List<DexAsset> findAssets(String filter, Integer offset, Integer limit);
+    List<DexAsset> findAssetsByLocation(DexLocation location);
 
     Integer countAsset();
 
-    void saveAsset(DexAsset Asset);
+    void saveAsset(DexAsset asset);
 
-    void updateAsset(DexAsset Asset);
+    void updateAsset(DexAsset asset);
 
-    void removeAsset(DexAsset Asset);
+    void removeAsset(DexAsset asset);
 }
