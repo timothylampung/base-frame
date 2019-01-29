@@ -29,7 +29,7 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
     }
 
     @Override
-    public DexAsset findAssetByLocation(DexLocation location) {
+    public List findAssetByLocation(DexLocation location) {
         Query q = entityManager.createQuery("select e from DexAsset e where " +
                 "e.location =:location")
                 .setParameter("location", location);

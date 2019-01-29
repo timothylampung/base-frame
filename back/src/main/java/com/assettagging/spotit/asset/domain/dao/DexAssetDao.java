@@ -12,7 +12,7 @@ public interface DexAssetDao extends GenericDao <Long, DexAsset> {
 
   DexAsset findAssetByAssetCode(String code);
 
-  DexAsset findAssetByLocation(DexLocation location);
+  List findAssetByLocation(DexLocation location);
 
   Integer count(String filter);
 
