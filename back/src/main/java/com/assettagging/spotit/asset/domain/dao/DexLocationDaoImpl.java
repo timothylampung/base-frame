@@ -35,6 +35,11 @@ public class DexLocationDaoImpl extends GenericDaoSupport<Long, DexLocation> imp
         return (DexLocation) q.getSingleResult();
     }
 
+    @Override
+    public Integer count(String filter) {
+        Query query = entityManager.createQuery("select count(e) from DexLocation e");
+        return ((Long) query.getSingleResult()).intValue();
+    }
 
 
 

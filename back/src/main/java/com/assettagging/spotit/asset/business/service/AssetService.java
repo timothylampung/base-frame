@@ -1,7 +1,6 @@
 package com.assettagging.spotit.asset.business.service;
 
 import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
 
 import java.util.List;
@@ -30,13 +29,15 @@ public interface AssetService {
     // LOCATION
     //==============================================================================================
 
+    List<DexLocation> findAllLocations(String s, int i, int limit);
+
     DexLocation findLocationById(Long id);
 
     DexLocation findLocationByCode(String code);
 
     List<DexLocation> findLocations(String filter, Integer offset, Integer limit);
 
-    Integer countLocation();
+    Integer countLocation(String filter);
 
     void saveLocation(DexLocation location);
 
@@ -52,15 +53,19 @@ public interface AssetService {
 
     DexAsset findAssetByAssetCode(String code);
 
-    List<DexAsset> findAssetByLocation(DexLocation location);
+    DexAsset findAssetByLocation(DexLocation location);
 
-    List<DexAsset> findAssetsByLocation(DexLocation location);
+    DexAsset findAssetsByLocation(DexLocation location);
 
     Integer countAsset();
+
+    Integer countAsset(String filter);
 
     void saveAsset(DexAsset asset);
 
     void updateAsset(DexAsset asset);
 
     void removeAsset(DexAsset asset);
+
+    List<DexAsset> findAllAssets(String s, int i, int limit);
 }

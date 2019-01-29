@@ -25,6 +25,7 @@ public class Location extends MetaObject {
         this.description = description;
     }
 
+    public Long getId() { return id; }
     public void setId(Long Id) { this.id = id;}
 
     public DexLocation getParent() { return parent; }

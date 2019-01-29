@@ -1,12 +1,12 @@
 package com.assettagging.spotit.asset.domain.model;
 
 import com.assettagging.spotit.core.domain.DexMetaObject;
-import com.assettagging.spotit.core.domain.DexMetadata;
 
 public interface DexAsset  extends  DexMetaObject  {
 
-    void setId(Long id);
+    Long getId();
 
+    void setId(Long id);
 
     DexLocation getLocation();
 

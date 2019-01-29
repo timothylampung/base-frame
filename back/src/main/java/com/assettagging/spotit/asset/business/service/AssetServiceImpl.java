@@ -4,7 +4,6 @@ import com.assettagging.spotit.asset.domain.dao.DexAssetCodeDao;
 import com.assettagging.spotit.asset.domain.dao.DexAssetDao;
 import com.assettagging.spotit.asset.domain.dao.DexLocationDao;
 import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.security.business.service.SecurityService;
 import org.slf4j.Logger;
@@ -43,6 +42,8 @@ public class AssetServiceImpl implements AssetService {
     //====================================================================================================
 
 
+    @Override
+    public List<DexLocation> findAllLocations(String s, int i, int limit) { return locationDao.findAllLocations(); }
 
     @Override
     public DexLocation findLocationById(Long id) {
@@ -60,10 +61,9 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public Integer countLocation() {
-        return locationDao.count();
+    public Integer countLocation(String filter) {
+        return locationDao.count(filter);
     }
-
 
     @Override
     public void saveLocation(DexLocation location) {
@@ -95,20 +95,29 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public List<DexAsset> findAssetByLocation(DexLocation location) {
+    public DexAsset findAssetByLocation(DexLocation location) {
         return assetDao.findAssetByLocation(location);
     }
 
     @Override
-    public List<DexAsset> findAssetsByLocation(DexLocation location) {
+    public DexAsset findAssetsByLocation(DexLocation location) {
         return assetDao.findAssetByLocation(location);
     }
+
+    @Override
+    public List<DexAsset> findAllAssets(String s, int i, int limit) { return  assetDao.findAllAssets(); }
 
 
     @Override
     public Integer countAsset() {
         return assetDao.count();
     }
+
+    @Override
+    public Integer countAsset(String filter) {
+        return assetDao.count(filter);
+    }
+
 
     @Override
     public void saveAsset(DexAsset asset) {

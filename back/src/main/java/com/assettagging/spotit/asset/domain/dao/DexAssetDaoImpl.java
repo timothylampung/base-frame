@@ -29,7 +29,7 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
     }
 
     @Override
-    public List<DexAsset> findAssetByLocation(DexLocation location) {
+    public DexAsset findAssetByLocation(DexLocation location) {
         Query q = entityManager.createQuery("select e from DexAsset e where " +
                 "e.location =:location")
                 .setParameter("location", location);
@@ -43,5 +43,9 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
         return (DexAsset) q.getSingleResult();
     }
 
-
+    @Override
+    public Integer count(String filter) {
+        Query query = entityManager.createQuery("select count(v) from DexAsset v");
+        return ((Long) query.getSingleResult()).intValue();
+    }
 }

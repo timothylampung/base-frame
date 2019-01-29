@@ -5,6 +5,7 @@ import com.assettagging.spotit.core.domain.DexMetadata;
 
 public interface DexLocation  extends DexMetaObject{
 
+    Long getId();
 
     void setId(Long id);
 

@@ -10,6 +10,9 @@ public interface DexLocationDao extends GenericDao <Long, DexLocation> {
 
   DexLocation findLocationByCode(String code);
 
-    List<DexLocation> findAllLocations();
+  List<DexLocation> findAllLocations();
+
+  Integer count(String filter);
+
 
 }
