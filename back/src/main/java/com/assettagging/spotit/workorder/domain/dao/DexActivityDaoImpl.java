@@ -1,6 +1,5 @@
 package com.assettagging.spotit.workorder.domain.dao;
 
-import com.assettagging.spotit.common.domain.model.DexGradeCode;
 import com.assettagging.spotit.core.domain.DexMetaState;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import com.assettagging.spotit.identity.domain.model.DexUser;
@@ -40,15 +39,15 @@ public class DexActivityDaoImpl extends GenericDaoSupport<Long, DexActivity> imp
     }
 
     @Override
-    public List<DexActivity> findAllActivitys() {
+    public List<DexActivity> findActivities() {
         Query q = entityManager.createQuery("select e from DexActivity e ");
         return q.getResultList();
     }
 
     @Override
-    public void saveActivity(DexWorkOrder workOrder,
-                             DexActivity activity,
-                             DexUser user) {
+    public void addActivity(DexWorkOrder workOrder,
+                            DexActivity activity,
+                            DexUser user) {
         Assert.notNull(user, "User cannot be null");
         Assert.notNull(workOrder, "Object cannot be null");
         try {
@@ -87,5 +86,14 @@ public class DexActivityDaoImpl extends GenericDaoSupport<Long, DexActivity> imp
 
 
 
+    @Override
+    public void updateActivity(DexWorkOrder workOrder, DexActivity activity, DexUser user) {
+
+    }
+
+    @Override
+    public void deleteActivity(DexWorkOrder workOrder, DexActivity activity, DexUser user) {
+        entityManager.remove(activity);
+    }
 
 }

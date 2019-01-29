@@ -147,6 +147,7 @@ public class IdentityTransformer {
     public Actor toActor(DexActor e) {
         if (null == e) return null;
         Actor vo = new Actor();
+        vo.setId(e.getId());
         vo.setActorType(ActorType.get(e.getActorType().ordinal()));
         vo.setAddress1(e.getAddress1());
         vo.setAddress2(e.getAddress2());
