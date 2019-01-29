@@ -1,8 +1,10 @@
-package com.assettagging.spotit.inventory.domain.dao;
+package com.assettagging.spotit.Inventory.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.identity.business.service.IdentityService;
+import com.assettagging.spotit.inventory.domain.dao.DexComponentDao;
 import com.assettagging.spotit.inventory.domain.model.DexComponent;
+import com.assettagging.spotit.inventory.domain.model.DexPart;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +22,28 @@ public class DexComponentDaoImplTest extends AbstractTest {
     @Autowired
     private IdentityService identityService;
     @Autowired
-    private DexComponentDao DexComponentDao;
+    private com.assettagging.spotit.inventory.domain.dao.DexComponentDao DexComponentDao;
+
+
 
     @Test
     @Rollback(false)
     public void findDexComponentTest() {
-        List<DexComponent> components = DexComponentDao.findAllComponent();
-        for (DexComponent component : components) {
-            LOG.debug("TEST: " + component.getDescription());
+        List<DexComponent> parts = DexComponentDao.findAllComponents();
+        for (DexComponent part : parts) {
+            LOG.debug("TEST: " + part.getDescription());
         }
     }
+
+    @Test
+    @Rollback(false)
+    public void findDexComponentByCodeTest() {
+        DexComponent partByCode = DexComponentDao.findComponentByCode("CO01");
+
+        LOG.debug("TEST: " + partByCode.getDescription());
+
+    }
+
+    
+    
 }
