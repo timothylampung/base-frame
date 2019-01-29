@@ -55,7 +55,7 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public List<DexAssetCode> findAssetCodes(String filter, Integer offset, Integer limit) {
-        return assetCodeDao.find(offset, limit);
+        return assetCodeDao.find( offset, limit);
     }
 
     @Override

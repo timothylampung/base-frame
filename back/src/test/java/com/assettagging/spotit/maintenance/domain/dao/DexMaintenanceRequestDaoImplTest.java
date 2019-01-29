@@ -30,4 +30,15 @@ public class DexMaintenanceRequestDaoImplTest extends AbstractTest {
             LOG.debug("TEST: " + maintenanceRequest.getDescription());
         }
     }
+
+    @Test
+    @Rollback(false)
+    public void findDexMaintenanceRequestByCodeTest() {
+        long id =2;
+        DexMaintenanceRequest maintenanceRequests = DexMaintenanceRequestDao.findById(id);
+
+            LOG.debug("TEST: " + ((DexMaintenanceRequest) maintenanceRequests).getDescription());
+
+    }
+
 }
