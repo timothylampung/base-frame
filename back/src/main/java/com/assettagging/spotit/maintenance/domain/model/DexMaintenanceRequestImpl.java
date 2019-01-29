@@ -21,6 +21,9 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
     @SequenceGenerator(name = "SQ_MNTC_REQ", sequenceName = "SQ_MNTC_REQ", allocationSize = 1)
     private Long id;
 
+    @Column(name = "CODE")
+    private String code;
+
     @Embedded
     private DexMetadata metadata;
 
@@ -44,6 +47,17 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @Override
     public DexLocation getLocation() {
         return location;
     }

@@ -5,11 +5,11 @@ import com.assettagging.spotit.core.domain.GenericDao;
 
 import java.util.List;
 
-public interface DexAssetCodeDao extends GenericDao <Long, DexAssetCode> {
-
+public interface DexAssetCodeDao extends GenericDao<Long, DexAssetCode> {
 
 
     List<DexAssetCode> findAllAssetCodes();
+
     DexAssetCode findAssetCodeByCode(String code);
 
 }

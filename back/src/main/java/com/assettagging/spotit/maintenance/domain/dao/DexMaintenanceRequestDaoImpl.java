@@ -1,8 +1,11 @@
 package com.assettagging.spotit.maintenance.domain.dao;
 
+import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.common.domain.model.DexGradeCode;
 import com.assettagging.spotit.core.domain.DexMetaState;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
+import com.assettagging.spotit.identity.domain.model.DexActor;
+import com.assettagging.spotit.identity.domain.model.DexUser;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
@@ -18,7 +21,9 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
 
     private static final Logger LOG = LoggerFactory.getLogger(DexMaintenanceRequestDaoImpl.class);
 
-    public DexMaintenanceRequestDaoImpl() { super(DexMaintenanceRequestImpl.class); }
+    public DexMaintenanceRequestDaoImpl() {
+        super(DexMaintenanceRequestImpl.class);
+    }
 
     @Override
     public List<DexMaintenanceRequest> findAllMaintenanceRequest() {
@@ -27,9 +32,17 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
     }
 
     @Override
+    public void saveMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user) {
+        maintenanceRequest.setLocation(location);
+        maintenanceRequest.setRequester(requester);
+        save(maintenanceRequest, user);
+        entityManager.flush();
+    }
+
+    @Override
     public DexMaintenanceRequest findByCode(String code) {
         Query query = entityManager.createQuery("select e from DexMaintenanceRequest e where e.code  =:code and  " +
-                " s.metadata.state = :state");
+                " e.metadata.state = :state");
         query.setParameter("code", code);
         query.setParameter("state", DexMetaState.ACTIVE);
         return (DexMaintenanceRequest) query.getSingleResult();
