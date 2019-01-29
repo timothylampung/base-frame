@@ -1,21 +1,33 @@
 package com.assettagging.spotit.workorder.business.service;
 
+import com.assettagging.spotit.DexConstants;
 import com.assettagging.spotit.common.business.service.CommonServiceImpl;
-import com.assettagging.spotit.common.domain.dao.DexGradeCodeDao;
-import com.assettagging.spotit.common.domain.dao.DexPositionCodeDao;
+import com.assettagging.spotit.core.domain.DexFlowState;
 import com.assettagging.spotit.security.business.service.SecurityService;
+import com.assettagging.spotit.system.business.service.SystemService;
+import com.assettagging.spotit.workflow.business.service.WorkflowConstants;
+import com.assettagging.spotit.workflow.business.service.WorkflowService;
+import com.assettagging.spotit.workorder.business.event.WorkOrderDraftedEvent;
 import com.assettagging.spotit.workorder.domain.dao.DexActivityDao;
 import com.assettagging.spotit.workorder.domain.dao.DexWorkOrderDao;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+
+import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+
+import static com.assettagging.spotit.DexConstants.WORK_ORDER_REFERENCE_NO;
+import static com.assettagging.spotit.workflow.business.service.WorkflowConstants.DELIMITER;
 
 
 @Transactional
@@ -26,14 +38,23 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     private EntityManager entityManager;
     private SecurityService securityService;
+    private SystemService systemService;
+    private WorkflowService workflowService;
+    private ApplicationContext applicationContext;
     private DexWorkOrderDao workOrderDao;
     private DexActivityDao activityDao;
 
-    @Autowired
     public WorkOrderServiceImpl(EntityManager entityManager, SecurityService securityService,
-                             DexWorkOrderDao workOrderDao, DexActivityDao activityDao) {
+                                WorkflowService workflowService,
+                                ApplicationContext applicationContext,
+                                SystemService systemService,
+                                DexWorkOrderDao workOrderDao,
+                                DexActivityDao activityDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
+        this.systemService = systemService;
+        this.workflowService = workflowService;
+        this.applicationContext = applicationContext;
         this.workOrderDao = workOrderDao;
         this.activityDao = activityDao;
     }
@@ -42,6 +63,92 @@ public class WorkOrderServiceImpl implements WorkOrderService{
     // WORK ORDER
     //====================================================================================================
 
+    @Override
+    public String startWorkOrderTask(DexWorkOrder workOrder) throws Exception {
+        LOG.debug(securityService.getCurrentUser().getName() + " is processing invoice");
+
+        try {
+            // generate reference no
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            // param.put("period", commonService.findCurrentPeriod());
+            String referenceNo = systemService.generateFormattedReferenceNo(WORK_ORDER_REFERENCE_NO, param);
+            workOrder.setReferenceNo(referenceNo);
+
+            // save invoice
+            workOrderDao.save(workOrder, securityService.getCurrentUser());
+            entityManager.flush();
+            entityManager.refresh(workOrder);
+
+            // trigger process event
+            workflowService.processWorkflow(workOrder, toMap(workOrder));
+
+            // trigger event
+            applicationContext.publishEvent(new WorkOrderDraftedEvent(workOrder));
+
+            return workOrder.getReferenceNo();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.debug("error occurred", e);
+            throw new Exception(e);
+        }
+
+    }
+
+    @Override
+    public void cancelWorkOrder(DexWorkOrder workOrder) throws Exception {
+
+    }
+
+
+    @Override
+    public DexWorkOrder findWorkOrderByTaskId(String taskId) {
+        return null;
+    }
+
+    @Override
+    public DexWorkOrder findWorkOrderByRecordId(Long recordId) {
+        return null;
+    }
+
+    @Override
+    public Task findWorkOrderTaskByTaskId(String taskId) {
+        return null;
+    }
+
+    @Override
+    public List<Task> findAssignedWorkOrderTasks(String filter, Integer offset, Integer limit) {
+        String taskName = DexWorkOrder.class.getCanonicalName() + DELIMITER;
+        return workflowService.findAssignedTasks(filter, taskName, offset, limit);
+    }
+
+    @Override
+    public List<Task> findPooledWorkOrderTasks(String filter, Integer offset, Integer limit) {
+        String taskName = DexWorkOrder.class.getCanonicalName() + DELIMITER;
+        return workflowService.findPooledTasks(filter, taskName, offset, limit);
+    }
+
+    @Override
+    public Integer countAssignedWorkOrderTask(String filter) {
+        String taskName = DexWorkOrder.class.getCanonicalName() + DELIMITER;
+        return workflowService.countAssignedTask(filter, taskName);
+    }
+
+    @Override
+    public Integer countAssignedWorkOrderTask(DexFlowState flowState) {
+        String taskName = DexWorkOrder.class.getCanonicalName() + DELIMITER + flowState.name();
+        return workflowService.countAssignedTask(taskName);
+    }
+
+    @Override
+    public Integer countPooledWorkOrderTask(String filter) {
+        return null;
+    }
+
+    @Override
+    public Integer countPooledWorkOrderTask(DexFlowState flowState) {
+        return null;
+    }
 
     @Override
     public DexWorkOrder findWorkOrderById(Long id) {
@@ -56,6 +163,11 @@ public class WorkOrderServiceImpl implements WorkOrderService{
     @Override
     public List<DexWorkOrder> findWorkOrders(String filter, Integer offset, Integer limit) {
         return workOrderDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public List<DexActivity> findActivities(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
+        return null;
     }
 
     @Override
@@ -107,11 +219,6 @@ public class WorkOrderServiceImpl implements WorkOrderService{
     }
 
     @Override
-    public List<DexActivity> findActivitys(String filter, Integer offset, Integer limit) {
-        return activityDao.find(filter,offset,limit);
-    }
-
-    @Override
     public Integer countActivity() {
         return activityDao.count();
     }
@@ -144,6 +251,16 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     }
 
+    private Map<String, Object> toMap(DexWorkOrder workOrder) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
+        map.put(WorkflowConstants.REFERENCE_NO, workOrder.getReferenceNo());
+        map.put(DexConstants.ORDER_ID, workOrder.getId());
 
-
+        // by default set to false
+        map.put(WorkflowConstants.QUERY_DECISION, false);
+        map.put(WorkflowConstants.REMOVE_DECISION, false);
+        map.put(WorkflowConstants.CANCEL_DECISION, false);
+        return map;
+    }
 }

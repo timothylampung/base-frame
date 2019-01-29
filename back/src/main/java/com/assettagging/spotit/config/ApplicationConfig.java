@@ -23,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
         "com.assettagging.spotit.asset",
         "com.assettagging.spotit.workorder",
         "com.assettagging.spotit.maintenance",
+        "com.assettagging.spotit.inventory",
 
         //report vo
 })

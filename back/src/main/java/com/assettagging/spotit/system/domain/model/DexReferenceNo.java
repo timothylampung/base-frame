@@ -14,6 +14,10 @@ import com.assettagging.spotit.core.domain.DexMetaObject;
  * [h] = long hour  (24)
  * [i] = short hour
  * [j] = sequence
+ *
+ * [assetCode]
+ * [locationCode]
+ *
  * reference format = {#a}{#b}{#j} = prefix|year|sequence
  * <p/>
  * Example: REQ-{#b}{#e}: REQ2014000001

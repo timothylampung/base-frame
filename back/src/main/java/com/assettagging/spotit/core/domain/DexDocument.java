@@ -14,10 +14,6 @@ public interface DexDocument extends DexFlowObject {
 
     void setSourceNo(String sourceNo);
 
-    String getAuditNo();
-
-    void setAuditNo(String auditNo);
-
     String getDescription();
 
     void setDescription(String description);

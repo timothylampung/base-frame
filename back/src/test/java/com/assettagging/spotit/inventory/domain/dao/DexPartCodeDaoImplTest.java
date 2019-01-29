@@ -1,7 +1,9 @@
-package com.assettagging.spotit.inventory.domain.dao;
+package com.assettagging.spotit.Inventory.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.identity.business.service.IdentityService;
+import com.assettagging.spotit.inventory.domain.dao.DexPartCodeDao;
+import com.assettagging.spotit.inventory.domain.model.DexPart;
 import com.assettagging.spotit.inventory.domain.model.DexPartCode;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -21,29 +23,26 @@ public class DexPartCodeDaoImplTest extends AbstractTest {
     @Autowired
     private IdentityService identityService;
     @Autowired
-    private DexPartCodeDao DexPartCodeDao;
+    private com.assettagging.spotit.inventory.domain.dao.DexPartCodeDao DexPartCodeDao;
 
     @Test
     @Rollback(false)
     public void findDexPartCodeTest() {
-        List<DexPartCode> partCodes = DexPartCodeDao.findAllPartCode();
+        List<DexPartCode> partCodes = DexPartCodeDao.findAllPartCodes();
         for (DexPartCode partCode : partCodes) {
             LOG.debug("TEST: " + partCode.getDescription());
         }
     }
 
+    @Test
+    @Rollback(false)
+    public void findDexPartCodeByCodeTest() {
+        DexPartCode partCodeByCode = DexPartCodeDao.findPartCodeByCode("PA01");
+
+        LOG.debug("TEST: " + partCodeByCode.getDescription());
+
+    }
 
 
-//    @Test
-//    @Rollback(false)
-//
-//
-//    public void findDexAssetCodeByCode() {
-//        String code = "AC01";
-//        DexAssetCode DexAssetByCode =  DexAssetCodeDao.findAssetCodeByCode(code);
-//
-//        LOG.debug("TEST: " + DexAssetByCode.getDescription());
-//
-//    }
 
 }
