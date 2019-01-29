@@ -20,7 +20,7 @@ import java.util.List;
 @Service("maintenanceOrderService")
 public class MaintenanceRequestServiceImpl implements MaintenanceRequestService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CommonServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MaintenanceRequestServiceImpl.class);
 
     private EntityManager entityManager;
     private SecurityService securityService;

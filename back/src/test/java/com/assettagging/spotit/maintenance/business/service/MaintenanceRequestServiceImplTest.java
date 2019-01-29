@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 @Transactional
 public class MaintenanceRequestServiceImplTest extends AbstractTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WorkOrderServiceImplTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MaintenanceRequestServiceImplTest.class);
 
     @Autowired
     private IdentityServiceHelper identityServiceHelper;
