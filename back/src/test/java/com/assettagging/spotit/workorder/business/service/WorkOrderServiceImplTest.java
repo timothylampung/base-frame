@@ -35,7 +35,6 @@ public class WorkOrderServiceImplTest extends AbstractTest {
     @Autowired
     private WorkOrderService workOrderService;
 
-    @Autowired
 
 
     @Test

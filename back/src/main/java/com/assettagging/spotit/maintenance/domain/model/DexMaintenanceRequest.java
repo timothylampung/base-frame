@@ -17,5 +17,9 @@ public interface DexMaintenanceRequest extends DexMetaObject {
 
     void setLocation(DexLocation location);
 
+    String getCode();
+
+    void setCode(String code);
+
     String getDescription();
 }
