@@ -72,7 +72,7 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
 //        workOrder.setDescription("DESKRIPSI");
 //        workOrder.setWorkOrder(long);
 //
-//        LOG.debug("----------------------prepared------------------------ {} ",workOrder.getAssetId() );
+//        LOG.debug("----------------------prepared------------------------ {} ",workOrder.getAsset() );
 //        dexWorkOrderDao.save(workOrder, user);
 //
 //        entityManager.flush();
