@@ -1,7 +1,8 @@
-package com.assettagging.spotit.inventory.domain.dao;
+package com.assettagging.spotit.Inventory.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.identity.business.service.IdentityService;
+import com.assettagging.spotit.inventory.domain.dao.DexPartDao;
 import com.assettagging.spotit.inventory.domain.model.DexPart;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -20,14 +21,24 @@ public class DexPartDaoImplTest extends AbstractTest {
     @Autowired
     private IdentityService identityService;
     @Autowired
-    private DexPartDao DexPartDao;
+    private com.assettagging.spotit.inventory.domain.dao.DexPartDao DexPartDao;
 
     @Test
     @Rollback(false)
     public void findDexPartTest() {
-        List<DexPart> parts = DexPartDao.findAllPart();
+        List<DexPart> parts = DexPartDao.findAllParts();
         for (DexPart part : parts) {
             LOG.debug("TEST: " + part.getDescription());
         }
     }
+
+    @Test
+    @Rollback(false)
+    public void findDexPartByCodeTest() {
+        DexPart partByCode = DexPartDao.findPartByCode("PA01");
+
+            LOG.debug("TEST: " + partByCode.getDescription());
+
+    }
+
 }
