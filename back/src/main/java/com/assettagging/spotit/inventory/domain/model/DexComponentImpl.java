@@ -57,6 +57,10 @@ public class DexComponentImpl extends DexMetadata implements DexComponent {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @NotNull
+    @Column(name = "CODE")
+    private String code;
+
     @Override
     public String getDescription() {
         return description;
@@ -85,5 +89,15 @@ public class DexComponentImpl extends DexMetadata implements DexComponent {
     @Override
     public void setAsset(DexAsset asset) {
         this.asset = asset;
+    }
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public void setCode(String code) {
+        this.code = code;
     }
 }

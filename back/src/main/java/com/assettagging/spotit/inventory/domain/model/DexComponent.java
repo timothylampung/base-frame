@@ -17,4 +17,8 @@ public interface DexComponent extends DexMetaObject {
     DexAsset getAsset();
 
     void setAsset(DexAsset asset);
+
+    String getCode();
+
+    void setCode(String code);
 }

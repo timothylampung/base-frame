@@ -38,9 +38,6 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
     private DexLocation location;
 
 
-    @NotNull
-    @Column(name = "CODE")
-    private String code;
 
 
     @NotNull
@@ -67,15 +64,7 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
         this.location = location;
     }
 
-    @Override
-    public String getCode() {
-        return code;
-    }
 
-    @Override
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     @Override
     public String getDescription() {
