@@ -33,7 +33,7 @@ public class DexMaintenanceRequestDaoImplTest extends AbstractTest {
 
     @Test
     @Rollback(false)
-    public void findDexMaintenanceRequestByCodeTest() {
+    public void findDexMaintenanceRequestByIdTest() {
         long id =2;
         DexMaintenanceRequest maintenanceRequests = DexMaintenanceRequestDao.findById(id);
 

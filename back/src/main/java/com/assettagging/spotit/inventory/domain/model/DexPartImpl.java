@@ -34,6 +34,10 @@ public class DexPartImpl extends DexMetadata implements DexPart {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @NotNull
+    @Column(name = "CODE")
+    private String code;
+
     @Override
     public String getDescription() {
         return description;
@@ -87,5 +91,15 @@ public class DexPartImpl extends DexMetadata implements DexPart {
     @Override
     public Class<?> getInterfaceClass() {
         return DexPart.class;
+    }
+
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Override
+    public void setCode(String code) {
+        this.code = code;
     }
 }

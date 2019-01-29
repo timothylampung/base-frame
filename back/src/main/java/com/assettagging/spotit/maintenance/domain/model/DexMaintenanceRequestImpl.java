@@ -37,6 +37,9 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
     @JoinColumn(name = "LOCATION_ID", nullable = false)
     private DexLocation location;
 
+
+
+
     @NotNull
     @Column(name = "DESCRIPTION")
     private String description;
@@ -60,6 +63,8 @@ public class DexMaintenanceRequestImpl extends DexMetadata implements DexMainten
     public void setLocation(DexLocation location) {
         this.location = location;
     }
+
+
 
     @Override
     public String getDescription() {

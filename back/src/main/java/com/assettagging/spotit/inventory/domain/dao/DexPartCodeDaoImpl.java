@@ -1,6 +1,8 @@
 package com.assettagging.spotit.inventory.domain.dao;
 
+import com.assettagging.spotit.core.domain.DexMetaState;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
+import com.assettagging.spotit.inventory.domain.model.DexPart;
 import com.assettagging.spotit.inventory.domain.model.DexPartCode;
 import com.assettagging.spotit.inventory.domain.model.DexPartCodeImpl;
 import org.slf4j.Logger;
@@ -18,8 +20,41 @@ public class DexPartCodeDaoImpl extends GenericDaoSupport<Long, DexPartCode> imp
     public DexPartCodeDaoImpl() { super(DexPartCodeImpl.class); }
 
     @Override
-    public List<DexPartCode> findAllPartCode() {
+    public List<DexPartCode> findAllPartCodes() {
         Query q = entityManager.createQuery("select e from DexPartCode e");
         return q.getResultList();
     }
+
+    @Override
+    public DexPartCode findPartCodeByCode(String code) {
+        Query q = entityManager.createQuery("select e from DexPartCode e where e.code =:code")
+                .setParameter("code",code);
+        return (DexPartCode) q.getSingleResult();
+    }
+
+    @Override
+    public List<DexPartCode> find(String filter, Integer offset, Integer limit) {
+        Query query = entityManager.createQuery("select s from DexPartCode s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<DexPartCode>) query.getResultList();
+    }
+
+
+    @Override
+    public Integer count(String filter) {
+        Query query = entityManager.createQuery("select count(s) from DexPartCode s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
 }

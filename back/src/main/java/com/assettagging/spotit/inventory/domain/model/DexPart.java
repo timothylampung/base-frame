@@ -17,4 +17,8 @@ public interface DexPart extends DexMetaObject {
     DexWorkOrder getWorkOrder();
 
     void setWorkOrder(DexWorkOrder workOrder);
+
+    String getCode();
+
+    void setCode(String code);
 }
