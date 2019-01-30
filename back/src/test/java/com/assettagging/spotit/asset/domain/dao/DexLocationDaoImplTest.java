@@ -1,8 +1,7 @@
 package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexLocation;
+import com.assettagging.spotit.asset.domain.model.*;
 import com.assettagging.spotit.helper.IdentityServiceHelper;
 import com.assettagging.spotit.identity.business.service.IdentityService;
 import com.assettagging.spotit.identity.domain.dao.DexUserDao;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -30,6 +30,9 @@ public class DexLocationDaoImplTest extends AbstractTest {
     private DexUserDao dexUserDao;
     @Autowired
     private DexLocationDao dexLocationDao;
+
+    @Autowired
+    private EntityManager entityManager;
 
 
 
@@ -49,10 +52,31 @@ public class DexLocationDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findLocationByCode() {
-        String code = "LC01";
+        String code = "CODE7959";
         DexLocation locationByCode =  dexLocationDao.findLocationByCode(code);
 
         LOG.debug("TEST: " + locationByCode.getDescription());
+
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void saveLocation(){
+
+        DexLocation location = new DexLocationImpl();
+        location.setCode("CODE7960");
+        location.setDescription("DESCRIPTIONLAG60");
+        location.setAddress("Jalan40");
+        location.setName("Rumah420");
+
+
+        LOG.debug("----------------------prepared------------------------ {} ",location.getDescription() );
+        dexLocationDao.save(location, getCurrentUser());
+
+        entityManager.flush();
+        DexLocation savedLocation = dexLocationDao.findLocationByCode("CODE7960");
+        LOG.debug("--------------------saved-------------------------- {} ",savedLocation.getDescription() );
 
     }
 }
