@@ -6,13 +6,44 @@ import com.assettagging.spotit.asset.api.vo.Location;
 import com.assettagging.spotit.asset.domain.model.DexAsset;
 import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
+import com.assettagging.spotit.core.api.controller.CoreTransformer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component("assetTransformer")
 public class AssetTransformer {
+
+
+    private CoreTransformer coreTransformer;
+
+    @Autowired
+    public AssetTransformer(CoreTransformer coreTransformer) {
+        this.coreTransformer = coreTransformer;
+    }
+
+
+    // =============================================================================================
+    // ASSET CODE
+    // =============================================================================================
+    public AssetCode toAssetCodeVo(DexAssetCode e) {
+        if (e == null) return null;
+        AssetCode vo = new AssetCode();
+        vo.setCode(e.getCode());
+        vo.setDescription(e.getDescription());
+        vo.setId(e.getId());
+        coreTransformer.toMetadata(e, vo);
+        return vo;
+    }
+
+
+    public List<AssetCode> toAssetCodeVos(List<DexAssetCode> e) {
+        return e.stream().map(this::toAssetCodeVo).collect(Collectors.toList());
+    }
+
 
     // =============================================================================================
     // ASSET
@@ -24,14 +55,14 @@ public class AssetTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
-        vo.setLocation(e.getLocation());
-        vo.setAssetCode(e.getAssetCode());
+        vo.setLocation(toLocationVo(e.getLocation()));
+        vo.setAssetCode(toAssetCodeVo(e.getAssetCode()));
+        coreTransformer.toMetadata(e, vo);
         return vo;
     }
 
     public List<Asset> toAssetVos(List<DexAsset> e) {
-        List<Asset> vos = e.stream().map((e1) -> toAssetVo(e1)).collect(Collectors.toList());
-        return vos;
+        return e.stream().map((e1) -> toAssetVo(e1)).collect(Collectors.toList());
     }
 
     // =============================================================================================
@@ -44,11 +75,11 @@ public class AssetTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
+        coreTransformer.toMetadata(e, vo);
         return vo;
     }
 
     public List<Location> toLocationVos(List<DexLocation> e) {
-        List<Location> vos = e.stream().map((e1) -> toLocationVo(e1)).collect(Collectors.toList());
-        return vos;
+        return e.stream().map((e1) -> toLocationVo(e1)).collect(Collectors.toList());
     }
 }
