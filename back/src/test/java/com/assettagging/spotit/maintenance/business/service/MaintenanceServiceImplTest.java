@@ -22,40 +22,40 @@ public class MaintenanceServiceImplTest extends AbstractTest {
     private static final Logger LOG = LoggerFactory.getLogger(MaintenanceServiceImplTest.class);
 
 
-    @Autowired
-    private MaintenanceService maintenanceService;
-
-    @Autowired
-    private AssetService assetService;
-
-    @Test
-    public void findAllMaintenanceRequest() {
-
-        List<DexMaintenanceRequest> maintenanceRequests = maintenanceService.findAllMaintenanceRequest();
-
-    }
-
-    @Test
-    @Rollback(false)
-    public void submitMaintenanceRequest() {
-        DexLocation location = new DexLocationImpl();
-        location.setAddress("TEST ADDRESS");
-        location.setCode("Code123123213");
-        location.setDescription("DESC");
-        location.setName("TEST ADDRESS NAME");
-        assetService.saveLocation(location);
-        DexLocation savedLocation = assetService.findLocationByCode("Code123123213");
-
-        DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
-        request.setDescription("description");
-        maintenanceService.submitMaintenanceRequest(request, savedLocation);
-        List<DexMaintenanceRequest> requests = maintenanceService.findAllMaintenanceRequest();
-        for(DexMaintenanceRequest maintenanceRequest : requests){
-                    LOG.debug("----------------------maintenance request location code : ------------------------ {} ",maintenanceRequest.getLocation().getCode());
-                    LOG.debug("----------------------maintenance request requestor email :------------------------ {} ",maintenanceRequest.getRequester().getEmail());
-
-        }
-
-
-    }
+//    @Autowired
+//    private MaintenanceService maintenanceService;
+//
+//    @Autowired
+//    private AssetService assetService;
+//
+//    @Test
+//    public void findAllMaintenanceRequest() {
+//
+//        List<DexMaintenanceRequest> maintenanceRequests = maintenanceService.findAllMaintenanceRequest();
+//
+//    }
+//
+//    @Test
+//    @Rollback(false)
+//    public void submitMaintenanceRequest() {
+//        DexLocation location = new DexLocationImpl();
+//        location.setAddress("TEST ADDRESS");
+//        location.setCode("Code123123213");
+//        location.setDescription("DESC");
+//        location.setName("TEST ADDRESS NAME");
+//        assetService.saveLocation(location);
+//        DexLocation savedLocation = assetService.findLocationByCode("Code123123213");
+//
+//        DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
+//        request.setDescription("description");
+//        maintenanceService.submitMaintenanceRequest(request, savedLocation);
+//        List<DexMaintenanceRequest> requests = maintenanceService.findAllMaintenanceRequest();
+//        for(DexMaintenanceRequest maintenanceRequest : requests){
+//                    LOG.debug("----------------------maintenance request location code : ------------------------ {} ",maintenanceRequest.getLocation().getCode());
+//                    LOG.debug("----------------------maintenance request requestor email :------------------------ {} ",maintenanceRequest.getRequester().getEmail());
+//
+//        }
+//
+//
+//    }
 }

@@ -3,7 +3,7 @@ package com.assettagging.spotit.system.api.controller;
 import com.assettagging.spotit.system.api.vo.Configuration;
 import com.assettagging.spotit.system.domain.model.DexConfiguration;
 import com.assettagging.spotit.system.domain.model.DexModule;
-import com.assettagging.spotit.system.domain.model.DexReferenceNo;
+import com.assettagging.spotit.system.domain.model.DexSequenceGenerator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import com.assettagging.spotit.system.api.vo.Module;
 import com.assettagging.spotit.system.api.vo.ReferenceNo;
 import com.assettagging.spotit.system.api.vo.SubModule;
-import com.assettagging.spotit.system.domain.model.*;
 import com.assettagging.spotit.system.domain.model.DexSubModule;
 
 /**
@@ -43,14 +42,14 @@ public class SystemTransformer {
         return vo;
     }
 
-    public List<ReferenceNo> toReferenceNoVos(List<DexReferenceNo> e) {
+    public List<ReferenceNo> toReferenceNoVos(List<DexSequenceGenerator> e) {
         List<ReferenceNo> vos = e.stream()
                 .map((e1) -> toReferenceNoVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }
 
-    public ReferenceNo toReferenceNoVo(DexReferenceNo e) {
+    public ReferenceNo toReferenceNoVo(DexSequenceGenerator e) {
         ReferenceNo vo = new ReferenceNo();
         vo.setId(e.getId());
         vo.setCode(e.getCode());

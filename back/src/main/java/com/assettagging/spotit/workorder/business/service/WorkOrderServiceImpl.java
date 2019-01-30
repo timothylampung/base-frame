@@ -7,6 +7,7 @@ import com.assettagging.spotit.security.business.service.SecurityService;
 import com.assettagging.spotit.system.business.service.SystemService;
 import com.assettagging.spotit.workflow.business.service.WorkflowConstants;
 import com.assettagging.spotit.workflow.business.service.WorkflowService;
+import com.assettagging.spotit.workorder.business.event.WorkOrderCancelledEvent;
 import com.assettagging.spotit.workorder.business.event.WorkOrderDraftedEvent;
 import com.assettagging.spotit.workorder.domain.dao.DexActivityDao;
 import com.assettagging.spotit.workorder.domain.dao.DexWorkOrderDao;
@@ -20,6 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ import static com.assettagging.spotit.workflow.business.service.WorkflowConstant
 
 @Transactional
 @Service("workOrderService")
-public class WorkOrderServiceImpl implements WorkOrderService{
+public class WorkOrderServiceImpl implements WorkOrderService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonServiceImpl.class);
 
@@ -65,7 +67,7 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     @Override
     public String startWorkOrderTask(DexWorkOrder workOrder) throws Exception {
-        LOG.debug(securityService.getCurrentUser().getName() + " is processing invoice");
+        LOG.debug(securityService.getCurrentUser().getName() + " is processing order");
 
         try {
             // generate reference no
@@ -97,23 +99,38 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     @Override
     public void cancelWorkOrder(DexWorkOrder workOrder) throws Exception {
+        LOG.debug(securityService.getCurrentUser().getName() + " is canceling order");
 
+        if (!DexFlowState.COMPLETED.equals(workOrder.getFlowdata().getState()))
+            throw new Exception("Only completed WorkOrder can be cancelled");
+
+        workOrder.getFlowdata().setState(DexFlowState.CANCELLED);
+        workOrder.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+        workOrder.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+        workOrderDao.update(workOrder, securityService.getCurrentUser());
+        entityManager.flush();
+        entityManager.refresh(workOrder);
+
+        // event
+        applicationContext.publishEvent(new WorkOrderCancelledEvent(workOrder));
     }
 
 
     @Override
     public DexWorkOrder findWorkOrderByTaskId(String taskId) {
-        return null;
+        Task task = workflowService.findTask(taskId);
+        Map<String, Object> map = workflowService.getVariables(task.getExecutionId());
+        return workOrderDao.findById((Long) map.get(DexConstants.ORDER_ID));
     }
 
     @Override
     public DexWorkOrder findWorkOrderByRecordId(Long recordId) {
-        return null;
+        return workOrderDao.findById(recordId);
     }
 
     @Override
     public Task findWorkOrderTaskByTaskId(String taskId) {
-        return null;
+        return workflowService.findTask(taskId);
     }
 
     @Override
@@ -142,17 +159,19 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     @Override
     public Integer countPooledWorkOrderTask(String filter) {
-        return null;
+        String taskName = DexWorkOrder.class.getCanonicalName() + DELIMITER;
+        return workflowService.countPooledTask(taskName);
     }
 
     @Override
     public Integer countPooledWorkOrderTask(DexFlowState flowState) {
-        return null;
+        String taskName = DexWorkOrder.class.getCanonicalName() + DELIMITER;
+        return workflowService.countPooledTask(taskName);
     }
 
     @Override
     public DexWorkOrder findWorkOrderById(Long id) {
-        return workOrderDao.findById(id) ;
+        return workOrderDao.findById(id);
     }
 
     @Override
@@ -167,7 +186,7 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     @Override
     public List<DexActivity> findActivities(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
-        return null;
+        return activityDao.find(filter,workOrder, offset, limit);
     }
 
     @Override
@@ -185,7 +204,6 @@ public class WorkOrderServiceImpl implements WorkOrderService{
     public void saveWorkOrder(DexWorkOrder WorkOrder) {
         workOrderDao.save(WorkOrder, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
@@ -199,8 +217,6 @@ public class WorkOrderServiceImpl implements WorkOrderService{
     public void removeWorkOrder(DexWorkOrder WorkOrder) {
         workOrderDao.remove(WorkOrder, securityService.getCurrentUser());
         entityManager.flush();
-
-
     }
 
 
@@ -230,18 +246,14 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
     @Override
     public void saveActivity(DexActivity Activity) {
-
         activityDao.save(Activity, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
     public void updateActivity(DexActivity Activity) {
-
         activityDao.update(Activity, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override

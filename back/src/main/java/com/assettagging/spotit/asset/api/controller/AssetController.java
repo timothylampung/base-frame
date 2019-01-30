@@ -69,10 +69,10 @@ public class AssetController {
                 assetService.findAssetByAssetCode(code)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/asset/{location}")
-    public ResponseEntity<Asset> findAssetByLocation(@PathVariable DexLocation location) {
-        return new ResponseEntity<Asset>(assetTransformer.toAssetVo(
-                assetService.findAssetByLocation(location)), HttpStatus.OK);
+    @GetMapping(value = "/assets/{location}") // one location have many assets no One asset
+    public ResponseEntity<List<Asset>> findAssetByLocation(@PathVariable DexLocation location) {
+        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
+                assetService.findAssetsByLocation(location)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/asset")

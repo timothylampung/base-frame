@@ -6,9 +6,8 @@ import java.util.Map;
 
 import com.assettagging.spotit.system.domain.model.DexConfiguration;
 import com.assettagging.spotit.system.domain.model.DexModule;
-import com.assettagging.spotit.system.domain.model.DexReferenceNo;
+import com.assettagging.spotit.system.domain.model.DexSequenceGenerator;
 import com.assettagging.spotit.system.domain.model.DexSubModule;
-import com.assettagging.spotit.system.domain.model.*;
 
 /**
  */
@@ -60,23 +59,23 @@ public interface SystemService {
     // REFERENCE NO
     //==============================================================================================
 
-    DexReferenceNo findReferenceNoById(Long id);
+    DexSequenceGenerator findReferenceNoById(Long id);
 
-    DexReferenceNo findReferenceNoByCode(String code);
+    DexSequenceGenerator findReferenceNoByCode(String code);
 
-    List<DexReferenceNo> findReferenceNos(Integer offset, Integer limit);
+    List<DexSequenceGenerator> findReferenceNos(Integer offset, Integer limit);
 
-    List<DexReferenceNo> findReferenceNos(String filter, Integer offset, Integer limit);
+    List<DexSequenceGenerator> findReferenceNos(String filter, Integer offset, Integer limit);
 
     Integer countReferenceNo();
 
     Integer countReferenceNo(String filter);
 
-    void saveReferenceNo(DexReferenceNo referenceNo);
+    void saveReferenceNo(DexSequenceGenerator referenceNo);
 
-    void updateReferenceNo(DexReferenceNo referenceNo);
+    void updateReferenceNo(DexSequenceGenerator referenceNo);
 
-    void removeReferenceNo(DexReferenceNo referenceNo);
+    void removeReferenceNo(DexSequenceGenerator referenceNo);
 
     String generateReferenceNo(String code);
 

@@ -25,7 +25,9 @@ import com.assettagging.spotit.core.domain.DexMetaObject;
  * @author canang technologies
  * @since 1/27/14
  */
-public interface DexReferenceNo extends DexMetaObject {
+public interface DexSequenceGenerator extends DexMetaObject {
+
+    void setId(Long id);
 
     String getCode();
 

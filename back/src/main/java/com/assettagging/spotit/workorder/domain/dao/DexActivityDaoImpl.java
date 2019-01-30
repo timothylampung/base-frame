@@ -59,13 +59,14 @@ public class DexActivityDaoImpl extends GenericDaoSupport<Long, DexActivity> imp
     }
 
     @Override
-    public List<DexActivity> find(String filter, Integer offset, Integer limit) {
+    public List<DexActivity> find(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexActivity s where " +
                 "(upper(s.code) like upper(:filter) " +
                 "or upper(s.description) like upper(:filter)) " +
-                "and s.metadata.state = :state ");
+                "and s.metadata.state = :state and s.workOrder =:workOrder");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("state", DexMetaState.ACTIVE);
+        query.setParameter("workOrder", workOrder);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<DexActivity>) query.getResultList();

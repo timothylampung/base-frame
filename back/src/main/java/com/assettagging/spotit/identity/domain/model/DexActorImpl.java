@@ -36,14 +36,12 @@ public abstract class DexActorImpl implements DexActor {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @NotNull
     @Column(name = "PHONE", nullable = true)
     private String phone;
 
     @Column(name = "MOBILE", nullable = true)
     private String mobile;
 
-    @NotNull
     @Column(name = "FAX", nullable = true)
     private String fax;
 

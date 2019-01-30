@@ -95,12 +95,7 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public DexAsset findAssetByLocation(DexLocation location) {
-        return assetDao.findAssetByLocation(location);
-    }
-
-    @Override
-    public DexAsset findAssetsByLocation(DexLocation location) {
+    public List<DexAsset> findAssetsByLocation(DexLocation location) {
         return assetDao.findAssetByLocation(location);
     }
 

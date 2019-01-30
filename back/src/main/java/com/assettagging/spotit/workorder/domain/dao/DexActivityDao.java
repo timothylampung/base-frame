@@ -21,7 +21,7 @@ public interface DexActivityDao extends GenericDao<Long, DexActivity> {
 
     void deleteActivity(DexWorkOrder workOrder, DexActivity activity, DexUser user);
 
-    List<DexActivity> find(String filter, Integer offset, Integer limit);
+    List<DexActivity> find(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
 
     Integer count(String filter);
 }

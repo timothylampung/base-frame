@@ -3,17 +3,17 @@ package com.assettagging.spotit.system.domain.dao;
 
 import java.util.List;
 
-import com.assettagging.spotit.system.domain.model.DexReferenceNo;
+import com.assettagging.spotit.system.domain.model.DexSequenceGenerator;
 import com.assettagging.spotit.core.domain.GenericDao;
 
 /**
  * @author canang technologies
  */
-public interface DexReferenceNoDao extends GenericDao<Long, DexReferenceNo> {
+public interface DexReferenceNoDao extends GenericDao<Long, DexSequenceGenerator> {
 
-    DexReferenceNo findByCode(String code);
+    DexSequenceGenerator findByCode(String code);
 
-    List<DexReferenceNo> find(String filter, Integer offset, Integer limit);
+    List<DexSequenceGenerator> find(String filter, Integer offset, Integer limit);
 
     Integer count(String filter);
 }

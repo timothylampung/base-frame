@@ -14,14 +14,14 @@ import com.assettagging.spotit.core.domain.DexMetadata;
 /**
  * @author canang technologies
  */
-@Entity(name = "DexReferenceNo")
-@Table(name = "DEX_RFRN_NO")
-public class DexReferenceNoImpl implements DexReferenceNo {
+@Entity(name = "DexSequenceGenerator")
+@Table(name = "DEX_SQNC_GNTR")
+public class DexSequenceGeneratorImpl implements DexSequenceGenerator {
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_DEX_RFRN_NO")
-    @SequenceGenerator(name = "SQ_DEX_RFRN_NO", sequenceName = "SQ_DEX_RFRN_NO", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_DEX_SQNC_GNTR")
+    @SequenceGenerator(name = "SQ_DEX_SQNC_GNTR", sequenceName = "SQ_DEX_SQNC_GNTR", allocationSize = 1)
     private Long id;
 
     @NotNull
@@ -60,6 +60,7 @@ public class DexReferenceNoImpl implements DexReferenceNo {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -130,7 +131,7 @@ public class DexReferenceNoImpl implements DexReferenceNo {
 
     @Override
     public Class<?> getInterfaceClass() {
-        return DexReferenceNo.class;
+        return DexSequenceGenerator.class;
     }
 }
 

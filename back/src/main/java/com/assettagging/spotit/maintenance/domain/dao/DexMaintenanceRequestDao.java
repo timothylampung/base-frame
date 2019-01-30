@@ -12,12 +12,12 @@ import java.util.List;
 public interface DexMaintenanceRequestDao extends GenericDao<Long, DexMaintenanceRequest> {
 
     List<DexMaintenanceRequest> findAllMaintenanceRequest();
-    void saveMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user);
+
+    void addMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user);
 
     DexMaintenanceRequest findByCode(String code);
 
     List<DexMaintenanceRequest> find(String filter, Integer offset, Integer limit);
-
 
     Integer count(String filter);
 

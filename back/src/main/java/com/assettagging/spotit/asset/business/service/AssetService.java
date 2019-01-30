@@ -53,9 +53,7 @@ public interface AssetService {
 
     DexAsset findAssetByAssetCode(String code);
 
-    DexAsset findAssetByLocation(DexLocation location);
-
-    DexAsset findAssetsByLocation(DexLocation location);
+    List<DexAsset> findAssetsByLocation(DexLocation location);
 
     Integer countAsset();
 

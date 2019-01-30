@@ -10,8 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexAsset")
 @Table(name = "DEX_ASST")
-public class DexAssetImpl extends DexMetadata implements DexAsset {
-
+public class DexAssetImpl implements DexAsset {
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -22,17 +21,14 @@ public class DexAssetImpl extends DexMetadata implements DexAsset {
     @Embedded
     private DexMetadata metadata;
 
-
     @OneToOne(targetEntity = DexAssetCodeImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ASSET_CODE_ID", nullable = false)
+    @JoinColumn(name = "ASSET_CODE_ID")
     private DexAssetCode assetCode;
 
-    @OneToOne(targetEntity = DexLocationImpl.class,
-            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "LOCATION_ID", nullable = false)
+    @ManyToOne(targetEntity = DexLocationImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "LOCATION_ID")
     private DexLocation location;
-
 
     @NotNull
     @Column(name = "CODE")

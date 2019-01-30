@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Transactional
-@Component("order_complete_ST")
+@Component("workOrder_complete_ST")
 public class WorkOrderCompleteTask extends WorkOrderTaskSupport {
 
     private static final Logger LOG = getLogger(WorkOrderCompleteTask.class);

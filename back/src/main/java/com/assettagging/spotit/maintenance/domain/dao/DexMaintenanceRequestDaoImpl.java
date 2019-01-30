@@ -3,6 +3,7 @@ package com.assettagging.spotit.maintenance.domain.dao;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.common.domain.model.DexGradeCode;
 import com.assettagging.spotit.core.domain.DexMetaState;
+import com.assettagging.spotit.core.domain.DexMetadata;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import com.assettagging.spotit.identity.domain.model.DexActor;
 import com.assettagging.spotit.identity.domain.model.DexUser;
@@ -32,16 +33,17 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
     }
 
     @Override
-    public void saveMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user) {
+    public void addMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user) {
         maintenanceRequest.setLocation(location);
         maintenanceRequest.setRequester(requester);
         save(maintenanceRequest, user);
         entityManager.flush();
     }
 
+
     @Override
     public DexMaintenanceRequest findByCode(String code) {
-        Query query = entityManager.createQuery("select e from DexMaintenanceRequest e where e.code  =:code and  " +
+        Query query = entityManager.createQuery("select e from DexMaintenanceRequest e where e.referenceNo  =:code and  " +
                 " e.metadata.state = :state");
         query.setParameter("code", code);
         query.setParameter("state", DexMetaState.ACTIVE);
@@ -53,7 +55,7 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
     @Override
     public List<DexMaintenanceRequest> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexMaintenanceRequest s where " +
-                "(upper(s.code) like upper(:filter) " +
+                "(upper(s.referenceNo) like upper(:filter) " +
                 "or upper(s.description) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
@@ -66,15 +68,13 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
     @Override
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(s) from DexMaintenanceRequest s where " +
-                "(upper(s.code) like upper(:filter) " +
+                "(upper(s.referenceNo) like upper(:filter) " +
                 "or upper(s.description) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("state", DexMetaState.ACTIVE);
         return ((Long) query.getSingleResult()).intValue();
     }
-
-
 
 
 }

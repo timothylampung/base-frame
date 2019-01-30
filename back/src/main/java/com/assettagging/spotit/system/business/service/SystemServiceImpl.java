@@ -8,7 +8,7 @@ import com.assettagging.spotit.system.domain.dao.DexReferenceNoDao;
 import com.assettagging.spotit.system.domain.dao.DexSubModuleDao;
 import com.assettagging.spotit.system.domain.model.DexConfiguration;
 import com.assettagging.spotit.system.domain.model.DexModule;
-import com.assettagging.spotit.system.domain.model.DexReferenceNo;
+import com.assettagging.spotit.system.domain.model.DexSequenceGenerator;
 import com.assettagging.spotit.system.domain.model.DexSubModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-
-import com.assettagging.spotit.system.domain.model.*;
 
 /**
  */
@@ -189,22 +187,22 @@ public class SystemServiceImpl implements SystemService {
     //==============================================================================================
 
     @Override
-    public DexReferenceNo findReferenceNoById(Long id) {
+    public DexSequenceGenerator findReferenceNoById(Long id) {
         return referenceNoDao.findById(id);
     }
 
     @Override
-    public DexReferenceNo findReferenceNoByCode(String code) {
+    public DexSequenceGenerator findReferenceNoByCode(String code) {
         return referenceNoDao.findByCode(code);
     }
 
     @Override
-    public List<DexReferenceNo> findReferenceNos(Integer offset, Integer limit) {
+    public List<DexSequenceGenerator> findReferenceNos(Integer offset, Integer limit) {
         return referenceNoDao.find(offset, limit);
     }
 
     @Override
-    public List<DexReferenceNo> findReferenceNos(String filter, Integer offset, Integer limit) {
+    public List<DexSequenceGenerator> findReferenceNos(String filter, Integer offset, Integer limit) {
         return referenceNoDao.find(filter, offset, limit);
     }
 
@@ -219,19 +217,19 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public void saveReferenceNo(DexReferenceNo referenceNo) {
+    public void saveReferenceNo(DexSequenceGenerator referenceNo) {
         referenceNoDao.save(referenceNo, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void updateReferenceNo(DexReferenceNo referenceNo) {
+    public void updateReferenceNo(DexSequenceGenerator referenceNo) {
         referenceNoDao.update(referenceNo, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void removeReferenceNo(DexReferenceNo referenceNo) {
+    public void removeReferenceNo(DexSequenceGenerator referenceNo) {
         referenceNoDao.remove(referenceNo, securityService.getCurrentUser());
         entityManager.flush();
     }
@@ -240,7 +238,7 @@ public class SystemServiceImpl implements SystemService {
     public String generateReferenceNo(String code) {
         String generatedRefNo = null;
         synchronized (this) {
-            DexReferenceNo referenceNo = referenceNoDao.findByCode(code);
+            DexSequenceGenerator referenceNo = referenceNoDao.findByCode(code);
             Integer oldValue = referenceNo.getCurrentValue();
             Integer newValue = referenceNo.getCurrentValue() + referenceNo.getIncrementValue();
 
@@ -258,7 +256,7 @@ public class SystemServiceImpl implements SystemService {
 
     public String generateFormattedReferenceNo(String code, Map<String, Object> map) {
         synchronized (this) {
-            DexReferenceNo referenceNo = referenceNoDao.findByCode(code);
+            DexSequenceGenerator referenceNo = referenceNoDao.findByCode(code);
 
             // get old and new value
             Integer oldValue = referenceNo.getCurrentValue();

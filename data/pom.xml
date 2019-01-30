@@ -259,8 +259,9 @@
                         </goals>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/spotit</url>
-                            <settingsKey>postgres-dev</settingsKey>
+                            <url>jdbc:postgresql://159.65.3.103:5432/postgres</url>
+                            <username>postgres</username>
+                            <password>abc123</password>
                             <autocommit>true</autocommit>
                             <srcFiles>
                                 <srcFile>src/test/resources/DATABASE.sql</srcFile>
@@ -283,19 +284,18 @@
                             <srcFiles>
                                 <!--CORE-->
                                 <!--<srcFile>src/test/resources/ddl/SCHEMA.sql</srcFile>-->
-                                <srcFile>src/test/resources/ddl/act.postgres.sql</srcFile>
-                                <srcFile>src/test/resources/ddl/CREATE.sql</srcFile>
+                                <!--<srcFile>src/test/resources/ddl/act.postgres.sql</srcFile>-->
+                                <!--<srcFile>src/test/resources/ddl/CREATE.sql</srcFile>-->
 
                                 <!--SYSTEM-->
-                                <!--<srcFile>src/test/resources/data/DEX_CNFG.sql</srcFile>-->
-                                <!--<srcFile>src/test/resources/data/DEX_RFRN_NO.sql</srcFile>-->
 
                                 <!--COMMON-->
 
                                 <!--IDENTITY-->
-                                <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_ACTR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_USER.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_SQNC_GNTR.sql</srcFile>
 
                                 <!--MANAGEMENT-->
 

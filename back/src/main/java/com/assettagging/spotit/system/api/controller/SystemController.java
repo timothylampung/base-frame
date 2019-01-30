@@ -2,7 +2,6 @@ package com.assettagging.spotit.system.api.controller;
 
 import com.assettagging.spotit.system.api.vo.Configuration;
 import com.assettagging.spotit.system.domain.model.*;
-import com.assettagging.spotit.system.domain.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,13 +78,13 @@ public class SystemController {
 
     @GetMapping(value = "/referenceNos")
     public ResponseEntity<List<ReferenceNo>> findReferenceNos() {
-        List<DexReferenceNo> referenceNos = systemService.findReferenceNos(0, 99);
+        List<DexSequenceGenerator> referenceNos = systemService.findReferenceNos(0, 99);
         return new ResponseEntity<List<ReferenceNo>>(systemTransformer.toReferenceNoVos(referenceNos), HttpStatus.OK);
     }
 
     @PostMapping(value = "/referenceNo")
     public ResponseEntity<String> saveReferenceNo(@RequestBody ReferenceNo vo) {
-        DexReferenceNo referenceNo = new DexReferenceNoImpl();
+        DexSequenceGenerator referenceNo = new DexSequenceGeneratorImpl();
         referenceNo.setCode(vo.getCode());
         referenceNo.setDescription(vo.getDescription());
         referenceNo.setPrefix(vo.getPrefix());
