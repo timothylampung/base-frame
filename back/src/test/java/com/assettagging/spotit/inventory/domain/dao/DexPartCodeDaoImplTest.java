@@ -37,7 +37,7 @@ public class DexPartCodeDaoImplTest extends AbstractTest {
     @Test
     @Rollback(false)
     public void findDexPartCodeByCodeTest() {
-        DexPartCode partCodeByCode = DexPartCodeDao.findPartCodeByCode("PA01");
+        DexPartCode partCodeByCode = DexPartCodeDao.findPartCodeByCode("PC01");
 
         LOG.debug("TEST: " + partCodeByCode.getDescription());
 

@@ -2,10 +2,8 @@ package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexAssetCode;
+import com.assettagging.spotit.asset.domain.model.DexAssetImpl;
 import com.assettagging.spotit.identity.domain.dao.DexUserDao;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +24,11 @@ public class DexAssetDaoImplTest extends AbstractTest {
     private DexUserDao dexUserDao;
     @Autowired
     private DexAssetDao dexAssetDao;
+
+    @Autowired
+    private DexLocationDao dexLocationDao;
+
+
     @Autowired
     private EntityManager entityManager;
 
@@ -45,10 +48,37 @@ public class DexAssetDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findDexAssetByCode() {
-        String code = "AS01";
+        String code = "CODE7956";
         DexAsset DexAssetByCode =  dexAssetDao.findAssetByAssetCode(code);
 
         LOG.debug("TEST: " + DexAssetByCode.getDescription());
 
     }
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void saveAsset(){
+
+        DexAsset asset = new DexAssetImpl();
+        asset.setCode("CODE7957");
+        asset.setDescription("DESCRIPTIONLAGHEAY");
+
+        LOG.debug("----------------------prepared------------------------ {} ",asset.getDescription() );
+        dexAssetDao.save(asset, getCurrentUser());
+
+        entityManager.flush();
+        DexAsset savedAsset = dexAssetDao.findAssetByAssetCode("CODE7957");
+        LOG.debug("--------------------saved-------------------------- {} ",savedAsset.getDescription() );
+
+    }
+//    @Test
+//    public void findAssetByLocation() {
+//
+//        int location = 1;
+//        List<DexAsset> daoAssetsByLocation = dexAssetDao.findAssetByLocation(location);
+//        for (DexAsset daoAssetByLocation : daoAssetsByLocation) {
+//            LOG.debug("TEST: " + daoAssetByLocation.getDescription());
+//
+//        }
+//    }
 }
