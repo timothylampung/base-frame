@@ -40,7 +40,7 @@ public class MaintenanceRequestRouter {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
 
-        candidate = "GRP";// todo
+        candidate = "GRP_USR";// todo
 
         return Arrays.asList(candidate, securityService.getCurrentUser().getUsername());
     }
@@ -49,7 +49,7 @@ public class MaintenanceRequestRouter {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
 
-        candidate = "GRP";// todo
+        candidate = "GRP_USR";// todo
 
         return Arrays.asList(candidate);
     }
@@ -58,7 +58,7 @@ public class MaintenanceRequestRouter {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
 
-        candidate = "GRP"; // todo
+        candidate = "GRP_USR"; // todo
 
         return Arrays.asList(candidate);
     }

@@ -17,8 +17,8 @@ public class MaintenanceRequestCheckTask extends MaintenanceRequestTaskSupport {
     private static final Logger LOG = getLogger(MaintenanceRequestCheckTask.class);
 
     public void execute(DelegateExecution execution) {
-        Long orderId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
-        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(orderId);
+        Long requestId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
+        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(requestId);
         LOG.info("checking request refno {}", order.getReferenceNo());
 
 //         update flow state

@@ -13,7 +13,6 @@ public interface DexMaintenanceRequestDao extends GenericDao<Long, DexMaintenanc
 
     List<DexMaintenanceRequest> findAllMaintenanceRequest();
 
-    void addMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user);
 
     DexMaintenanceRequest findByCode(String code);
 

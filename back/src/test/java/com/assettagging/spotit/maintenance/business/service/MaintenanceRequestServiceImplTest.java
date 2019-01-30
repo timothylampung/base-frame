@@ -1,12 +1,18 @@
 package com.assettagging.spotit.maintenance.business.service;
 
 import com.assettagging.spotit.AbstractTest;
+import com.assettagging.spotit.asset.business.service.AssetService;
+import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.helper.IdentityServiceHelper;
+import com.assettagging.spotit.identity.domain.model.DexActor;
+import com.assettagging.spotit.identity.domain.model.DexTechnician;
 import com.assettagging.spotit.maintenance.domain.dao.DexMaintenanceRequestDao;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
+import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
 import com.assettagging.spotit.workorder.business.service.WorkOrderService;
 import com.assettagging.spotit.workorder.business.service.WorkOrderServiceImplTest;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +39,39 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
     @Autowired
     private MaintenanceRequestService maintenanceRequestService;
 
+    @Autowired
+    private AssetService assetService;
+
+
+    @Test
+    public void maintenance_request_user_story_001() throws Exception {
+
+        identityServiceHelper.changeUser("baizura.basar");
+
+        DexMaintenanceRequest mr = new DexMaintenanceRequestImpl();
+        DexLocation location = assetService.findLocationByCode("CODE7959");
+        mr.setLocation(location);
+        DexActor actor = ((DexTechnician) identityServiceHelper.getCurrentUser().getActor());
+        mr.setRequester(actor);
+        mr.setDescription("MR REQUEST TEST");
+
+        maintenanceRequestService.startMaintenanceRequestTask(mr);
+
+        Integer task = maintenanceRequestService.countPooledMaintenanceRequestTask("%");
+
+        Assert.assertTrue(task > 0);
+
+
+    }
+
 
     @Test
     public void findMaintenanceRequestById() {
 
-        long id =2;
+        long id = 2;
         DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestById(id);
 
-        LOG.debug("TEST: " +  maintenanceRequest.getDescription());
+        LOG.debug("TEST: " + maintenanceRequest.getDescription());
 
     }
 
@@ -51,7 +82,7 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
     @Test
     public void findMaintenanceRequests() {
 
-        List<DexMaintenanceRequest> maintenanceRequests = maintenanceRequestService.findMaintenanceRequests("%",0,999);
+        List<DexMaintenanceRequest> maintenanceRequests = maintenanceRequestService.findMaintenanceRequests("%", 0, 999);
         for (DexMaintenanceRequest maintenanceRequest : maintenanceRequests) {
             LOG.debug("TEST: " + maintenanceRequest.getDescription());
         }

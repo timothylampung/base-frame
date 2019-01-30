@@ -3,16 +3,17 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              typeLanguage="http://www.w3.org/2001/XMLSchema"
              expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Fixed">
-    <process id="maintenance_request_workflow" name="Work Order Workflow" isExecutable="true">
+    <process id="maintenance_request_workflow" name="Maintenance Request Workflow" isExecutable="true">
         <startEvent id="start"/>
         <sequenceFlow id="flow1.1" sourceRef="start" targetRef="maintenanceRequest_draft_ST"/>
         <serviceTask id="maintenanceRequest_draft_ST" name="draft_ST"
                      flowable:expression="#{maintenanceRequest_draft_ST.execute(execution)}"/>
         <sequenceFlow id="flow2.1" sourceRef="maintenanceRequest_draft_ST"
                       targetRef="maintenanceRequest_draft_UT"/>
+        <!--flowable:assignee="#{maintenanceRequestRouter.findDrafterCandidates(requestId)}"-->
         <userTask id="maintenanceRequest_draft_UT"
                   name="com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest:DRAFTED"
-                  flowable:assignee="#{maintenanceRequestRouter.findDrafterAssignee(requestId)}"
+                  flowable:assignee="${userCreator}"
                   flowable:candidateGroups="#{maintenanceRequestRouter.findDrafterCandidates(requestId)}">
         </userTask>
         <sequenceFlow id="flow2.3" sourceRef="maintenanceRequest_draft_UT"

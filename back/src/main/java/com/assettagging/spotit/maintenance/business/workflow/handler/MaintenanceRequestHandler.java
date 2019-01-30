@@ -24,7 +24,7 @@ public class MaintenanceRequestHandler implements DocumentHandler<DexMaintenance
 
     public static final String MAINTENANCE_REQUEST_PROCESS_KEY = "maintenance_request_workflow";
     public static final String MAINTENANCE_REQUEST_RESOURCE_PATH = "maintenance-request.bpmn20.xml";
-    public static final String MAINTENANCE_REQUEST_PROCESS_NAME = "orderInvoice";
+    public static final String MAINTENANCE_REQUEST_PROCESS_NAME = "maintenanceRequest";
     private static final Logger LOG = LoggerFactory.getLogger(MaintenanceRequestHandler.class);
     @Autowired
     protected ProcessEngine processEngine;

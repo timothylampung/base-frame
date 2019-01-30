@@ -87,10 +87,13 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     }
 
     @Override
-    public void saveMaintenanceRequest(DexMaintenanceRequest MaintenanceRequest, DexLocation location) {
+    public void saveMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location) {
         DexUser currentUser = securityService.getCurrentUser();
         DexActor requester = currentUser.getActor();
-        maintenanceRequestDao.addMaintenanceRequest(MaintenanceRequest, location, requester, currentUser);
+        maintenanceRequest.setLocation(location);
+        maintenanceRequest.setRequester(requester);
+
+        maintenanceRequestDao.save(maintenanceRequest, currentUser);
         entityManager.flush();
     }
 
@@ -114,9 +117,7 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
 
         try {
             // generate reference no
-            HashMap<String, Object> param = new HashMap<String, Object>();
-            // param.put("period", commonService.findCurrentPeriod());
-            String referenceNo = systemService.generateFormattedReferenceNo(MAINTENANCE_REQUEST_REFERENCE_NO, param);
+            String referenceNo = systemService.generateReferenceNo(MAINTENANCE_REQUEST_REFERENCE_NO);
             maintenanceRequest.setReferenceNo(referenceNo);
 
             // save invoice
@@ -215,7 +216,7 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
         map.put(WorkflowConstants.REFERENCE_NO, request.getReferenceNo());
-        map.put(DexConstants.ORDER_ID, request.getId());
+        map.put(DexConstants.REQUEST_ID, request.getId());
 
         // by default set to false
         map.put(WorkflowConstants.QUERY_DECISION, false);

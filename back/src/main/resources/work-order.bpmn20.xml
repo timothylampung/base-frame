@@ -10,9 +10,9 @@
                      flowable:expression="#{workOrder_draft_ST.execute(execution)}"/>
         <sequenceFlow id="flow2.1" sourceRef="workOrder_draft_ST"
                       targetRef="workOrder_draft_UT"/>
-        <!-- todo: flowable:assignee="#{workOrderRouter.findDrafterAssignee(orderId)}" -->
         <userTask id="workOrder_draft_UT"
                   name="com.assettagging.spotit.workorder.domain.model.DexWorkOrder:DRAFTED"
+                  flowable:assignee="${userCreator}"
                   flowable:candidateGroups="#{workOrderRouter.findDrafterCandidates(orderId)}">
         </userTask>
         <sequenceFlow id="flow2.3" sourceRef="workOrder_draft_UT"

@@ -18,8 +18,8 @@ public class MaintenanceRequestRegisterTask extends MaintenanceRequestTaskSuppor
     private static final Logger LOG = getLogger(MaintenanceRequestRegisterTask.class);
 
     public void execute(DelegateExecution execution) {
-        Long orderId = (Long) execution.getVariable(DexConstants.ORDER_ID);
-        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(orderId);
+        Long requestId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
+        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(requestId);
         LOG.info("registering request refno {}", order.getReferenceNo());
 
         // update flow state

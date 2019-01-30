@@ -21,8 +21,8 @@ public class MaintenanceRequestApproveTask extends MaintenanceRequestTaskSupport
     public void execute(DelegateExecution execution) {
         LOG.debug("approving request");
 
-        Long orderId = (Long) execution.getVariable(DexConstants.ORDER_ID);
-        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(orderId);
+        Long requestId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
+        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(requestId);
 
         // update flow state
         order.getFlowdata().setState(DexFlowState.APPROVED);

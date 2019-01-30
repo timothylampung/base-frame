@@ -19,8 +19,8 @@ public class MaintenanceRequestRemoveTask extends MaintenanceRequestTaskSupport 
     private static final Logger LOG = getLogger(MaintenanceRequestRemoveTask.class);
 
     public void execute(DelegateExecution execution) {
-        Long orderId = (Long) execution.getVariable(DexConstants.ORDER_ID);
-        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(orderId);
+        Long requestId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
+        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(requestId);
         LOG.info("removing order refno {}", order.getReferenceNo());
 
 //         serialize remove comment

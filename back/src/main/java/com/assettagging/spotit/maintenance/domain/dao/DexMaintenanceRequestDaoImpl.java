@@ -32,13 +32,6 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
         return q.getResultList();
     }
 
-    @Override
-    public void addMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location, DexActor requester, DexUser user) {
-        maintenanceRequest.setLocation(location);
-        maintenanceRequest.setRequester(requester);
-        save(maintenanceRequest, user);
-        entityManager.flush();
-    }
 
 
     @Override

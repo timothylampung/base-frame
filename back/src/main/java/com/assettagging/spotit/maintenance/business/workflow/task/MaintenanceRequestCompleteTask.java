@@ -20,8 +20,8 @@ public class MaintenanceRequestCompleteTask extends MaintenanceRequestTaskSuppor
     public void execute(DelegateExecution execution) {
         LOG.debug("completing order");
 
-        Long orderId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
-        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(orderId);
+        Long requestId = (Long) execution.getVariable(DexConstants.REQUEST_ID);
+        DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(requestId);
 
         // update flow state
         order.getFlowdata().setState(DexFlowState.COMPLETED);
