@@ -4,3 +4,4 @@ INSERT INTO DEX_SQNC_GNTR (id, code, current_value, description, increment_value
 VALUES (nextval('SQ_DEX_SQNC_GNTR'), 'maintenanceRequest.referenceNo', 1, 'Maintenance Request Reference No', 1, CURRENT_TIMESTAMP, 0, null, null, null, null, null, '', '{#a}-{#b}-{#j}', '000000');
 
 -- SQ_DEX_SQNC_GNTR
+
