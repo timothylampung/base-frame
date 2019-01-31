@@ -2,21 +2,15 @@ package com.assettagging.spotit.workorder.business.service;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.asset.business.service.AssetService;
-import com.assettagging.spotit.common.domain.dao.DexBankDao;
-import com.assettagging.spotit.common.domain.dao.DexBankDaoImplTest;
 import com.assettagging.spotit.helper.IdentityServiceHelper;
 import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
 import com.assettagging.spotit.workflow.business.service.WorkflowService;
-import com.assettagging.spotit.workorder.domain.dao.DexWorkOrderDao;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
 
 import org.flowable.task.api.Task;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
 @Transactional
 public class WorkOrderServiceImplTest extends AbstractTest {
 
@@ -58,7 +50,7 @@ public class WorkOrderServiceImplTest extends AbstractTest {
     @Test
     public void userStory001() {
         DexWorkOrder order = new DexWorkOrderImpl();
-        order.setAsset(assetService.findAssetByAssetCode("AST-001"));
+        order.setAsset(assetService.findAssetByCode("AST-001"));
         order.setAssignee(identityService.findStaffByCode("STF-001"));
         order.setReporter(identityService.findStaffByCode("STF-001"));
         order.setDescription("F-ed up");
@@ -102,7 +94,6 @@ public class WorkOrderServiceImplTest extends AbstractTest {
 
     @Test
     public void findWorkOrderByCode() {
-
         DexWorkOrder findWorkOrderByCode = workOrderService.findWorkOrderByCode("CODE_@#!");
         LOG.debug("TEST: " + findWorkOrderByCode.getDescription());
     }
@@ -142,12 +133,8 @@ public class WorkOrderServiceImplTest extends AbstractTest {
 
     @Test
     public void findActivityByCode() {
-
         DexActivity findActivityByCode = workOrderService.findActivityByCode("ODSS");
-
         LOG.debug("TEST: " + findActivityByCode.getDescription());
-
-
     }
 
     @Test

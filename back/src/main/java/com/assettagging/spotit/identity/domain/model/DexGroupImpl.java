@@ -32,7 +32,6 @@ public class DexGroupImpl extends DexPrincipalImpl implements DexGroup {
 
     @Override
     public Class<?> getInterfaceClass() {
-
         return DexGroup.class;
     }
 

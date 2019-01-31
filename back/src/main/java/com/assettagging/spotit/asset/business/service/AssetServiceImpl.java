@@ -52,7 +52,7 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public DexLocation findLocationByCode(String code) {
-        return locationDao.findLocationByCode(code);
+        return locationDao.findByCode(code);
     }
 
     @Override
@@ -90,18 +90,17 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public DexAsset findAssetByAssetCode(String code) {
-        return assetDao.findAssetByAssetCode(code);
+    public DexAsset findAssetByCode(String code) {
+        return assetDao.findByCode(code);
     }
 
     @Override
     public List<DexAsset> findAssetsByLocation(DexLocation location) {
-        return assetDao.findAssetByLocation(location);
+        return assetDao.findByLocation(location);
     }
 
     @Override
-    public List<DexAsset> findAllAssets(String s, int i, int limit) { return  assetDao.findAllAssets(); }
-
+    public List<DexAsset> findAssets(String s, int i, int limit) { return  assetDao.find(); }
 
     @Override
     public Integer countAsset() {

@@ -3,6 +3,7 @@ package com.assettagging.spotit.workorder.business.service;
 import com.assettagging.spotit.DexConstants;
 import com.assettagging.spotit.common.business.service.CommonServiceImpl;
 import com.assettagging.spotit.core.domain.DexFlowState;
+import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 import com.assettagging.spotit.security.business.service.SecurityService;
 import com.assettagging.spotit.system.business.service.SystemService;
 import com.assettagging.spotit.workflow.business.service.WorkflowConstants;
@@ -13,6 +14,7 @@ import com.assettagging.spotit.workorder.domain.dao.DexActivityDao;
 import com.assettagging.spotit.workorder.domain.dao.DexWorkOrderDao;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
 
 import org.flowable.task.api.Task;
 import org.slf4j.Logger;
@@ -217,6 +219,19 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     public void removeWorkOrder(DexWorkOrder WorkOrder) {
         workOrderDao.remove(WorkOrder, securityService.getCurrentUser());
         entityManager.flush();
+    }
+
+    @Override
+    public void serializeToWorkOrder(DexMaintenanceRequest request) {
+        DexWorkOrder workOrder  = new DexWorkOrderImpl();
+        workOrder.setAssignee(request.getDelegator());
+        workOrder.setAsset(request.getAsset());
+
+        try {
+            startWorkOrderTask(workOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface DexAssetCodeDao extends GenericDao<Long, DexAssetCode> {
 
-
-    List<DexAssetCode> findAllAssetCodes();
-
-    DexAssetCode findAssetCodeByCode(String code);
+    DexAssetCode findByCode(String code);
 
 }

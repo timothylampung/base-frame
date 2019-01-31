@@ -8,7 +8,7 @@ import java.util.List;
 public interface DexLocationDao extends GenericDao <Long, DexLocation> {
 
 
-  DexLocation findLocationByCode(String code);
+  DexLocation findByCode(String code);
 
   List<DexLocation> findAllLocations();
 

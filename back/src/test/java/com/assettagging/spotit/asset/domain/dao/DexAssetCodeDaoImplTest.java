@@ -1,13 +1,8 @@
 package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.model.DexAsset;
 import com.assettagging.spotit.asset.domain.model.DexAssetCode;
 import com.assettagging.spotit.asset.domain.model.DexAssetCodeImpl;
-import com.assettagging.spotit.asset.domain.model.DexAssetImpl;
-import com.assettagging.spotit.common.domain.dao.DexBankDao;
-import com.assettagging.spotit.common.domain.model.DexBank;
-import com.assettagging.spotit.identity.business.service.IdentityService;
 import com.assettagging.spotit.identity.domain.dao.DexUserDao;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -19,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static org.junit.Assert.*;
 @Transactional
 public class DexAssetCodeDaoImplTest extends AbstractTest {
 
@@ -42,7 +36,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findDexAssetCodeTest() {
-        List<DexAssetCode> assetCodes = dexAssetCodeDao.findAllAssetCodes();
+        List<DexAssetCode> assetCodes = dexAssetCodeDao.find();
         for (DexAssetCode assetCode : assetCodes) {
             LOG.debug("TEST: " + assetCode.getDescription());
         }
@@ -55,7 +49,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findDexAssetCodeByCode() {
         String code = "CODE7958";
-        DexAssetCode DexAssetCodeByCode =  dexAssetCodeDao.findAssetCodeByCode(code);
+        DexAssetCode DexAssetCodeByCode =  dexAssetCodeDao.findByCode(code);
 
         LOG.debug("TEST: " + DexAssetCodeByCode.getDescription());
 
@@ -75,7 +69,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
         dexAssetCodeDao.save(assetCode, getCurrentUser());
 
         entityManager.flush();
-        DexAssetCode savedAssetCode = dexAssetCodeDao.findAssetCodeByCode("CODE7959");
+        DexAssetCode savedAssetCode = dexAssetCodeDao.findByCode("CODE7959");
         LOG.debug("--------------------saved-------------------------- {} ",savedAssetCode.getDescription() );
 
     }

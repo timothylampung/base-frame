@@ -1,3 +1,5 @@
+-- fm1, fm2, staff1, staff2, technician1, technician2, supervisor1, supervisor2
+
 INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
 VALUES (nextval('SQ_DEX_PCPL'), 'root', TRUE, TRUE, 0, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)

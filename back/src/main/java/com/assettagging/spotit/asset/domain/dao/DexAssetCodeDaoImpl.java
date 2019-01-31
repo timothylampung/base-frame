@@ -22,13 +22,7 @@ public class DexAssetCodeDaoImpl extends GenericDaoSupport<Long, DexAssetCode> i
     }
 
     @Override
-    public List<DexAssetCode> findAllAssetCodes() {
-        Query q = entityManager.createQuery("select e from DexAssetCode e ");
-        return q.getResultList();
-    }
-
-    @Override
-    public DexAssetCode findAssetCodeByCode(String code) {
+    public DexAssetCode findByCode(String code) {
         Query q = entityManager.createQuery("select e from DexAssetCode e where " +
                 "e.code =:code").setParameter("code", code);
         return (DexAssetCode) q.getSingleResult();

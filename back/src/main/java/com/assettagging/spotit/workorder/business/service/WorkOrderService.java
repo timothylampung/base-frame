@@ -1,6 +1,7 @@
 package com.assettagging.spotit.workorder.business.service;
 
 import com.assettagging.spotit.core.domain.DexFlowState;
+import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
 
@@ -58,6 +59,8 @@ public interface WorkOrderService {
 
     void removeWorkOrder(DexWorkOrder WorkOrder);
 
+    void serializeToWorkOrder(DexMaintenanceRequest request);
+
 
     DexActivity findActivityById (Long id);
 
@@ -72,4 +75,5 @@ public interface WorkOrderService {
     void updateActivity(DexActivity Activity);
 
     void removeActivity(DexActivity Activity);
+
 }

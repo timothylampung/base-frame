@@ -53,20 +53,20 @@ public class AssetController {
         LOG.debug("findPagedAssets: {}", page);
         Integer count = assetService.countAsset("%");
         List<Asset> assets = assetTransformer.toAssetVos(
-                assetService.findAllAssets("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
+                assetService.findAssets("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
         return new ResponseEntity<AssetResult>(new AssetResult(assets, count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/assets")
     public ResponseEntity<List<Asset>> findAssets() {
         return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
-                assetService.findAllAssets("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+                assetService.findAssets("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/asset/{code}")
     public ResponseEntity<Asset> findAssetByAssetCode(@PathVariable String code) {
         return new ResponseEntity<Asset>(assetTransformer.toAssetVo(
-                assetService.findAssetByAssetCode(code)), HttpStatus.OK);
+                assetService.findAssetByCode(code)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/assets/{location}") // one location have many assets no One asset
@@ -94,7 +94,7 @@ public class AssetController {
 
     @DeleteMapping(value = "/asset/{code}")
     public ResponseEntity<String> removeAsset(@PathVariable String code) {
-        DexAsset asset = assetService.findAssetByAssetCode(code);
+        DexAsset asset = assetService.findAssetByCode(code);
         assetService.removeAsset(asset);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }

@@ -29,7 +29,7 @@ public class DexLocationDaoImpl extends GenericDaoSupport<Long, DexLocation> imp
     }
 
     @Override
-    public DexLocation findLocationByCode(String code) {
+    public DexLocation findByCode(String code) {
         Query q = entityManager.createQuery("select e from DexLocation e where e.code =:code")
                 .setParameter("code",code);
         return (DexLocation) q.getSingleResult();

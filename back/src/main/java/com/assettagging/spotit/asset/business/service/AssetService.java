@@ -13,7 +13,7 @@ public interface AssetService {
 
     DexAssetCode findAssetCodeById(Long id);
 
-    DexAssetCode findAssetCodeByCode(String code);
+    DexAssetCode findByCode(String code);
 
     List<DexAssetCode> findAssetCodes(String filter, Integer offset, Integer limit);
 
@@ -51,7 +51,7 @@ public interface AssetService {
 
     DexAsset findAssetById(Long id);
 
-    DexAsset findAssetByAssetCode(String code);
+    DexAsset findAssetByCode(String code);
 
     List<DexAsset> findAssetsByLocation(DexLocation location);
 
@@ -65,5 +65,5 @@ public interface AssetService {
 
     void removeAsset(DexAsset asset);
 
-    List<DexAsset> findAllAssets(String s, int i, int limit);
+    List<DexAsset> findAssets(String s, int i, int limit);
 }

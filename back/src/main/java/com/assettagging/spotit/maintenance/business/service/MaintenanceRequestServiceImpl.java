@@ -2,7 +2,6 @@ package com.assettagging.spotit.maintenance.business.service;
 
 import com.assettagging.spotit.DexConstants;
 import com.assettagging.spotit.asset.domain.model.DexLocation;
-import com.assettagging.spotit.common.business.service.CommonServiceImpl;
 import com.assettagging.spotit.core.domain.DexFlowState;
 import com.assettagging.spotit.identity.domain.model.DexActor;
 import com.assettagging.spotit.identity.domain.model.DexUser;
@@ -14,8 +13,7 @@ import com.assettagging.spotit.security.business.service.SecurityService;
 import com.assettagging.spotit.system.business.service.SystemService;
 import com.assettagging.spotit.workflow.business.service.WorkflowConstants;
 import com.assettagging.spotit.workflow.business.service.WorkflowService;
-import com.assettagging.spotit.workorder.business.event.WorkOrderCancelledEvent;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+
 import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +66,7 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
 
     @Override
     public DexMaintenanceRequest findMaintenanceRequestByCode(String code) {
-        return maintenanceRequestDao.findByCode(code);
+        return maintenanceRequestDao.findByReferenceNo(code);
     }
 
     @Override

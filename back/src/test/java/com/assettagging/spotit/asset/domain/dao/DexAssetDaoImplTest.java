@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class DexAssetDaoImplTest extends AbstractTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(DexLocationDaoImplTest.class);
@@ -38,7 +36,7 @@ public class DexAssetDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findAllAssets() {
-        List<DexAsset> assets = dexAssetDao.findAllAssets();
+        List<DexAsset> assets = dexAssetDao.find();
         for (DexAsset asset : assets) {
             LOG.debug("TEST: " + asset.getDescription());
         }
@@ -49,7 +47,7 @@ public class DexAssetDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findDexAssetByCode() {
         String code = "CODE7956";
-        DexAsset DexAssetByCode =  dexAssetDao.findAssetByAssetCode(code);
+        DexAsset DexAssetByCode =  dexAssetDao.findByCode(code);
 
         LOG.debug("TEST: " + DexAssetByCode.getDescription());
 
@@ -67,15 +65,15 @@ public class DexAssetDaoImplTest extends AbstractTest {
         dexAssetDao.save(asset, getCurrentUser());
 
         entityManager.flush();
-        DexAsset savedAsset = dexAssetDao.findAssetByAssetCode("CODE7957");
+        DexAsset savedAsset = dexAssetDao.findByCode("CODE7957");
         LOG.debug("--------------------saved-------------------------- {} ",savedAsset.getDescription() );
 
     }
 //    @Test
-//    public void findAssetByLocation() {
+//    public void findByLocation() {
 //
 //        int location = 1;
-//        List<DexAsset> daoAssetsByLocation = dexAssetDao.findAssetByLocation(location);
+//        List<DexAsset> daoAssetsByLocation = dexAssetDao.findByLocation(location);
 //        for (DexAsset daoAssetByLocation : daoAssetsByLocation) {
 //            LOG.debug("TEST: " + daoAssetByLocation.getDescription());
 //

@@ -29,9 +29,9 @@ public class MaintenanceServiceImplTest extends AbstractTest {
 //    private AssetService assetService;
 //
 //    @Test
-//    public void findAllMaintenanceRequest() {
+//    public void find() {
 //
-//        List<DexMaintenanceRequest> maintenanceRequests = maintenanceService.findAllMaintenanceRequest();
+//        List<DexMaintenanceRequest> maintenanceRequests = maintenanceService.find();
 //
 //    }
 //
@@ -44,12 +44,12 @@ public class MaintenanceServiceImplTest extends AbstractTest {
 //        location.setDescription("DESC");
 //        location.setName("TEST ADDRESS NAME");
 //        assetService.saveLocation(location);
-//        DexLocation savedLocation = assetService.findLocationByCode("Code123123213");
+//        DexLocation savedLocation = assetService.findByCode("Code123123213");
 //
 //        DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
 //        request.setDescription("description");
 //        maintenanceService.submitMaintenanceRequest(request, savedLocation);
-//        List<DexMaintenanceRequest> requests = maintenanceService.findAllMaintenanceRequest();
+//        List<DexMaintenanceRequest> requests = maintenanceService.find();
 //        for(DexMaintenanceRequest maintenanceRequest : requests){
 //                    LOG.debug("----------------------maintenance request location code : ------------------------ {} ",maintenanceRequest.getLocation().getCode());
 //                    LOG.debug("----------------------maintenance request requestor email :------------------------ {} ",maintenanceRequest.getRequester().getEmail());
