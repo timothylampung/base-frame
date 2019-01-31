@@ -12,11 +12,13 @@ import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImp
 import com.assettagging.spotit.workorder.business.service.WorkOrderService;
 import com.assettagging.spotit.workorder.business.service.WorkOrderServiceImplTest;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+import org.flowable.task.api.Task;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -57,9 +59,11 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
 
         maintenanceRequestService.startMaintenanceRequestTask(mr);
 
-        Integer task = maintenanceRequestService.countPooledMaintenanceRequestTask("%");
+        List<Task> tasks = maintenanceRequestService.findPooledMaintenanceRequestTasks("com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest:DRAFTED", 0, 1);
 
-        Assert.assertTrue(task > 0);
+        Assert.assertFalse(tasks.isEmpty());
+
+
 
 
     }

@@ -49,7 +49,7 @@ public class MaintenanceRequestHandler implements DocumentHandler<DexMaintenance
     }
 
     @PostConstruct
-    public void deployWorkflow() {
+    public void execute() {
         DeploymentBuilder deployment = repositoryService.createDeployment();
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
 

@@ -185,7 +185,7 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     @Override
     public List<Task> findPooledMaintenanceRequestTasks(String filter, Integer offset, Integer limit) {
         String taskName = DexMaintenanceRequest.class.getCanonicalName() + DELIMITER;
-        return workflowService.findAssignedTasks(filter, taskName, offset, limit);
+        return workflowService.findPooledTasks(filter, taskName, offset, limit);
     }
 
     @Override
@@ -217,7 +217,6 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
         map.put(WorkflowConstants.USER_CREATOR, securityService.getCurrentUser().getName());
         map.put(WorkflowConstants.REFERENCE_NO, request.getReferenceNo());
         map.put(DexConstants.REQUEST_ID, request.getId());
-
         // by default set to false
         map.put(WorkflowConstants.QUERY_DECISION, false);
         map.put(WorkflowConstants.REMOVE_DECISION, false);

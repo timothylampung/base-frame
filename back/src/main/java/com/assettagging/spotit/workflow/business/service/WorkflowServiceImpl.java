@@ -135,10 +135,12 @@ public class WorkflowServiceImpl implements WorkflowService {
      * find task
      */
     public List<Task> findAssignedTasks(String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding assigned task for user: " + securityService.getCurrentUser().getName());
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskNameLike(taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.list();
@@ -148,11 +150,14 @@ public class WorkflowServiceImpl implements WorkflowService {
      * find assigned task
      */
     public List<Task> findAssignedTasks(String taskPrefix, Integer offset, Integer limit) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding assigned task for user: " + securityService.getCurrentUser().getName());
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
+
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.listPage(offset, limit);
@@ -160,24 +165,26 @@ public class WorkflowServiceImpl implements WorkflowService {
 
     @Override
     public List<Task> findAssignedTasks(String filter, String taskPrefix, Integer offset, Integer limit) {
-        LOG.debug("finding assigned task for user: " + securityService.getCurrentUser().getName());
+        String currentUsername = securityService.getCurrentUser().getName();
+        LOG.debug("finding assigned task for user: " + currentUsername);
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
-        // TODO: taskQuery.processVariableValueLike(name, WILDCARD + value + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.listPage(offset, limit);
     }
 
     public List<Task> findAssignedTasks(String name, String value, String taskPrefix, Integer offset, Integer limit) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding assigned task for user: " + securityService.getCurrentUser().getName());
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.processVariableValueLike(name, WILDCARD + value + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.listPage(offset, limit);
@@ -187,6 +194,8 @@ public class WorkflowServiceImpl implements WorkflowService {
      * find pooled task
      */
     public List<Task> findPooledTasks(String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding pooled task for user: " + securityService.getCurrentUser().getName());
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
@@ -201,11 +210,13 @@ public class WorkflowServiceImpl implements WorkflowService {
      * find pooled task
      */
     public List<Task> findPooledTasks(String taskPrefix, Integer offset, Integer limit) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding pooled task for user: " + securityService.getCurrentUser().getName());
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskCandidateUser(securityService.getCurrentUser().getName());
+        taskQuery.taskCandidateUser("["+"GRP_USR"+", "+currentUsername+"]");
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.listPage(offset, limit);
@@ -213,6 +224,8 @@ public class WorkflowServiceImpl implements WorkflowService {
 
     @Override
     public List<Task> findPooledTasks(String filter, String taskPrefix, Integer offset, Integer limit) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding pooled task for user: " + securityService.getCurrentUser().getName());
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
@@ -225,6 +238,8 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     public List<Task> findPooledTasks(String name, String value, String taskPrefix, Integer offset, Integer limit) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         LOG.debug("finding pooled task for user: " + securityService.getCurrentUser().getName());
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
@@ -237,30 +252,38 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     public Integer countAssignedTask(String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
         return (int) taskQuery.count();
     }
 
     @Override
     public Integer countAssignedTask(String filter, String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         TaskQuery taskQuery = taskService.createTaskQuery();
         // TODO: taskQuery.processVariableValueLike(param, WILDCARD + value + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
         return (int) taskQuery.count();
     }
 
     public Integer countAssignedTask(String param, String value, String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.processVariableValueLike(param, WILDCARD + value + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee(securityService.getCurrentUser().getName());
+        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
         return (int) taskQuery.count();
     }
 
     public Integer countPooledTask(String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+        
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
         taskQuery.taskCandidateUser(securityService.getCurrentUser().getName());
@@ -269,6 +292,8 @@ public class WorkflowServiceImpl implements WorkflowService {
 
     @Override
     public Integer countPooledTask(String filter, String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+
         TaskQuery taskQuery = taskService.createTaskQuery();
         // TODO: taskQuery.processVariableValueLike(param, WILDCARD + filter + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
@@ -280,6 +305,8 @@ public class WorkflowServiceImpl implements WorkflowService {
      * count pooled task
      */
     public Integer countPooledTask(String param, String filter, String taskPrefix) {
+        String currentUsername = securityService.getCurrentUser().getName();
+        
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.processVariableValueLike(param, WILDCARD + filter + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);

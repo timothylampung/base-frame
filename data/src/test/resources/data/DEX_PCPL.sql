@@ -75,51 +75,64 @@ INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES
 
 -- GROUP
 
--- GROUP_USER
+-- -- GROUP_USER
+-- ROLE_ADMINISTRATOR, // 0
+-- ROLE_FACILITY_MANAGER,          // 1
+-- ROLE_TECHNICIAN;         // 2
+
 INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL'), 'GRP_USR', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP (ID) VALUES (currval('SQ_DEX_PCPL'));
 INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'), 1, 1, 1, CURRENT_TIMESTAMP);
 
-INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL'), 'GRP_VNDR', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL'), 'GRP_TECH', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP (ID) VALUES (currval('SQ_DEX_PCPL'));
 INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'), 2, 1, 1, CURRENT_TIMESTAMP);
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL'), 'GRP_FM', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID) VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'), 1, 1, 1, CURRENT_TIMESTAMP);
 
 
 -- GROUP ADMIN
 INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL'), 'GRP_ADM', TRUE, TRUE, 1, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP (ID) VALUES (currval('SQ_DEX_PCPL'));
 INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_ADM'), 0, 1, 1, CURRENT_TIMESTAMP);
+
+
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_ADM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'root'), 1, 1, CURRENT_TIMESTAMP);
+
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_ADM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'system'), 1, 1, CURRENT_TIMESTAMP);
 
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_ADM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_ADM'), 1, 1, CURRENT_TIMESTAMP);
+
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_FM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'faridzwan.zainal'), 1, 1, CURRENT_TIMESTAMP);
+
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_FM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'huda.zulkifli'), 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_TECH'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'hafizi.hamid'), 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_TECH'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'fazilah.rosman'), 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_FM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'khairulnizam.latif'), 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_FM'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'fahim.yusof'), 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_TECH'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'ismat.hamdan'), 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_GROP_MMBR (ID, GROUP_ID, PRINCIPAL_ID, M_ST, C_ID, C_TS) VALUES (nextval('SQ_DEX_GROP_MMBR'),
-                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_USR'),
+                                                                                 (SELECT ID FROM DEX_PCPL WHERE NAME = 'GRP_TECH'),
                                                                                  (SELECT ID FROM DEX_PCPL WHERE NAME = 'baizura.basar'), 1, 1, CURRENT_TIMESTAMP);

@@ -293,9 +293,10 @@
 
                                 <!--IDENTITY-->
                                 <srcFile>src/test/resources/data/DEX_ACTR.sql</srcFile>
-                                <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_USER.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_SQNC_GNTR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_LCTN.sql</srcFile>
 
                                 <!--MANAGEMENT-->
 

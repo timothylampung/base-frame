@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class AssetTransformer {
 
 
-    private CoreTransformer coreTransformer;
+   private CoreTransformer coreTransformer;
 
     @Autowired
     public AssetTransformer(CoreTransformer coreTransformer) {

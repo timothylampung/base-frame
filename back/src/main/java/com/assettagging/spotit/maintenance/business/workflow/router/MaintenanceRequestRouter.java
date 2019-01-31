@@ -36,21 +36,23 @@ public class MaintenanceRequestRouter {
     @Autowired
     private TaskService taskService;
 
-    public List<String> findDrafterCandidates(Long requestId) {
+    public List<String> findDrafterAssignee(Long requestId) {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
-
         candidate = "GRP_USR";// todo
-
+        return Arrays.asList(candidate, securityService.getCurrentUser().getUsername());
+    }
+    public List<String> findDrafterCandidates(Long requestId){
+        String candidate = null;
+        Assert.notNull(requestId, "Id must not be null");
+        candidate = "GRP_USR";// todo
         return Arrays.asList(candidate, securityService.getCurrentUser().getUsername());
     }
 
     public List<String> findCheckerCandidates(Long requestId) {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
-
         candidate = "GRP_USR";// todo
-
         return Arrays.asList(candidate);
     }
 
