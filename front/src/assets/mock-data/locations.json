@@ -1,0 +1,47 @@
+{
+    "totalSize" : 23,
+    "data" : [
+        {
+            "code": "LC01",
+            "description": "Location1"
+        },
+        {
+            "code": "LC02",
+            "description": "Location2"
+        },
+        {
+            "code": "LC03",
+            "description": "Location3"
+        },
+        {
+            "code": "LC04",
+            "description": "Location4"
+        },
+        {
+            "code": "LC05",
+            "description": "Location5"
+        },
+        {
+            "code": "LC06",
+            "description": "Location6"
+        },
+        {
+            "code": "LC07",
+            "description": "Location7"
+        },
+        {
+            "code": "LC08",
+            "description": "Location8"
+        },
+        {
+            "code": "LC09",
+            "description": "Location9"
+        },
+
+        {
+            "code": "LC010",
+            "description": "Location10"
+        }
+    ]
+
+}

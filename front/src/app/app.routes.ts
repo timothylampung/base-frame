@@ -17,6 +17,8 @@ import {SupervisorListPage} from "./modules/identity/supervisors/supervisor-list
 import {PositionCodeListPage} from "./modules/common/position-codes/position-code-list.page";
 import {AssetCodeListPage} from "./modules/asset/asset-codes/asset-code-list.page";
 import {TechnicianListPage} from "./modules/identity/technicians/technician-list.page";
+import {LocationListPage} from "./modules/asset/locations/location-list.page";
+import {AssetListPage} from "./modules/asset/assets/asset-list.page";
 import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facility-manager-list.page";
 
 export const routes: Routes = [
@@ -26,12 +28,20 @@ export const routes: Routes = [
         component: AppShellComponent,
         canActivate: [AuthGuard],
         children: [
-            {
-                path: 'asset',
+            {path: 'asset',
                 children: [
                     {
                         path: 'asset-codes/list',
                         component: AssetCodeListPage,
+                    },
+                    {
+                        path: 'locations/list',
+                        component: LocationListPage,
+                    },
+
+                    {
+                        path: 'assets/list',
+                        component: AssetListPage,
                     },
                 ]
             },
