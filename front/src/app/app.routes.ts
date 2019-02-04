@@ -18,6 +18,7 @@ import {PositionCodeListPage} from "./modules/common/position-codes/position-cod
 import {AssetCodeListPage} from "./modules/asset/asset-codes/asset-code-list.page";
 import {TechnicianListPage} from "./modules/identity/technicians/technician-list.page";
 import {LocationListPage} from "./modules/asset/locations/location-list.page";
+import {AssetListPage} from "./modules/asset/assets/asset-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -35,6 +36,11 @@ export const routes: Routes = [
                     {
                         path: 'locations/list',
                         component: LocationListPage,
+                    },
+
+                    {
+                        path: 'assets/list',
+                        component: AssetListPage,
                     },
                 ]
             },

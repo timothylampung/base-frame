@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {LocationResult} from "../modules/asset/locations/location-model";
 import {Location} from "../modules/asset/locations/location-model";
+import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
 
 
 
@@ -79,6 +80,38 @@ export class AssetService {
 
     removeLocation(code: Location) {
         return this.http.delete(this.ASSET_API + '/locations/' + code.code);
+    }
+
+
+    // ===================================================================================================================
+    // Location
+    // ===================================================================================================================
+
+    findPagedAssets(filter: string, page: number): Observable<AssetResult> {
+        return this.http.get<AssetResult>("/assets/mock-data/assets.json",
+            {
+                params: {
+                    filter: filter,
+                    page: page.toString()
+                }
+            }
+        );
+    }
+
+    findAssets(): Observable<Asset[]> {
+        return this.http.get<Asset[]>(this.ASSET_API + '/assets');
+    }
+
+    saveAsset(code: Asset) {
+        return this.http.post(this.ASSET_API + '/assets', JSON.stringify(code));
+    }
+
+    updateAsset(code: Asset) {
+        return this.http.put(this.ASSET_API + '/assets/' + code.code, JSON.stringify(code));
+    }
+
+    removeAsset(code: Asset) {
+        return this.http.delete(this.ASSET_API + '/assets/' + code.code);
     }
 
 }

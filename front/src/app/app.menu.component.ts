@@ -28,12 +28,14 @@ export class AppMenuComponent implements OnInit {
                 label: 'Asset', icon: 'dashboard',
                 items: [
                     {label: 'Asset Codes', routerLink: ['/asset/asset-codes/list']},
+                    {label: 'Asset', routerLink: ['/asset/assets/list']},
 
                 ]
             },
             {label: 'Parts & Inventory', icon: 'dashboard', routerLink: ['/']},
             {
                 label: 'Location', icon: 'dashboard', routerLink: ['/asset/locations/list']
+
             },
             {
                 label: 'People & Team', icon: 'dashboard',

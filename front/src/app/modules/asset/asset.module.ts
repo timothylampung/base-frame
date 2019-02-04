@@ -9,6 +9,8 @@ import {SystemService} from "../../services";
 import {AssetCodeEffects} from "./asset-codes/asset-code.effect";import {AssetCodeListPage} from "./asset-codes/asset-code-list.page";
 import {LocationListPage} from "./locations/location-list.page";
 import {LocationEffects} from "./locations/location-effect";
+import {AssetListPage} from "./assets/asset-list.page";
+import {AssetEffects} from "./assets/asset-effect";
 
 
 @NgModule({
@@ -16,6 +18,7 @@ import {LocationEffects} from "./locations/location-effect";
         SharedModule,
         StoreModule.forFeature(FEATURE_NAME, reducers),
         EffectsModule.forFeature([
+            AssetEffects,
             AssetCodeEffects,
             LocationEffects,
 
@@ -23,6 +26,8 @@ import {LocationEffects} from "./locations/location-effect";
     ],
     declarations: [
 
+
+        AssetListPage,
         AssetCodeListPage,
         LocationListPage,
 
