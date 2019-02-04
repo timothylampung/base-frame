@@ -7,9 +7,12 @@ import {AppShellComponent} from "./app-shell/app-shell.component";
         <div class="topbar clearfix">
             <div class="topbar-left">
                 <div class="logo"></div>
+                <!--<h1>SPOT IT</h1>-->
+                <!--<img height="90px" styles="top left no-repeat; display: inline-block;vertical-align: top; " src="../../assets/img/spotit.png"/>-->
             </div>
 
             <div class="topbar-right">
+         
                 <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)">
                     <i></i>
                 </a>
@@ -27,7 +30,7 @@ import {AppShellComponent} from "./app-shell/app-shell.component";
                         [ngClass]="{'active-top-menu':app.activeTopbarItem === profile}">
 
                         <a href="#" (click)="app.onTopbarItemClick($event,profile)">
-                            <img class="profile-image" src="assets/layout/images/avatar.png" />
+                            <img class="profile-image" src="assets/layout/images/avatar.png"/>
                             <span class="topbar-item-name">Jane Williams</span>
                         </a>
 
