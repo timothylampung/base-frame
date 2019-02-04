@@ -18,6 +18,8 @@ import {PositionCodeAutocompleteComponent} from "../common/position-codes/positi
 import {AssetCodeEffects} from "./asset-codes/asset-code.effect";
 import {AccountCodeAutocompleteComponent} from "../common/account-codes/account-code-autocomplete.component";
 import {AssetCodeListPage} from "./asset-codes/asset-code-list.page";
+import {LocationListPage} from "./locations/location-list.page";
+import {LocationEffects} from "./locations/location-effect";
 
 
 @NgModule({
@@ -26,12 +28,14 @@ import {AssetCodeListPage} from "./asset-codes/asset-code-list.page";
         StoreModule.forFeature(FEATURE_NAME, reducers),
         EffectsModule.forFeature([
             AssetCodeEffects,
+            LocationEffects,
 
         ])
     ],
     declarations: [
 
         AssetCodeListPage,
+        LocationListPage,
 
     ],
     exports: [

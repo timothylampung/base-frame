@@ -3,6 +3,9 @@ import {Injectable} from "@angular/core";
 import {AssetCode, AssetCodeResult} from "../modules/asset/asset-codes/asset-code-model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {LocationResult} from "../modules/asset/locations/location-model";
+import {Location} from "../modules/asset/locations/location-model";
+
 
 
 @Injectable()
@@ -43,6 +46,39 @@ export class AssetService {
 
     removeAssetCode(code: AssetCode) {
         return this.http.delete(this.ASSET_API + '/asset-codes/' + code.code);
+    }
+
+
+
+    // ===================================================================================================================
+    // Location
+    // ===================================================================================================================
+
+    findPagedLocations(filter: string, page: number): Observable<LocationResult> {
+        return this.http.get<LocationResult>("/assets/mock-data/locations.json",
+            {
+                params: {
+                    filter: filter,
+                    page: page.toString()
+                }
+            }
+        );
+    }
+
+    findLocations(): Observable<Location[]> {
+        return this.http.get<Location[]>(this.ASSET_API + '/locations');
+    }
+
+    saveLocation(code: Location) {
+        return this.http.post(this.ASSET_API + '/locations', JSON.stringify(code));
+    }
+
+    updateLocation(code: Location) {
+        return this.http.put(this.ASSET_API + '/locations/' + code.code, JSON.stringify(code));
+    }
+
+    removeLocation(code: Location) {
+        return this.http.delete(this.ASSET_API + '/locations/' + code.code);
     }
 
 }

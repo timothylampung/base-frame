@@ -33,7 +33,7 @@ export class AppMenuComponent implements OnInit {
             },
             {label: 'Parts & Inventory', icon: 'dashboard', routerLink: ['/']},
             {
-                label: 'Location', icon: 'dashboard', routerLink: ['/']
+                label: 'Location', icon: 'dashboard', routerLink: ['/asset/locations/list']
             },
             {
                 label: 'People & Team', icon: 'dashboard',
