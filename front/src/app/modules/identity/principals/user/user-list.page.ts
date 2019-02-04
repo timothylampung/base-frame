@@ -5,9 +5,10 @@ import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "./user.model";
 import {BreadcrumbService} from "../../../../breadcrumb.service";
-import {IdentityState} from "../../identity.state";
-import {selectUsers} from "./user.selector";
+import {IdentityState, selectIdentityState} from "../../identity.state";
+import {selectUserResultState, selectUsers} from "./user.selector";
 import {FindPagedUsersAction} from "./user.action";
+import {UserResult} from "./user-result.model";
 
 @Component({
     selector: 'cng-user-list-page',
@@ -15,7 +16,7 @@ import {FindPagedUsersAction} from "./user.action";
 })
 export class UserListPage implements OnInit {
 
-    users$: Observable<User[]>;
+    users$: Observable<UserResult>;
     searchForm: FormGroup;
     title = 'Users';
     cols = [
@@ -29,7 +30,7 @@ export class UserListPage implements OnInit {
                 public store: Store<IdentityState>,
                 public route: ActivatedRoute,
                 public router: Router) {
-        this.users$ = this.store.pipe(select(selectUsers));
+        this.users$ = this.store.pipe(select(selectUserResultState));
     }
 
     ngOnInit() {
@@ -38,6 +39,11 @@ export class UserListPage implements OnInit {
 
     search() {
         this.store.dispatch(new FindPagedUsersAction({filter: this.searchQuery, page: 1}));
+    }
+
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedUsersAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }
 

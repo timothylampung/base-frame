@@ -5,7 +5,7 @@
                 <h1>{{title}}</h1>
                 <div class="ui-g-12">
                     <div class="ui-g-1">
-                        <label for="keyword">Carian</label>
+                        <label for="keyword">Search</label>
                     </div>
                     <div class="ui-g-6">
                         <input [(ngModel)]="searchQuery" pInputText type="text" name="keyword" id="keyword">
@@ -21,7 +21,7 @@
         <div class="card card-w-title">
             <p-table #dt
                      [columns]="cols"
-                     [value]="users$ | async"
+                     [value]="(users$ | async).data"
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -41,5 +41,6 @@
                 </ng-template>
             </p-table>
         </div>
+        <p-paginator (onPageChange)="page($event)" [rows]="10" [totalRecords]="(users$ | async).totalSize"></p-paginator>
     </div>
 </div>
