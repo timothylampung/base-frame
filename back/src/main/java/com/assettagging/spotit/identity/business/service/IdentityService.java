@@ -69,7 +69,9 @@ public interface IdentityService {
 
     DexGroup findGroupById(Long id);
 
-    List<DexGroup> findGroups(Integer offset, Integer limit);
+    List<DexGroup> findGroups();
+
+    List<DexGroup> findGroups(String filter, Integer offset, Integer limit);
 
     List<DexGroup> findImmediateGroups(DexPrincipal principal);
 
@@ -90,6 +92,8 @@ public interface IdentityService {
     List<DexPrincipal> findGroupMembers(DexGroup group, Integer offset, Integer limit);
 
     Integer countGroup();
+
+    Integer countGroup(String filter);
 
     Integer countGroupMember(DexGroup group);
 
@@ -117,6 +121,8 @@ public interface IdentityService {
 
     DexStaff findStaffByCode(String code);
 
+    List<DexStaff> findStaffs(String filter, Integer offset, Integer limit);
+
     List<DexStaff> findStaffs(Integer offset, Integer limit);
 
     Integer countStaff();
@@ -137,11 +143,13 @@ public interface IdentityService {
 
     DexFacilityManager findFacilityManagerByCode(String code);
 
-    List<DexFacilityManager> findFacilityManagers(Integer offset, Integer limit);
+    List<DexFacilityManager> findFacilityManagers();
 
-    Integer countFacilityManager();
+    List<DexFacilityManager> findFacilityManagers(String filter, Integer offset, Integer limit);
 
-    Integer countFacilityManager(String filter);
+    Integer count();
+
+    Integer count(String filter);
 
     void saveFacilityManager(DexFacilityManager facilityManager);
 
@@ -158,6 +166,8 @@ public interface IdentityService {
     DexSupervisor findSupervisorByCode(String code);
 
     List<DexSupervisor> findSupervisors(Integer offset, Integer limit);
+
+    List<DexSupervisor> findSupervisors(String filter, Integer offset, Integer limit);
 
     Integer countSupervisor();
 

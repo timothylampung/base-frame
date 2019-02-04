@@ -74,10 +74,10 @@ public class IdentityController {
     // USER
     //==============================================================================================
 
-    @GetMapping(value = "/users", params = {"page"})
-    public ResponseEntity<UserResult> findPagedUsers(@RequestParam Integer page) {
-        Integer count = identityService.countUser("%");
-        List<DexUser> users = identityService.findUsers("%", (page - 1) * LIMIT, LIMIT);
+    @GetMapping(value = "/users", params = {"page", "filter"})
+    public ResponseEntity<UserResult> findPagedUsers(@RequestParam String filter, @RequestParam Integer page) {
+        Integer count = identityService.countUser(filter);
+        List<DexUser> users = identityService.findUsers(filter, (page - 1) * LIMIT, LIMIT);
         return new ResponseEntity<UserResult>(new UserResult(
                 identityTransformer.toUserVos(users),
                 count
@@ -140,21 +140,17 @@ public class IdentityController {
     // GROUP
     //==============================================================================================
 
-    @GetMapping(value = "/groups", params = {"page"})
-    public ResponseEntity<GroupResult> findPagedGroups(@RequestParam Integer page) {
-        Integer count = identityService.countGroup();
-        List<DexGroup> groups = identityService.findGroups((page - 1) * LIMIT, LIMIT);
-        return new ResponseEntity<GroupResult>(
-                new GroupResult(
-                        identityTransformer.toGroupVos(groups),
-                        count
-                ), HttpStatus.OK);
+    @GetMapping(value = "/groups", params = {"page", "filter"})
+    public ResponseEntity<GroupResult> findPagedGroups(@RequestParam Integer page, @RequestParam String filter) {
+        Integer count = identityService.countGroup(filter);
+        List<DexGroup> groups = identityService.findGroups(filter, (page - 1) * LIMIT, LIMIT);
+        return new ResponseEntity<GroupResult>(new GroupResult(identityTransformer.toGroupVos(groups), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/groups")
     public ResponseEntity<List<Group>> findGroups() {
         return new ResponseEntity<List<Group>>(identityTransformer.toGroupVos(
-                identityService.findGroups(0, Integer.MAX_VALUE)), HttpStatus.OK);
+                identityService.findGroups()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/group/{name}")
@@ -222,10 +218,10 @@ public class IdentityController {
     // STAFF
     // =============================================================================================
 
-    @GetMapping(value = "/staffs", params = {"page"})
-    public ResponseEntity<StaffResult> findPagedStaffs(@RequestParam Integer page) {
-        Integer count = identityService.countStaff();
-        List<DexStaff> staffs = identityService.findStaffs((page - 1) * LIMIT, LIMIT);
+    @GetMapping(value = "/staffs", params = {"page", "filter"})
+    public ResponseEntity<StaffResult> findPagedStaffs(@RequestParam Integer page, @RequestParam String filter) {
+        Integer count = identityService.countStaff(filter);
+        List<DexStaff> staffs = identityService.findStaffs(filter, (page - 1) * LIMIT, LIMIT);
         return new ResponseEntity<StaffResult>(
                 new StaffResult(
                         identityTransformer.toStaffsVos(staffs),
@@ -299,10 +295,10 @@ public class IdentityController {
     // FACILITY MANAGER
     // =============================================================================================
 
-    @GetMapping(value = "/facility-managers", params = {"page"})
-    public ResponseEntity<FacilityManagerResult> findPagedFacilityManagers(@RequestParam Integer page) {
-        Integer count = identityService.countFacilityManager();
-        List<DexFacilityManager> facilityManagers = identityService.findFacilityManagers((page - 1) * LIMIT, LIMIT);
+    @GetMapping(value = "/facility-managers", params = {"page", "filter"})
+    public ResponseEntity<FacilityManagerResult> findPagedFacilityManagers(@RequestParam Integer page, @RequestParam String filter) {
+        Integer count = identityService.count(filter);
+        List<DexFacilityManager> facilityManagers = identityService.findFacilityManagers(filter, (page - 1) * LIMIT, LIMIT);
         return new ResponseEntity<FacilityManagerResult>(
                 new FacilityManagerResult(
                         identityTransformer.toFacilityManagersVos(facilityManagers),
@@ -313,7 +309,7 @@ public class IdentityController {
     @GetMapping(value = "/facility-managers")
     public ResponseEntity<List<FacilityManager>> findFacilityManagers() {
         return new ResponseEntity<List<FacilityManager>>(identityTransformer.toFacilityManagersVos(
-                identityService.findFacilityManagers(0, Integer.MAX_VALUE)), HttpStatus.OK);
+                identityService.findFacilityManagers()), HttpStatus.OK);
     }
 
 //    @GetMapping(value = "/facility-manager/{identityNo}")
@@ -370,10 +366,10 @@ public class IdentityController {
     // SUPERVISOR
     // =============================================================================================
 
-    @GetMapping(value = "/supervisors", params = {"page"})
-    public ResponseEntity<SupervisorResult> findPagedSupervisors(@RequestParam Integer page) {
-        Integer count = identityService.countSupervisor();
-        List<DexSupervisor> supervisors = identityService.findSupervisors((page - 1) * LIMIT, LIMIT);
+    @GetMapping(value = "/supervisors", params = {"page", "filter"})
+    public ResponseEntity<SupervisorResult> findPagedSupervisors(@RequestParam Integer page, @RequestParam String filter) {
+        Integer count = identityService.countSupervisor(filter);
+        List<DexSupervisor> supervisors = identityService.findSupervisors(filter, (page - 1) * LIMIT, LIMIT);
         return new ResponseEntity<SupervisorResult>(
                 new SupervisorResult(
                         identityTransformer.toSupervisorsVos(supervisors),

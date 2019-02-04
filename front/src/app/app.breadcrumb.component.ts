@@ -48,7 +48,6 @@ export class AppBreadcrumbComponent implements OnDestroy {
 
 
     private parseRoute(node: ActivatedRouteSnapshot) {
-        console.log(node)
         if (node.data['breadcrumb']) {
             if(node.url.length){
                 let urlSegments: UrlSegment[] = [];
