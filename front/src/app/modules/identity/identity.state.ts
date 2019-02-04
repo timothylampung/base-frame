@@ -7,10 +7,12 @@ import {groupResultReducer} from './principals/groups/group.reducer';
 import {GroupResult} from './principals/group-result.model';
 import {staffResultReducer, staffsReducer} from "./staffs/staff.reducer";
 import {Staff, StaffResult} from "./staffs/staff.model";
-import {Beneficiary, BeneficiaryResult} from "./beneficiary/beneficiary.model";
-import {beneficiariesReducer, beneficiaryResultReducer} from "./beneficiary/beneficiary.reducer";
 import {Technician, TechnicianResult} from "./technicians/technician.model";
 import {technicianResultReducer, techniciansReducer} from "./technicians/technician.reducer";
+import {FacilityManager, FacilityManagerResult} from "./facilitymanager/facility-manager.model";
+import {facilityManagerResultReducer, facilityManagersReducer} from "./facilitymanager/facility-manager.reducer";
+import {supervisorResultReducer, supervisorsReducer} from "./supervisors/supervisor.reducer";
+import {Supervisor, SupervisorResult} from "./supervisors/supervisor.model";
 
 
 export const FEATURE_NAME = 'identity';
@@ -26,9 +28,10 @@ export const reducers: ActionReducerMap<IdentityState> = {
     staffs: staffsReducer,
     technicianResult: technicianResultReducer,
     technicians: techniciansReducer,
-    beneficiaryResult: beneficiaryResultReducer,
-    beneficiaries: beneficiariesReducer,
-
+    facilityManagerResult: facilityManagerResultReducer,
+    facilityManagers: facilityManagersReducer,
+    supervisorResult: supervisorResultReducer,
+    supervisors: supervisorsReducer,
 };
 
 export interface IdentityState {
@@ -37,10 +40,12 @@ export interface IdentityState {
     groupResult: GroupResult;
     staffResult: StaffResult;
     staffs: Staff[];
-    beneficiaryResult: BeneficiaryResult;
-    beneficiaries: Beneficiary[];
+    supervisorResult: SupervisorResult;
+    supervisors: Supervisor[];
     technicianResult: TechnicianResult,
-    technicians: Technician[],
+    technicians: Technician[],   
+    facilityManagerResult: FacilityManagerResult,
+    facilityManagers: FacilityManager[],
 }
 
 export interface State extends AppState {

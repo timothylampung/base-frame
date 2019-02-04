@@ -18,23 +18,17 @@ export class StaffListPage implements OnInit {
 
     staffs$: Observable<Staff[]>;
     searchForm: FormGroup;
-    title = 'Senarai Kakitangan';
+    title = 'Staffs';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
     ];
-    breadcrumbs = [
-        {label: 'Pengurusan'},
-        {label: 'Senarai Kakitangan', routerLink: ['/administration/staffs/list']}
-    ];
 
-    constructor(public breadcrumbService: BreadcrumbService,
-                public fb: FormBuilder,
+    constructor(public fb: FormBuilder,
                 public store: Store<IdentityState>,
                 public route: ActivatedRoute,
                 public router: Router) {
 
-        this.breadcrumbService.setItems(this.breadcrumbs);
         this.staffs$ = this.store.pipe(select(selectStaffs));
     }
 

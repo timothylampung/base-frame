@@ -10,10 +10,12 @@ import {GroupListPage} from './principals/groups/group-list.page';
 import {GroupEffect} from './principals/groups/group.effect';
 import {StaffListPage} from "./staffs/staff-list.page";
 import {StaffEffects} from "./staffs/staff.effect";
-import {BeneficiaryListPage} from "./beneficiary/beneficiary-list.page";
-import {BeneficiaryEffects} from "./beneficiary/beneficiary.effect";
+import {SupervisorListPage} from "./supervisors/supervisor-list.page";
 import {TechnicianListPage} from "./technicians/technician-list.page";
 import {TechnicianEffects} from "./technicians/technician.effect";
+import {FacilityManagerListPage} from "./facilitymanager/facility-manager-list.page";
+import {FacilityManagerEffects} from "./facilitymanager/facility-manager.effect";
+import {SupervisorEffects} from "./supervisors/supervisor.effect";
 
 
 
@@ -26,7 +28,8 @@ import {TechnicianEffects} from "./technicians/technician.effect";
             GroupEffect,
             StaffEffects,
             TechnicianEffects,
-            BeneficiaryEffects,
+            FacilityManagerEffects,
+            SupervisorEffects,
         ])
     ],
     declarations: [
@@ -34,8 +37,9 @@ import {TechnicianEffects} from "./technicians/technician.effect";
         GroupListPage,
         StaffListPage,
         GroupListPage,
-        BeneficiaryListPage,
-        TechnicianListPage
+        SupervisorListPage,
+        TechnicianListPage,
+        FacilityManagerListPage
     ],
     exports: [
 

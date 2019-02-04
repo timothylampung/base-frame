@@ -23,7 +23,7 @@
         <div class="card card-w-title">
             <p-table #dt
                      [columns]="cols"
-                     [value]="staffs$ | async"
+                     [value]="facilityManagers$ | async"
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>

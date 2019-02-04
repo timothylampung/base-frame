@@ -13,10 +13,11 @@ import {GroupListPage} from './modules/identity/principals/groups/group-list.pag
 import {CostCenterListPage} from "./modules/common/cost-center/cost-center-list.page";
 import {BankCodeListPage} from "./modules/common/bank-codes/bank-code-list.page";
 import {StaffListPage} from "./modules/identity/staffs/staff-list.page";
-import {BeneficiaryListPage} from "./modules/identity/beneficiary/beneficiary-list.page";
+import {SupervisorListPage} from "./modules/identity/supervisors/supervisor-list.page";
 import {PositionCodeListPage} from "./modules/common/position-codes/position-code-list.page";
 import {AssetCodeListPage} from "./modules/asset/asset-codes/asset-code-list.page";
 import {TechnicianListPage} from "./modules/identity/technicians/technician-list.page";
+import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facility-manager-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -25,7 +26,8 @@ export const routes: Routes = [
         component: AppShellComponent,
         canActivate: [AuthGuard],
         children: [
-            {path: 'asset',
+            {
+                path: 'asset',
                 children: [
                     {
                         path: 'asset-codes/list',
@@ -39,14 +41,43 @@ export const routes: Routes = [
                     {
                         path: 'staffs/list',
                         component: StaffListPage,
-                    } ,
+                        data: {
+                            breadcrumb: [
+                                {label: 'administration', routerLink: null},
+                                {label: 'staffs', routerLink: ['/administration/staffs/list']}
+                            ]
+                        }
+
+                    },
                     {
                         path: 'technicians/list',
                         component: TechnicianListPage,
+                        data: {
+                            breadcrumb: [
+                                {label: 'administration', routerLink: null},
+                                {label: 'technicians', routerLink: ['/administration/technicians/list']}
+                            ]
+                        }
                     },
                     {
-                        path: 'beneficiaries/list',
-                        component: BeneficiaryListPage,
+                        path: 'facility-managers/list',
+                        component: FacilityManagerListPage,
+                        data: {
+                            breadcrumb: [
+                                {label: 'administration', routerLink: null},
+                                {label: 'facility-managers', routerLink: ['/administration/facility-managers/list']}
+                            ]
+                        }
+                    },
+                    {
+                        path: 'supervisors/list',
+                        component: SupervisorListPage,
+                        data: {
+                            breadcrumb: [
+                                {label: 'administration', routerLink: null},
+                                {label: 'supervisors', routerLink: ['/administration/supervisors/list']}
+                            ]
+                        }
                     },
                     {
                         path: 'users/list',
@@ -92,13 +123,14 @@ export const routes: Routes = [
         ]
     },
 
-    {path: 'asset',
+    {
+        path: 'asset',
         children: [
             {
                 path: 'asset-codes/list',
                 component: AssetCodeListPage,
             },
-            ]
+        ]
     },
 
     {path: '**', component: NotFoundPage}

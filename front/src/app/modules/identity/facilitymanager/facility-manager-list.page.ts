@@ -3,21 +3,21 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {selectTechnicians} from './technician.selector';
 import {BreadcrumbService} from '../../../breadcrumb.service';
-import {FindPagedTechniciansAction} from './technician.action';
-import {Technician} from "./technician.model";
 import {IdentityState} from "../identity.state";
+import {selectFacilityManagers} from "./facility-manager.selector";
+import {FindPagedFacilityManagersAction} from "./facility-manager.action";
+import {FacilityManager} from "./facility-manager.model";
 
 @Component({
-    selector: 'cng-technician-list-page',
-    templateUrl: './technician-list.page.html'
+    selector: 'cng-facility-Manager-list-page',
+    templateUrl: './facility-manager-list.page.html'
 })
-export class TechnicianListPage implements OnInit {
+export class FacilityManagerListPage implements OnInit {
 
-    technicians$: Observable<Technician[]>;
+    facilityManagers$: Observable<FacilityManager[]>;
     searchForm: FormGroup;
-    title = 'Technicians';
+    title = 'Facility Managers';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -28,7 +28,7 @@ export class TechnicianListPage implements OnInit {
                 public store: Store<IdentityState>,
                 public route: ActivatedRoute,
                 public router: Router) {
-        this.technicians$ = this.store.pipe(select(selectTechnicians));
+        this.facilityManagers$ = this.store.pipe(select(selectFacilityManagers));
     }
 
     ngOnInit() {
@@ -36,11 +36,11 @@ export class TechnicianListPage implements OnInit {
             'keyword': [''],
         });
 
-        this.store.dispatch(new FindPagedTechniciansAction({filter: '%', page: 1}));
+        this.store.dispatch(new FindPagedFacilityManagersAction({filter: '%', page: 1}));
     }
 
     search() {
-        this.store.dispatch(new FindPagedTechniciansAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedFacilityManagersAction({filter: this.searchForm.value.keyword, page: 1}));
     }
 }
 

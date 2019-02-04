@@ -41,8 +41,8 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Teams', routerLink: ['/']},
                     {label: 'Staffs', routerLink: ['/administration/staffs/list']},
                     {label: 'Technicians', routerLink: ['/administration/technicians/list']},
-                    {label: 'Facility Managers', routerLink: ['/']},
-                    {label: 'Supervisors', routerLink: ['/']},
+                    {label: 'Facility Managers', routerLink: ['/administration/facility-managers/list']},
+                    {label: 'Supervisors', routerLink: ['/administration/supervisors/list']},
 
                 ]
             }

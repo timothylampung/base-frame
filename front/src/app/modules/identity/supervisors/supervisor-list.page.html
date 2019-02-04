@@ -5,7 +5,7 @@
                 <h1>{{title}}</h1>
                 <div class="ui-g-12">
                     <div class="ui-g-1">
-                        <label for="keyword">Carian</label>
+                        <label for="keyword">Search</label>
                     </div>
                     <div class="ui-g-6">
                         <input pInputText type="text" name="keyword" id="keyword">
@@ -21,7 +21,7 @@
         <div class="card card-w-title">
             <p-table #dt
                      [columns]="cols"
-                     [value]="beneficiaries$ | async"
+                     [value]="supervisors$ | async"
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -35,7 +35,7 @@
                             {{rowData?.code}}
                         </td>
                         <td>
-                            {{rowData?.description}}
+                            {{rowData?.email}}
                         </td>
                     </tr>
                 </ng-template>
