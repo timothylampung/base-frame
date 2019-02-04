@@ -17,35 +17,27 @@ export class UserListPage implements OnInit {
 
     users$: Observable<User[]>;
     searchForm: FormGroup;
-    title = 'User List';
+    title = 'Users';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
     ];
-    breadcrumbs = [
-        {label: 'Pengurusan'},
-        {label: 'Pengguna', routerLink: ['/administration/users/list']}
-    ];
+    searchQuery : string = '';
 
-    constructor(public breadcrumbService: BreadcrumbService,
-                public fb: FormBuilder,
+
+    constructor(public fb: FormBuilder,
                 public store: Store<IdentityState>,
                 public route: ActivatedRoute,
                 public router: Router) {
-        this.breadcrumbService.setItems(this.breadcrumbs);
         this.users$ = this.store.pipe(select(selectUsers));
     }
 
     ngOnInit() {
-        this.searchForm = this.fb.group({
-            'keyword': [''],
-        });
-
-        this.store.dispatch(new FindPagedUsersAction({filter: '', page: 1}));
+        this.search();
     }
 
     search() {
-        this.store.dispatch(new FindPagedUsersAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedUsersAction({filter: this.searchQuery, page: 1}));
     }
 }
 

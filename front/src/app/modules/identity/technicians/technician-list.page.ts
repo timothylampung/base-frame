@@ -17,6 +17,7 @@ export class TechnicianListPage implements OnInit {
 
     technicians$: Observable<Technician[]>;
     searchForm: FormGroup;
+    searchQuery: string = '';
     title = 'Technicians';
     cols = [
         {field: 'key', header: 'Key'},
@@ -35,12 +36,11 @@ export class TechnicianListPage implements OnInit {
         this.searchForm = this.fb.group({
             'keyword': [''],
         });
-
-        this.store.dispatch(new FindPagedTechniciansAction({filter: '%', page: 1}));
+    this.search();
     }
 
     search() {
-        this.store.dispatch(new FindPagedTechniciansAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedTechniciansAction({filter: this.searchQuery, page: 1}));
     }
 }
 

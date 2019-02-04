@@ -18,6 +18,7 @@ export class StaffListPage implements OnInit {
 
     staffs$: Observable<Staff[]>;
     searchForm: FormGroup;
+    searchQuery :string ='';
     title = 'Staffs';
     cols = [
         {field: 'key', header: 'Key'},
@@ -36,12 +37,11 @@ export class StaffListPage implements OnInit {
         this.searchForm = this.fb.group({
             'keyword': [''],
         });
-
-        this.store.dispatch(new FindPagedStaffsAction({filter: '', page: 1}));
+        this.search();
     }
 
     search() {
-        this.store.dispatch(new FindPagedStaffsAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedStaffsAction({filter: this.searchQuery, page: 1}));
     }
 }
 

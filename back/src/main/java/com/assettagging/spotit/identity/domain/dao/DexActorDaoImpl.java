@@ -5,6 +5,8 @@ import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import com.assettagging.spotit.identity.domain.model.DexActor;
 import com.assettagging.spotit.identity.domain.model.DexActorImpl;
 import com.assettagging.spotit.identity.domain.model.DexActorType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -15,6 +17,8 @@ import java.util.List;
  */
 @Repository("actorDao")
 public class DexActorDaoImpl extends GenericDaoSupport<Long, DexActor> implements DexActorDao {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DexActorDaoImpl.class);
 
     public DexActorDaoImpl() {
         super(DexActorImpl.class);

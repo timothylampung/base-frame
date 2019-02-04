@@ -54,7 +54,6 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
 
-
     //==============================================================================================
     // PRINCIPAL
     //==============================================================================================
@@ -216,8 +215,13 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-    public List<DexGroup> findGroups(Integer offset, Integer limit) {
-        return groupDao.find(offset, limit);
+    public List<DexGroup> findGroups() {
+        return groupDao.findAll();
+    }
+
+    @Override
+    public List<DexGroup> findGroups(String filter, Integer offset, Integer limit) {
+        return groupDao.find(filter, offset, limit);
     }
 
     @Override
@@ -273,6 +277,11 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public Integer countGroup() {
+        return groupDao.count();
+    }
+
+    @Override
+    public Integer countGroup(String filter) {
         return groupDao.count();
     }
 
@@ -356,6 +365,11 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public List<DexStaff> findStaffs(String filter, Integer offset, Integer limit) {
+        return staffDao.find(filter, offset, limit);
+    }
+
+    @Override
     public List<DexStaff> findStaffs(Integer offset, Integer limit) {
         return staffDao.find(offset, limit);
     }
@@ -403,17 +417,22 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
-    public List<DexFacilityManager> findFacilityManagers(Integer offset, Integer limit) {
-        return facilityManagerDao.find(offset, limit);
+    public List<DexFacilityManager> findFacilityManagers() {
+        return facilityManagerDao.find();
     }
 
     @Override
-    public Integer countFacilityManager() {
+    public List<DexFacilityManager> findFacilityManagers(String filter, Integer offset, Integer limit) {
+        return facilityManagerDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer count() {
         return facilityManagerDao.count();
     }
 
     @Override
-    public Integer countFacilityManager(String filter) {
+    public Integer count(String filter) {
         return facilityManagerDao.count(filter);
     }
 
@@ -455,6 +474,11 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public List<DexSupervisor> findSupervisors(String filter, Integer offset, Integer limit) {
+        return supervisorDao.find(filter, offset, limit);
+    }
+
+    @Override
     public Integer countSupervisor() {
         return supervisorDao.count();
     }
@@ -493,14 +517,16 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public DexTechnician findTechnicianByCode(String code) {
-        return technicianDao.findTechnicianByCode(code);    }
+        return technicianDao.findTechnicianByCode(code);
+    }
 
     @Override
     public List<DexTechnician> findTechnicians(Integer offset, Integer limit) {
         return technicianDao.find(offset, limit);
     }
+
     @Override
-    public List<DexTechnician> findTechnicians(String filter , Integer offset, Integer limit) {
+    public List<DexTechnician> findTechnicians(String filter, Integer offset, Integer limit) {
         return technicianDao.find(filter, offset, limit);
     }
 

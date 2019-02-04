@@ -63,7 +63,7 @@ export class IdentityService {
 
     findPagedUsers(filter: string, page: number): Observable<UserResult> {
         console.log('findPagedUsers');
-        return this.http.get<UserResult>(this.IDENTITY_API + '/users?page=' + page);
+        return this.http.get<UserResult>(this.IDENTITY_API + '/users?page=' + page +'&filter='+filter);
     }
 
     findUsers(): Observable<User[]> {

@@ -18,6 +18,7 @@ export class FacilityManagerListPage implements OnInit {
     facilityManagers$: Observable<FacilityManager[]>;
     searchForm: FormGroup;
     title = 'Facility Managers';
+    searchQuery: string = '';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -35,12 +36,11 @@ export class FacilityManagerListPage implements OnInit {
         this.searchForm = this.fb.group({
             'keyword': [''],
         });
-
-        this.store.dispatch(new FindPagedFacilityManagersAction({filter: '%', page: 1}));
+        this.search();
     }
 
     search() {
-        this.store.dispatch(new FindPagedFacilityManagersAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedFacilityManagersAction({filter: this.searchQuery, page: 1}));
     }
 }
 

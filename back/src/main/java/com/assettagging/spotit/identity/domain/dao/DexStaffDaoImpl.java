@@ -3,15 +3,19 @@ package com.assettagging.spotit.identity.domain.dao;
 import com.assettagging.spotit.core.domain.GenericDaoSupport;
 import com.assettagging.spotit.identity.domain.model.DexStaff;
 import com.assettagging.spotit.identity.domain.model.DexStaffImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.util.List;
 
 /**
+ *
  */
 @Repository("staffDao")
 public class DexStaffDaoImpl extends GenericDaoSupport<Long, DexStaff> implements DexStaffDao {
+    private static final Logger LOG = LoggerFactory.getLogger(DexStaffDaoImpl.class);
 
 //    @Autowired
 //    private DexActorDao actorDao;
@@ -78,7 +82,11 @@ public class DexStaffDaoImpl extends GenericDaoSupport<Long, DexStaff> implement
 
     @Override
     public List<DexStaff> find(String filter, Integer offset, Integer limit) {
-        Query query = entityManager.createQuery("select v from DexStaff v");
+        Query query = entityManager.createQuery("select v from DexStaff v where " +
+                "(upper(v.name) like upper(:filter)" +
+                "or upper(v.name) like upper(:filter))" +
+                "order by v.name");
+        query.setParameter("filter", WILDCARD+filter +WILDCARD);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<DexStaff>) query.getResultList();
@@ -86,7 +94,10 @@ public class DexStaffDaoImpl extends GenericDaoSupport<Long, DexStaff> implement
 
     @Override
     public Integer count(String filter) {
-        Query query = entityManager.createQuery("select count(v) from DexStaff v");
+        Query query = entityManager.createQuery("select count(v) from DexStaff v where " +
+                "(upper(v.name) like upper(:filter)" +
+                "or upper(v.name) like upper(:filter))");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
         return ((Long) query.getSingleResult()).intValue();
     }
 }

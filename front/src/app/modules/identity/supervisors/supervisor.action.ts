@@ -50,6 +50,7 @@ export class FindPagedSupervisorsSuccessAction implements Action {
     readonly type: string = FIND_PAGED_SUPERVISORS_SUCCESS;
 
     constructor(public payload: SupervisorResult) {
+        console.log(payload);
     }
 }
 

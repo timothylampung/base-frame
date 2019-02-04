@@ -17,6 +17,7 @@ export class SupervisorListPage implements OnInit {
 
     supervisors$: Observable<Supervisor[]>;
     searchForm: FormGroup;
+    searchQuery : string = '';
     title = 'Supervisors';
     cols = [
         {field: 'key', header: 'Key'},
@@ -35,12 +36,11 @@ export class SupervisorListPage implements OnInit {
         this.searchForm = this.fb.group({
             'keyword': [''],
         });
-
-        this.store.dispatch(new FindPagedSupervisorsAction({filter: '', page: 1}));
+        this.search();
     }
 
     search() {
-        this.store.dispatch(new FindPagedSupervisorsAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedSupervisorsAction({filter: this.searchQuery, page: 1}));
     }
 }
 

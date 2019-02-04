@@ -33,6 +33,7 @@ export const routes: Routes = [
                     {
                         path: 'asset-codes/list',
                         component: AssetCodeListPage,
+
                     },
                     {
                         path: 'locations/list',
@@ -92,6 +93,12 @@ export const routes: Routes = [
                     {
                         path: 'users/list',
                         component: UserListPage,
+                        data: {
+                            breadcrumb: [
+                                {label: 'administration', routerLink: null},
+                                {label: 'users', routerLink: ['/administration/users/list']}
+                            ]
+                        }
                     },
                     {
                         path: 'groups/list',
