@@ -84,11 +84,11 @@ export class AssetService {
 
 
     // ===================================================================================================================
-    // Location
+    // Asset
     // ===================================================================================================================
 
     findPagedAssets(filter: string, page: number): Observable<AssetResult> {
-        return this.http.get<AssetResult>("/assets/mock-data/assets.json",
+        return this.http.get<AssetResult>(this.ASSET_API + '/assets',
             {
                 params: {
                     filter: filter,

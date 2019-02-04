@@ -66,6 +66,12 @@ public class AssetControllerTest extends AbstractApiTest {
 
     @Test
     public void findPagedLocations() {
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/locations")
+                .getBody().prettyPrint();
     }
 
     @Test
