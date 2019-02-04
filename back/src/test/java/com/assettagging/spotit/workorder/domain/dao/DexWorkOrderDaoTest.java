@@ -40,7 +40,7 @@ public class DexWorkOrderDaoTest extends AbstractTest {
         workOrder.setLocation(null);
         workOrder.setMaintenanceRequest(null);
         workOrder.setReporter(null);
-        workOrderDao.save(workOrder, getCurrentUser());
+//        workOrderDao.save(workOrder, getCurrentUser());//TODO identity helper
         entityManager.flush();
         entityManager.refresh(workOrder);
 
@@ -49,7 +49,7 @@ public class DexWorkOrderDaoTest extends AbstractTest {
         activity.setCode("ODSS");
         activity.setDescription("DESC");
         activity.setWorkOrder(workOrder);
-        activityDao.save(activity,getCurrentUser());
+//        activityDao.save(activity,getCurrentUser());//TODO identity helper
 
 
     }

@@ -65,8 +65,7 @@ public class DexLocationDaoImplTest extends AbstractTest {
 
 
         LOG.debug("----------------------prepared------------------------ {} ",location.getDescription() );
-        dexLocationDao.save(location, getCurrentUser());
-
+//        dexLocationDao.save(location, getCurrentUser()); TODO identity helper
         entityManager.flush();
         DexLocation savedLocation = dexLocationDao.findByCode("CODE7960");
         LOG.debug("--------------------saved-------------------------- {} ",savedLocation.getDescription() );

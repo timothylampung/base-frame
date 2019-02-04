@@ -5,6 +5,9 @@ package com.assettagging.spotit.identity.domain.model;
  */
 public enum DexRoleType {
     ROLE_ADMINISTRATOR, // 0
+    ROLE_USER, // 0
     ROLE_FACILITY_MANAGER,          // 1
-    ROLE_TECHNICIAN;         // 2
+    ROLE_STAFF,          // 2
+    ROLE_TECHNICIAN, //3
+    ROLE_SUPERVISOR;         // 4
 }

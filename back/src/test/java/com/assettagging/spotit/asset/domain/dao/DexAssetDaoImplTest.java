@@ -62,7 +62,7 @@ public class DexAssetDaoImplTest extends AbstractTest {
         asset.setDescription("DESCRIPTIONLAGHEAY");
 
         LOG.debug("----------------------prepared------------------------ {} ",asset.getDescription() );
-        dexAssetDao.save(asset, getCurrentUser());
+//        dexAssetDao.save(asset, getCurrentUser()); //TODO identity helper
 
         entityManager.flush();
         DexAsset savedAsset = dexAssetDao.findByCode("CODE7957");

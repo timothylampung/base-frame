@@ -44,7 +44,6 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     @OneToMany(targetEntity = DexAssetImpl.class, mappedBy = "location", fetch = FetchType.LAZY)
     private List<DexAsset> assets;
 
-
     @Override
     public DexMetadata getMetadata() {
         return metadata;

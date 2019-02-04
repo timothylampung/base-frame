@@ -66,7 +66,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
         assetCode.setDescription("DESCRIPTIONLAG59");
 
         LOG.debug("----------------------prepared------------------------ {} ",assetCode.getDescription() );
-        dexAssetCodeDao.save(assetCode, getCurrentUser());
+//        dexAssetCodeDao.save(assetCode, getCurrentUser()); //TODO identity helper
 
         entityManager.flush();
         DexAssetCode savedAssetCode = dexAssetCodeDao.findByCode("CODE7959");

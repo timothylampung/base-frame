@@ -18,11 +18,8 @@ public class DexAssetImpl implements DexAsset {
     @SequenceGenerator(name = "SQ_DEX_ASST", sequenceName = "SQ_DEX_ASST", allocationSize = 1)
     private Long id;
 
-    @Embedded
-    private DexMetadata metadata;
 
-    @OneToOne(targetEntity = DexAssetCodeImpl.class,
-            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = DexAssetCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_CODE_ID")
     private DexAssetCode assetCode;
 
@@ -38,12 +35,15 @@ public class DexAssetImpl implements DexAsset {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Embedded
+    private DexMetadata metadata;
+
     @Override
     public Long getId() {
         return id;
     }
 
-    @Override
+
     public void setId(Long id) {
         this.id = id;
     }
