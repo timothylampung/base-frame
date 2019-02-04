@@ -56,7 +56,7 @@ export class AssetService {
     // ===================================================================================================================
 
     findPagedLocations(filter: string, page: number): Observable<LocationResult> {
-        return this.http.get<LocationResult>("/assets/mock-data/locations.json",
+        return this.http.get<LocationResult>(this.ASSET_API + '/locations',
             {
                 params: {
                     filter: filter,
