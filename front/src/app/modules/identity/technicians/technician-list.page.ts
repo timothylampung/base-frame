@@ -3,20 +3,19 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {selectStaffs} from './staff.selector';
+import {selectTechnicians} from './technician.selector';
 import {BreadcrumbService} from '../../../breadcrumb.service';
-import {FindPagedStaffsAction} from './staff.action';
-import {Staff} from "./staff.model";
+import {FindPagedTechniciansAction} from './technician.action';
+import {Technician} from "./technician.model";
 import {IdentityState} from "../identity.state";
-import {MenuItem} from "primeng/api";
 
 @Component({
-    selector: 'cng-staff-list-page',
-    templateUrl: './staff-list.page.html'
+    selector: 'cng-technician-list-page',
+    templateUrl: './technician-list.page.html'
 })
-export class StaffListPage implements OnInit {
+export class TechnicianListPage implements OnInit {
 
-    staffs$: Observable<Staff[]>;
+    technicians$: Observable<Technician[]>;
     searchForm: FormGroup;
     title = 'Senarai Kakitangan';
     cols = [
@@ -25,7 +24,7 @@ export class StaffListPage implements OnInit {
     ];
     breadcrumbs = [
         {label: 'Pengurusan'},
-        {label: 'Senarai Kakitangan', routerLink: ['/administration/staffs/list']}
+        {label: 'Senarai Kakitangan', routerLink: ['/administration/technicians/list']}
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,
@@ -35,7 +34,7 @@ export class StaffListPage implements OnInit {
                 public router: Router) {
 
         this.breadcrumbService.setItems(this.breadcrumbs);
-        this.staffs$ = this.store.pipe(select(selectStaffs));
+        this.technicians$ = this.store.pipe(select(selectTechnicians));
     }
 
     ngOnInit() {
@@ -43,11 +42,11 @@ export class StaffListPage implements OnInit {
             'keyword': [''],
         });
 
-        this.store.dispatch(new FindPagedStaffsAction({filter: '', page: 1}));
+        this.store.dispatch(new FindPagedTechniciansAction({filter: '%', page: 1}));
     }
 
     search() {
-        this.store.dispatch(new FindPagedStaffsAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedTechniciansAction({filter: this.searchForm.value.keyword, page: 1}));
     }
 }
 

@@ -9,6 +9,8 @@ import {staffResultReducer, staffsReducer} from "./staffs/staff.reducer";
 import {Staff, StaffResult} from "./staffs/staff.model";
 import {Beneficiary, BeneficiaryResult} from "./beneficiary/beneficiary.model";
 import {beneficiariesReducer, beneficiaryResultReducer} from "./beneficiary/beneficiary.reducer";
+import {Technician, TechnicianResult} from "./technicians/technician.model";
+import {technicianResultReducer, techniciansReducer} from "./technicians/technician.reducer";
 
 
 export const FEATURE_NAME = 'identity';
@@ -22,6 +24,8 @@ export const reducers: ActionReducerMap<IdentityState> = {
     groupResult: groupResultReducer,
     staffResult: staffResultReducer,
     staffs: staffsReducer,
+    technicianResult: technicianResultReducer,
+    technicians: techniciansReducer,
     beneficiaryResult: beneficiaryResultReducer,
     beneficiaries: beneficiariesReducer,
 
@@ -35,6 +39,8 @@ export interface IdentityState {
     staffs: Staff[];
     beneficiaryResult: BeneficiaryResult;
     beneficiaries: Beneficiary[];
+    technicianResult: TechnicianResult,
+    technicians: Technician[],
 }
 
 export interface State extends AppState {

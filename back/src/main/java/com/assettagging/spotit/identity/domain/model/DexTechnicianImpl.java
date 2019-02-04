@@ -8,7 +8,6 @@ import javax.persistence.Table;
 public class DexTechnicianImpl extends DexActorImpl implements DexTechnician{
 
 
-
     public DexTechnicianImpl() {
         super();
         setActorType(DexActorType.TECHNICIAN);

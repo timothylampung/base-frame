@@ -19,6 +19,7 @@ import {GroupMember} from "../modules/identity/principals/group-member.model";
 import {Actor} from "../modules/identity/actors/actor.model";
 import {Staff, StaffResult} from "../modules/identity/staffs/staff.model";
 import {Beneficiary, BeneficiaryResult} from "../modules/identity/beneficiary/beneficiary.model";
+import {Technician, TechnicianResult} from "../modules/identity/technicians/technician.model";
 
 @Injectable()
 export class IdentityService {
@@ -186,6 +187,45 @@ export class IdentityService {
 
     removeStaff(staff: Staff): Observable<string> {
         return this.http.delete(this.IDENTITY_API + '/staffs/' + staff.code,
+            {observe: 'body', responseType: 'text'});
+    }
+
+    // ===================================================================================================================
+    // TECHNICIAN
+    // ===================================================================================================================
+
+    findTechnicians(): Observable<Technician[]> {
+        console.log('findTechnicians');
+        return this.http.get<Technician[]>(this.IDENTITY_API + '/technicians');
+    }
+
+    findTechnicianByCode(code: string): Observable<Technician> {
+        return this.http.get<Technician>(this.IDENTITY_API + '/technicians/' + code);
+    }
+
+    findPagedTechnicians(filter: string, page: number): Observable<TechnicianResult> {
+        console.log('findPagedTechnicians');
+        return this.http.get<TechnicianResult>(this.IDENTITY_API + '/technicians',
+            {
+                params: {
+                    filter: filter,
+                    page: page.toString()
+                }
+            });
+    }
+
+    saveTechnician(technician: Technician): Observable<string> {
+        return this.http.post(this.IDENTITY_API + '/technicians', JSON.stringify(technician),
+            {observe: 'body', responseType: 'text'});
+    }
+
+    updateTechnician(technician: Technician): Observable<string> {
+        return this.http.put(this.IDENTITY_API + '/technicians/' + technician.code, JSON.stringify(technician),
+            {observe: 'body', responseType: 'text'});
+    }
+
+    removeTechnician(technician: Technician): Observable<string> {
+        return this.http.delete(this.IDENTITY_API + '/technicians/' + technician.code,
             {observe: 'body', responseType: 'text'});
     }
 

@@ -29,6 +29,7 @@ export class FindAllStaffsSuccessAction implements Action {
     readonly type: string = FIND_ALL_STAFFS_SUCCESS;
 
     constructor(public payload: Staff[]) {
+        console.log(payload)
     }
 }
 
@@ -43,6 +44,7 @@ export class FindPagedStaffsAction implements Action {
     readonly type: string = FIND_PAGED_STAFFS;
 
     constructor(public payload: { filter: string, page: number }) {
+
     }
 }
 
@@ -50,6 +52,7 @@ export class FindPagedStaffsSuccessAction implements Action {
     readonly type: string = FIND_PAGED_STAFFS_SUCCESS;
 
     constructor(public payload: StaffResult) {
+        console.log(payload)
     }
 }
 

@@ -442,15 +442,12 @@ public class IdentityController {
     // TECHNICIAN
     // =============================================================================================
 
-    @GetMapping(value = "/technicians", params = {"page"})
-    public ResponseEntity<TechnicianResult> findPagedTechnicians(@RequestParam Integer page) {
-        Integer count = identityService.countTechnician();
-        List<DexTechnician> technicians = identityService.findTechnicians((page - 1) * LIMIT, LIMIT);
+    @GetMapping(value = "/technicians", params = {"page", "filter"})
+    public ResponseEntity<TechnicianResult> findPagedTechnicians(@RequestParam Integer page, @RequestParam String filter) {
+        Integer count = identityService.countTechnician(filter);
+        List<DexTechnician> technicians = identityService.findTechnicians(filter, (page - 1) * LIMIT, LIMIT);
         return new ResponseEntity<TechnicianResult>(
-                new TechnicianResult(
-                        identityTransformer.toTechniciansVos(technicians),
-                        count
-                ), HttpStatus.OK);
+                new TechnicianResult(identityTransformer.toTechniciansVos(technicians), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/technicians")

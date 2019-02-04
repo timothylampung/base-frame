@@ -11,11 +11,17 @@ import java.util.List;
 @Repository("technicianDao")
 public class DexTechnicianDaoImpl extends GenericDaoSupport<Long, DexTechnician> implements DexTechnicianDao {
 
-    public DexTechnicianDaoImpl() { super(DexTechnicianImpl.class); }
+    public DexTechnicianDaoImpl() {
+        super(DexTechnicianImpl.class);
+    }
 
     @Override
     public List<DexTechnician> find(String filter, Integer offset, Integer limit) {
-        Query query = entityManager.createQuery("select v from DexTechnician v");
+        Query query = entityManager.createQuery("select v from DexTechnician v where " +
+                "(v.name like upper(:filter)" +
+                "or v.name like upper(:filter))" +
+                "order by v.name");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
         return (List<DexTechnician>) query.getResultList();
@@ -39,7 +45,7 @@ public class DexTechnicianDaoImpl extends GenericDaoSupport<Long, DexTechnician>
 
     @Override
     public Integer count(String filter) {
-        Query query = entityManager.createQuery("select count(v) from DexTechnician v");
+        Query query = entityManager.createQuery("select count(v) from DexTechnician v ");
         return ((Long) query.getSingleResult()).intValue();
     }
 

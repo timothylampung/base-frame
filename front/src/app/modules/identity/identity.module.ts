@@ -12,6 +12,8 @@ import {StaffListPage} from "./staffs/staff-list.page";
 import {StaffEffects} from "./staffs/staff.effect";
 import {BeneficiaryListPage} from "./beneficiary/beneficiary-list.page";
 import {BeneficiaryEffects} from "./beneficiary/beneficiary.effect";
+import {TechnicianListPage} from "./technicians/technician-list.page";
+import {TechnicianEffects} from "./technicians/technician.effect";
 
 
 
@@ -23,6 +25,7 @@ import {BeneficiaryEffects} from "./beneficiary/beneficiary.effect";
             UserEffect,
             GroupEffect,
             StaffEffects,
+            TechnicianEffects,
             BeneficiaryEffects,
         ])
     ],
@@ -32,6 +35,7 @@ import {BeneficiaryEffects} from "./beneficiary/beneficiary.effect";
         StaffListPage,
         GroupListPage,
         BeneficiaryListPage,
+        TechnicianListPage
     ],
     exports: [
 

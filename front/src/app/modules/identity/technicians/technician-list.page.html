@@ -23,7 +23,7 @@
         <div class="card card-w-title">
             <p-table #dt
                      [columns]="cols"
-                     [value]="staffs$ | async"
+                     [value]="technicians$ | async"
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -37,7 +37,7 @@
                             {{rowData?.code}}
                         </td>
                         <td>
-                            {{rowData?.description}}
+                            {{rowData?.email}}
                         </td>
                     </tr>
                 </ng-template>

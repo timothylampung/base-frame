@@ -16,6 +16,7 @@ import {StaffListPage} from "./modules/identity/staffs/staff-list.page";
 import {BeneficiaryListPage} from "./modules/identity/beneficiary/beneficiary-list.page";
 import {PositionCodeListPage} from "./modules/common/position-codes/position-code-list.page";
 import {AssetCodeListPage} from "./modules/asset/asset-codes/asset-code-list.page";
+import {TechnicianListPage} from "./modules/identity/technicians/technician-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -38,6 +39,10 @@ export const routes: Routes = [
                     {
                         path: 'staffs/list',
                         component: StaffListPage,
+                    } ,
+                    {
+                        path: 'technicians/list',
+                        component: TechnicianListPage,
                     },
                     {
                         path: 'beneficiaries/list',

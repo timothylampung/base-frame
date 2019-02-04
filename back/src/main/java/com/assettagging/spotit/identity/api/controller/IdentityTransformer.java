@@ -3,18 +3,16 @@ package com.assettagging.spotit.identity.api.controller;
 
 import com.assettagging.spotit.common.api.controller.CommonTransformer;
 import com.assettagging.spotit.core.api.MetaState;
+import com.assettagging.spotit.core.api.controller.CoreTransformer;
 import com.assettagging.spotit.core.domain.DexMetadata;
 import com.assettagging.spotit.identity.api.vo.*;
 import com.assettagging.spotit.identity.domain.model.*;
-import com.assettagging.spotit.identity.api.vo.*;
 import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.identity.domain.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,12 +26,14 @@ public class IdentityTransformer {
 
     private CommonTransformer commonTransformer;
     private IdentityService identityService;
+    private CoreTransformer coreTransformer;
 
     @Autowired
     public IdentityTransformer(CommonTransformer commonTransformer,
-                               IdentityService identityService) {
+                               IdentityService identityService, CoreTransformer coreTransformer) {
         this.commonTransformer = commonTransformer;
         this.identityService = identityService;
+        this.coreTransformer = coreTransformer;
     }
 
     //==============================================================================================
@@ -46,6 +46,7 @@ public class IdentityTransformer {
         vo.setId(e.getId());
         vo.setName(e.getName());
         vo.setPrincipalType(PrincipalType.get(e.getPrincipalType().ordinal()));
+        coreTransformer.toMetadata(e, vo);
         return vo;
     }
 
@@ -68,6 +69,7 @@ public class IdentityTransformer {
         vo.setRealName(e.getRealName());
         vo.setEmail(e.getEmail());
         vo.setPassword(e.getPassword());
+        coreTransformer.toMetadata(e, vo);
         return vo;
     }
 
@@ -87,6 +89,7 @@ public class IdentityTransformer {
         Group vo = new Group();
         vo.setId(e.getId());
         vo.setName(e.getName());
+        coreTransformer.toMetadata(e, vo);
         vo.setMemberCount(identityService.countGroupMember(e));
         return vo;
     }
@@ -106,6 +109,7 @@ public class IdentityTransformer {
         if (null == e) return null;
         GroupMember vo = new GroupMember();
         vo.setId(e.getId());
+        coreTransformer.toMetadata(e, vo);
         vo.setPrincipal(toPrincipalVo(e.getPrincipal()));
         return vo;
     }
@@ -132,6 +136,7 @@ public class IdentityTransformer {
         vo.setEmail(e.getEmail());
         vo.setAddress1(e.getAddress1());
         vo.setAddress2(e.getAddress2());
+        coreTransformer.toMetadata(e, vo);
         vo.setAddress3(e.getAddress3());
 //        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
         return vo;
@@ -163,6 +168,7 @@ public class IdentityTransformer {
         vo.setCreatedDate(metadata.getCreatedDate());
         vo.setDeletedDate(metadata.getDeletedDate());
         vo.setModifiedDate(metadata.getModifiedDate());
+        coreTransformer.toMetadata(e, vo);
         vo.setMetaState(MetaState.get(metadata.getState().ordinal()));
         return vo;
     }
@@ -192,6 +198,7 @@ public class IdentityTransformer {
         vo.setEmail(e.getEmail());
         vo.setAddress1(e.getAddress1());
         vo.setAddress2(e.getAddress2());
+        coreTransformer.toMetadata(e, vo);
         vo.setAddress3(e.getAddress3());
 //        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
         return vo;
@@ -220,6 +227,7 @@ public class IdentityTransformer {
         vo.setAddress2(e.getAddress2());
         vo.setAddress3(e.getAddress3());
 //        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
+        coreTransformer.toMetadata(e, vo);
         return vo;    }
 
     //==============================================================================================
@@ -244,6 +252,8 @@ public class IdentityTransformer {
         vo.setAddress1(e.getAddress1());
         vo.setAddress2(e.getAddress2());
         vo.setAddress3(e.getAddress3());
+        coreTransformer.toMetadata(e, vo);
+
 //        vo.setPositionCode(commonTransformer.toPositionCodeVo(e.getPositionCode()));
         return vo;
     }

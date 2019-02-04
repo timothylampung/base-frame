@@ -39,19 +39,21 @@ public class IdentityServiceImpl implements IdentityService {
     @Autowired
     public IdentityServiceImpl(EntityManager entityManager, SecurityService securityService,
                                DexPrincipalDao principalDao, DexUserDao userDao,
-                               DexGroupDao groupDao,
-                               DexStaffDao staffDao,
+                               DexGroupDao groupDao, DexStaffDao staffDao,
                                DexFacilityManagerDao facilityManagerDao,
-                               DexSupervisorDao supervisorDao,
-                               DexTechnicianDao technicianDao) {
+                               DexSupervisorDao supervisorDao, DexTechnicianDao technicianDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
         this.principalDao = principalDao;
         this.userDao = userDao;
         this.groupDao = groupDao;
         this.staffDao = staffDao;
-
+        this.facilityManagerDao = facilityManagerDao;
+        this.supervisorDao = supervisorDao;
+        this.technicianDao = technicianDao;
     }
+
+
 
     //==============================================================================================
     // PRINCIPAL
@@ -496,6 +498,10 @@ public class IdentityServiceImpl implements IdentityService {
     @Override
     public List<DexTechnician> findTechnicians(Integer offset, Integer limit) {
         return technicianDao.find(offset, limit);
+    }
+    @Override
+    public List<DexTechnician> findTechnicians(String filter , Integer offset, Integer limit) {
+        return technicianDao.find(filter, offset, limit);
     }
 
     @Override

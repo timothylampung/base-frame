@@ -179,6 +179,8 @@ public interface IdentityService {
 
     List<DexTechnician> findTechnicians(Integer offset, Integer limit);
 
+    List<DexTechnician> findTechnicians(String filter, Integer offset, Integer limit);
+
     Integer countTechnician();
 
     Integer countTechnician(String filter);

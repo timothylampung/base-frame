@@ -22,19 +22,27 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {label: 'Dashboard', icon: 'dashboard', routerLink: ['/']},
-            {
-                label: 'Common', icon: 'dashboard',
-                items: [
-                    {label: 'Staffs', routerLink: ['/administration/staffs/list']},
-                    {label: 'Departments', routerLink: ['/administration/beneficiaries/list']},
-                    {label: 'Cooperations', routerLink: ['/administration/departments/list']},
-                ]
-            },
-
+            {label: 'Requests', icon: 'dashboard', routerLink: ['/']},
+            {label: 'Work Orders', icon: 'dashboard', routerLink: ['/']},
             {
                 label: 'Asset', icon: 'dashboard',
                 items: [
                     {label: 'Asset Codes', routerLink: ['/asset/asset-codes/list']},
+
+                ]
+            },
+            {label: 'Parts & Inventory', icon: 'dashboard', routerLink: ['/']},
+            {
+                label: 'Location', icon: 'dashboard', routerLink: ['/']
+            },
+            {
+                label: 'People & Team', icon: 'dashboard',
+                items: [
+                    {label: 'Teams', routerLink: ['/']},
+                    {label: 'Staffs', routerLink: ['/administration/staffs/list']},
+                    {label: 'Technicians', routerLink: ['/administration/technicians/list']},
+                    {label: 'Facility Managers', routerLink: ['/']},
+                    {label: 'Supervisors', routerLink: ['/']},
 
                 ]
             }
