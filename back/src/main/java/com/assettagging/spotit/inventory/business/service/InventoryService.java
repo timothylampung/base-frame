@@ -12,7 +12,7 @@ import java.util.List;
 public interface InventoryService {
 
     //==============================================================================================
-    // CCOMPONENT
+    // COMPONENT
     //==============================================================================================
 
     List<DexComponent> findAllComponents();

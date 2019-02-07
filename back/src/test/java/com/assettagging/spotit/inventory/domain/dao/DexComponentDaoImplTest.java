@@ -38,7 +38,7 @@ public class DexComponentDaoImplTest extends AbstractTest {
     @Test
     @Rollback(false)
     public void findDexComponentByCodeTest() {
-        DexComponent partByCode = DexComponentDao.findComponentByCode("CO01");
+        DexComponent partByCode = DexComponentDao.findComponentByCode("CO_001");
 
         LOG.debug("TEST: " + partByCode.getDescription());
 

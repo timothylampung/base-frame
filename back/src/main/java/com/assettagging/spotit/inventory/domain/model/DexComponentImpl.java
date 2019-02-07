@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "DexComponent")
 @Table(name = "DEX_COMP")
 
-public class DexComponentImpl extends DexMetadata implements DexComponent {
+public class DexComponentImpl  implements DexComponent {
 
     @Id
     @Column(name = "ID")
@@ -31,14 +31,11 @@ public class DexComponentImpl extends DexMetadata implements DexComponent {
     @JoinColumn(name = "ASSET_ID", nullable = true)
     private DexAsset asset;
 
+   @Override
     public Long getId() {
         return id;
     }
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public DexMetadata getMetadata() {
         return metadata;

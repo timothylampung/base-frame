@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "DexPartCode")
 @Table(name = "DEX_PART_CODE")
 
-public class DexPartCodeImpl extends DexMetadata implements DexPartCode {
+public class DexPartCodeImpl implements DexPartCode {
 
     @Id
     @Column(name = "ID")
@@ -16,8 +16,6 @@ public class DexPartCodeImpl extends DexMetadata implements DexPartCode {
     @SequenceGenerator(name = "SQ_DEX_PART_CODE", sequenceName = "SQ_DEX_PART_CODE", allocationSize = 1)
     private Long id;
 
-    @Embedded
-    private DexMetadata metadata;
 
     @NotNull
     @Column(name = "DESCRIPTION")
@@ -27,6 +25,13 @@ public class DexPartCodeImpl extends DexMetadata implements DexPartCode {
     @Column(name = "CODE")
     private String code;
 
+    @Embedded
+    private DexMetadata metadata;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
 
     @Override
@@ -40,31 +45,6 @@ public class DexPartCodeImpl extends DexMetadata implements DexPartCode {
     }
 
     @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getId() {
-        return null;
-    }
-
-    @Override
-    public DexMetadata getMetadata() {
-        return null;
-    }
-
-    @Override
-    public void setMetadata(DexMetadata metadata) {
-
-    }
-
-    @Override
-    public Class<?> getInterfaceClass() {
-        return null;
-    }
-
-    @Override
     public String getCode() {
         return code;
     }
@@ -72,5 +52,20 @@ public class DexPartCodeImpl extends DexMetadata implements DexPartCode {
     @Override
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public DexMetadata getMetadata() {
+        return metadata;
+    }
+
+    @Override
+    public void setMetadata(DexMetadata metadata) {
+        this.metadata = metadata;
+    }
+
+    @Override
+    public Class<?> getInterfaceClass() {
+        return DexPartCode.class;
     }
 }

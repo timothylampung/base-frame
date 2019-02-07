@@ -8,8 +8,6 @@ public interface DexPart extends DexMetaObject {
 
     void setDescription(String description);
 
-    void setId(Long id);
-
     DexPartCode getPartCode();
 
     void setPartCode(DexPartCode partCode);

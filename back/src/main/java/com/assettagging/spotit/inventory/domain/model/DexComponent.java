@@ -4,7 +4,6 @@ import com.assettagging.spotit.asset.domain.model.DexAsset;
 import com.assettagging.spotit.core.domain.DexMetaObject;
 
 public interface DexComponent extends DexMetaObject {
-    void setId(Long id);
 
     String getDescription();
 
