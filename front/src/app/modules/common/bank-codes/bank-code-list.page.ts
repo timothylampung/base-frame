@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
 import {FindPagedBankCodesAction} from "./bank-code.action";
 
 @Component({
-    selector: 'cng-bank-code-list-page',
+    selector: 'dex-bank-code-list-page',
     templateUrl: './bank-code-list.page.html'
 })
 export class BankCodeListPage implements OnInit {

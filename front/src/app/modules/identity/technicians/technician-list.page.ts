@@ -10,7 +10,7 @@ import {Technician} from "./technician.model";
 import {IdentityState} from "../identity.state";
 
 @Component({
-    selector: 'cng-technician-list-page',
+    selector: 'dex-technician-list-page',
     templateUrl: './technician-list.page.html'
 })
 export class TechnicianListPage implements OnInit {

@@ -10,7 +10,7 @@ import {Department} from '../../common/departments/department.model';
 import {CommonState} from '../common.state';
 
 @Component({
-    selector: 'cng-department-list-page',
+    selector: 'dex-department-list-page',
     templateUrl: './department-list.page.html'
 })
 export class DepartmentListPage implements OnInit {

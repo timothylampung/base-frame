@@ -9,7 +9,7 @@ import {DATA_ACCOUNT_CODE} from "../../../shared/data.constants";
 import {selectAllAccountCodes} from "./account-code.selector";
 
 @Component({
-    selector: 'cng-account-code-autocomplete',
+    selector: 'dex-account-code-autocomplete',
     templateUrl: './account-code-autocomplete.component.html',
     styleUrls: ['./account-code-autocomplete.component.css']
 })

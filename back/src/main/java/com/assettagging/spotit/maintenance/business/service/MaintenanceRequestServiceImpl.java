@@ -109,6 +109,8 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
         entityManager.flush();
     }
 
+//    Maintenance Request workflow
+
     @Override
     public String startMaintenanceRequestTask(DexMaintenanceRequest maintenanceRequest) throws Exception {
         LOG.debug(securityService.getCurrentUser().getName() + " is processing order");
@@ -183,7 +185,7 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     @Override
     public List<Task> findPooledMaintenanceRequestTasks(String filter, Integer offset, Integer limit) {
         String taskName = DexMaintenanceRequest.class.getCanonicalName() + DELIMITER;
-        return workflowService.findPooledTasks(filter, taskName, offset, limit);
+        return workflowService.findPooledTasks("%", taskName, offset, limit);
     }
 
     @Override
@@ -208,6 +210,11 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     public Integer countPooledMaintenanceRequestTask(DexFlowState flowState) {
         String taskName = DexMaintenanceRequest.class.getCanonicalName() + DELIMITER;
         return workflowService.countPooledTask(taskName);
+    }
+
+    @Override
+    public DexMaintenanceRequest findMaintenanceRequestByReferenceNo(String referenceNo) {
+        return maintenanceRequestDao.findByReferenceNo(referenceNo);
     }
 
     private Map<String, Object> toMap(DexMaintenanceRequest request) {

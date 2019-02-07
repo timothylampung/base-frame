@@ -10,7 +10,7 @@ import {FindPagedAssetsAction} from "./asset-action";
 import {Asset} from "./asset-model";
 
 @Component({
-    selector: 'cng-asset-list-page',
+    selector: 'dex-asset-list-page',
     templateUrl: './asset-list.page.html'
 })
 export class AssetListPage implements OnInit {

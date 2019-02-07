@@ -10,7 +10,7 @@ import {selectAccountCodes} from './account-code.selector';
 import {FindPagedAccountCodesAction} from './account-code.action';
 
 @Component({
-    selector: 'cng-account-code-list-page',
+    selector: 'dex-account-code-list-page',
     templateUrl: './account-code-list.page.html'
 })
 export class AccountCodeListPage implements OnInit {

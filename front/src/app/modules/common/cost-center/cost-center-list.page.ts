@@ -10,7 +10,7 @@ import {CommonState} from '../common.state';
 import {CostCenter} from "./cost-center.model";
 
 @Component({
-    selector: 'cng-cost-center-list-page',
+    selector: 'dex-cost-center-list-page',
     templateUrl: './cost-center-list.page.html'
 })
 export class CostCenterListPage implements OnInit {

@@ -11,7 +11,7 @@ import {IdentityState} from '../../identity.state';
 
 
 @Component({
-    selector: 'cng-group-list-page',
+    selector: 'dex-group-list-page',
     templateUrl: './group-list.page.html'
 })
 export class GroupListPage implements OnInit {

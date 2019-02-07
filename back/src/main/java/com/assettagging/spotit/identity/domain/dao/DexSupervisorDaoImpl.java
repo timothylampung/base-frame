@@ -22,7 +22,7 @@ public class DexSupervisorDaoImpl extends GenericDaoSupport<Long, DexSupervisor>
     public List<DexSupervisor> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select v from DexSupervisor v where " +
                 "(upper(v.name) like upper(:filter)" +
-                "or upper(v.name) like upper(:filter))" +
+                "or upper(v.code) like upper(:filter))" +
                 "order by v.name");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setFirstResult(offset);
@@ -50,7 +50,7 @@ public class DexSupervisorDaoImpl extends GenericDaoSupport<Long, DexSupervisor>
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(v) from DexSupervisor v where " +
                 "(upper(v.name) like upper(:filter)" +
-                "or upper(v.name) like upper(:filter))");
+                "or upper(v.code) like upper(:filter))");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         return ((Long) query.getSingleResult()).intValue();
     }

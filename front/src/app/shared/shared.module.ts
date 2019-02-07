@@ -72,6 +72,7 @@ import {FlowStatePipe} from "../pipes/flow-state.pipe";
 import {ActorTypePipe} from "../pipes/actor-type.pipe";
 import {PrincipalTypePipe} from "../pipes/principal-type.pipe";
 import {DisableControlDirective} from "../directives/disable-control.directive";
+import {SidebarModule} from "primeng/primeng";
 
 const PRIMENG_MODULES = [
     AccordionModule,
@@ -84,6 +85,7 @@ const PRIMENG_MODULES = [
     ChartModule,
     CheckboxModule,
     ChipsModule,
+    SidebarModule,
     CodeHighlighterModule,
     ConfirmDialogModule,
     ColorPickerModule,

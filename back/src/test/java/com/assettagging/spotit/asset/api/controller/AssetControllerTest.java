@@ -42,6 +42,7 @@ public class AssetControllerTest extends AbstractApiTest {
 
     @Test
     public void saveAsset() throws JsonProcessingException {
+
         Asset vo = new Asset();
         vo.setCode("ASSET_CODE");
         vo.setDescription("ASSET_DESC");

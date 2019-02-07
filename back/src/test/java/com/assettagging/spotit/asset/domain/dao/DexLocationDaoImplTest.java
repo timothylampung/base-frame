@@ -34,7 +34,7 @@ public class DexLocationDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findDexLocationTest() {
-        List<DexLocation> locations = dexLocationDao.findAllLocations();
+        List<DexLocation> locations = dexLocationDao.find();
         for (DexLocation location : locations) {
             LOG.debug("TEST: " + location.getDescription());
         }

@@ -10,7 +10,7 @@ import {PositionCode} from "./position-code.model";
 import {Component, OnInit} from "@angular/core";
 
 @Component({
-    selector: 'cng-position-code-list-page',
+    selector: 'dex-position-code-list-page',
     templateUrl: './position-code-list.page.html'
 })
 export class PositionCodeListPage implements OnInit {

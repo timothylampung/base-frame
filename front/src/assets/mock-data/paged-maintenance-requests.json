@@ -1,0 +1,54 @@
+{
+    "data" : [
+        {"referenceNo" : "MR_0001", "description" : "Rosak Tandas",
+            "requester" : {
+                "code": "ACT_0001",
+                "name": "Izzat Ammal",
+                "email": "izzat.ammal@gmail.com"
+            }
+        },
+        {"referenceNo" : "MR_0002", "description" : "Rosak Pili",
+            "requester" : {
+                "code": "ACT_0002",
+                "name": "Timothy Lampung",
+                "email": "timothy.lampung@gmai.com"
+            }
+        },
+        {"referenceNo" : "MR_0003", "description" : "Rosak Lampu",
+            "requester" : {
+                "code": "ACT_0003",
+                "name": "Hazel Jalen",
+                "email": "hazel.jalen@canang.com"
+            }
+        },
+        {"referenceNo" : "MR_0004", "description" : "Rosak Pintu",
+            "requester" : {
+                "code": "ACT_0004",
+                "name": "Arnold Wong Jungan",
+                "email": "arnold.jw@gmail.com"
+            }
+        },
+        {"referenceNo" : "MR_0005", "description" : "Rosak Sinki",
+            "requester" : {
+                "code": "ACT_0005",
+                "name": "Rafizan Uda",
+                "email": "rafizan.uda@gmail.com"
+            }
+        },
+        {"referenceNo" : "MR_0006", "description" : "Rosak AirCond",
+            "requester" : {
+                "code": "ACT_0005",
+                "name": "Rafizan Uda",
+                "email": "rafizan.uda@gmail.com"
+            }
+        },
+        {"referenceNo" : "MR_0007", "description" : "Rosak Hati",
+            "requester" : {
+                "code": "ACT_0005",
+                "name": "Rafizan Uda",
+                "email": "rafizan.uda@gmail.com"
+            }
+        }
+    ],
+    "totalSize" : 7
+}

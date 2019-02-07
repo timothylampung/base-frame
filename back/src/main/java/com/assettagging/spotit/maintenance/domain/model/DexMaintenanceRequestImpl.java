@@ -52,15 +52,15 @@ public class DexMaintenanceRequestImpl implements DexMaintenanceRequest {
     private String cancelComment;
 
     @ManyToOne(targetEntity = DexActorImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "REQUESTER_ID", nullable = false)
+    @JoinColumn(name = "REQUESTER_ID")
     private DexActor requester;
 
     @ManyToOne(targetEntity = DexActorImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DELEGATOR_ID", nullable = false)
+    @JoinColumn(name = "DELEGATOR_ID")
     private DexActor delegator;
 
     @ManyToOne(targetEntity = DexActorImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "VERIFIER_ID", nullable = false)
+    @JoinColumn(name = "VERIFIER_ID")
     private DexActor verifier;
 
     @ManyToOne(targetEntity = DexLocationImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)

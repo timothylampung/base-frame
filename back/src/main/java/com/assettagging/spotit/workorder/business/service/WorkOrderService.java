@@ -61,7 +61,6 @@ public interface WorkOrderService {
 
     void serializeToWorkOrder(DexMaintenanceRequest request);
 
-
     DexActivity findActivityById (Long id);
 
     DexActivity findActivityByCode (String code);

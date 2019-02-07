@@ -23,7 +23,8 @@ public class DexFacilityManagerDaoImpl extends GenericDaoSupport<Long, DexFacili
     public List<DexFacilityManager> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select v from DexFacilityManager v where " +
                 "(upper(v.name) like upper(:filter)" +
-                "or upper(v.name) like upper(:filter))" +
+                "or upper(v.code) like upper(:filter)" +
+                ")" +
                 "order by v.name");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setFirstResult(offset);
@@ -51,7 +52,7 @@ public class DexFacilityManagerDaoImpl extends GenericDaoSupport<Long, DexFacili
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(v) from DexFacilityManager v where " +
                 "(upper(v.name) like upper(:filter)" +
-                "or upper(v.name) like upper(:filter))");
+                "or upper(v.code) like upper(:filter))");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
 
         return ((Long) query.getSingleResult()).intValue();

@@ -10,7 +10,7 @@ import {selectPeriods} from "./period.selector";
 import {FindPagedPeriodsAction} from "./period.action";
 
 @Component({
-    selector: 'cng-period-list-page',
+    selector: 'dex-period-list-page',
     templateUrl: './period-list.page.html'
 })
 export class PeriodListPage implements OnInit {

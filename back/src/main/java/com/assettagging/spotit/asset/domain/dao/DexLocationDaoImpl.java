@@ -22,17 +22,26 @@ public class DexLocationDaoImpl extends GenericDaoSupport<Long, DexLocation> imp
         super(DexLocationImpl.class);
     }
 
-    @Override
-    public List<DexLocation> findAllLocations() {
-        Query q = entityManager.createQuery("select e from DexLocation e ");
-        return q.getResultList();
-    }
 
     @Override
     public DexLocation findByCode(String code) {
         Query q = entityManager.createQuery("select e from DexLocation e where e.code =:code")
                 .setParameter("code",code);
         return (DexLocation) q.getSingleResult();
+    }
+
+    @Override
+    public List<DexLocation> find(String filter, Integer offset, Integer limit) {
+        Query query = entityManager.createQuery("select v from DexLocation v where " +
+                "(upper(v.name) like upper(:filter)" +
+                "or upper(v.description) like upper(:filter)" +
+                "or upper(v.address) like upper(:filter)" +
+                ")" +
+                "order by v.name");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<DexLocation>) query.getResultList();
     }
 
     @Override

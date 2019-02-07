@@ -50,6 +50,7 @@ export class FindPagedLocationsSuccessAction implements Action {
     readonly type: string = FIND_PAGED_LOCATIONS_SUCCESS;
 
     constructor(public payload: LocationResult) {
+        console.log(payload);
     }
 }
 

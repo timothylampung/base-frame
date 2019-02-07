@@ -11,7 +11,7 @@ import {FindPagedUsersAction} from "./user.action";
 import {UserResult} from "./user-result.model";
 
 @Component({
-    selector: 'cng-user-list-page',
+    selector: 'dex-user-list-page',
     templateUrl: './user-list.page.html'
 })
 export class UserListPage implements OnInit {

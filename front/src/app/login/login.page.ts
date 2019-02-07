@@ -6,7 +6,7 @@ import {LoginAction} from "../core/auth/auth.action";
 import {selectAuthLoading} from "../core/auth/auth.selector";
 
 @Component({
-    selector: 'cng-login',
+    selector: 'dex-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.css']
 })

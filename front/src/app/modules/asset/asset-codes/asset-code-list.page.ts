@@ -10,7 +10,7 @@ import {FindPagedAssetCodesAction} from "./asset-code.action";
 import {AssetCode} from "./asset-code-model";
 
 @Component({
-    selector: 'cng-asset-code-list-page',
+    selector: 'dex-asset-code-list-page',
     templateUrl: './asset-code-list.page.html'
 })
 export class AssetCodeListPage implements OnInit {

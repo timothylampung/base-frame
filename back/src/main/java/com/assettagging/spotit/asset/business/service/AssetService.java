@@ -29,7 +29,7 @@ public interface AssetService {
     // LOCATION
     //==============================================================================================
 
-    List<DexLocation> findAllLocations(String s, int i, int limit);
+    List<DexLocation> findAllLocations();
 
     DexLocation findLocationById(Long id);
 

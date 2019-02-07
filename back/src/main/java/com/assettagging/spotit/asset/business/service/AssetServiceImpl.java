@@ -43,7 +43,7 @@ public class AssetServiceImpl implements AssetService {
 
 
     @Override
-    public List<DexLocation> findAllLocations(String s, int i, int limit) { return locationDao.findAllLocations(); }
+    public List<DexLocation> findAllLocations() { return locationDao.find(); }
 
     @Override
     public DexLocation findLocationById(Long id) {
@@ -57,7 +57,7 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public List<DexLocation> findLocations(String filter, Integer offset, Integer limit) {
-        return null;
+        return locationDao.find(filter, offset, limit);
     }
 
     @Override

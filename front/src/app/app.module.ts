@@ -28,6 +28,8 @@ import {IdentityModule} from './modules/identity/identity.module';
 import {CommonModule} from './modules/common/common.module';
 import {AutofocusDirective} from "./directives/autofocus.directive";
 import {AssetModule} from "./modules/asset/asset.module";
+import {NgxSpinnerModule} from "ngx-spinner";
+import {MaintenanceRequestModule} from "./modules/maintenance/maintenance-request.module";
 
 
 
@@ -40,10 +42,12 @@ import {AssetModule} from "./modules/asset/asset.module";
         HttpClientModule,
         BrowserAnimationsModule,
         CoreModule,
+        NgxSpinnerModule,
         SharedModule,
         CommonModule,
         IdentityModule,
         AssetModule,
+        MaintenanceRequestModule
 
     ],
     declarations: [

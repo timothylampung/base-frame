@@ -10,7 +10,7 @@ import {FindPagedConfigurationsAction} from './configuration.action';
 import {CommonState} from '../common.state';
 
 @Component({
-    selector: 'cng-configuration-list-page',
+    selector: 'dex-configuration-list-page',
     templateUrl: './configuration-list.page.html'
 })
 export class ConfigurationListPage implements OnInit {

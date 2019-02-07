@@ -11,14 +11,14 @@ import {Actions, Effect, ofType} from "@ngrx/effects";
 import {map, mergeMap, switchMap} from "rxjs/operators";
 import {from, Observable} from "rxjs";
 import {Action} from "@ngrx/store";
-import {MaintenanceService} from "../../../services/maintenance.service";
+import {MaintenanceRequestService} from "../../../services/maintenance-request.service";
 
 
 @Injectable()
 export class MaintenanceRequestEffects {
 
     constructor(private actions$: Actions,
-                private maintenanceService: MaintenanceService) {
+                private maintenanceService: MaintenanceRequestService) {
     }
 
     @Effect()

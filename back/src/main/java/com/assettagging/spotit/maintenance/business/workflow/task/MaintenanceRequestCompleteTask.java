@@ -30,6 +30,7 @@ public class MaintenanceRequestCompleteTask extends MaintenanceRequestTaskSuppor
         applicationContext.publishEvent(new MaintenanceRequestCompletedEvent(request));
 
 
+        // FIXME: 7/2/2019 serialize
         // serialize to work orders
         if (request.isDelegated())
             workOrderService.serializeToWorkOrder(request);

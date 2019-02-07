@@ -4,20 +4,22 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectLocations} from "./location-selector";
+import {selectLocationResultState, selectLocations} from "./location-selector";
 import {Observable} from "rxjs";
 import {FindPagedLocationsAction} from "./location-action";
-import {Location} from "./location-model";
+import {Location, LocationResult} from "./location-model";
 
 @Component({
-    selector: 'cng-location-list-page',
+    selector: 'dex-location-list-page',
     templateUrl: './location-list.page.html'
 })
 export class LocationListPage implements OnInit {
 
-    locations$: Observable<Location[]>;
+    locations$: Observable<LocationResult>;
     searchForm: FormGroup;
-    title = 'Senarai Lokasi';
+    searchQuery : string = '';
+
+    title = 'Locations';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -33,7 +35,7 @@ export class LocationListPage implements OnInit {
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
-        this.locations$ = this.store.pipe(select(selectLocations));
+        this.locations$ = this.store.pipe(select(selectLocationResultState));
     }
 
     ngOnInit() {
@@ -45,7 +47,7 @@ export class LocationListPage implements OnInit {
     }
 
     search() {
-        this.store.dispatch(new FindPagedLocationsAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: 1}));
     }
 }
 

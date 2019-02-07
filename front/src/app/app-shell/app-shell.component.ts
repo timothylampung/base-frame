@@ -9,7 +9,7 @@ enum MenuOrientation {
 }
 
 @Component({
-    selector: 'cng-app-shell',
+    selector: 'dex-app-shell',
     templateUrl: './app-shell.component.html',
     styleUrls: ['./app-shell.component.css']
 })

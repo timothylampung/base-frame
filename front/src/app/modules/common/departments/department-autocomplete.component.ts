@@ -9,7 +9,7 @@ import {AutoComplete} from 'primeng/primeng';
 import {DATA_DEPARTMENT} from "../../../shared/data.constants";
 
 @Component({
-    selector: 'cng-department-autocomplete',
+    selector: 'dex-department-autocomplete',
     templateUrl: './department-autocomplete.component.html',
     styleUrls: ['./department-autocomplete.component.css']
 })

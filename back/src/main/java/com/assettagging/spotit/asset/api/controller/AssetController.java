@@ -98,24 +98,23 @@ public class AssetController {
         assetService.removeAsset(asset);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-    
+
     //==============================================================================================
     // LOCATION
     //==============================================================================================
 
-    @GetMapping(value = "/locations", params = {"page"})
-    public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page) {
+    @GetMapping(value = "/locations", params = {"page", "filter"})
+    public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedLocations: {}", page);
-        Integer count = assetService.countLocation("%");
-        List<Location> locations = assetTransformer.toLocationVos(
-                assetService.findAllLocations("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
-        return new ResponseEntity<LocationResult>(new LocationResult(locations, count), HttpStatus.OK);
+        Integer count = assetService.countLocation(filter);
+        List<DexLocation> locations = assetService.findLocations(filter, ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT);
+        return new ResponseEntity<LocationResult>(new LocationResult(assetTransformer.toLocationVos(locations), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/locations")
     public ResponseEntity<List<Location>> findLocations() {
         return new ResponseEntity<List<Location>>(assetTransformer.toLocationVos(
-                assetService.findAllLocations("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+                assetService.findAllLocations()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/location/{code}")

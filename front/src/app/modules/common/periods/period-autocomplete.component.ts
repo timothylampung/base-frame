@@ -9,7 +9,7 @@ import {AutoComplete} from 'primeng/primeng';
 import {DATA_DEPARTMENT, DATA_PERIOD} from "../../../shared/data.constants";
 
 @Component({
-    selector: 'cng-period-autocomplete',
+    selector: 'dex-period-autocomplete',
     templateUrl: './period-autocomplete.component.html',
     styleUrls: ['./period-autocomplete.component.css']
 })

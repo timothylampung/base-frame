@@ -1,7 +1,6 @@
 package com.assettagging.spotit.asset.domain.model;
 
 import com.assettagging.spotit.core.domain.DexMetadata;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -35,11 +34,11 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
 
     @NotNull
     @Column(name = "ADDRESS")
-    private String Address;
+    private String address;
 
     @NotNull
     @Column(name = "NAME")
-    private String Name;
+    private String name;
 
     @OneToMany(targetEntity = DexAssetImpl.class, mappedBy = "location", fetch = FetchType.LAZY)
     private List<DexAsset> assets;
@@ -58,7 +57,6 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -106,22 +104,22 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
 
     @Override
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     @Override
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     @Override
     public String getName() {
-        return Name;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     @Override
