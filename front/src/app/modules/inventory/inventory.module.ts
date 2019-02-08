@@ -8,6 +8,8 @@ import {SystemService} from "../../services";
 import {PartListPage} from "./parts/part-list.page";
 import {PartEffects} from "./parts/part-effect";
 import {InventoryService} from "../../services/inventory.service";
+import {ComponentListPage} from "./components/component-list.page";
+import {ComponentEffects} from "./components/component-effect";
 
 
 @NgModule({
@@ -16,6 +18,7 @@ import {InventoryService} from "../../services/inventory.service";
         StoreModule.forFeature(FEATURE_NAME, reducers),
         EffectsModule.forFeature([
             PartEffects,
+            ComponentEffects,
 
         ])
     ],
@@ -23,6 +26,7 @@ import {InventoryService} from "../../services/inventory.service";
 
 
         PartListPage,
+        ComponentListPage,
 
     ],
     exports: [

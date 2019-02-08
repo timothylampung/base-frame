@@ -7,13 +7,14 @@ import {LocationResult} from "../modules/asset/locations/location-model";
 import {Location} from "../modules/asset/locations/location-model";
 import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
 import {Part, PartResult} from "../modules/inventory/parts/part-model";
+import {Component, ComponentResult} from "../modules/inventory/components/component-model";
 
 
 
 @Injectable()
 export class InventoryService {
 
-    private PART_API: string = environment.endpoint + '/api/inventory';
+    private INVENTORY_API: string = environment.endpoint + '/api/inventory';
 
     constructor(public http: HttpClient) {
     }
@@ -52,36 +53,36 @@ export class InventoryService {
     //
     //
     //
-    // // ===================================================================================================================
-    // // Location
-    // // ===================================================================================================================
-    //
-    // findPagedLocations(filter: string, page: number): Observable<LocationResult> {
-    //     return this.http.get<LocationResult>(this.ASSET_API + '/locations',
-    //         {
-    //             params: {
-    //                 filter: filter,
-    //                 page: page.toString()
-    //             }
-    //         }
-    //     );
-    // }
-    //
-    // findLocations(): Observable<Location[]> {
-    //     return this.http.get<Location[]>(this.ASSET_API + '/locations');
-    // }
-    //
-    // saveLocation(code: Location) {
-    //     return this.http.post(this.ASSET_API + '/locations', JSON.stringify(code));
-    // }
-    //
-    // updateLocation(code: Location) {
-    //     return this.http.put(this.ASSET_API + '/locations/' + code.code, JSON.stringify(code));
-    // }
-    //
-    // removeLocation(code: Location) {
-    //     return this.http.delete(this.ASSET_API + '/locations/' + code.code);
-    // }
+    // ===================================================================================================================
+    // Component
+    // ===================================================================================================================
+
+    findPagedComponents(filter: string, page: number): Observable<ComponentResult> {
+        return this.http.get<ComponentResult>(this.INVENTORY_API + '/components',
+            {
+                params: {
+                    filter: filter,
+                    page: page.toString()
+                }
+            }
+        );
+    }
+
+    findComponents(): Observable<Component[]> {
+        return this.http.get<Component[]>(this.INVENTORY_API + '/components');
+    }
+
+    saveComponent(code: Component) {
+        return this.http.post(this.INVENTORY_API + '/components', JSON.stringify(code));
+    }
+
+    updateComponent(code: Component) {
+        return this.http.put(this.INVENTORY_API + '/components/' + code.code, JSON.stringify(code));
+    }
+
+    removeComponent(code: Component) {
+        return this.http.delete(this.INVENTORY_API + '/components/' + code.code);
+    }
 
 
     // ===================================================================================================================
@@ -89,7 +90,7 @@ export class InventoryService {
     // ===================================================================================================================
 
     findPagedParts(filter: string, page: number): Observable<PartResult> {
-        return this.http.get<PartResult>(this.PART_API + '/parts',
+        return this.http.get<PartResult>(this.INVENTORY_API + '/parts',
             {
                 params: {
                     filter: filter,
@@ -100,19 +101,19 @@ export class InventoryService {
     }
 
     findParts(): Observable<Part[]> {
-        return this.http.get<Part[]>(this.PART_API + '/parts');
+        return this.http.get<Part[]>(this.INVENTORY_API + '/parts');
     }
 
     savePart(code: Part) {
-        return this.http.post(this.PART_API + '/parts', JSON.stringify(code));
+        return this.http.post(this.INVENTORY_API + '/parts', JSON.stringify(code));
     }
 
     updatePart(code: Part) {
-        return this.http.put(this.PART_API + '/parts/' + code.code, JSON.stringify(code));
+        return this.http.put(this.INVENTORY_API + '/parts/' + code.code, JSON.stringify(code));
     }
 
     removePart(code: Part) {
-        return this.http.delete(this.PART_API + '/parts/' + code.code);
+        return this.http.delete(this.INVENTORY_API + '/parts/' + code.code);
     }
 
 }
