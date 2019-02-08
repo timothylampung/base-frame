@@ -97,4 +97,4 @@ INSERT INTO dex_pcpl_role (id, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, role_ty
 INSERT INTO dex_pcpl_role (id, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, role_type, principal_id) VALUES (7, CURRENT_TIMESTAMP, 1, null, null, null, null, 1, 3, (SELECT ID FROM dex_pcpl WHERE NAME = 'timothy.lampung'));
 INSERT INTO dex_pcpl_role (id, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, role_type, principal_id) VALUES (8, CURRENT_TIMESTAMP, 1, null, null, null, null, 1, 4, (SELECT ID FROM dex_pcpl WHERE NAME = 'amirul.yunik'));
 INSERT INTO dex_pcpl_role (id, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, role_type, principal_id) VALUES (9, CURRENT_TIMESTAMP, 1, null, null, null, null, 1, 1, (SELECT ID FROM dex_pcpl WHERE NAME = 'zamir.zaharul'));
-INSERT INTO dex_pcpl_role (id, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, role_type, principal_id) VALUES (9, CURRENT_TIMESTAMP, 1, null, null, null, null, 1, 2, (SELECT ID FROM dex_pcpl WHERE NAME = 'maula'));
+INSERT INTO dex_pcpl_role (id, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, role_type, principal_id) VALUES (10, CURRENT_TIMESTAMP, 1, null, null, null, null, 1, 2, (SELECT ID FROM dex_pcpl WHERE NAME = 'maula'));

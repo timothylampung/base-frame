@@ -188,7 +188,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 
     @Override
     public List<DexActivity> findActivities(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
-        return activityDao.find(filter,workOrder, offset, limit);
+        return activityDao.find(filter, workOrder, offset, limit);
     }
 
     @Override
@@ -223,10 +223,13 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 
     @Override
     public void serializeToWorkOrder(DexMaintenanceRequest request) {
-        DexWorkOrder workOrder  = new DexWorkOrderImpl();
+        DexWorkOrder workOrder = new DexWorkOrderImpl();
         workOrder.setAssignee(request.getDelegator());
         workOrder.setAsset(request.getAsset());
-
+        workOrder.setDescription(request.getDescription());
+        workOrder.setLocation(request.getLocation());
+        workOrder.setMaintenanceRequest(request);
+        workOrder.setSupervisor(request.getVerifier());
         try {
             startWorkOrderTask(workOrder);
         } catch (Exception e) {

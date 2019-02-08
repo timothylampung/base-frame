@@ -10,7 +10,7 @@ import {IdentityState} from "../identity.state";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 
 @Component({
-    selector: 'cng-supervisor-list-page',
+    selector: 'dex-supervisor-list-page',
     templateUrl: './supervisor-list.page.html'
 })
 export class SupervisorListPage implements OnInit {

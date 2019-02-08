@@ -14,6 +14,7 @@ public class MaintenanceRequestListener implements ApplicationListener<Maintenan
 
     @Override
     public void onApplicationEvent(MaintenanceRequestEvent event) {
+        LOG.debug("Listening to Maintenance Request Event --- {}", event);
 
         if(event instanceof MaintenanceRequestCancelledEvent){
             // do something
@@ -23,7 +24,6 @@ public class MaintenanceRequestListener implements ApplicationListener<Maintenan
 
         if(event instanceof MaintenanceRequestDraftedEvent){
             // do something
-            LOG.debug("MaintenanceRequestListener --- {}", event);
 
         }
 

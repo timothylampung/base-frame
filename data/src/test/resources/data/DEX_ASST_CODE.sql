@@ -1,10 +1,5 @@
-INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st)
-VALUES (1, 'ASST_CODE_001', 'CODE ASSET 1', null, null, null, null, null, null, 1);
-INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st)
- VALUES (2, 'ASST_CODE_002', 'CODE ASSET 2', null, null, null, null, null, null, 1);
-INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st)
- VALUES (3, 'ASST_CODE_003', 'CODE ASSET 3', null, null, null, null, null, null, 1);
-INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st)
- VALUES (4, 'ASST_CODE_004', 'CODE ASSET 4', null, null, null, null, null, null, 1);
-INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st)
- VALUES (5, 'ASST_CODE_005', 'CODE ASSET 5', null, null, null, null, null, null, 1);
+INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextVal('SQ_DEX_ASST_CODE'), 'ASST_CODE_001', 'CODE ASSET 1', CURRENT_TIMESTAMP , 1, null, null, null, null, 1);
+INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextVal('SQ_DEX_ASST_CODE'), 'ASST_CODE_002', 'CODE ASSET 2', CURRENT_TIMESTAMP, 1, null, null, null, null, 1);
+INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextVal('SQ_DEX_ASST_CODE'), 'ASST_CODE_003', 'CODE ASSET 3', CURRENT_TIMESTAMP, 1, null, null, null, null, 1);
+INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextVal('SQ_DEX_ASST_CODE'), 'ASST_CODE_004', 'CODE ASSET 4', CURRENT_TIMESTAMP, 1, null, null, null, null, 1);
+INSERT INTO DEX_ASST_CODE (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextVal('SQ_DEX_ASST_CODE'), 'ASST_CODE_005', 'CODE ASSET 5', CURRENT_TIMESTAMP, 1, null, null, null, null, 1);

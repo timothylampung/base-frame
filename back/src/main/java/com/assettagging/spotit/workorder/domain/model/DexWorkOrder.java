@@ -10,7 +10,7 @@ public interface DexWorkOrder extends DexDocument {
 
     DexActor getReporter();
 
-    void setReporter(DexActor reporter);
+    void setSupervisor(DexActor reporter);
 
     DexActor getAssignee();
 

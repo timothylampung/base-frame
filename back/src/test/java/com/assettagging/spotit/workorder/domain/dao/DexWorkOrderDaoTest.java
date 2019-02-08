@@ -3,7 +3,6 @@ package com.assettagging.spotit.workorder.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
 import com.assettagging.spotit.asset.domain.dao.DexAssetDao;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 import com.assettagging.spotit.workorder.domain.model.DexActivity;
 import com.assettagging.spotit.workorder.domain.model.DexActivityImpl;
 import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
@@ -39,7 +38,7 @@ public class DexWorkOrderDaoTest extends AbstractTest {
         workOrder.setDescription("DEXS");
         workOrder.setLocation(null);
         workOrder.setMaintenanceRequest(null);
-        workOrder.setReporter(null);
+        workOrder.setSupervisor(null);
 //        workOrderDao.save(workOrder, getCurrentUser());//TODO identity helper
         entityManager.flush();
         entityManager.refresh(workOrder);

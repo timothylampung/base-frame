@@ -20,6 +20,7 @@ import {TechnicianListPage} from "./modules/identity/technicians/technician-list
 import {LocationListPage} from "./modules/asset/locations/location-list.page";
 import {AssetListPage} from "./modules/asset/assets/asset-list.page";
 import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facility-manager-list.page";
+import {MaintenanceRequestListPage} from "./modules/maintenance/maintenance-request/maintenance-request-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -44,6 +45,22 @@ export const routes: Routes = [
                         path: 'assets/list',
                         component: AssetListPage,
                     },
+                ]
+            },
+            {
+              path : 'maintenance-request',
+                children : [
+                    {
+                        path : 'maintenance-request/list',
+                        component : MaintenanceRequestListPage,
+                        data: {
+                            breadcrumb: [
+                                {label: 'maintenance-request', routerLink: null},
+                                {label: 'maintenance-request', routerLink: ['/maintenance-request/maintenance-request/list']}
+                            ]
+                        }
+
+                    }
                 ]
             },
             {

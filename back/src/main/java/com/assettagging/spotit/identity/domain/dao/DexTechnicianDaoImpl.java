@@ -22,7 +22,7 @@ public class DexTechnicianDaoImpl extends GenericDaoSupport<Long, DexTechnician>
     public List<DexTechnician> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select v from DexTechnician v where " +
                 "(upper(v.name) like upper(:filter)" +
-                "or upper(v.name) like upper(:filter))" +
+                "or upper(v.code) like upper(:filter))" +
                 "order by v.name");
         LOG.debug("Searching for technician : query {}", filter);
         query.setParameter("filter", WILDCARD + filter + WILDCARD);

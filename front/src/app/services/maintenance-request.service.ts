@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 
 
 @Injectable()
-export class MaintenanceService {
+export class MaintenanceRequestService {
 
     private MAINTENANCE_API: string = environment.endpoint + '/api/maintenance';
 
@@ -19,13 +19,14 @@ export class MaintenanceService {
     // ===================================================================================================================
 
     findPagedMaintenanceRequests(filter: string, page: number): Observable<MaintenanceRequestResult> {
-        return this.http.get<MaintenanceRequestResult>("/maintenance/mock-data/maintenance-requests.json",
-            {
-                params: {
-                    filter: filter,
-                    page: page.toString()
-                }
-            }
+        return this.http.get<MaintenanceRequestResult>("/assets/mock-data/paged-maintenance-requests.json"
+            // ,
+            // {
+            //     params: {
+            //         filter: filter,
+            //         page: page.toString()
+            //     }
+            // }
         );
     }
 
@@ -38,11 +39,11 @@ export class MaintenanceService {
     }
 
     updateMaintenanceRequest(code: MaintenanceRequest) {
-        return this.http.put(this.MAINTENANCE_API + '/maintenance-requests/' + code.code, JSON.stringify(code));
+        return this.http.put(this.MAINTENANCE_API + '/maintenance-requests/' + code.referenceNo, JSON.stringify(code));
     }
 
     removeMaintenanceRequest(code: MaintenanceRequest) {
-        return this.http.delete(this.MAINTENANCE_API + '/maintenance-requests/' + code.code);
+        return this.http.delete(this.MAINTENANCE_API + '/maintenance-requests/' + code.referenceNo);
     }
 
 }

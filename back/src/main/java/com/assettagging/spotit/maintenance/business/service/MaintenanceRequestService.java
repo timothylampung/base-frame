@@ -53,6 +53,8 @@ public interface MaintenanceRequestService {
 
     Integer countPooledMaintenanceRequestTask(DexFlowState flowState);
 
+    DexMaintenanceRequest findMaintenanceRequestByReferenceNo(String referenceNo);
+
 
 //=====================
 }

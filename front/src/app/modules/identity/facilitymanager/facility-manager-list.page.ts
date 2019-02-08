@@ -10,7 +10,7 @@ import {FindPagedFacilityManagersAction} from "./facility-manager.action";
 import {FacilityManager} from "./facility-manager.model";
 
 @Component({
-    selector: 'cng-facility-Manager-list-page',
+    selector: 'dex-facility-Manager-list-page',
     templateUrl: './facility-manager-list.page.html'
 })
 export class FacilityManagerListPage implements OnInit {

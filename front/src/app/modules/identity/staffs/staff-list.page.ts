@@ -11,7 +11,7 @@ import {IdentityState} from "../identity.state";
 import {MenuItem} from "primeng/api";
 
 @Component({
-    selector: 'cng-staff-list-page',
+    selector: 'dex-staff-list-page',
     templateUrl: './staff-list.page.html'
 })
 export class StaffListPage implements OnInit {

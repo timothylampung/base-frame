@@ -8,7 +8,7 @@ import {PositionCode} from './position-code.model';
 import {FindPagedPositionCodesAction} from './position-code.action';
 
 @Component({
-    selector: 'cng-position-code-autocomplete',
+    selector: 'dex-position-code-autocomplete',
     templateUrl: './position-code-autocomplete.component.html',
     styleUrls: ['./position-code-autocomplete.component.css']
 })

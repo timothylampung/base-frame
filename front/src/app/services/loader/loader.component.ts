@@ -5,7 +5,7 @@ import {LoaderState} from "./loader-state.interface";
 import {LoaderService} from "./loader.service";
 
 @Component({
-    selector: 'cng-loader',
+    selector: 'dex-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss']
 })

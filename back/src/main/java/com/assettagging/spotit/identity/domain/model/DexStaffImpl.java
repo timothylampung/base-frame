@@ -13,19 +13,6 @@ import javax.persistence.*;
 @Table(name = "DEX_STAF")
 public class DexStaffImpl extends DexActorImpl implements DexStaff {
 
-    @Column(name = "STAFF_CODE")
-    private String staffCode;
-
-    @Override
-    public String getStaffCode() {
-        return staffCode;
-    }
-
-    @Override
-    public void setStaffCode(String staffCode) {
-        this.staffCode = staffCode;
-    }
-
     public DexStaffImpl() {
         super();
         setActorType(DexActorType.STAFF);

@@ -52,7 +52,7 @@ public class WorkOrderServiceImplTest extends AbstractTest {
         DexWorkOrder order = new DexWorkOrderImpl();
         order.setAsset(assetService.findAssetByCode("AST-001"));
         order.setAssignee(identityService.findStaffByCode("STF-001"));
-        order.setReporter(identityService.findStaffByCode("STF-001"));
+        order.setSupervisor(identityService.findStaffByCode("STF-001"));
         order.setDescription("F-ed up");
 
         try {

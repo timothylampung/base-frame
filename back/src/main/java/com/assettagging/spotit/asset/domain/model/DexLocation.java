@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface DexLocation  extends DexMetaObject{
 
-    void setId(Long id);
-
     String getCode();
 
     void setCode(String code);

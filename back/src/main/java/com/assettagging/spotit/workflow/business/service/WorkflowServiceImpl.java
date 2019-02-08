@@ -170,7 +170,7 @@ public class WorkflowServiceImpl implements WorkflowService {
         LOG.debug("task prefix: " + taskPrefix);
         TaskQuery taskQuery = taskService.createTaskQuery();
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskAssignee("["+"GRP_USR"+", "+currentUsername+"]");
+        taskQuery.taskAssignee(currentUsername);
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.listPage(offset, limit);
@@ -226,12 +226,13 @@ public class WorkflowServiceImpl implements WorkflowService {
     public List<Task> findPooledTasks(String filter, String taskPrefix, Integer offset, Integer limit) {
         String currentUsername = securityService.getCurrentUser().getName();
 
-        LOG.debug("finding pooled task for user: " + securityService.getCurrentUser().getName());
+        LOG.debug("finding pooled task for user: " + currentUsername);
         LOG.debug("task prefix: " + taskPrefix);
+
         TaskQuery taskQuery = taskService.createTaskQuery();
-        // TODO: taskQuery.processVariableValueLike(name, WILDCARD + value + WILDCARD);
         taskQuery.taskNameLike(WILDCARD + taskPrefix + WILDCARD);
-        taskQuery.taskCandidateUser(securityService.getCurrentUser().getName());
+//        taskQuery.processVariableValueLike("name", WILDCARD + filter + WILDCARD); //TODO pooled by group ? user?
+//        taskQuery.taskCandidateUser(currentUsername);
         taskQuery.orderByTaskCreateTime();
         taskQuery.desc();
         return taskQuery.listPage(offset, limit);

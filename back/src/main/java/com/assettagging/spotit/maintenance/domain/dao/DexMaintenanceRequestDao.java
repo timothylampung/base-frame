@@ -1,6 +1,7 @@
 package com.assettagging.spotit.maintenance.domain.dao;
 
 import com.assettagging.spotit.asset.domain.model.DexAsset;
+import com.assettagging.spotit.asset.domain.model.DexLocation;
 import com.assettagging.spotit.core.domain.GenericDao;
 import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
 
@@ -17,6 +18,7 @@ public interface DexMaintenanceRequestDao extends GenericDao<Long, DexMaintenanc
     Integer count(String filter);
 
     Integer count(DexAsset asset);
+
 
 //    void addItem(DexMaintenanceRequest request, DexMaintenanceRequestItem item, DexUser user);
 //    void updateItem(DexMaintenanceRequest request, DexMaintenanceRequestItem item, DexUser user);

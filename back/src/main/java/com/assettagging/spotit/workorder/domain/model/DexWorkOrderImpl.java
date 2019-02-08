@@ -135,7 +135,7 @@ public class DexWorkOrderImpl implements DexWorkOrder {
     }
 
     @Override
-    public void setReporter(DexActor reporter) {
+    public void setSupervisor(DexActor reporter) {
         this.reporter = reporter;
     }
 

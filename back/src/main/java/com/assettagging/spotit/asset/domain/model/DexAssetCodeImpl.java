@@ -43,7 +43,6 @@ public class DexAssetCodeImpl implements DexAssetCode {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
