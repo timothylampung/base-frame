@@ -8,6 +8,7 @@ import {Location} from "../modules/asset/locations/location-model";
 import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
 import {Part, PartResult} from "../modules/inventory/parts/part-model";
 import {Component, ComponentResult} from "../modules/inventory/components/component-model";
+import {PartCode, PartCodeResult} from "../modules/inventory/part-codes/part-code-model";
 
 
 
@@ -19,40 +20,40 @@ export class InventoryService {
     constructor(public http: HttpClient) {
     }
 
-    //
-    // // ===================================================================================================================
-    // // ASSET CODES
-    // // ===================================================================================================================
-    //
-    // findPagedAssetCodes(filter: string, page: number): Observable<AssetCodeResult> {
-    //     return this.http.get<AssetCodeResult>("/assets/mock-data/asset-codes.json",
-    //         {
-    //             params: {
-    //                 filter: filter,
-    //                 page: page.toString()
-    //             }
-    //         }
-    //         );
-    // }
-    //
-    // findAssetCodes(): Observable<AssetCode[]> {
-    //     return this.http.get<AssetCode[]>(this.ASSET_API + '/asset-codes');
-    // }
-    //
-    // saveAssetCode(code: AssetCode) {
-    //     return this.http.post(this.ASSET_API + '/asset-codes', JSON.stringify(code));
-    // }
-    //
-    // updateAssetCode(code: AssetCode) {
-    //     return this.http.put(this.ASSET_API + '/asset-codes/' + code.code, JSON.stringify(code));
-    // }
-    //
-    // removeAssetCode(code: AssetCode) {
-    //     return this.http.delete(this.ASSET_API + '/asset-codes/' + code.code);
-    // }
-    //
-    //
-    //
+
+    // ===================================================================================================================
+    // PART CODES
+    // ===================================================================================================================
+
+    findPagedPartCodes(filter: string, page: number): Observable<PartCodeResult> {
+        return this.http.get<PartCodeResult>(this.INVENTORY_API + '/part-codes',
+            {
+                params: {
+                    filter: filter,
+                    page: page.toString()
+                }
+            }
+            );
+    }
+
+    findPartCodes(): Observable<PartCode[]> {
+        return this.http.get<PartCode[]>(this.INVENTORY_API + '/part-codes');
+    }
+
+    savePartCode(code: PartCode) {
+        return this.http.post(this.INVENTORY_API + '/part-codes', JSON.stringify(code));
+    }
+
+    updatePartCode(code: PartCode) {
+        return this.http.put(this.INVENTORY_API + '/part-codes/' + code.code, JSON.stringify(code));
+    }
+
+    removePartCode(code: PartCode) {
+        return this.http.delete(this.INVENTORY_API + '/part-codes/' + code.code);
+    }
+
+
+
     // ===================================================================================================================
     // Component
     // ===================================================================================================================

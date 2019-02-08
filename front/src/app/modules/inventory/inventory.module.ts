@@ -10,6 +10,8 @@ import {PartEffects} from "./parts/part-effect";
 import {InventoryService} from "../../services/inventory.service";
 import {ComponentListPage} from "./components/component-list.page";
 import {ComponentEffects} from "./components/component-effect";
+import {PartCodeEffects} from "./part-codes/part-code-effect";
+import {PartCodeListPage} from "./part-codes/part-code-list.page";
 
 
 @NgModule({
@@ -19,6 +21,7 @@ import {ComponentEffects} from "./components/component-effect";
         EffectsModule.forFeature([
             PartEffects,
             ComponentEffects,
+            PartCodeEffects,
 
         ])
     ],
@@ -27,6 +30,7 @@ import {ComponentEffects} from "./components/component-effect";
 
         PartListPage,
         ComponentListPage,
+        PartCodeListPage
 
     ],
     exports: [

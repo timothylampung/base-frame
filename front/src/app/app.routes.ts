@@ -23,6 +23,7 @@ import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facili
 import {MaintenanceRequestListPage} from "./modules/maintenance/maintenance-request/maintenance-request-list.page";
 import {PartListPage} from "./modules/inventory/parts/part-list.page";
 import {ComponentListPage} from "./modules/inventory/components/component-list.page";
+import {PartCodeListPage} from "./modules/inventory/part-codes/part-code-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -55,6 +56,11 @@ export const routes: Routes = [
                     {
                         path: 'parts/list',
                         component: PartListPage,
+
+                    },
+                    {
+                        path: 'part-codes/list',
+                        component: PartCodeListPage,
 
                     },
                     {
