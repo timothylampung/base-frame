@@ -7,7 +7,9 @@ public class PartCode extends MetaObject {
     private String code;
     private String description;
     private Long id;
-
+    private DexLocation parent;
+    private String address;
+    private String name;
 
     public String getCode() {
         return code;
@@ -26,5 +28,12 @@ public class PartCode extends MetaObject {
     public Long getId() { return id; }
     public void setId(Long Id) { this.id = id;}
 
+    public DexLocation getParent() { return parent; }
+    public void setParent(DexLocation parent) { this.parent = parent; }
 
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }

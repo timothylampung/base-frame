@@ -21,6 +21,7 @@ import {LocationListPage} from "./modules/asset/locations/location-list.page";
 import {AssetListPage} from "./modules/asset/assets/asset-list.page";
 import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facility-manager-list.page";
 import {MaintenanceRequestListPage} from "./modules/maintenance/maintenance-request/maintenance-request-list.page";
+import {PartListPage} from "./modules/inventory/parts/part-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -47,6 +48,20 @@ export const routes: Routes = [
                     },
                 ]
             },
+
+            {path: 'inventory',
+                children: [
+                    {
+                        path: 'parts/list',
+                        component: PartListPage,
+
+                    },
+
+                ]
+            },
+
+
+
             {
               path : 'maintenance-request',
                 children : [

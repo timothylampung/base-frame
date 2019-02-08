@@ -34,4 +34,54 @@ public class InventoryControllerTest extends AbstractApiTest {
 
 
     }
+
+    @Test
+    public void findPagedPartCodes() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/part-codes")
+                .getBody().prettyPrint();
+
+
+    }
+
+    @Test
+    public void findPartCodes() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/part-codes")
+                .getBody().prettyPrint();
+
+
+    }
+
+    @Test
+    public void findPagedComponents() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/components")
+                .getBody().prettyPrint();
+
+    }
+
+    @Test
+    public void findComponents() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/components")
+                .getBody().prettyPrint();
+
+    }
 }

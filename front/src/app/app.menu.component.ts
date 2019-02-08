@@ -34,6 +34,8 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     {label: 'Asset Codes', routerLink: ['/asset/asset-codes/list']},
                     {label: 'Asset', routerLink: ['/asset/assets/list']},
+                    {label: 'Part', routerLink: ['/inventory/parts/list']},
+
 
                 ]
             },

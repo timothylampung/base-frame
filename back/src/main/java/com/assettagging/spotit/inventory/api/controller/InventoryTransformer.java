@@ -1,12 +1,10 @@
 package com.assettagging.spotit.inventory.api.controller;
 
-import com.assettagging.spotit.asset.api.vo.Asset;
-import com.assettagging.spotit.asset.api.vo.Location;
-import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexLocation;
+
 import com.assettagging.spotit.core.api.controller.CoreTransformer;
 import com.assettagging.spotit.inventory.api.vo.Part;
 import com.assettagging.spotit.inventory.api.vo.PartCode;
+import com.assettagging.spotit.inventory.domain.model.DexComponent;
 import com.assettagging.spotit.inventory.domain.model.DexPart;
 import com.assettagging.spotit.inventory.domain.model.DexPartCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,21 +63,21 @@ public class InventoryTransformer {
         return e.stream().map((e1) -> toPartVo(e1)).collect(Collectors.toList());
     }
 
-//    // =============================================================================================
-//    // LOCATION
-//    // =============================================================================================
-//
-//    public Location toLocationVo(DexLocation e) {
-//        if (null == e) return null;
-//        Location vo = new Location();
-//        vo.setId(e.getId());
-//        vo.setCode(e.getCode());
-//        vo.setDescription(e.getDescription());
-//        coreTransformer.toMetadata(e, vo);
-//        return vo;
-//    }
-//
-//    public List<Location> toLocationVos(List<DexLocation> e) {
-//        return e.stream().map((e1) -> toLocationVo(e1)).collect(Collectors.toList());
-//    }
+    // =============================================================================================
+    // Component
+    // =============================================================================================
+
+    public com.assettagging.spotit.inventory.api.vo.Component toComponentVo(DexComponent e) {
+        if (null == e) return null;
+        com.assettagging.spotit.inventory.api.vo.Component vo = new com.assettagging.spotit.inventory.api.vo.Component();
+        vo.setId(e.getId());
+        vo.setCode(e.getCode());
+        vo.setDescription(e.getDescription());
+        coreTransformer.toMetadata(e, vo);
+        return vo;
+    }
+
+    public List<com.assettagging.spotit.inventory.api.vo.Component> toComponentVos(List<DexComponent> e) {
+        return e.stream().map((e1) -> toComponentVo(e1)).collect(Collectors.toList());
+    }
 }
