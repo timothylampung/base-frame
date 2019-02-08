@@ -181,19 +181,29 @@ public class MaintenanceRequestController {
         return ResponseEntity.ok().build();
     }
 
-//    @PutMapping(value = "/requests/{referenceNo}")
-//    public ResponseEntity<ApplicationSuccess> updateMaintenanceRequest(@PathVariable String referenceNo, @RequestBody MaintenanceRequest vo) {
-//        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
-//        maintenanceRequest.setSourceNo(vo.getSourceNo());
-//        maintenanceRequest.setDescription(vo.getDescription());
-//        maintenanceRequest.setRequester(commonService.findCostCenterById(vo.getRequester().getId()));
-//        maintenanceRequest.setPurchaser(commonService.findCostCenterById(vo.getPurchaser().getId()));
-//        maintenanceRequest.setMaintenanceRequestType(DexMaintenanceRequestType.get(vo.getMaintenanceRequestType().ordinal()));
-//        maintenanceRequest.setTotalAmount(vo.getTotalAmount());
-//        maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest);
-//        return ResponseEntity.ok().build();
-//    }
-//
+    @PutMapping(value = "/requests/{referenceNo}")
+    public ResponseEntity<ApplicationSuccess> updateMaintenanceRequest(@PathVariable String referenceNo, @RequestBody MaintenanceRequest vo) {
+        DexAsset asset = assetService.findAssetByCode(vo.getAsset().getCode());
+        DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
+//        DexActor delegator = identityService.findStaffByCode(vo.ge);
+
+
+        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
+        maintenanceRequest.setSourceNo(vo.getSourceNo());
+        maintenanceRequest.setDescription(vo.getDescription());
+        maintenanceRequest.setRemark(vo.getRemark());
+        maintenanceRequest.setLocation(location);
+        maintenanceRequest.setAsset(asset);
+//        maintenanceRequest.setDelegator(delegator);
+//        maintenanceRequest.setVerifier();
+//        maintenanceRequest.setDelegated();
+//        maintenanceRequest.setRequester();
+//        maintenanceRequest.setRequestedDate();
+
+        maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest);
+        return ResponseEntity.ok().build();
+    }
+
 //    @GetMapping(value = "/requests/{referenceNo}/maintenanceRequest-items")
 //    public ResponseEntity<List<MaintenanceRequestItem>> findMaintenanceRequestItems(@PathVariable String referenceNo) {
 //        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
