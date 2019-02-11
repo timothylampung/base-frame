@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.assettagging</groupId>
-    <artifactId>spotit</artifactId>
+    <groupId>my.spotit</groupId>
+    <artifactId>asset</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 

@@ -7,8 +7,8 @@
     <version>0.1.0</version>
     <packaging>war</packaging>
     <parent>
-        <groupId>com.assettagging</groupId>
-        <artifactId>spotit</artifactId>
+        <groupId>my.spotit</groupId>
+        <artifactId>asset</artifactId>
         <version>1.0</version>
     </parent>
 
