@@ -7,7 +7,7 @@ import my.spotit.asset.core.domain.GenericDao;
 
 public interface DexAssetCodeDao extends GenericDao<Long, DexAssetCode> {
 
-    DexAssetCode findByCode(String code);
+    DexAssetCode findAssetCodeByCode(String code);
 
     List<DexAssetCode> find(String filter, Integer offset, Integer limit);
 

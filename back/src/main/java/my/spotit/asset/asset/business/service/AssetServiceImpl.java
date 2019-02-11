@@ -52,8 +52,8 @@ public class AssetServiceImpl implements AssetService {
 
     // todo:
     @Override
-    public DexAssetCode findByCode(String code) {
-        return null;
+    public DexAssetCode findAssetCodeByCode(String code) {
+        return assetCodeDao.findAssetCodeByCode(code);
     }
 
     // todo:
@@ -65,7 +65,7 @@ public class AssetServiceImpl implements AssetService {
     // todo:
     @Override
     public Integer countAssetCode() {
-        return null;
+        return assetCodeDao.count();
     }
 
     // todo:

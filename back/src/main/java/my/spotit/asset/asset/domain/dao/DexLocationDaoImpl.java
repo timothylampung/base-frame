@@ -5,6 +5,7 @@ package my.spotit.asset.asset.domain.dao;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
 import my.spotit.asset.common.domain.model.DexBankImpl;
+import my.spotit.asset.core.domain.DexMetaState;
 import my.spotit.asset.core.domain.GenericDaoSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,12 @@ public class DexLocationDaoImpl extends GenericDaoSupport<Long, DexLocation> imp
 
     @Override
     public Integer count(String filter) {
-        Query query = entityManager.createQuery("select count(e) from DexLocation e");
+        Query query = entityManager.createQuery("select count(s) from DexLocation s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
         return ((Long) query.getSingleResult()).intValue();
     }
 

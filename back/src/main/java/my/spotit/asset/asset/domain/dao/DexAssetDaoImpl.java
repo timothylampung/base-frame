@@ -2,9 +2,11 @@ package my.spotit.asset.asset.domain.dao;
 
 
 import my.spotit.asset.asset.domain.model.DexAsset;
+import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexAssetImpl;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.common.domain.model.DexBankImpl;
+import my.spotit.asset.core.domain.DexMetaState;
 import my.spotit.asset.core.domain.GenericDaoSupport;
 
 import org.slf4j.Logger;
@@ -31,12 +33,19 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
         return (DexAsset) query.getSingleResult();
     }
 
-    // todo: filter
+    // todo: filter (added?)
     // todo: metastate
     @Override
     public List<DexAsset> find(String filter, Integer offset, Integer limit) {
-        Query query = entityManager.createQuery("select e from DexAsset e ");
-        return query.getResultList();
+        Query query = entityManager.createQuery("select s from DexAsset s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return (List<DexAsset>) query.getResultList();
     }
 
     // todo: metastate
@@ -51,7 +60,12 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
     // todo: metastate
     @Override
     public Integer count(String filter) {
-        Query query = entityManager.createQuery("select count(v) from DexAsset v");
+        Query query = entityManager.createQuery("select count(s) from DexAsset s where " +
+                "(upper(s.code) like upper(:filter) " +
+                "or upper(s.description) like upper(:filter)) " +
+                "and s.metadata.state = :state ");
+        query.setParameter("filter", WILDCARD + filter + WILDCARD);
+        query.setParameter("state", DexMetaState.ACTIVE);
         return ((Long) query.getSingleResult()).intValue();
     }
 

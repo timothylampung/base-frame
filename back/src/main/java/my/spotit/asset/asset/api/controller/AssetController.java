@@ -3,10 +3,7 @@ package my.spotit.asset.asset.api.controller;
 import my.spotit.asset.DexConstants;
 import my.spotit.asset.asset.api.vo.*;
 import my.spotit.asset.asset.business.service.AssetService;
-import my.spotit.asset.asset.domain.model.DexAsset;
-import my.spotit.asset.asset.domain.model.DexAssetImpl;
-import my.spotit.asset.asset.domain.model.DexLocation;
-import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.asset.domain.model.*;
 import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.system.business.service.SystemService;
 
@@ -167,41 +164,36 @@ public class AssetController {
                 assetService.findAssetCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/asset-code/{code}")
-//    public ResponseEntity<AssetCode> findAssetCodeByCode(@PathVariable String code) {
-//        return new ResponseEntity<AssetCode>(assetTransformer.toAssetCodeVo(
-//                assetService.findAssetCodeById(code)), HttpStatus.OK);
-//    }
-//
-//    // todo: maybe /locations/{code}/assets?
-//    @GetMapping(value = "/assets/{location}")
-//    public ResponseEntity<List<Asset>> findAssetByLocation(@PathVariable DexLocation location) {
-//        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
-//                assetService.findAssetsByLocation(location)), HttpStatus.OK);
-//    }
-//
-//    @PostMapping(value = "/assets")
-//    public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Asset vo) {
-//        DexAsset asset = new DexAssetImpl();
-//        asset.setCode(vo.getCode());
-//        asset.setDescription(vo.getDescription());
-//        assetService.saveAsset(asset);
-//        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-//    }
-//
-//    @PutMapping(value = "/assets/{code}")
-//    public ResponseEntity<ApplicationSuccess> updateAsset(@PathVariable String code, @RequestBody Asset vo) {
-//        DexAsset asset = assetService.findAssetById(vo.getId());
-//        asset.setDescription(vo.getDescription());
-//        assetService.updateAsset(asset);
-//        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping(value = "/assets/{code}")
-//    public ResponseEntity<ApplicationSuccess> removeAsset(@PathVariable String code) {
-//        DexAsset asset = assetService.findAssetByCode(code);
-//        assetService.removeAsset(asset);
-//        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-//    }
+    @GetMapping(value = "/asset-code/{code}")
+    public ResponseEntity<AssetCode> findAssetCodeByCode(@PathVariable String code) {
+        return new ResponseEntity<AssetCode>(assetTransformer.toAssetCodeVo(
+                assetService.findAssetCodeByCode(code)), HttpStatus.OK);
+    }
+
+
+
+    @PostMapping(value = "/asset-codes")
+    public ResponseEntity<ApplicationSuccess> saveAssetCode(@RequestBody AssetCode vo) {
+        DexAssetCode assetCode = new DexAssetCodeImpl();
+        assetCode.setCode(vo.getCode());
+        assetCode.setDescription(vo.getDescription());
+        assetService.saveAssetCode(assetCode);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/asset-codes/{code}")
+    public ResponseEntity<ApplicationSuccess> updateAssetCode(@PathVariable String code, @RequestBody AssetCode vo) {
+        DexAssetCode assetCode = assetService.findAssetCodeById(vo.getId());
+        assetCode.setDescription(vo.getDescription());
+        assetService.updateAssetCode(assetCode);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/asset-codes/{code}")
+    public ResponseEntity<ApplicationSuccess> removeAssetCode(@PathVariable String code) {
+        DexAssetCode assetCode = assetService.findAssetCodeByCode(code);
+        assetService.removeAssetCode(assetCode);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+    }
 
 }
