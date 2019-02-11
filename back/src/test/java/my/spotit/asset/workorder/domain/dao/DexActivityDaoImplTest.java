@@ -26,7 +26,7 @@ public class DexActivityDaoImplTest extends AbstractTest {
     private EntityManager entityManager;
 
     @Autowired
-    private DexActivityDao dexActivityDao;
+    private DexActivityDao activityDao;
 
 //
 //    @Test
@@ -41,10 +41,10 @@ public class DexActivityDaoImplTest extends AbstractTest {
 //        activity.setWorkOrder(long);
 //
 //        LOG.debug("----------------------prepared------------------------ {} ",activity.getContactNo() );
-//        dexActivityDao.save(activity, user);
+//        activityDao.save(activity, user);
 //
 //        entityManager.flush();
-//        DexActivity savedActivity = dexActivityDao.findByCode("CODE");
+//        DexActivity savedActivity = activityDao.findByCode("CODE");
 //        LOG.debug("--------------------saved-------------------------- {} ",savedActivity.getContactNo() );
 //
 //    }
@@ -52,7 +52,7 @@ public class DexActivityDaoImplTest extends AbstractTest {
     @Test
     public void findActivityByCode() {
 
-        DexActivity findActivityByCode = dexActivityDao.findByCode("AT01");
+        DexActivity findActivityByCode = activityDao.findByCode("AT01");
         LOG.debug("TESTING {} ", findActivityByCode.getDescription());
 
     }
@@ -60,7 +60,7 @@ public class DexActivityDaoImplTest extends AbstractTest {
     @Test
     public void findAllActivitys() {
 
-        List<DexActivity> Activitys = dexActivityDao.findActivities();
+        List<DexActivity> Activitys = activityDao.find();
         for (DexActivity Activity : Activitys) {
             LOG.debug("TEST: " + Activity.getDescription());
         }

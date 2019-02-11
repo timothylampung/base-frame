@@ -45,13 +45,8 @@ public class DexWorkOrderDaoTest extends AbstractTest {
 
 
         DexActivity activity = new DexActivityImpl();
-        activity.setCode("ODSS");
         activity.setDescription("DESC");
         activity.setWorkOrder(workOrder);
 //        activityDao.save(activity,getCurrentUser());//TODO identity helper
-
-
     }
-
-
 }

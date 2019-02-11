@@ -73,7 +73,7 @@ public class DexBankDaoImplTest extends AbstractTest {
 
     @Test
     public void findAllBanks() {
-        List<DexBank> allBanks = dexBankDao.findAllBanks();
+        List<DexBank> allBanks = dexBankDao.find();
         for (DexBank allBank : allBanks) {
 
             {

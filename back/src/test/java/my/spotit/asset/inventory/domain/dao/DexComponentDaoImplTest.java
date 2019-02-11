@@ -21,14 +21,12 @@ public class DexComponentDaoImplTest extends AbstractTest {
     @Autowired
     private IdentityService identityService;
     @Autowired
-    private my.spotit.asset.inventory.domain.dao.DexComponentDao DexComponentDao;
-
-
+    private my.spotit.asset.inventory.domain.dao.DexComponentDao componentDao;
 
     @Test
     @Rollback(false)
     public void findDexComponentTest() {
-        List<DexComponent> parts = DexComponentDao.findComponents();
+        List<DexComponent> parts = componentDao.find();
         for (DexComponent part : parts) {
             LOG.debug("TEST: " + part.getDescription());
         }
@@ -37,7 +35,7 @@ public class DexComponentDaoImplTest extends AbstractTest {
     @Test
     @Rollback(false)
     public void findDexComponentByCodeTest() {
-        DexComponent partByCode = DexComponentDao.findComponentByCode("CO_001");
+        DexComponent partByCode = componentDao.findComponentByCode("CO_001");
 
         LOG.debug("TEST: " + partByCode.getDescription());
 
