@@ -34,7 +34,7 @@ public class IdentityServiceImplTest extends AbstractTest {
     private IdentityServiceHelper identityServiceHelper;
 
     @Test
-    @Rollback(false)//TODO change to true
+    @Rollback(true)//TODO change to true
     public void pool_user() {
         identityServiceHelper.changeUser("root");
 

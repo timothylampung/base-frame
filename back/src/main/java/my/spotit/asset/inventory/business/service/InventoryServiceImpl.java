@@ -154,7 +154,6 @@ public class InventoryServiceImpl implements InventoryService {
  //====================================================================================================
     // PARTCODE
     //====================================================================================================
-//TODO 2 diff find methods, find which one works
 
     @Override
     public List<DexPartCode> findAllPartCodes() {

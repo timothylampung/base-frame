@@ -37,7 +37,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findDexAssetCodeTest() {
-        List<DexAssetCode> assetCodes = dexAssetCodeDao.find();
+        List<DexAssetCode> assetCodes = dexAssetCodeDao.find("%",0,999);
         for (DexAssetCode assetCode : assetCodes) {
             LOG.debug("TEST: " + assetCode.getDescription());
         }
