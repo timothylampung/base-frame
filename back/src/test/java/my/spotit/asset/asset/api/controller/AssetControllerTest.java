@@ -93,4 +93,26 @@ public class AssetControllerTest extends AbstractApiTest {
     @Test
     public void removeLocation() {
     }
+
+    @Test
+    public void findPagedAssetCodes() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/asset-codes")
+                .getBody().prettyPrint();
+    }
+
+    @Test
+    public void findAssetCodes() {
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + getAccessToken())
+                .when()
+                .get(ASSET_URL + "/asset-codes")
+                .getBody().prettyPrint();
+    }
 }

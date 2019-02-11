@@ -59,7 +59,7 @@ public class AssetServiceImpl implements AssetService {
     // todo:
     @Override
     public List<DexAssetCode> findAssetCodes(String filter, Integer offset, Integer limit) {
-        return null;
+        return assetCodeDao.find(filter, offset, limit);
     }
 
     // todo:

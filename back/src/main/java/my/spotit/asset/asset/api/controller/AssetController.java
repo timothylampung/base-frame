@@ -1,10 +1,7 @@
 package my.spotit.asset.asset.api.controller;
 
 import my.spotit.asset.DexConstants;
-import my.spotit.asset.asset.api.vo.Asset;
-import my.spotit.asset.asset.api.vo.AssetResult;
-import my.spotit.asset.asset.api.vo.Location;
-import my.spotit.asset.asset.api.vo.LocationResult;
+import my.spotit.asset.asset.api.vo.*;
 import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetImpl;
@@ -149,4 +146,62 @@ public class AssetController {
         assetService.removeLocation(location);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
+
+
+    //==============================================================================================
+    // ASSET-CODES
+    //==============================================================================================
+
+    @GetMapping(value = "/asset-codes", params = {"page"})
+    public ResponseEntity<AssetCodeResult> findPagedAssetCodes(@RequestParam Integer page) {
+        LOG.debug("findPagedAssetCodes: {}", page);
+        Integer count = assetService.countAsset("%");
+        List<AssetCode> assetCodes = assetTransformer.toAssetCodeVos(
+                assetService.findAssetCodes("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
+        return new ResponseEntity<AssetCodeResult>(new AssetCodeResult(assetCodes, count), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/asset-codes")
+    public ResponseEntity<List<AssetCode>> findAssetCodes() {
+        return new ResponseEntity<List<AssetCode>>(assetTransformer.toAssetCodeVos(
+                assetService.findAssetCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+    }
+
+//    @GetMapping(value = "/asset-code/{code}")
+//    public ResponseEntity<AssetCode> findAssetCodeByCode(@PathVariable String code) {
+//        return new ResponseEntity<AssetCode>(assetTransformer.toAssetCodeVo(
+//                assetService.findAssetCodeById(code)), HttpStatus.OK);
+//    }
+//
+//    // todo: maybe /locations/{code}/assets?
+//    @GetMapping(value = "/assets/{location}")
+//    public ResponseEntity<List<Asset>> findAssetByLocation(@PathVariable DexLocation location) {
+//        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
+//                assetService.findAssetsByLocation(location)), HttpStatus.OK);
+//    }
+//
+//    @PostMapping(value = "/assets")
+//    public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Asset vo) {
+//        DexAsset asset = new DexAssetImpl();
+//        asset.setCode(vo.getCode());
+//        asset.setDescription(vo.getDescription());
+//        assetService.saveAsset(asset);
+//        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+//    }
+//
+//    @PutMapping(value = "/assets/{code}")
+//    public ResponseEntity<ApplicationSuccess> updateAsset(@PathVariable String code, @RequestBody Asset vo) {
+//        DexAsset asset = assetService.findAssetById(vo.getId());
+//        asset.setDescription(vo.getDescription());
+//        assetService.updateAsset(asset);
+//        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+//    }
+//
+//    @DeleteMapping(value = "/assets/{code}")
+//    public ResponseEntity<ApplicationSuccess> removeAsset(@PathVariable String code) {
+//        DexAsset asset = assetService.findAssetByCode(code);
+//        assetService.removeAsset(asset);
+//        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+//    }
+
 }

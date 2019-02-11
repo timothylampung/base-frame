@@ -2,6 +2,7 @@ package my.spotit.asset.asset.business.service;
 
 import my.spotit.AbstractTest;
 
+import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
 import my.spotit.asset.helper.IdentityServiceHelper;
@@ -117,5 +118,21 @@ public class AssetServiceImplTest extends AbstractTest {
 
     @Test
     public void removeAsset() {
+    }
+
+    @Test
+    public void findAssetCodeById() {
+    }
+
+    @Test
+    public void findByCode() {
+    }
+
+    @Test
+    public void findAssetCodes() {
+        List<DexAssetCode> assetCodes = assetService.findAssetCodes("%",0,999);
+        for (DexAssetCode assetCode : assetCodes) {
+            LOG.debug("TEST: " + assetCode.getDescription());
+        }
     }
 }

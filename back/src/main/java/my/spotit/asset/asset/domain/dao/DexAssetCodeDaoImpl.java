@@ -32,8 +32,8 @@ public class DexAssetCodeDaoImpl extends GenericDaoSupport<Long, DexAssetCode> i
     // todo:
     @Override
     public List<DexAssetCode> find(String filter, Integer offset, Integer limit) {
-        return null;
-    }
+        Query query = entityManager.createQuery("select e from DexAssetCode e ");
+        return query.getResultList();    }
 
     // todo:
     @Override

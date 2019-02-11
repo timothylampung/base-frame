@@ -23,7 +23,7 @@ export class AssetService {
     // ===================================================================================================================
 
     findPagedAssetCodes(filter: string, page: number): Observable<AssetCodeResult> {
-        return this.http.get<AssetCodeResult>("/assets/mock-data/asset-codes.json",
+        return this.http.get<AssetCodeResult>(this.ASSET_API + '/asset-codes',
             {
                 params: {
                     filter: filter,

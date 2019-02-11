@@ -49,7 +49,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
     @Transactional
     @Rollback(false)
     public void findDexAssetCodeByCode() {
-        String code = "CODE7958";
+        String code = "ASST_CODE_004";
         DexAssetCode DexAssetCodeByCode =  dexAssetCodeDao.findByCode(code);
 
         LOG.debug("TEST: " + DexAssetCodeByCode.getDescription());
@@ -59,7 +59,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    @Rollback(true)
     public void saveAssetCode(){
 
         DexAssetCode assetCode = new DexAssetCodeImpl();
