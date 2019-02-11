@@ -21,7 +21,7 @@
     </logger>
 
     <!-- Application Loggers -->
-    <logger name="com.assettagging.spotit">
+    <logger name="my.spotit.asset">
         <level value="debug"/>
     </logger>
 

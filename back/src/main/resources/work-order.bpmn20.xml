@@ -11,7 +11,7 @@
         <sequenceFlow id="flow2.1" sourceRef="workOrder_draft_ST"
                       targetRef="workOrder_draft_UT"/>
         <userTask id="workOrder_draft_UT"
-                  name="com.assettagging.spotit.workorder.domain.model.DexWorkOrder:DRAFTED"
+                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:DRAFTED"
                   flowable:candidateGroups="#{workOrderRouter.findDrafterCandidates(orderId)}">
         </userTask>
         <sequenceFlow id="flow2.3" sourceRef="workOrder_draft_UT"
@@ -22,7 +22,7 @@
         <sequenceFlow id="flow2.4" sourceRef="workOrder_register_ST"
                       targetRef="workOrder_register_UT"/>
         <userTask id="workOrder_register_UT"
-                  name="com.assettagging.spotit.workorder.domain.model.DexWorkOrder:REGISTERED"
+                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:REGISTERED"
                   flowable:candidateGroups="#{workOrderRouter.findCheckerCandidates(orderId)}">
         </userTask>
 
@@ -33,7 +33,7 @@
         <sequenceFlow id="flow2.6" sourceRef="workOrder_check_ST"
                       targetRef="workOrder_check_UT"/>
         <userTask id="workOrder_check_UT"
-                  name="com.assettagging.spotit.workorder.domain.model.DexWorkOrder:CHECKED"
+                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:CHECKED"
                   flowable:candidateGroups="#{workOrderRouter.findApproverCandidates(orderId)}">
         </userTask>
         <sequenceFlow id="flow2.7" sourceRef="workOrder_check_UT"

@@ -14,7 +14,7 @@
                       targetRef="maintenanceRequest_draft_UT"/>
 
         <userTask id="maintenanceRequest_draft_UT"
-                  name="com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest:DRAFTED"
+                  name="my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest:DRAFTED"
                   flowable:candidateGroups="#{maintenanceRequestRouter.findDrafterCandidates(requestId)}">
         </userTask>
 
