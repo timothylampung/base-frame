@@ -28,7 +28,7 @@ public class DexComponentDaoImplTest extends AbstractTest {
     @Test
     @Rollback(false)
     public void findDexComponentTest() {
-        List<DexComponent> parts = DexComponentDao.findAllComponents();
+        List<DexComponent> parts = DexComponentDao.findComponents();
         for (DexComponent part : parts) {
             LOG.debug("TEST: " + part.getDescription());
         }

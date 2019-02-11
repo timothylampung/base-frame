@@ -18,12 +18,7 @@ public class DexComponentDaoImpl extends GenericDaoSupport<Long, DexComponent> i
 
     public DexComponentDaoImpl() { super(DexComponentImpl.class); }
 
-    @Override
-    public List<DexComponent> findAllComponents() {
-        Query q = entityManager.createQuery("select e from DexComponent e ");
-        return q.getResultList();
-    }
-
+    // todo: metadata
     @Override
     public DexComponent findComponentByCode(String code) {
         Query q = entityManager.createQuery("select e from DexComponent e where e.code =:code")
@@ -31,6 +26,7 @@ public class DexComponentDaoImpl extends GenericDaoSupport<Long, DexComponent> i
         return (DexComponent) q.getSingleResult();
     }
 
+    // todo: metadata
     @Override
     public List<DexComponent> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexComponent s where " +
@@ -45,6 +41,7 @@ public class DexComponentDaoImpl extends GenericDaoSupport<Long, DexComponent> i
     }
 
 
+    // todo: metadata
     @Override
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(s) from DexComponent s where " +

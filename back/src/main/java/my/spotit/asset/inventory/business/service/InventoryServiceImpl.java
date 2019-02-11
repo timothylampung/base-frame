@@ -7,6 +7,7 @@ import my.spotit.asset.inventory.domain.model.DexComponent;
 import my.spotit.asset.inventory.domain.model.DexPart;
 import my.spotit.asset.inventory.domain.model.DexPartCode;
 import my.spotit.asset.security.business.service.SecurityService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
 import java.util.List;
 
 
@@ -43,16 +45,14 @@ public class InventoryServiceImpl implements InventoryService {
     // COMPONENT
     //====================================================================================================
 
-
     @Override
-    public List<DexComponent> findAllComponents() {
-        return componentDao.findAllComponents();
+    public List<DexComponent> findComponents() {
+        return componentDao.find();
     }
-
 
     @Override
     public DexComponent findComponentById(Long id) {
-        return componentDao.findById(id) ;
+        return componentDao.findById(id);
     }
 
     @Override
@@ -73,41 +73,29 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Integer countComponent(String filter) {
         return componentDao.count(filter);
-
     }
 
     @Override
     public void saveComponent(DexComponent Component) {
         componentDao.save(Component, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
     public void updateComponent(DexComponent Component) {
         componentDao.update(Component, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
     public void removeComponent(DexComponent Component) {
         componentDao.remove(Component, securityService.getCurrentUser());
         entityManager.flush();
-
-
     }
 
-
-    //====================================================================================================
+    //==============================================================================================
     // PART
-    //====================================================================================================
-
-
-    @Override
-    public List<DexPart> findAllParts() {
-        return partDao.findAllParts();
-    }
+    //==============================================================================================
 
     @Override
     public DexPart findPartByCode(String code) {
@@ -115,8 +103,13 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public List<DexPart> findParts() {
+        return partDao.findAllParts();
+    }
+
+    @Override
     public List<DexPart> findParts(String filter, Integer offset, Integer limit) {
-        return partDao.find(filter,offset,limit);
+        return partDao.find(filter, offset, limit);
     }
 
     @Override
@@ -131,18 +124,14 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void savePart(DexPart Part) {
-
         partDao.save(Part, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
     public void updatePart(DexPart Part) {
-
         partDao.update(Part, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
@@ -151,15 +140,14 @@ public class InventoryServiceImpl implements InventoryService {
         entityManager.flush();
 
     }
- //====================================================================================================
+    //====================================================================================================
     // PARTCODE
     //====================================================================================================
 
     @Override
-    public List<DexPartCode> findAllPartCodes() {
-        return partCodeDao.findAllPartCodes();
+    public List<DexPartCode> findPartCodes() {
+        return partCodeDao.find();
     }
-
 
     @Override
     public DexPartCode findPartCodeByCode(String code) {
@@ -168,7 +156,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<DexPartCode> findPartCodes(String filter, Integer offset, Integer limit) {
-        return partCodeDao.find(filter,offset,limit);
+        return partCodeDao.find(filter, offset, limit);
     }
 
     @Override
@@ -183,18 +171,14 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public void savePartCode(DexPartCode PartCode) {
-
         partCodeDao.save(PartCode, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
     public void updatePartCode(DexPartCode PartCode) {
-
         partCodeDao.update(PartCode, securityService.getCurrentUser());
         entityManager.flush();
-
     }
 
     @Override
@@ -203,7 +187,6 @@ public class InventoryServiceImpl implements InventoryService {
         entityManager.flush();
 
     }
-
 
 
 }

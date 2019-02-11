@@ -61,7 +61,7 @@ public class InventoryController {
     @GetMapping(value = "/parts")
     public ResponseEntity<List<Part>> findParts() {
         return new ResponseEntity<List<Part>>(inventoryTransformer.toPartVos(
-                inventoryService.findAllParts()), HttpStatus.OK);
+                inventoryService.findParts()), HttpStatus.OK);
     }
 
 //
