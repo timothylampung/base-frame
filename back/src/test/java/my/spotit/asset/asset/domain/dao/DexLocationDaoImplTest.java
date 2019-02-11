@@ -26,6 +26,8 @@ public class DexLocationDaoImplTest extends AbstractTest {
     @Autowired
     private DexLocationDao dexLocationDao;
 
+
+
     @Autowired
     private EntityManager entityManager;
 
@@ -56,7 +58,7 @@ public class DexLocationDaoImplTest extends AbstractTest {
 
     @Test
     @Transactional
-    @Rollback(false)
+    @Rollback(true)
     public void saveLocation(){
 
         DexLocation location = new DexLocationImpl();

@@ -14,7 +14,7 @@ public interface AssetService {
 
     DexAssetCode findAssetCodeById(Long id);
 
-    DexAssetCode findByCode(String code);
+    DexAssetCode findAssetCodeByCode(String code);
 
     List<DexAssetCode> findAssetCodes(String filter, Integer offset, Integer limit);
 

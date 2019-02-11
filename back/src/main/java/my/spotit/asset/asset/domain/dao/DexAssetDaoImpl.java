@@ -34,7 +34,7 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
     }
 
     // todo: filter (added?)
-    // todo: metastate (added?)
+    // todo: metastate
     @Override
     public List<DexAsset> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexAsset s where " +
