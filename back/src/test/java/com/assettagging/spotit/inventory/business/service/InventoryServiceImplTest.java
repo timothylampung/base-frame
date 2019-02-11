@@ -1,12 +1,11 @@
 package com.assettagging.spotit.Inventory.business.service;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.inventory.business.service.InventoryService;
-import com.assettagging.spotit.inventory.domain.dao.DexPartDao;
-import com.assettagging.spotit.inventory.domain.model.DexComponent;
-import com.assettagging.spotit.inventory.domain.model.DexPart;
-import com.assettagging.spotit.inventory.domain.model.DexPartCode;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.inventory.business.service.InventoryService;
+import my.spotit.inventory.domain.model.DexComponent;
+import my.spotit.inventory.domain.model.DexPart;
+import my.spotit.inventory.domain.model.DexPartCode;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

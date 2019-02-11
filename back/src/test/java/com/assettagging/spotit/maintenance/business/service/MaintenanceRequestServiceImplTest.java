@@ -1,22 +1,21 @@
 package com.assettagging.spotit.maintenance.business.service;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.DexConstants;
-import com.assettagging.spotit.asset.business.service.AssetService;
-import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexLocation;
-import com.assettagging.spotit.helper.IdentityServiceHelper;
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.identity.domain.model.DexActor;
-import com.assettagging.spotit.identity.domain.model.DexStaff;
-import com.assettagging.spotit.identity.domain.model.DexSupervisor;
-import com.assettagging.spotit.identity.domain.model.DexTechnician;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
-import com.assettagging.spotit.workflow.business.service.WorkflowService;
-import com.assettagging.spotit.workorder.business.service.WorkOrderService;
 
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.business.service.AssetService;
+import my.spotit.asset.domain.model.DexAsset;
+import my.spotit.asset.domain.model.DexLocation;
+import my.spotit.helper.IdentityServiceHelper;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.identity.domain.model.DexActor;
+import my.spotit.identity.domain.model.DexStaff;
+import my.spotit.maintenance.business.service.MaintenanceRequestService;
+import my.spotit.maintenance.domain.model.DexMaintenanceRequest;
+import my.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
+import my.spotit.workflow.business.service.WorkflowService;
+import my.spotit.workorder.business.service.WorkOrderService;
+
+import my.spotit.workorder.domain.model.DexWorkOrder;
 import org.flowable.task.api.Task;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,8 +31,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.assettagging.spotit.DexConstants.ORDER_ID;
-import static com.assettagging.spotit.DexConstants.REQUEST_ID;
+import static my.spotit.DexConstants.ORDER_ID;
+import static my.spotit.DexConstants.REQUEST_ID;
 
 @Transactional
 public class MaintenanceRequestServiceImplTest extends AbstractTest {

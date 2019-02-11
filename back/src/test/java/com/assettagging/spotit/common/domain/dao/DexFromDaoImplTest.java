@@ -1,15 +1,16 @@
 package com.assettagging.spotit.common.domain.dao;
 
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
-import com.assettagging.spotit.identity.domain.model.DexUser;
+import my.spotit.common.domain.dao.DexFormDao;
+import my.spotit.identity.domain.dao.DexUserDao;
+import my.spotit.identity.domain.model.DexUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import com.assettagging.spotit.common.domain.model.DexForm;
-import com.assettagging.spotit.common.domain.model.DexFormImpl;
+import my.spotit.common.domain.model.DexForm;
+import my.spotit.common.domain.model.DexFormImpl;
 import com.assettagging.spotit.config.TestApplicationConfig;
 
 

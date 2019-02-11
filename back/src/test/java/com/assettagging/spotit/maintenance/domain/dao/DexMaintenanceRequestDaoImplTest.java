@@ -1,17 +1,18 @@
 package com.assettagging.spotit.maintenance.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.dao.DexAssetDao;
-import com.assettagging.spotit.asset.domain.dao.DexLocationDao;
-import com.assettagging.spotit.asset.domain.model.DexAsset;
-import com.assettagging.spotit.asset.domain.model.DexLocation;
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.identity.domain.dao.DexStaffDao;
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
-import com.assettagging.spotit.identity.domain.model.DexStaff;
-import com.assettagging.spotit.identity.domain.model.DexUser;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
+import my.spotit.asset.domain.dao.DexAssetDao;
+import my.spotit.asset.domain.dao.DexLocationDao;
+import my.spotit.asset.domain.model.DexAsset;
+import my.spotit.asset.domain.model.DexLocation;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.identity.domain.dao.DexStaffDao;
+import my.spotit.identity.domain.dao.DexUserDao;
+import my.spotit.identity.domain.model.DexStaff;
+import my.spotit.identity.domain.model.DexUser;
+import my.spotit.maintenance.domain.dao.DexMaintenanceRequestDao;
+import my.spotit.maintenance.domain.model.DexMaintenanceRequest;
+import my.spotit.maintenance.domain.model.DexMaintenanceRequestImpl;
 
 import org.junit.Test;
 import org.slf4j.Logger;

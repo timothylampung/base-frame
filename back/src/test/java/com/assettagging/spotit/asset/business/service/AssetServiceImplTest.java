@@ -1,15 +1,12 @@
 package com.assettagging.spotit.asset.business.service;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.model.DexLocation;
-import com.assettagging.spotit.asset.domain.model.DexLocationImpl;
-import com.assettagging.spotit.common.business.service.CommonService;
-import com.assettagging.spotit.common.business.service.CommonServiceImplTest;
-import com.assettagging.spotit.common.domain.model.DexGradeCode;
-import com.assettagging.spotit.common.domain.model.DexGradeCodeImpl;
-import com.assettagging.spotit.helper.IdentityServiceHelper;
-import com.assettagging.spotit.maintenance.business.service.MaintenanceRequestServiceImplTest;
-import com.assettagging.spotit.maintenance.domain.model.DexMaintenanceRequest;
+
+import my.spotit.asset.business.service.AssetService;
+import my.spotit.asset.domain.model.DexLocation;
+import my.spotit.asset.domain.model.DexLocationImpl;
+import my.spotit.helper.IdentityServiceHelper;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import javax.persistence.EntityManager;
-import javax.smartcardio.ATR;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 public class AssetServiceImplTest extends AbstractTest {
 

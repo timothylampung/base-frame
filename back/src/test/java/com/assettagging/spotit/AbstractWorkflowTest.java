@@ -1,12 +1,12 @@
 package com.assettagging.spotit;
 
-import com.assettagging.spotit.workflow.business.integration.registry.DocumentHandlerRegistry;
+import my.spotit.workflow.business.integration.registry.DocumentHandlerRegistry;
 import com.assettagging.spotit.flowable.ProcessDebugger;
 import com.assettagging.spotit.flowable.SequenceFlowDebugger;
 import com.assettagging.spotit.flowable.TaskDebugger;
-import com.assettagging.spotit.security.business.integration.DexAutoLoginToken;
-import com.assettagging.spotit.workflow.business.service.WorkflowService;
-import com.assettagging.spotit.workflow.business.service.WorkflowServiceImpl;
+import my.spotit.security.business.integration.DexAutoLoginToken;
+import my.spotit.workflow.business.service.WorkflowService;
+import my.spotit.workflow.business.service.WorkflowServiceImpl;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.flowable.engine.HistoryService;

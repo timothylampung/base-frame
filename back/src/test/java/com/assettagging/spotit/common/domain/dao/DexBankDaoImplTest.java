@@ -1,13 +1,14 @@
 package com.assettagging.spotit.common.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.common.domain.model.DexBank;
-import com.assettagging.spotit.common.domain.model.DexBankImpl;
-import com.assettagging.spotit.common.domain.model.DexBankStatus;
-import com.assettagging.spotit.common.domain.model.DexBankType;
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
-import com.assettagging.spotit.identity.domain.model.DexUser;
+
+import my.spotit.common.domain.dao.DexBankDao;
+import my.spotit.common.domain.model.DexBank;
+import my.spotit.common.domain.model.DexBankImpl;
+import my.spotit.common.domain.model.DexBankStatus;
+import my.spotit.common.domain.model.DexBankType;
+import my.spotit.identity.domain.dao.DexUserDao;
+import my.spotit.identity.domain.model.DexUser;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 
 @Transactional

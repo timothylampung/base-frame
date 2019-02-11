@@ -1,13 +1,14 @@
 package com.assettagging.spotit.workorder.business.service;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.business.service.AssetService;
-import com.assettagging.spotit.helper.IdentityServiceHelper;
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.workflow.business.service.WorkflowService;
-import com.assettagging.spotit.workorder.domain.model.DexActivity;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
+import my.spotit.asset.business.service.AssetService;
+import my.spotit.helper.IdentityServiceHelper;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.workflow.business.service.WorkflowService;
+import my.spotit.workorder.business.service.WorkOrderService;
+import my.spotit.workorder.domain.model.DexActivity;
+import my.spotit.workorder.domain.model.DexWorkOrder;
+import my.spotit.workorder.domain.model.DexWorkOrderImpl;
 
 import org.flowable.task.api.Task;
 import org.junit.Assert;

@@ -1,17 +1,17 @@
 package com.assettagging.spotit.common.business.service;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.common.domain.model.DexGradeCode;
-import com.assettagging.spotit.common.domain.model.DexGradeCodeImpl;
-import com.assettagging.spotit.helper.IdentityServiceHelper;
+
+import my.spotit.common.business.service.CommonService;
+import my.spotit.common.domain.model.DexGradeCode;
+import my.spotit.common.domain.model.DexGradeCodeImpl;
+import my.spotit.helper.IdentityServiceHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.*;
 
 public class CommonServiceImplTest extends AbstractTest {
     private static final Logger log = LoggerFactory

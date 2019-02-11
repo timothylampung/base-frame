@@ -2,13 +2,12 @@ package com.assettagging.spotit.asset.api.controller;
 
 import com.assettagging.spotit.AbstractApiTest;
 import com.assettagging.spotit.TestUtil;
-import com.assettagging.spotit.asset.api.vo.Asset;
-import com.assettagging.spotit.asset.api.vo.AssetCode;
+import my.spotit.asset.api.vo.Asset;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static io.restassured.RestAssured.given;
 
 public class AssetControllerTest extends AbstractApiTest {

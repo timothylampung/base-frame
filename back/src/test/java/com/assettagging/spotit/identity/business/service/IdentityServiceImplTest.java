@@ -1,9 +1,21 @@
 package com.assettagging.spotit.identity.business.service;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.helper.IdentityServiceHelper;
-import com.assettagging.spotit.identity.domain.dao.RecursiveGroupException;
-import com.assettagging.spotit.identity.domain.model.*;
+import my.spotit.helper.IdentityServiceHelper;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.identity.domain.dao.RecursiveGroupException;
+import my.spotit.identity.domain.model.DexActorType;
+import my.spotit.identity.domain.model.DexGroup;
+import my.spotit.identity.domain.model.DexPrincipal;
+import my.spotit.identity.domain.model.DexPrincipalRole;
+import my.spotit.identity.domain.model.DexPrincipalRoleImpl;
+import my.spotit.identity.domain.model.DexPrincipalType;
+import my.spotit.identity.domain.model.DexRoleType;
+import my.spotit.identity.domain.model.DexTechnician;
+import my.spotit.identity.domain.model.DexTechnicianImpl;
+import my.spotit.identity.domain.model.DexUser;
+import my.spotit.identity.domain.model.DexUserImpl;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

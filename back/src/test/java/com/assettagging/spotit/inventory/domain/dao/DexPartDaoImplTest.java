@@ -1,9 +1,8 @@
 package com.assettagging.spotit.Inventory.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.inventory.domain.dao.DexPartDao;
-import com.assettagging.spotit.inventory.domain.model.DexPart;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.inventory.domain.model.DexPart;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,7 @@ public class DexPartDaoImplTest extends AbstractTest {
     @Autowired
     private IdentityService identityService;
     @Autowired
-    private com.assettagging.spotit.inventory.domain.dao.DexPartDao DexPartDao;
+    private my.spotit.inventory.domain.dao.DexPartDao DexPartDao;
 
     @Test
     @Rollback(false)

@@ -1,9 +1,11 @@
 package com.assettagging.spotit.asset.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.model.DexAssetCode;
-import com.assettagging.spotit.asset.domain.model.DexAssetCodeImpl;
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
+
+import my.spotit.asset.domain.dao.DexAssetCodeDao;
+import my.spotit.asset.domain.model.DexAssetCode;
+import my.spotit.asset.domain.model.DexAssetCodeImpl;
+import my.spotit.identity.domain.dao.DexUserDao;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

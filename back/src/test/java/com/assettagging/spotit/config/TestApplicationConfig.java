@@ -10,6 +10,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import my.spotit.config.AuthorizationServerConfig;
+import my.spotit.config.CacheConfig;
+import my.spotit.config.CorsConfig;
+import my.spotit.config.ResourceServerConfig;
+import my.spotit.config.SecurityConfig;
+import my.spotit.config.SwaggerConfig;
+import my.spotit.config.WebConfig;
+import my.spotit.config.WorkflowConfig;
+
 @Configuration
 @EnableWebSecurity
 @EnableScheduling

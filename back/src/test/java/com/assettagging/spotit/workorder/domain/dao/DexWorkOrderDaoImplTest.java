@@ -1,14 +1,11 @@
 package com.assettagging.spotit.workorder.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.dao.DexAssetCodeDao;
-import com.assettagging.spotit.asset.domain.dao.DexAssetCodeDaoImplTest;
-import com.assettagging.spotit.asset.domain.model.DexAssetCode;
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
-import com.assettagging.spotit.identity.domain.model.DexUser;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
-import org.apache.commons.io.filefilter.FalseFileFilter;
+
+import my.spotit.identity.domain.dao.DexUserDao;
+import my.spotit.workorder.domain.dao.DexWorkOrderDao;
+import my.spotit.workorder.domain.model.DexWorkOrder;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @Transactional
 public class DexWorkOrderDaoImplTest extends AbstractTest {

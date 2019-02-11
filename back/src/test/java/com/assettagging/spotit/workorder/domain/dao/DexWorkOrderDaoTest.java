@@ -2,11 +2,13 @@ package com.assettagging.spotit.workorder.domain.dao;
 
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.asset.domain.dao.DexAssetDao;
-import com.assettagging.spotit.workorder.domain.model.DexActivity;
-import com.assettagging.spotit.workorder.domain.model.DexActivityImpl;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrder;
-import com.assettagging.spotit.workorder.domain.model.DexWorkOrderImpl;
+import my.spotit.asset.domain.dao.DexAssetDao;
+import my.spotit.workorder.domain.dao.DexActivityDao;
+import my.spotit.workorder.domain.dao.DexWorkOrderDao;
+import my.spotit.workorder.domain.model.DexActivity;
+import my.spotit.workorder.domain.model.DexActivityImpl;
+import my.spotit.workorder.domain.model.DexWorkOrder;
+import my.spotit.workorder.domain.model.DexWorkOrderImpl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;

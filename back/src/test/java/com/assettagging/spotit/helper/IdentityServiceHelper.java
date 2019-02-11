@@ -1,8 +1,13 @@
 package com.assettagging.spotit.helper;
 
-import com.assettagging.spotit.identity.business.service.IdentityService;
-import com.assettagging.spotit.identity.domain.model.*;
-import com.assettagging.spotit.security.business.service.SecurityService;
+import my.spotit.identity.business.service.IdentityService;
+import my.spotit.identity.domain.model.DexGroup;
+import my.spotit.identity.domain.model.DexPrincipal;
+import my.spotit.identity.domain.model.DexPrincipalRole;
+import my.spotit.identity.domain.model.DexPrincipalType;
+import my.spotit.identity.domain.model.DexRoleType;
+import my.spotit.identity.domain.model.DexUser;
+import my.spotit.security.business.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +24,7 @@ import java.util.Set;
 
 @Service
 public class IdentityServiceHelper {
-    private static final Logger log = LoggerFactory.getLogger(IdentityServiceHelper.class);
+    private static final Logger log = LoggerFactory.getLogger(my.spotit.helper.IdentityServiceHelper.class);
 
     @Autowired
     AuthenticationManager authenticationManager;

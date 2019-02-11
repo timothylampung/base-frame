@@ -1,8 +1,9 @@
 package com.assettagging.spotit.workorder.domain.dao;
 
 import com.assettagging.spotit.AbstractTest;
-import com.assettagging.spotit.identity.domain.dao.DexUserDao;
-import com.assettagging.spotit.workorder.domain.model.DexActivity;
+import my.spotit.identity.domain.dao.DexUserDao;
+import my.spotit.workorder.domain.dao.DexActivityDao;
+import my.spotit.workorder.domain.model.DexActivity;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
