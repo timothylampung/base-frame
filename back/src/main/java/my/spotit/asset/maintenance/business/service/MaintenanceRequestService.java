@@ -3,6 +3,7 @@ package my.spotit.asset.maintenance.business.service;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.core.domain.DexFlowState;
 import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest;
+
 import org.flowable.task.api.Task;
 
 import java.util.List;
@@ -10,30 +11,13 @@ import java.util.List;
 public interface MaintenanceRequestService {
 
     //==============================================================================================
-    // WORK ORDER
+    // MAINTENANCE REQUEST
     //==============================================================================================
 
-    DexMaintenanceRequest findMaintenanceRequestById (Long id);
+    // workflow
+    String startMaintenanceRequestTask(DexMaintenanceRequest request) throws Exception;
 
-    DexMaintenanceRequest findMaintenanceRequestByCode (String code);
-
-    List<DexMaintenanceRequest> findMaintenanceRequests(String filter, Integer offset, Integer limit);
-
-    Integer countMaintenanceRequest();
-
-    Integer countMaintenanceRequest(String filter);
-
-    void saveMaintenanceRequest(DexMaintenanceRequest MaintenanceRequest, DexLocation location);
-
-    void updateMaintenanceRequest(DexMaintenanceRequest MaintenanceRequest);
-
-    void removeMaintenanceRequest(DexMaintenanceRequest MaintenanceRequest);
-
-
-    //maintenanceRequest workflow
-    String startMaintenanceRequestTask(DexMaintenanceRequest maintenanceRequest) throws Exception;
-
-    void cancelMaintenanceRequest(DexMaintenanceRequest maintenanceRequest) throws Exception;
+    void cancelMaintenanceRequest(DexMaintenanceRequest request) throws Exception;
 
     DexMaintenanceRequest findMaintenanceRequestByTaskId(String taskId);
 
@@ -53,8 +37,23 @@ public interface MaintenanceRequestService {
 
     Integer countPooledMaintenanceRequestTask(DexFlowState flowState);
 
+    // finder
+
+    DexMaintenanceRequest findMaintenanceRequestById(Long id);
+
     DexMaintenanceRequest findMaintenanceRequestByReferenceNo(String referenceNo);
 
+    List<DexMaintenanceRequest> findMaintenanceRequests(String filter, Integer offset, Integer limit);
 
-//=====================
+    Integer countMaintenanceRequest();
+
+    Integer countMaintenanceRequest(String filter);
+
+    void saveMaintenanceRequest(DexMaintenanceRequest request, DexLocation location);
+
+    void updateMaintenanceRequest(DexMaintenanceRequest request);
+
+    void removeMaintenanceRequest(DexMaintenanceRequest request);
+
+
 }

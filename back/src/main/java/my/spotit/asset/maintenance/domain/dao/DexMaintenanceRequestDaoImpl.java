@@ -24,21 +24,12 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
     }
 
     @Override
-    public List<DexMaintenanceRequest> find() {
-        Query q = entityManager.createQuery("select r from DexMaintenanceRequest r");
-        return q.getResultList();
-    }
-
-
-    @Override
     public DexMaintenanceRequest findByReferenceNo(String code) {
         Query query = entityManager.createQuery("select r from DexMaintenanceRequest r where r.referenceNo  =:code and  " +
                 " r.metadata.state = :state");
         query.setParameter("code", code);
         query.setParameter("state", DexMetaState.ACTIVE);
         return (DexMaintenanceRequest) query.getSingleResult();
-
-
     }
 
     @Override
@@ -86,5 +77,4 @@ public class DexMaintenanceRequestDaoImpl extends GenericDaoSupport<Long, DexMai
         query.setParameter("asset", asset);
         return ((Long) query.getSingleResult()).intValue();
     }
-
 }

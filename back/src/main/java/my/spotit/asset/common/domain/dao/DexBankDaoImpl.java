@@ -29,15 +29,8 @@ public class DexBankDaoImpl extends GenericDaoSupport<Long, DexBank> implements 
     }
 
     @Override
-    public List<DexBank> findAllBanks() {
-        Query q = entityManager.createQuery("select e from DexBank e ");
-        return q.getResultList();
-    }
-
-    @Override
     public List<DexBank> findBankByBranch(String branch) {
         Query q = entityManager.createQuery("select e from DexBank e where e.branch =:branch")
                 .setParameter("branch",branch);
         return (List<DexBank>) q.getResultList();    }
-
 }

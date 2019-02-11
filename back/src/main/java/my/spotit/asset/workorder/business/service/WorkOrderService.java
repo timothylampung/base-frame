@@ -15,7 +15,7 @@ public interface WorkOrderService {
     // WORK ORDER
     //==============================================================================================
 
-    //workOrder workflow
+    // workflow
     String startWorkOrderTask(DexWorkOrder workOrder) throws Exception;
 
     void cancelWorkOrder(DexWorkOrder workOrder) throws Exception;
@@ -41,9 +41,11 @@ public interface WorkOrderService {
 
     // finders
 
-    DexWorkOrder findWorkOrderById (Long id);
+    DexWorkOrder findWorkOrderById(Long id);
 
-    DexWorkOrder findWorkOrderByCode (String code);
+    DexWorkOrder findWorkOrderByReferenceNo(String referenceNo);
+
+    DexActivity findActivityById(Long id);
 
     List<DexWorkOrder> findWorkOrders(String filter, Integer offset, Integer limit);
 
@@ -53,26 +55,20 @@ public interface WorkOrderService {
 
     Integer countWorkOrder(String filter);
 
+    Integer counActivity(DexWorkOrder workOrder);
+
     void saveWorkOrder(DexWorkOrder WorkOrder);
 
     void updateWorkOrder(DexWorkOrder WorkOrder);
 
     void removeWorkOrder(DexWorkOrder WorkOrder);
 
+    void addActivity(DexWorkOrder workOrder, DexActivity activity);
+
+    void updateActivity(DexWorkOrder workOrder, DexActivity activity);
+
+    void deleteActivity(DexWorkOrder workOrder, DexActivity activity);
+
     void serializeToWorkOrder(DexMaintenanceRequest request);
-
-    DexActivity findActivityById (Long id);
-
-    DexActivity findActivityByCode (String code);
-
-    Integer countActivity();
-
-    Integer countActivity(String filter);
-
-    void saveActivity(DexActivity Activity);
-
-    void updateActivity(DexActivity Activity);
-
-    void removeActivity(DexActivity Activity);
 
 }

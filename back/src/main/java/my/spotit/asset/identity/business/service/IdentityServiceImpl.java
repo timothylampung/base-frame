@@ -1,5 +1,6 @@
 package my.spotit.asset.identity.business.service;
 
+import my.spotit.asset.identity.domain.dao.DexActorDao;
 import my.spotit.asset.identity.domain.dao.DexFacilityManagerDao;
 import my.spotit.asset.identity.domain.dao.DexGroupDao;
 import my.spotit.asset.identity.domain.dao.DexPrincipalDao;
@@ -8,6 +9,7 @@ import my.spotit.asset.identity.domain.dao.DexSupervisorDao;
 import my.spotit.asset.identity.domain.dao.DexTechnicianDao;
 import my.spotit.asset.identity.domain.dao.DexUserDao;
 import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
+import my.spotit.asset.identity.domain.model.DexActor;
 import my.spotit.asset.identity.domain.model.DexFacilityManager;
 import my.spotit.asset.identity.domain.model.DexGroup;
 import my.spotit.asset.identity.domain.model.DexGroupImpl;
@@ -48,6 +50,7 @@ public class IdentityServiceImpl implements IdentityService {
     private DexUserDao userDao;
     private DexGroupDao groupDao;
     private DexStaffDao staffDao;
+    private DexActorDao actorDao;
     private DexFacilityManagerDao facilityManagerDao;
     private DexSupervisorDao supervisorDao;
     private DexTechnicianDao technicianDao;
@@ -56,13 +59,14 @@ public class IdentityServiceImpl implements IdentityService {
     public IdentityServiceImpl(EntityManager entityManager, SecurityService securityService,
                                DexPrincipalDao principalDao, DexUserDao userDao,
                                DexGroupDao groupDao, DexStaffDao staffDao,
-                               DexFacilityManagerDao facilityManagerDao,
+                               DexActorDao actorDao, DexFacilityManagerDao facilityManagerDao,
                                DexSupervisorDao supervisorDao, DexTechnicianDao technicianDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
         this.principalDao = principalDao;
         this.userDao = userDao;
         this.groupDao = groupDao;
+        this.actorDao = actorDao;
         this.staffDao = staffDao;
         this.facilityManagerDao = facilityManagerDao;
         this.supervisorDao = supervisorDao;
@@ -364,6 +368,25 @@ public class IdentityServiceImpl implements IdentityService {
     public void deleteGroupMember(DexGroup group, DexPrincipal principal) {
         groupDao.deleteMember(group, principal);
         entityManager.flush();
+    }
+
+    //==============================================================================================
+    // ACTOR
+    //==============================================================================================
+
+    @Override
+    public DexActor findActorById(Long id) {
+        return actorDao.findById(id);
+    }
+
+    @Override
+    public DexActor findActorByCode(String code) {
+        return actorDao.findByCode(code);
+    }
+
+    @Override
+    public DexActor findActorByIdentityNo(String identityNo) {
+        return actorDao.findByIdentityNo(identityNo);
     }
 
     //==============================================================================================

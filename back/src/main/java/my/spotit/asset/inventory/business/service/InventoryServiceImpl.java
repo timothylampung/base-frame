@@ -104,7 +104,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<DexPart> findParts() {
-        return partDao.findAllParts();
+        return partDao.find();
     }
 
     @Override

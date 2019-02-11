@@ -94,7 +94,7 @@ public class WorkOrderServiceImplTest extends AbstractTest {
 
     @Test
     public void findWorkOrderByCode() {
-        DexWorkOrder findWorkOrderByCode = workOrderService.findWorkOrderByCode("CODE_@#!");
+        DexWorkOrder findWorkOrderByCode = workOrderService.findWorkOrderByReferenceNo("CODE_@#!");
         LOG.debug("TEST: " + findWorkOrderByCode.getDescription());
     }
 

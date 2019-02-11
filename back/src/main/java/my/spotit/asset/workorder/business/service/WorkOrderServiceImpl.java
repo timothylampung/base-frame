@@ -75,7 +75,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
             // generate reference no
             HashMap<String, Object> param = new HashMap<String, Object>();
             // param.put("period", commonService.findCurrentPeriod());
-            String referenceNo = systemService.generateFormattedReferenceNo(WORK_ORDER_REFERENCE_NO, param);
+            String referenceNo = systemService.generateFormattedSequenceGenerator(WORK_ORDER_REFERENCE_NO, param);
             workOrder.setReferenceNo(referenceNo);
 
             // save invoice
@@ -177,8 +177,13 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public DexWorkOrder findWorkOrderByCode(String code) {
-        return workOrderDao.findWorkOrderByCode(code);
+    public DexWorkOrder findWorkOrderByReferenceNo(String referenceNo) {
+        return workOrderDao.findByReferenceNo(referenceNo);
+    }
+
+    @Override
+    public DexActivity findActivityById(Long id) {
+        return workOrderDao.findActivityById(id);
     }
 
     @Override
@@ -203,6 +208,11 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
+    public Integer counActivity(DexWorkOrder workOrder) {
+        return null;
+    }
+
+    @Override
     public void saveWorkOrder(DexWorkOrder WorkOrder) {
         workOrderDao.save(WorkOrder, securityService.getCurrentUser());
         entityManager.flush();
@@ -222,6 +232,24 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
+    public void addActivity(DexWorkOrder workOrder, DexActivity activity) {
+        workOrderDao.addActivity(workOrder, activity, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateActivity(DexWorkOrder workOrder, DexActivity activity) {
+        workOrderDao.updateActivity(workOrder, activity, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void deleteActivity(DexWorkOrder workOrder, DexActivity activity) {
+        workOrderDao.deleteActivity(workOrder, activity, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
     public void serializeToWorkOrder(DexMaintenanceRequest request) {
         DexWorkOrder workOrder = new DexWorkOrderImpl();
         workOrder.setAssignee(request.getDelegator());
@@ -237,49 +265,9 @@ public class WorkOrderServiceImpl implements WorkOrderService {
         }
     }
 
-
-    //====================================================================================================
-    // ACTIVITY
-    //====================================================================================================
-//TODO 2 diff find methods, find which one works
-    @Override
-    public DexActivity findActivityById(Long id) {
-        return activityDao.findActivityById(id);
-    }
-
-    @Override
-    public DexActivity findActivityByCode(String code) {
-        return activityDao.findActivityByCode(code);
-    }
-
-    @Override
-    public Integer countActivity() {
-        return activityDao.count();
-    }
-
-    @Override
-    public Integer countActivity(String filter) {
-        return activityDao.count(filter);
-    }
-
-    @Override
-    public void saveActivity(DexActivity Activity) {
-        activityDao.save(Activity, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void updateActivity(DexActivity Activity) {
-        activityDao.update(Activity, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void removeActivity(DexActivity Activity) {
-        activityDao.remove(Activity, securityService.getCurrentUser());
-        entityManager.flush();
-
-    }
+    // =============================================================================================
+    // PRIVATE METHODS
+    // =============================================================================================
 
     private Map<String, Object> toMap(DexWorkOrder workOrder) {
         Map<String, Object> map = new HashMap<String, Object>();

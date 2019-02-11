@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface DexActivityDao extends GenericDao<Long, DexActivity> {
 
-    DexActivity findActivityByCode(String code);
+    DexActivity findByCode(String code);
 
-    DexActivity findActivityById(Long id);
+    List<DexActivity> find(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
 
-    List<DexActivity> findActivities();
+    Integer count(String filter);
 
     void addActivity(DexWorkOrder workOrder, DexActivity activity, DexUser user);
 
@@ -21,7 +21,4 @@ public interface DexActivityDao extends GenericDao<Long, DexActivity> {
 
     void deleteActivity(DexWorkOrder workOrder, DexActivity activity, DexUser user);
 
-    List<DexActivity> find(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
-
-    Integer count(String filter);
 }

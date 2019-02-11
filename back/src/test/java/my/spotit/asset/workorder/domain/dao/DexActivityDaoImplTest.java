@@ -44,7 +44,7 @@ public class DexActivityDaoImplTest extends AbstractTest {
 //        dexActivityDao.save(activity, user);
 //
 //        entityManager.flush();
-//        DexActivity savedActivity = dexActivityDao.findActivityByCode("CODE");
+//        DexActivity savedActivity = dexActivityDao.findByCode("CODE");
 //        LOG.debug("--------------------saved-------------------------- {} ",savedActivity.getContactNo() );
 //
 //    }
@@ -52,7 +52,7 @@ public class DexActivityDaoImplTest extends AbstractTest {
     @Test
     public void findActivityByCode() {
 
-        DexActivity findActivityByCode = dexActivityDao.findActivityByCode("AT01");
+        DexActivity findActivityByCode = dexActivityDao.findByCode("AT01");
         LOG.debug("TESTING {} ", findActivityByCode.getDescription());
 
     }

@@ -1,8 +1,12 @@
 package my.spotit.asset.asset.business.service;
 
+import org.flowable.task.api.Task;
+
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexLocation;
+import my.spotit.asset.workorder.domain.model.DexActivity;
+import my.spotit.asset.workorder.domain.model.DexWorkOrder;
 
 import java.util.List;
 
@@ -30,11 +34,11 @@ public interface AssetService {
     // LOCATION
     //==============================================================================================
 
-    List<DexLocation> findAllLocations();
-
     DexLocation findLocationById(Long id);
 
     DexLocation findLocationByCode(String code);
+
+    List<DexLocation> findLocations();
 
     List<DexLocation> findLocations(String filter, Integer offset, Integer limit);
 
@@ -54,6 +58,8 @@ public interface AssetService {
 
     DexAsset findAssetByCode(String code);
 
+    List<DexAsset> findAssets(String filter, Integer offset, Integer limit);
+
     List<DexAsset> findAssetsByLocation(DexLocation location);
 
     Integer countAsset();
@@ -66,5 +72,4 @@ public interface AssetService {
 
     void removeAsset(DexAsset asset);
 
-    List<DexAsset> findAssets(String s, int i, int limit);
 }

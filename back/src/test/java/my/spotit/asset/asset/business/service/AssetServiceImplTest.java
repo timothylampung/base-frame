@@ -31,7 +31,7 @@ public class AssetServiceImplTest extends AbstractTest {
 
     @Test
     public void findAllLocations() {
-        List<DexLocation> locations = assetService.findAllLocations();
+        List<DexLocation> locations = assetService.findLocations();
         for (DexLocation location : locations) {
             LOG.debug("TEST: " + location.getDescription());
         }
