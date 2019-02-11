@@ -4,6 +4,7 @@ import my.spotit.AbstractTest;
 
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetImpl;
+import my.spotit.asset.helper.IdentityServiceHelper;
 import my.spotit.asset.identity.domain.dao.DexUserDao;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -27,9 +28,14 @@ public class DexAssetDaoImplTest extends AbstractTest {
     @Autowired
     private DexLocationDao dexLocationDao;
 
+    @Autowired
+    IdentityServiceHelper identityServiceHelper;
+
 
     @Autowired
     private EntityManager entityManager;
+
+
 
 
 
@@ -55,15 +61,17 @@ public class DexAssetDaoImplTest extends AbstractTest {
     }
     @Test
     @Transactional
-    @Rollback(false)
+    @Rollback(true)
     public void saveAsset(){
+
+        identityServiceHelper.changeUser("maula");
 
         DexAsset asset = new DexAssetImpl();
         asset.setCode("CODE7957");
         asset.setDescription("DESCRIPTIONLAGHEAY");
 
         LOG.debug("----------------------prepared------------------------ {} ",asset.getDescription() );
-//        dexAssetDao.save(asset, getCurrentUser()); //TODO identity helper
+        dexAssetDao.save(asset, identityServiceHelper.getCurrentUser()); //TODO identity helper
 
         entityManager.flush();
         DexAsset savedAsset = dexAssetDao.findByCode("CODE7957");
