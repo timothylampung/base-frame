@@ -50,7 +50,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findDexAssetCodeByCode() {
         String code = "ASST_CODE_004";
-        DexAssetCode DexAssetCodeByCode =  dexAssetCodeDao.findByCode(code);
+        DexAssetCode DexAssetCodeByCode =  dexAssetCodeDao.findAssetCodeByCode(code);
 
         LOG.debug("TEST: " + DexAssetCodeByCode.getDescription());
 
@@ -70,7 +70,7 @@ public class DexAssetCodeDaoImplTest extends AbstractTest {
 //        dexAssetCodeDao.save(assetCode, getCurrentUser()); //TODO identity helper
 
         entityManager.flush();
-        DexAssetCode savedAssetCode = dexAssetCodeDao.findByCode("CODE7959");
+        DexAssetCode savedAssetCode = dexAssetCodeDao.findAssetCodeByCode("CODE7959");
         LOG.debug("--------------------saved-------------------------- {} ",savedAssetCode.getDescription() );
 
     }
