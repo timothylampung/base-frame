@@ -96,7 +96,7 @@ export class WorkOrderService {
         return this.http.post(url, null);
     }
 
-    claimWorkOrderTask(taskIds: string[]) {
+    claimWorkOrderTask(taskIds: string[])  {
         const url = `${this.WORK_ORDER_API}/claim-task`;
         return this.http.post(url, JSON.stringify(taskIds));
     }
