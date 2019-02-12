@@ -14,6 +14,7 @@ export class LocationDetailPage implements OnInit, OnChanges {
     title = 'Locations';
     @Input() selectedRow: Location;
     edit: boolean;
+    overlayPanel: any; // todo:
 
     constructor(public fb: FormBuilder,
                 public store: Store<AssetState>,
