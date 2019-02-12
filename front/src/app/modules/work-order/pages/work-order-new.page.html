@@ -16,86 +16,11 @@
                     </div>
                 </div>
                 <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Pusat Kos</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <cng-cost-center-autocomplete
-                            #costCenterField
-                            [innerFormControl]="mainForm.get('costCenter')"
-                            [hideFloatLabel]="true">
-                        </cng-cost-center-autocomplete>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Pembekal</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <cng-beneficiary-account-autocomplete
-                            [innerFormControl]="mainForm.get('account')"
-                            [hideFloatLabel]="true">
-                        </cng-beneficiary-account-autocomplete>
-                    </div>
+                    <!--todo -->
                 </div>
             </div>
             <div class="ui-g-6 ui-g " [formGroup]="mainForm">
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>No Work Order#</label>
-                    </div>
-                    <div class="ui-g-8">
-                    <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="workOrderNo"
-                               pInputText>
-                    </span>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Tarikh Work Order</label>
-                    </div>
-                    <div class="ui-g-8">
-                    <span class="md-inputfield">
-                        <p-calendar id="workOrderDate"
-                                    [showIcon]="true"
-                                    [dateFormat]="'ddmmyy'"
-                                    placeholder="Tarikh Work Order"
-                                    formControlName="workOrderDate"></p-calendar>
-                    </span>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Thn Kewangan</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <cng-period-autocomplete
-                            [innerFormControl]="mainForm.get('period')">
-                        </cng-period-autocomplete>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Bank/Kredit Akaun</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <cng-bank-account-autocomplete
-                            [innerFormControl]="mainForm.get('creditAccount')">
-                        </cng-bank-account-autocomplete>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Jumlah</label>
-                    </div>
-                    <div class="ui-g-8">
-                    <span class="md-inputfield">
-                        <span>{{mainForm.get('totalAmount')?.value | number:'1.2'}}</span>
-                    </span>
-                    </div>
-                </div>
+                <!--todo-->
             </div>
         </div>
     </div>
