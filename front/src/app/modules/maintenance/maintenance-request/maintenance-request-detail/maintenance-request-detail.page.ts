@@ -14,6 +14,7 @@ export class MaintenanceRequestDetailPage implements OnInit, OnChanges {
     title = 'Maintenance Requests';
     @Input() selectedRow: MaintenanceRequest;
     edit: boolean;
+    overlayPanel: any;
 
     constructor(public fb: FormBuilder,
                 public store: Store<MaintenanceRequestState>,
