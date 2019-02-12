@@ -18,20 +18,30 @@ public class DexDeviceDaoImpl extends GenericDaoSupport<Long, DexDevice> impleme
     }
 
     @Override
-    public DexDevice findByDeviceId(String deviceId) {
+    public List<DexDevice> findByDevice(String deviceId) {
         Query q = entityManager.createQuery("select e from DexDevice  e where e.deviceId =:deviceId")
                 .setParameter("deviceId", deviceId);
-        return (DexDevice) q.getSingleResult();
+        return (List<DexDevice>)q.getResultList();
+
     }
 
 
     @Override
-    public List<DexDevice> findDevicesByUser(DexUser user) {
+    public List<DexDevice> findDevices(DexUser user) {
         Query q = entityManager.createQuery("select e from DexDevice e where e.user =:user")
                 .setParameter("user", user);
         return q.getResultList();
     }
 
+    @Override
+    public DexDevice findDevice(String deviceId, DexUser user) {
+        Query q = entityManager.createQuery("select e from DexDevice  e where " +
+                "e.deviceId =:deviceId " +
+                "and e.user=:user")
+                .setParameter("user", user)
+                .setParameter("deviceId", deviceId);
+        return (DexDevice) q.getSingleResult();
+    }
 
 
 }

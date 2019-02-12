@@ -42,16 +42,16 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public boolean deviceExist(String deviceId) {
-        return findDeviceByDeviceId(deviceId)!=null;
+    public boolean deviceExist(String deviceId, DexUser user) {
+        return findDevices(deviceId, user)!=null;
     }
 
 
     @Override
-    public DexDevice findDeviceByDeviceId(String deviceId) {
-        DexDevice device = null;
+    public List<DexDevice> findDevices(String deviceId) {
+        List<DexDevice> device = null;
         try {
-            device = deviceDao.findByDeviceId(deviceId);
+            device = deviceDao.findByDevice(deviceId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,8 +60,19 @@ public class DeviceServiceImpl implements DeviceService {
 
 
     @Override
-    public List<DexDevice> findDevicesByUserId(DexUser user) {
-        return deviceDao.findDevicesByUser(user);
+    public List<DexDevice> findDevicesByUser(DexUser user) {
+        return deviceDao.findDevices(user);
+    }
+
+    @Override
+    public DexDevice findDevices(String deviceId, DexUser user) {
+        DexDevice device = null;
+        try {
+            device = deviceDao.findDevice(deviceId, user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return device;
     }
 }
 

@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DexAutoLoginAuthenticationProvider autoLoginAuthenticationProvider;
-    
+
     @Bean
     public UserDetailsService userDetailsService() {
         return super.userDetailsService();
@@ -69,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/api/registration/**")
+                .antMatchers("/api/mobile/**")
                 .antMatchers("/swagger-ui.html")
                 .antMatchers("/servlet/**")
                 .antMatchers(HttpMethod.GET, "/index.html")

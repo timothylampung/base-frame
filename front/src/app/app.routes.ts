@@ -21,6 +21,7 @@ import {LocationListPage} from "./modules/asset/locations/location-list.page";
 import {AssetListPage} from "./modules/asset/assets/asset-list.page";
 import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facility-manager-list.page";
 import {MaintenanceRequestListPage} from "./modules/maintenance/maintenance-request/maintenance-request-list.page";
+import {WorkOrderListPage} from "./modules/workorder/orders/work-order-list.page";
 import {PartListPage} from "./modules/inventory/parts/part-list.page";
 import {ComponentListPage} from "./modules/inventory/components/component-list.page";
 import {PartCodeListPage} from "./modules/inventory/part-codes/part-code-list.page";
@@ -181,17 +182,23 @@ export const routes: Routes = [
 
                 ]
 
-            }
-        ]
-    },
-
-    {
-        path: 'asset',
-        children: [
-            {
-                path: 'asset-codes/list',
-                component: AssetCodeListPage,
             },
+            {
+                path : 'work-order',
+                children : [
+                    {
+                        path : 'work-orders/list',
+                        component:WorkOrderListPage,
+                        data: {
+                            breadcrumb: [
+                                {label: 'work-order', routerLink: null},
+                                {label: 'work-orders', routerLink: ['/work-order/work-orders/list']}
+                            ]
+                        }
+
+                    }
+                ]
+            }
         ]
     },
 
