@@ -5,31 +5,26 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {Observable, Subject} from "rxjs/index";
 import {map, skip, take, takeUntil, withLatestFrom} from "rxjs/operators";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {Activity} from "../activity.model";
 import {AppState} from "../../../core/core.state";
-import {selectActivities} from "../work-order.selector";
-import {WorkOrderTaskSummary} from "../work-order.model";
+import {MaintenanceRequestTaskSummary} from "../maintenance-request.model";
 import {tap} from "rxjs/internal/operators";
-import {FindActivitiesAction} from "../work-order.action";
 
 @Component({
-    selector: 'dex-work-order-page',
+    selector: 'dex-maintenance-request-page',
     template: ''
 })
-export class WorkOrderPage {
+export class MaintenanceRequestPage {
 
-    @Input() workOrderTask: WorkOrderTaskSummary;
+    @Input() maintenanceRequestTask: MaintenanceRequestTaskSummary;
     totalAmount = 0;
-    activities: Activity[];
-    activities$: Observable<Activity[]>;
     destroy$ = new Subject<any>();
     mainForm: FormGroup;
     displayDialog: boolean;
     breadcrumbs = [
-        {label: 'Work Order'},
+        {label: 'Maintenance Request'},
         {
             label: 'My Tasks',
-            routerLink: ['/work-order/work-order-tasks/assigned']
+            routerLink: ['/maintenance-request/maintenance-request-tasks/assigned']
         }
     ];
 
@@ -50,19 +45,9 @@ export class WorkOrderPage {
             description: ['', Validators.required],
         });
 
-        this.activities$ = this.store.pipe(select(selectActivities));
-        this.activities$.pipe(takeUntil(this.destroy$)).subscribe(activities => {
-            return this.activities = activities;
-        });
-
         // todo: date workaround
-        // this.workOrderTask.workOrder.workOrderDate = new Date(this.workOrderTask.workOrder.workOrderDate);
-        this.mainForm.patchValue(this.workOrderTask.workOrder);
-        if (this.workOrderTask.referenceNo) {
-            this.store.dispatch(
-                new FindActivitiesAction({workOrder: this.workOrderTask.workOrder})
-            );
-        }
+        // this.maintenanceRequestTask.maintenanceRequest.requestedDate = new Date(this.maintenanceRequestTask.maintenanceRequest.requestedDate);
+        this.mainForm.patchValue(this.maintenanceRequestTask.maintenanceRequest);
     }
 
     showDialog() {
@@ -74,14 +59,6 @@ export class WorkOrderPage {
     }
 
     validateDocument() {
-        if (this.activities.length === 0) {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: `Sila masukkan item invois`
-            });
-            return false;
-        }
         return true;
     }
 

@@ -1,0 +1,40 @@
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <div class="ui-g-12 card card-w-title">
+            <h1>Maintenance Request Ref# {{ workOrder?.referenceNo}}</h1>
+            <div class="ui-g-6 ui-g" [formGroup]="mainForm">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Description</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{mainForm.get('description')?.value}}</span>
+                    </div>
+                </div>
+                 <!--todo-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui-g">
+    <div class="ui-g-12">
+    </div>
+</div>
+
+<div class="ui-g-12 ui-fluid page-action">
+    <div class="ui-g-1">
+        <button
+            type="button"
+            label="Perihal"
+            (click)="showAboutDialog()"
+            icon="fa fa-flag"
+            pButton></button>
+    </div>
+</div>
+
+<!--<cng-about-dialog-->
+    <!--[flowData]="workOrder?.flowData"-->
+    <!--[displayAboutDialog]="displayAboutDialog"-->
+    <!--(onClose)="hideDialog()">-->
+<!--</cng-about-dialog>-->

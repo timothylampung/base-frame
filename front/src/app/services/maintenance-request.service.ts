@@ -1,50 +1,107 @@
 import {environment} from '../../environments/environment';
 import {Injectable} from "@angular/core";
-import {MaintenanceRequest, MaintenanceRequestResult} from "../modules/maintenance/maintenance-request/maintenance-request.model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-
+import {
+    MaintenanceRequest,
+    MaintenanceRequestRecordSummary,
+    MaintenanceRequestRecordSummaryResult, MaintenanceRequestResult,
+    MaintenanceRequestTaskSummary,
+    MaintenanceRequestTaskSummaryResult
+} from "../modules/maintenance/maintenance-request.model";
 
 @Injectable()
 export class MaintenanceRequestService {
-
-    private MAINTENANCE_API: string = environment.endpoint + '/api/maintenance';
+    private MAINTENANCE_REQUEST_API: string = environment.endpoint + '/api/maintenance-request/maintenance-requests';
 
     constructor(public http: HttpClient) {
     }
 
+    // =================================================================================================================
+    // MAINTENANCE_REQUESTS
+    // =================================================================================================================
 
-    // ===================================================================================================================
-    // MAINTENANCE REQUESTS
-    // ===================================================================================================================
+    findMaintenanceRequestByReferenceNo(referenceNo: string): Observable<MaintenanceRequest> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/${referenceNo}`;
+        return this.http.get<MaintenanceRequest>(url);
+    }
 
-    findPagedMaintenanceRequests(filter: string, page: number): Observable<MaintenanceRequestResult> {
-        return this.http.get<MaintenanceRequestResult>("/assets/mock-data/paged-maintenance-requests.json"
-            // ,
-            // {
-            //     params: {
-            //         filter: filter,
-            //         page: page.toString()
-            //     }
-            // }
+    findAssignedMaintenanceRequests(filter: string, page: number): Observable<MaintenanceRequestTaskSummaryResult> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/assigned-tasks?filter=${filter}&page=${page}`;
+        return this.http.get<MaintenanceRequestTaskSummaryResult>(url);
+    }
+
+    findPooledMaintenanceRequests(filter: string, page: number): Observable<MaintenanceRequestTaskSummaryResult> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/pooled-tasks?filter=${filter}&page=${page}`;
+        return this.http.get<MaintenanceRequestTaskSummaryResult>(url);
+    }
+
+    findArchivedMaintenanceRequests(filter: string, page: number): Observable<MaintenanceRequestRecordSummaryResult> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/archived-records?filter=${filter}&page=${page}`;
+        return this.http.get<MaintenanceRequestRecordSummaryResult>(url);
+    }
+
+    findMaintenanceRequestTaskByTaskId(taskId: string): Observable<MaintenanceRequestTaskSummary> {
+        return this.http.get<MaintenanceRequestTaskSummary>(
+            this.MAINTENANCE_REQUEST_API + '/view-task/' + taskId
         );
     }
 
+    findMaintenanceRequestRecordByRecordId(recordId: string): Observable<MaintenanceRequestRecordSummary> {
+        return this.http.get<MaintenanceRequestRecordSummary>(
+            this.MAINTENANCE_REQUEST_API + '/view-record/' + recordId
+        );
+    }
+
+    findPagedMaintenanceRequests(filter: string, page: number): Observable<MaintenanceRequestResult> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/maintenance-requests?filter=${filter}&page=${page}`;
+        return this.http.get<MaintenanceRequestResult>(url);
+    }
+
     findMaintenanceRequests(): Observable<MaintenanceRequest[]> {
-        return this.http.get<MaintenanceRequest[]>(this.MAINTENANCE_API + '/maintenance-requests');
+        const url = `${this.MAINTENANCE_REQUEST_API}/maintenance-requests`;
+        return this.http.get<MaintenanceRequest[]>(url);
     }
 
-    saveMaintenanceRequest(code: MaintenanceRequest) {
-        return this.http.post(this.MAINTENANCE_API + '/maintenance-requests', JSON.stringify(code));
+    countAssignedMaintenanceRequests(): Observable<any> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/count-assigned-task`;
+        return this.http.get<any>(url);
     }
 
-    updateMaintenanceRequest(code: MaintenanceRequest) {
-        return this.http.put(this.MAINTENANCE_API + '/maintenance-requests/' + code.referenceNo, JSON.stringify(code));
+    countPooledMaintenanceRequests(): Observable<any> {
+        const url = `${this.MAINTENANCE_REQUEST_API}/count-pooled-task`;
+        return this.http.get<any>(url);
     }
 
-    removeMaintenanceRequest(code: MaintenanceRequest) {
-        return this.http.delete(this.MAINTENANCE_API + '/maintenance-requests/' + code.referenceNo);
+
+    startMaintenanceRequestTask(maintenanceRequest: MaintenanceRequest) {
+        const url = `${this.MAINTENANCE_REQUEST_API}/start-task`;
+        return this.http.post(url, JSON.stringify(maintenanceRequest));
     }
 
+    completeMaintenanceRequestTask(taskId: string) {
+        const url = `${this.MAINTENANCE_REQUEST_API}/complete-task/${taskId}`;
+        return this.http.post(url, null);
+    }
+
+    releaseMaintenanceRequestTask(taskId: string) {
+        const url = `${this.MAINTENANCE_REQUEST_API}/release-task/${taskId}`;
+        return this.http.post(url, null);
+    }
+
+    claimMaintenanceRequestTask(taskIds: string[]) {
+        const url = `${this.MAINTENANCE_REQUEST_API}/claim-task`;
+        return this.http.post(url, JSON.stringify(taskIds));
+    }
+
+    removeMaintenanceRequestTask(taskId: string) {
+        const url = `${this.MAINTENANCE_REQUEST_API}/remove-task/${taskId}`;
+        return this.http.post(url, null);
+    }
+
+    updateMaintenanceRequest(maintenanceRequest: MaintenanceRequest) {
+        const url = `${this.MAINTENANCE_REQUEST_API}/${maintenanceRequest.referenceNo}`;
+        return this.http.put(url, JSON.stringify(maintenanceRequest));
+    }
 }
 

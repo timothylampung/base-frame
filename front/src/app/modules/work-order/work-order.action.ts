@@ -73,10 +73,6 @@ export const REMOVE_ACTIVITY = '[WorkOrder] Remove workOrder item';
 export const REMOVE_ACTIVITY_SUCCESS = '[WorkOrder] Remove workOrder item success';
 export const REMOVE_ACTIVITY_ERROR = '[WorkOrder] Remove workOrder item error';
 
-export const FIND_WORK_ORDER_TRANSACTIONS = '[WorkOrder] Find workOrder transactions';
-export const FIND_WORK_ORDER_TRANSACTIONS_SUCCESS = '[WorkOrder] Find workOrder transactions success';
-export const FIND_WORK_ORDER_TRANSACTIONS_ERROR = '[WorkOrder] Find workOrder transactions error';
-
 export const SELECT_WORK_ORDER = '[WorkOrder] Select workOrder';
 export const NEW_WORK_ORDER_TASK = '[WorkOrder] New WorkOrder';
 export const RELOAD_WORK_ORDER_PAGE = '[WorkOrder] Reload workOrder page';
@@ -118,20 +114,6 @@ export class FindActivitiesSuccessAction implements Action {
 
 export class FindActivitiesErrorAction implements Action {
     readonly type: string = FIND_ACTIVITIES_ERROR;
-
-    constructor(public payload: ApplicationError) {
-    }
-}
-
-export class FindWorkOrderTransactionsAction implements Action {
-    readonly type: string = FIND_WORK_ORDER_TRANSACTIONS;
-
-    constructor(public payload: { workOrder: WorkOrder }) {
-    }
-}
-
-export class FindWorkOrderTransactionsErrorAction implements Action {
-    readonly type: string = FIND_WORK_ORDER_TRANSACTIONS_ERROR;
 
     constructor(public payload: ApplicationError) {
     }

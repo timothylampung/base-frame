@@ -20,11 +20,21 @@ import {TechnicianListPage} from "./modules/identity/technicians/technician-list
 import {LocationListPage} from "./modules/asset/locations/location-list.page";
 import {AssetListPage} from "./modules/asset/assets/asset-list.page";
 import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facility-manager-list.page";
-import {MaintenanceRequestListPage} from "./modules/maintenance/maintenance-request/maintenance-request-list.page";
-import {WorkOrderListPage} from "./modules/workorder/orders/work-order-list.page";
 import {PartListPage} from "./modules/inventory/parts/part-list.page";
 import {ComponentListPage} from "./modules/inventory/components/component-list.page";
 import {PartCodeListPage} from "./modules/inventory/part-codes/part-code-list.page";
+import {WorkOrderTaskDetailPage} from "./modules/work-order/work-order-task-detail.page";
+import {WorkOrderArchiveDetailPage} from "./modules/work-order/work-order-archive-detail.page";
+import {WorkOrderArchiveListPage} from "./modules/work-order/work-order-archive-list.page";
+import {WorkOrderPooledTaskListPage} from "./modules/work-order/work-order-pooled-task-list.page";
+import {WorkOrderAssignedTaskListPage} from "./modules/work-order/work-order-assigned-task-list.page";
+import {WorkOrderTaskNewPage} from "./modules/work-order/work-order-task-new.page";
+import {MaintenanceRequestTaskNewPage} from "./modules/maintenance/maintenance-request-task-new.page";
+import {MaintenanceRequestAssignedTaskListPage} from "./modules/maintenance/maintenance-request-assigned-task-list.page";
+import {MaintenanceRequestPooledTaskListPage} from "./modules/maintenance/maintenance-request-pooled-task-list.page";
+import {MaintenanceRequestTaskDetailPage} from "./modules/maintenance/maintenance-request-task-detail.page";
+import {MaintenanceRequestArchiveListPage} from "./modules/maintenance/maintenance-request-archive-list.page";
+import {MaintenanceRequestArchiveDetailPage} from "./modules/maintenance/maintenance-request-archive-detail.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -33,7 +43,8 @@ export const routes: Routes = [
         component: AppShellComponent,
         canActivate: [AuthGuard],
         children: [
-            {path: 'asset',
+            {
+                path: 'asset',
                 children: [
                     {
                         path: 'asset-codes/list',
@@ -52,7 +63,8 @@ export const routes: Routes = [
                 ]
             },
 
-            {path: 'inventory',
+            {
+                path: 'inventory',
                 children: [
                     {
                         path: 'parts/list',
@@ -74,21 +86,60 @@ export const routes: Routes = [
                 ]
             },
 
-
-
             {
-              path : 'maintenance-request',
-                children : [
+                path: 'maintenance-request',
+                children: [
                     {
-                        path : 'maintenance-request/list',
-                        component : MaintenanceRequestListPage,
-                        data: {
-                            breadcrumb: [
-                                {label: 'maintenance-request', routerLink: null},
-                                {label: 'maintenance-request', routerLink: ['/maintenance-request/maintenance-request/list']}
-                            ]
-                        }
-
+                        path: 'maintenance-request-tasks/new',
+                        component: MaintenanceRequestTaskNewPage
+                    },
+                    {
+                        path: 'maintenance-request-tasks/assigned',
+                        component: MaintenanceRequestAssignedTaskListPage
+                    },
+                    {
+                        path: 'maintenance-request-tasks/pooled',
+                        component: MaintenanceRequestPooledTaskListPage
+                    },
+                    {
+                        path: 'maintenance-request-tasks/:taskId',
+                        component: MaintenanceRequestTaskDetailPage
+                    },
+                    {
+                        path: 'maintenance-request-records/history',
+                        component: MaintenanceRequestArchiveListPage
+                    },
+                    {
+                        path: 'maintenance-request-records/:referenceNo',
+                        component: MaintenanceRequestArchiveDetailPage
+                    }
+                ]
+            }, {
+                path: 'work-order',
+                children: [
+                    {
+                        path: 'work-order-tasks/new',
+                        component: WorkOrderTaskNewPage
+                    },
+                    {
+                        path: 'work-order-tasks/assigned',
+                        component: WorkOrderAssignedTaskListPage
+                    },
+                    {
+                        path: 'work-order-tasks/pooled',
+                        component: WorkOrderPooledTaskListPage
+                    },
+                    {
+                        path: 'work-order-tasks/:taskId',
+                        component: WorkOrderTaskDetailPage
+                    },
+                    {
+                        path: 'work-order-records/history',
+                        component: WorkOrderArchiveListPage
+                    },
+                    {
+                        path: 'work-order-records/:referenceNo',
+                        component: WorkOrderArchiveDetailPage
                     }
                 ]
             },
@@ -112,7 +163,10 @@ export const routes: Routes = [
                         data: {
                             breadcrumb: [
                                 {label: 'administration', routerLink: null},
-                                {label: 'technicians', routerLink: ['/administration/technicians/list']}
+                                {
+                                    label: 'technicians',
+                                    routerLink: ['/administration/technicians/list']
+                                }
                             ]
                         }
                     },
@@ -122,7 +176,10 @@ export const routes: Routes = [
                         data: {
                             breadcrumb: [
                                 {label: 'administration', routerLink: null},
-                                {label: 'facility-managers', routerLink: ['/administration/facility-managers/list']}
+                                {
+                                    label: 'facility-managers',
+                                    routerLink: ['/administration/facility-managers/list']
+                                }
                             ]
                         }
                     },
@@ -132,7 +189,10 @@ export const routes: Routes = [
                         data: {
                             breadcrumb: [
                                 {label: 'administration', routerLink: null},
-                                {label: 'supervisors', routerLink: ['/administration/supervisors/list']}
+                                {
+                                    label: 'supervisors',
+                                    routerLink: ['/administration/supervisors/list']
+                                }
                             ]
                         }
                     },
@@ -181,24 +241,7 @@ export const routes: Routes = [
 
 
                 ]
-
             },
-            {
-                path : 'work-order',
-                children : [
-                    {
-                        path : 'work-orders/list',
-                        component:WorkOrderListPage,
-                        data: {
-                            breadcrumb: [
-                                {label: 'work-order', routerLink: null},
-                                {label: 'work-orders', routerLink: ['/work-order/work-orders/list']}
-                            ]
-                        }
-
-                    }
-                ]
-            }
         ]
     },
 

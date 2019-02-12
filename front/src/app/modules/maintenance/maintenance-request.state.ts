@@ -1,25 +1,40 @@
-import {ActionReducerMap, createFeatureSelector} from "@ngrx/store";
-import {MaintenanceRequest, MaintenanceRequestResult} from "./maintenance-request/maintenance-request.model";
-import {AppState} from "../../core/core.state";
+import {AppState} from '../../core/core.state';
+import {ActionReducerMap, createFeatureSelector} from '@ngrx/store';
 import {
+    MaintenanceRequest,
+    MaintenanceRequestRecordSummaryResult,
+    MaintenanceRequestResult,
+    MaintenanceRequestTaskSummary,
+    MaintenanceRequestTaskSummaryResult
+} from './maintenance-request.model';
+import {
+    maintenanceRequestCountTaskReducer,
+    maintenanceRequestRecordResultReducer,
+    maintenanceRequestReducer,
     maintenanceRequestResultReducer,
-    maintenanceRequestsReducer
-} from "./maintenance-request/maintenance-request.reducer";
-
+    maintenanceRequestTaskReducer,
+    maintenanceRequestTaskResultReducer,
+} from './maintenance-request.reducer';
 
 export const FEATURE_NAME = 'maintenanceRequest';
-export const selectMaintenanceRequest = createFeatureSelector<State, MaintenanceRequestState>(
-    FEATURE_NAME
-);
+export const selectMaintenanceRequestState = createFeatureSelector<State, MaintenanceRequestState>(FEATURE_NAME);
 
 export const reducers: ActionReducerMap<MaintenanceRequestState> = {
+    maintenanceRequestTaskResult: maintenanceRequestTaskResultReducer,
+    maintenanceRequestTask: maintenanceRequestTaskReducer,
+    maintenanceRequestCountTask: maintenanceRequestCountTaskReducer,
+    maintenanceRequestRecordResult: maintenanceRequestRecordResultReducer,
     maintenanceRequestResult: maintenanceRequestResultReducer,
-    maintenanceRequest: maintenanceRequestsReducer,
+    maintenanceRequest: maintenanceRequestReducer,
 };
 
 export interface MaintenanceRequestState {
+    maintenanceRequestTaskResult: MaintenanceRequestTaskSummaryResult;
+    maintenanceRequestTask: MaintenanceRequestTaskSummary;
+    maintenanceRequestCountTask: any,
+    maintenanceRequestRecordResult: MaintenanceRequestRecordSummaryResult;
     maintenanceRequestResult: MaintenanceRequestResult;
-    maintenanceRequest: MaintenanceRequest[];
+    maintenanceRequest: MaintenanceRequest;
 }
 
 export interface State extends AppState {

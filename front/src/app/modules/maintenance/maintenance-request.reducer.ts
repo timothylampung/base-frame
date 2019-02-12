@@ -1,38 +1,36 @@
 import {
     COUNT_ASSIGNED_WORK_ORDERS_SUCCESS,
     COUNT_POOLED_WORK_ORDERS_SUCCESS,
-    CountAssignedWorkOrdersSuccessAction,
-    CountPooledWorkOrdersSuccessAction,
+    CountAssignedMaintenanceRequestsSuccessAction,
+    CountPooledMaintenanceRequestsSuccessAction,
     FIND_ARCHIVED_WORK_ORDERS_SUCCESS,
     FIND_ASSIGNED_WORK_ORDERS_SUCCESS,
     FIND_WORK_ORDER_BY_REFERENCE_NO_SUCCESS,
-    FIND_ACTIVITIES_SUCCESS,
     FIND_WORK_ORDER_TASK_BY_TASK_ID_SUCCESS,
     FIND_PAGED_WORK_ORDERS_SUCCESS,
     FIND_POOLED_WORK_ORDERS_SUCCESS,
-    FindArchivedWorkOrdersSuccessAction,
-    FindAssignedWorkOrdersSuccessAction,
-    FindPagedWorkOrdersSuccessAction,
-    FindPooledWorkOrdersSuccessAction,
+    FindArchivedMaintenanceRequestsSuccessAction,
+    FindAssignedMaintenanceRequestsSuccessAction,
+    FindPagedMaintenanceRequestsSuccessAction,
+    FindPooledMaintenanceRequestsSuccessAction,
     NEW_WORK_ORDER_TASK,
     SELECT_WORK_ORDER
-} from "./work-order.action";
+} from "./maintenance-request.action";
 import {
-    initStateWorkOrder,
-    initStateWorkOrderRecordResult,
-    initStateWorkOrderResult,
-    initStateWorkOrderTaskResult,
-    initStateWorkOrderTaskSummary,
-    WorkOrder,
-    WorkOrderRecordSummaryResult,
-    WorkOrderResult,
-    WorkOrderTaskSummary,
-    WorkOrderTaskSummaryResult
-} from "./work-order.model";
-import {Activity} from "./activity.model";
+    initStateMaintenanceRequest,
+    initStateMaintenanceRequestRecordResult,
+    initStateMaintenanceRequestResult,
+    initStateMaintenanceRequestTaskResult,
+    initStateMaintenanceRequestTaskSummary,
+    MaintenanceRequest,
+    MaintenanceRequestRecordSummaryResult,
+    MaintenanceRequestResult,
+    MaintenanceRequestTaskSummary,
+    MaintenanceRequestTaskSummaryResult
+} from "./maintenance-request.model";
 
-export function workOrderResultReducer(state = initStateWorkOrderResult,
-                                     action: FindPagedWorkOrdersSuccessAction): WorkOrderResult {
+export function maintenanceRequestResultReducer(state = initStateMaintenanceRequestResult,
+                                     action: FindPagedMaintenanceRequestsSuccessAction): MaintenanceRequestResult {
     switch (action.type) {
         case FIND_PAGED_WORK_ORDERS_SUCCESS:
             return {
@@ -45,8 +43,8 @@ export function workOrderResultReducer(state = initStateWorkOrderResult,
     }
 }
 
-export function workOrderTaskResultReducer(state = initStateWorkOrderTaskResult,
-                                         action: FindAssignedWorkOrdersSuccessAction | FindPooledWorkOrdersSuccessAction): WorkOrderTaskSummaryResult {
+export function maintenanceRequestTaskResultReducer(state = initStateMaintenanceRequestTaskResult,
+                                         action: FindAssignedMaintenanceRequestsSuccessAction | FindPooledMaintenanceRequestsSuccessAction): MaintenanceRequestTaskSummaryResult {
     switch (action.type) {
         case FIND_ASSIGNED_WORK_ORDERS_SUCCESS:
             return {
@@ -64,8 +62,8 @@ export function workOrderTaskResultReducer(state = initStateWorkOrderTaskResult,
     }
 }
 
-export function workOrderCountTaskReducer(state = {},
-                                        action: CountAssignedWorkOrdersSuccessAction | CountPooledWorkOrdersSuccessAction) {
+export function maintenanceRequestCountTaskReducer(state = {},
+                                        action: CountAssignedMaintenanceRequestsSuccessAction | CountPooledMaintenanceRequestsSuccessAction) {
     switch (action.type) {
         case COUNT_ASSIGNED_WORK_ORDERS_SUCCESS:
             return {...state, ...action.payload};
@@ -77,8 +75,8 @@ export function workOrderCountTaskReducer(state = {},
     }
 }
 
-export function workOrderTaskReducer(state = initStateWorkOrderTaskSummary,
-                                   action): WorkOrderTaskSummary {
+export function maintenanceRequestTaskReducer(state = initStateMaintenanceRequestTaskSummary,
+                                   action): MaintenanceRequestTaskSummary {
     switch (action.type) {
         case FIND_WORK_ORDER_TASK_BY_TASK_ID_SUCCESS:
             return {
@@ -86,15 +84,15 @@ export function workOrderTaskReducer(state = initStateWorkOrderTaskSummary,
                 ...action.payload
             };
         case NEW_WORK_ORDER_TASK:
-            return initStateWorkOrderTaskSummary;
+            return initStateMaintenanceRequestTaskSummary;
         default: {
             return state;
         }
     }
 }
 
-export function workOrderRecordResultReducer(state = initStateWorkOrderRecordResult,
-                                           action: FindArchivedWorkOrdersSuccessAction): WorkOrderRecordSummaryResult {
+export function maintenanceRequestRecordResultReducer(state = initStateMaintenanceRequestRecordResult,
+                                           action: FindArchivedMaintenanceRequestsSuccessAction): MaintenanceRequestRecordSummaryResult {
     switch (action.type) {
         case FIND_ARCHIVED_WORK_ORDERS_SUCCESS:
             return {
@@ -107,7 +105,7 @@ export function workOrderRecordResultReducer(state = initStateWorkOrderRecordRes
     }
 }
 
-export function workOrderReducer(state = initStateWorkOrder, action): WorkOrder {
+export function maintenanceRequestReducer(state = initStateMaintenanceRequest, action): MaintenanceRequest {
     switch (action.type) {
         case FIND_WORK_ORDER_BY_REFERENCE_NO_SUCCESS:
             return {
@@ -119,16 +117,6 @@ export function workOrderReducer(state = initStateWorkOrder, action): WorkOrder 
                 ...state,
                 ...action.payload
             };
-        default: {
-            return state;
-        }
-    }
-}
-
-export function activitiesReducer(state = [], action): Activity[] {
-    switch (action.type) {
-        case FIND_ACTIVITIES_SUCCESS:
-            return [...action.payload];
         default: {
             return state;
         }

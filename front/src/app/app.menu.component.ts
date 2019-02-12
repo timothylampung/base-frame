@@ -28,16 +28,54 @@ export class AppMenuComponent implements OnInit {
 
                 ]
             },
-            {label: 'Work Orders', icon: 'dashboard', routerLink: ['/']},
+            {
+                label: 'Maintenance Request', icon: 'dashboard',routerLink :['.'],
+                items: [
+                    {
+                        id: 'maintenance-request:assigned',
+                        label: 'My Tasks',
+                        routerLink: ['/maintenance/maintenance-request-tasks/assigned']
+                    },
+                    {
+                        id: 'maintenance-request:pooled',
+                        label: 'Open Tasks',
+                        routerLink: ['/maintenance/maintenance-request-tasks/pooled']
+                    },
+                    {
+                        id: 'maintenance-request:archived',
+                        label: 'Search',
+                        routerLink: ['/maintenance/maintenance-request-records/history']
+                    },
+                ]
+            },
+            {
+                label: 'Work Order', icon: 'dashboard',routerLink :['.'],
+                items: [
+                    {
+                        id: 'work-order:assigned',
+                        label: 'My Tasks',
+                        routerLink: ['/work-order/work-order-tasks/assigned']
+                    },
+                    {
+                        id: 'work-order:pooled',
+                        label: 'Open Tasks',
+                        routerLink: ['/work-order/work-order-tasks/pooled']
+                    },
+                    {
+                        id: 'work-order:archived',
+                        label: 'Search',
+                        routerLink: ['/work-order/work-order-records/history']
+                    },
+                ]
+            },
+
+            {label: 'Assets', icon: 'dashboard', routerLink: ['/']},
             {
                 label: 'Asset', icon: 'dashboard',
                 items: [
                     {label: 'Asset Codes', routerLink: ['/asset/asset-codes/list']},
                     {label: 'Asset', routerLink: ['/asset/assets/list']},
                     {label: 'Location', routerLink: ['/asset/locations/list']},
-
-
-
                 ]
             },
 
@@ -47,8 +85,6 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Parts', routerLink: ['/inventory/parts/list']},
                     {label: 'Part Codes', routerLink: ['/inventory/part-codes/list']},
                     {label: 'Components', routerLink: ['/inventory/components/list']},
-
-
                 ]
             },
 

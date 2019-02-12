@@ -76,6 +76,23 @@ public class WorkOrderTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        vo.setDescription(e.getDescription());
+        return vo;
+    }
+
+    public WorkOrder toSimpleWorkOrderVo(DexWorkOrder e) {
+        if (null == e) return null;
+        WorkOrder vo = new WorkOrder();
+        vo.setId(e.getId());
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setDescription(e.getDescription());
         return vo;
     }
 
@@ -132,6 +149,7 @@ public class WorkOrderTransformer {
         vo.setCandidate(vo.getCandidate());
         vo.setFlowState(FlowState.get(m.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(m.getMetadata().getState().ordinal()));
+        vo.setWorkOrder(toSimpleWorkOrderVo(m));
         return vo;
     }
 

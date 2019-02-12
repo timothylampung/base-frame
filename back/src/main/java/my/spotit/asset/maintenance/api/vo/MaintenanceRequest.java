@@ -10,27 +10,16 @@ import java.sql.Date;
 public class MaintenanceRequest extends Document {
 
     private String remark;
-
     private Date requestedDate;
-
     private Boolean delegated;
-
     private Actor requester;
-
     private Actor delegator;
-
     private Actor verifier;
-
     private Location location;
-
     private Asset asset;
-
-
-    //TODO add location
 
     public MaintenanceRequest() {
     }
-
 
     public String getRemark() {
         return remark;
@@ -55,7 +44,6 @@ public class MaintenanceRequest extends Document {
     public void setDelegated(Boolean delegated) {
         this.delegated = delegated;
     }
-
 
     public Actor getRequester() {
         return requester;
