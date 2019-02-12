@@ -31,7 +31,7 @@ export class MaintenanceRequestPooledTaskListPage implements OnInit {
     ];
     breadcrumbs = [
         {label: 'Maintenance Request'},
-        {label: 'Open Tasks', routerLink: ['/maintenance-request/maintenance-request-tasks/pooled']}
+        {label: 'Open Tasks', routerLink: ['/maintenance/maintenance-request-tasks/pooled']}
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,

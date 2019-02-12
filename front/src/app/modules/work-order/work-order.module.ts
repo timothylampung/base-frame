@@ -18,6 +18,7 @@ import {WorkOrderCheckPage} from './pages/work-order-check.page';
 import {WorkOrderArchiveListPage} from './work-order-archive-list.page';
 import {WorkOrderArchiveDetailPage} from './work-order-archive-detail.page';
 import {WorkOrderPage} from './pages/work-order.page';
+import {MessageService} from "primeng/api";
 
 @NgModule({
     imports: [
@@ -52,6 +53,7 @@ import {WorkOrderPage} from './pages/work-order.page';
     ],
     providers: [
         WorkOrderService,
+        MessageService,
     ]
 })
 export class WorkOrderModule {

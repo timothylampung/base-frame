@@ -30,7 +30,7 @@ export class MaintenanceRequestAssignedTaskListPage implements OnInit {
     ];
     breadcrumbs = [
         {label: 'Maintenance Request'},
-        {label: 'My Tasks', routerLink: ['/maintenance-request/maintenance-request-tasks/assigned']}
+        {label: 'My Tasks', routerLink: ['/maintenance/maintenance-request-tasks/assigned']}
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,
@@ -59,11 +59,11 @@ export class MaintenanceRequestAssignedTaskListPage implements OnInit {
     }
 
     createTask() {
-        this.router.navigate(['/maintenance-request/maintenance-request-tasks/new']);
+        this.router.navigate(['/maintenance/maintenance-request-tasks/new']);
     }
 
     viewTask(taskId: string) {
-        this.router.navigate(['/maintenance-request/maintenance-request-tasks/', taskId]);
+        this.router.navigate(['/maintenance/maintenance-request-tasks/', taskId]);
     }
 
     releaseTask(taskId: string) {

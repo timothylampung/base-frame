@@ -29,7 +29,7 @@ export class MaintenanceRequestArchiveDetailPage implements OnInit {
         {label: 'Maintenance Request'},
         {
             label: 'Search Maintenance Request',
-            routerLink: ['/maintenance-request/maintenance-request-records/history']
+            routerLink: ['/maintenance/maintenance-request-records/history']
         },
         {
             label: 'Maintenance Request Detail'

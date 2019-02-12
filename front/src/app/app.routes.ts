@@ -87,7 +87,7 @@ export const routes: Routes = [
             },
 
             {
-                path: 'maintenance-request',
+                path: 'maintenance',
                 children: [
                     {
                         path: 'maintenance-request-tasks/new',

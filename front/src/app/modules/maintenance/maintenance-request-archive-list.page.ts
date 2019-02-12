@@ -28,7 +28,7 @@ export class MaintenanceRequestArchiveListPage implements OnInit {
     ];
     breadcrumbs = [
         {label: 'Maintenance Request'},
-        {label: 'Search Maintenance Request', routerLink: ['/maintenance-request/maintenance-request-records/history']}
+        {label: 'Search Maintenance Request', routerLink: ['/maintenance/maintenance-request-records/history']}
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,
@@ -50,7 +50,7 @@ export class MaintenanceRequestArchiveListPage implements OnInit {
     }
 
     view(evt) {
-        this.router.navigate(['/maintenance-request/maintenance-request-records/detail', evt.data.referenceNo]);
+        this.router.navigate(['/maintenance/maintenance-request-records/detail', evt.data.referenceNo]);
     }
 
     search() {

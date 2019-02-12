@@ -17,6 +17,7 @@ import {MaintenanceRequestArchiveListPage} from './maintenance-request-archive-l
 import {MaintenanceRequestArchiveDetailPage} from './maintenance-request-archive-detail.page';
 import {MaintenanceRequestPage} from './pages/maintenance-request.page';
 import {MaintenanceRequestService} from "../../services/maintenance-request.service";
+import {MessageService} from "primeng/api";
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ import {MaintenanceRequestService} from "../../services/maintenance-request.serv
     ],
     providers: [
         MaintenanceRequestService,
+        MessageService,
     ]
 })
 export class MaintenanceRequestModule {

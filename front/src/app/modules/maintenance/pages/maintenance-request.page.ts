@@ -24,7 +24,7 @@ export class MaintenanceRequestPage {
         {label: 'Maintenance Request'},
         {
             label: 'My Tasks',
-            routerLink: ['/maintenance-request/maintenance-request-tasks/assigned']
+            routerLink: ['/maintenance/maintenance-request-tasks/assigned']
         }
     ];
 
