@@ -125,7 +125,7 @@ public class AssetServiceImplTest extends AbstractTest {
     }
 
     @Test
-    public void findByCode() {
+    public void findAssetCodeByCode() {
         String code = "ASST_CODE_004";
         DexAssetCode assetByCode = assetService.findAssetCodeByCode(code);
         LOG.debug("NAH KOD ASSET " +assetByCode.getDescription());

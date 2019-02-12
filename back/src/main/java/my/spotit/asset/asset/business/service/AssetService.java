@@ -24,6 +24,9 @@ public interface AssetService {
 
     Integer countAssetCode();
 
+    Integer countAssetCode(String filter);
+
+
     void saveAssetCode(DexAssetCode AssetCode);
 
     void updateAssetCode(DexAssetCode AssetCode);

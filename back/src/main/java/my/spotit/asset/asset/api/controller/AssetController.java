@@ -61,13 +61,12 @@ public class AssetController {
     // ASSET
     //==============================================================================================
 
-    @GetMapping(value = "/assets", params = {"page"})
-    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page) {
+    @GetMapping(value = "/assets", params = {"page, filter"})
+    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedAssets: {}", page);
-        Integer count = assetService.countAsset("%");
-        List<Asset> assets = assetTransformer.toAssetVos(
-                assetService.findAssets("%", ((page - 1) * LIMIT), LIMIT));
-        return new ResponseEntity<AssetResult>(new AssetResult(assets, count), HttpStatus.OK);
+        Integer count = assetService.countAsset(filter);
+        List<DexAsset> assets = assetService.findAssets(filter, ((page - 1) * LIMIT), LIMIT);
+        return new ResponseEntity<AssetResult>(new AssetResult(assetTransformer.toAssetVos(assets), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/assets")
