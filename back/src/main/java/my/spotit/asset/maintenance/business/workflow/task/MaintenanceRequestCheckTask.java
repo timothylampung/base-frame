@@ -21,7 +21,7 @@ public class MaintenanceRequestCheckTask extends MaintenanceRequestTaskSupport {
         DexMaintenanceRequest order = maintenanceRequestService.findMaintenanceRequestById(requestId);
         LOG.info("checking request refno {}", order.getReferenceNo());
 
-//         update flow state
+        // update flow state
         order.getFlowdata().setState(DexFlowState.CHECKED);
         order.getFlowdata().setCheckedDate(new Timestamp(System.currentTimeMillis()));
         order.getFlowdata().setCheckerId(securityService.getCurrentUser().getId());

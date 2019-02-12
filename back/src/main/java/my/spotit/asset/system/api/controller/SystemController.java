@@ -84,21 +84,21 @@ public class SystemController {
 
     @GetMapping(value = "/referenceNos")
     public ResponseEntity<List<ReferenceNo>> findReferenceNos() {
-        List<DexSequenceGenerator> referenceNos = systemService.findReferenceNos(0, 99);
+        List<DexSequenceGenerator> referenceNos = systemService.findSequenceGenerators(0, 99);
         return new ResponseEntity<List<ReferenceNo>>(systemTransformer.toReferenceNoVos(referenceNos), HttpStatus.OK);
     }
 
     @PostMapping(value = "/referenceNo")
     public ResponseEntity<String> saveReferenceNo(@RequestBody ReferenceNo vo) {
-        DexSequenceGenerator referenceNo = new DexSequenceGeneratorImpl();
-        referenceNo.setCode(vo.getCode());
-        referenceNo.setDescription(vo.getDescription());
-        referenceNo.setPrefix(vo.getPrefix());
-        referenceNo.setReferenceFormat(vo.getReferenceFormat());
-        referenceNo.setSequenceFormat(vo.getSequenceFormat());
-        referenceNo.setIncrementValue(vo.getIncrementValue());
-        referenceNo.setCurrentValue(vo.getCurrentValue());
-        systemService.saveReferenceNo(referenceNo);
+        DexSequenceGenerator sequence = new DexSequenceGeneratorImpl();
+        sequence.setCode(vo.getCode());
+        sequence.setDescription(vo.getDescription());
+        sequence.setPrefix(vo.getPrefix());
+        sequence.setReferenceFormat(vo.getReferenceFormat());
+        sequence.setSequenceFormat(vo.getSequenceFormat());
+        sequence.setIncrementValue(vo.getIncrementValue());
+        sequence.setCurrentValue(vo.getCurrentValue());
+        systemService.saveSequenceGenerator(sequence);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 

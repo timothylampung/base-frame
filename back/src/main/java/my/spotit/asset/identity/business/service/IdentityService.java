@@ -5,6 +5,7 @@ import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
 import java.util.List;
 import java.util.Set;
 
+import my.spotit.asset.identity.domain.model.DexActor;
 import my.spotit.asset.identity.domain.model.DexFacilityManager;
 import my.spotit.asset.identity.domain.model.DexGroup;
 import my.spotit.asset.identity.domain.model.DexGroupMember;
@@ -122,6 +123,15 @@ public interface IdentityService {
     void addGroupMember(DexGroup group, DexPrincipal principal) throws RecursiveGroupException;
 
     void deleteGroupMember(DexGroup group, DexPrincipal principal);
+
+    // =============================================================================================
+    // ACTOR
+    // =============================================================================================
+    DexActor findActorById(Long id);
+
+    DexActor findActorByCode(String code);
+
+    DexActor findActorByIdentityNo(String identityNo);
 
     // =============================================================================================
     // STAFF

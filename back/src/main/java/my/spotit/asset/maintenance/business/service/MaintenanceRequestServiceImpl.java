@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ import static my.spotit.asset.workflow.business.service.WorkflowConstants.DELIMI
 
 
 @Transactional
-@Service("maintenanceOrderService")
+@Service("maintenanceRequestService")
 public class MaintenanceRequestServiceImpl implements MaintenanceRequestService {
 
     private static final Logger LOG = LoggerFactory.getLogger(MaintenanceRequestServiceImpl.class);
@@ -46,7 +47,10 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     private SystemService systemService;
 
     @Autowired
-    public MaintenanceRequestServiceImpl(EntityManager entityManager, SecurityService securityService, DexMaintenanceRequestDao maintenanceRequestDao, WorkflowService workflowService, ApplicationContext applicationContext, SystemService systemService) {
+    public MaintenanceRequestServiceImpl(EntityManager entityManager, SecurityService securityService,
+                                         DexMaintenanceRequestDao maintenanceRequestDao,
+                                         WorkflowService workflowService, ApplicationContext
+                                                 applicationContext, SystemService systemService) {
         this.entityManager = entityManager;
         this.securityService = securityService;
         this.maintenanceRequestDao = maintenanceRequestDao;
@@ -55,83 +59,28 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
         this.systemService = systemService;
     }
 
-    //MaintenanceRequest
-
-
-
+    // workflow
     @Override
-    public DexMaintenanceRequest findMaintenanceRequestById(Long id) {
-        return maintenanceRequestDao.findById(id);
-    }
-
-    @Override
-    public DexMaintenanceRequest findMaintenanceRequestByCode(String code) {
-        return maintenanceRequestDao.findByReferenceNo(code);
-    }
-
-    @Override
-    public List<DexMaintenanceRequest> findMaintenanceRequests(String filter, Integer offset, Integer limit) {
-        return maintenanceRequestDao.find(filter, offset, limit);
-    }
-
-    @Override
-    public Integer countMaintenanceRequest() {
-        return maintenanceRequestDao.count();
-    }
-
-    @Override
-    public Integer countMaintenanceRequest(String filter) {
-        return maintenanceRequestDao.count(filter);
-    }
-
-    @Override
-    public void saveMaintenanceRequest(DexMaintenanceRequest maintenanceRequest, DexLocation location) {
-        DexUser currentUser = securityService.getCurrentUser();
-        DexActor requester = currentUser.getActor();
-        maintenanceRequest.setLocation(location);
-        maintenanceRequest.setRequester(requester);
-
-        maintenanceRequestDao.save(maintenanceRequest, currentUser);
-        entityManager.flush();
-    }
-
-    @Override
-    public void updateMaintenanceRequest(DexMaintenanceRequest MaintenanceRequest) {
-        maintenanceRequestDao.update(MaintenanceRequest, securityService.getCurrentUser());
-        entityManager.flush();
-
-
-    }
-
-    @Override
-    public void removeMaintenanceRequest(DexMaintenanceRequest MaintenanceRequest) {
-        maintenanceRequestDao.remove(MaintenanceRequest, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-//    Maintenance Request workflow
-
-    @Override
-    public String startMaintenanceRequestTask(DexMaintenanceRequest maintenanceRequest) throws Exception {
+    public String startMaintenanceRequestTask(DexMaintenanceRequest request) throws Exception {
         LOG.debug(securityService.getCurrentUser().getName() + " is processing order");
 
         try {
             // generate reference no
-            String referenceNo = systemService.generateReferenceNo(MAINTENANCE_REQUEST_REFERENCE_NO);
-            maintenanceRequest.setReferenceNo(referenceNo);
+            String referenceNo = systemService.generateSequenceGenerator(MAINTENANCE_REQUEST_REFERENCE_NO);
+            request.setReferenceNo(referenceNo);
 
             // save invoice
-            maintenanceRequestDao.save(maintenanceRequest, securityService.getCurrentUser());
+            maintenanceRequestDao.save(request, securityService.getCurrentUser());
             entityManager.flush();
-            entityManager.refresh(maintenanceRequest);
+            entityManager.refresh(request);
 
             // trigger process event
-            workflowService.processWorkflow(maintenanceRequest, toMap(maintenanceRequest));
+            workflowService.processWorkflow(request, toMap(request));
 
             // trigger event
-            applicationContext.publishEvent(new MaintenanceRequestDraftedEvent(maintenanceRequest));
+            applicationContext.publishEvent(new MaintenanceRequestDraftedEvent(request));
 
-            return maintenanceRequest.getReferenceNo();
+            return request.getReferenceNo();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,21 +90,21 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     }
 
     @Override
-    public void cancelMaintenanceRequest(DexMaintenanceRequest maintenanceRequest) throws Exception {
+    public void cancelMaintenanceRequest(DexMaintenanceRequest request) throws Exception {
         LOG.debug(securityService.getCurrentUser().getName() + " is canceling order");
 
-        if (!DexFlowState.COMPLETED.equals(maintenanceRequest.getFlowdata().getState()))
-            throw new Exception("Only completed MaintenanceRequest can be cancelled");
-        maintenanceRequest.getFlowdata().setState(DexFlowState.CANCELLED);
+        if (!DexFlowState.COMPLETED.equals(request.getFlowdata().getState()))
+            throw new Exception("Only completed request can be cancelled");
+        request.getFlowdata().setState(DexFlowState.CANCELLED);
 
-        maintenanceRequest.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
-        maintenanceRequest.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
-        maintenanceRequestDao.update(maintenanceRequest, securityService.getCurrentUser());
+        request.getFlowdata().setCancelledDate(new Timestamp(System.currentTimeMillis()));
+        request.getFlowdata().setCancelerId(securityService.getCurrentUser().getId());
+        maintenanceRequestDao.update(request, securityService.getCurrentUser());
         entityManager.flush();
-        entityManager.refresh(maintenanceRequest);
+        entityManager.refresh(request);
 
         // event
-        applicationContext.publishEvent(new MaintenanceRequestCancelledEvent(maintenanceRequest));
+        applicationContext.publishEvent(new MaintenanceRequestCancelledEvent(request));
     }
 
     @Override
@@ -216,6 +165,55 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
     public DexMaintenanceRequest findMaintenanceRequestByReferenceNo(String referenceNo) {
         return maintenanceRequestDao.findByReferenceNo(referenceNo);
     }
+
+    @Override
+    public DexMaintenanceRequest findMaintenanceRequestById(Long id) {
+        return maintenanceRequestDao.findById(id);
+    }
+
+    @Override
+    public List<DexMaintenanceRequest> findMaintenanceRequests(String filter, Integer offset, Integer limit) {
+        return maintenanceRequestDao.find(filter, offset, limit);
+    }
+
+    @Override
+    public Integer countMaintenanceRequest() {
+        return maintenanceRequestDao.count();
+    }
+
+    @Override
+    public Integer countMaintenanceRequest(String filter) {
+        return maintenanceRequestDao.count(filter);
+    }
+
+    @Override
+    public void saveMaintenanceRequest(DexMaintenanceRequest request, DexLocation location) {
+        DexUser currentUser = securityService.getCurrentUser();
+        DexActor requester = currentUser.getActor();
+        request.setLocation(location);
+        request.setRequester(requester);
+
+        maintenanceRequestDao.save(request, currentUser);
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateMaintenanceRequest(DexMaintenanceRequest request) {
+        maintenanceRequestDao.update(request, securityService.getCurrentUser());
+        entityManager.flush();
+
+
+    }
+
+    @Override
+    public void removeMaintenanceRequest(DexMaintenanceRequest request) {
+        maintenanceRequestDao.remove(request, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    // =============================================================================================
+    // PRIVATE METHODS
+    // =============================================================================================
 
     private Map<String, Object> toMap(DexMaintenanceRequest request) {
         Map<String, Object> map = new HashMap<String, Object>();

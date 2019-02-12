@@ -313,9 +313,8 @@ public class IdentityController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-
     @GetMapping(value = "/actors")
-    public ResponseEntity<List<Actor>> findAllActors() {
+    public ResponseEntity<List<Actor>> findActors() {
         return ResponseEntity.ok(identityTransformer.toActors(actorService.findAllActors()));
     }
 

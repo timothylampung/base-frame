@@ -30,6 +30,7 @@ import {AutofocusDirective} from "./directives/autofocus.directive";
 import {AssetModule} from "./modules/asset/asset.module";
 import {MaintenanceRequestModule} from "./modules/maintenance/maintenance-request.module";
 import {InventoryModule} from "./modules/inventory/inventory.module";
+import {WorkOrderModule} from "./modules/work-order/work-order.module";
 
 
 
@@ -48,8 +49,7 @@ import {InventoryModule} from "./modules/inventory/inventory.module";
         AssetModule,
         MaintenanceRequestModule,
         InventoryModule,
-
-
+        WorkOrderModule,
     ],
     declarations: [
         AppComponent,

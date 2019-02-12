@@ -29,7 +29,7 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
     private EntityManager entityManager;
 
     @Autowired
-    private DexWorkOrderDao dexWorkOrderDao;
+    private DexWorkOrderDao workOrderDao;
 
 
     @Test
@@ -37,8 +37,8 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findWorkOrderByCode() {
 
-        String code = "CODE_@#!";
-        DexWorkOrder dexWorkOrderByCode =  dexWorkOrderDao.findWorkOrderByCode(code);
+        String referenceNo = "CODE_@#!";
+        DexWorkOrder dexWorkOrderByCode =  workOrderDao.findByReferenceNo(referenceNo);
 
         LOG.debug("TEST: " + dexWorkOrderByCode.getDescription());
 
@@ -47,7 +47,7 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
     @Test
     public void findAllWorkOrders() {
 
-        List<DexWorkOrder> workOrders = dexWorkOrderDao.findAllWorkOrders();
+        List<DexWorkOrder> workOrders = workOrderDao.find();
         for (DexWorkOrder workOrder : workOrders) {
             LOG.debug("TEST: " + workOrder.getDescription());
         }
@@ -67,7 +67,7 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
 //        workOrder.setWorkOrder(long);
 //
 //        LOG.debug("----------------------prepared------------------------ {} ",workOrder.getAsset() );
-//        dexWorkOrderDao.save(workOrder, user);
+//        workOrderDao.save(workOrder, user);
 //
 //        entityManager.flush();
 //        DexworkOrder savedworkOrder = dexworkOrderDao.findworkOrderByCode("CODE");

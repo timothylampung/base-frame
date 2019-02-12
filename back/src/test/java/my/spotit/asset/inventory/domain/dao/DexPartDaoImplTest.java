@@ -25,7 +25,7 @@ public class DexPartDaoImplTest extends AbstractTest {
     @Test
     @Rollback(false)
     public void findDexPartTest() {
-        List<DexPart> parts = DexPartDao.findAllParts();
+        List<DexPart> parts = DexPartDao.find();
         for (DexPart part : parts) {
             LOG.debug("TEST: " + part.getDescription());
         }

@@ -15,14 +15,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "DexMaintenanceRequest")
-@Table(name = "DEX_MNTC")
-
+@Table(name = "DEX_MNTC_RQST")
 public class DexMaintenanceRequestImpl implements DexMaintenanceRequest {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(generator = "SQ_MNTC_REQ")
-    @SequenceGenerator(name = "SQ_MNTC_REQ", sequenceName = "SQ_MNTC_REQ", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_DEX_MNTC_RQST")
+    @SequenceGenerator(name = "SQ_DEX_MNTC_RQST", sequenceName = "SQ_DEX_MNTC_RQST", allocationSize = 1)
     private Long id;
 
     @NotNull

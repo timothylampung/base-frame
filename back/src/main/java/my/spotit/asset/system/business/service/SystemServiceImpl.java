@@ -182,60 +182,61 @@ public class SystemServiceImpl implements SystemService {
         moduleDao.updateSubModule(module, subModule, securityService.getCurrentUser());
     }
 
+
     //==============================================================================================
-    // REFERENCE NO
+    // SEQUENCE GENERATOR
     //==============================================================================================
 
     @Override
-    public DexSequenceGenerator findReferenceNoById(Long id) {
+    public DexSequenceGenerator findSequenceGeneratorById(Long id) {
         return referenceNoDao.findById(id);
     }
 
     @Override
-    public DexSequenceGenerator findReferenceNoByCode(String code) {
+    public DexSequenceGenerator findSequenceGeneratorByCode(String code) {
         return referenceNoDao.findByCode(code);
     }
 
     @Override
-    public List<DexSequenceGenerator> findReferenceNos(Integer offset, Integer limit) {
+    public List<DexSequenceGenerator> findSequenceGenerators(Integer offset, Integer limit) {
         return referenceNoDao.find(offset, limit);
     }
 
     @Override
-    public List<DexSequenceGenerator> findReferenceNos(String filter, Integer offset, Integer limit) {
+    public List<DexSequenceGenerator> findSequenceGenerators(String filter, Integer offset, Integer limit) {
         return referenceNoDao.find(filter, offset, limit);
     }
 
     @Override
-    public Integer countReferenceNo() {
+    public Integer countSequenceGenerator() {
         return referenceNoDao.count();
     }
 
     @Override
-    public Integer countReferenceNo(String filter) {
+    public Integer countSequenceGenerator(String filter) {
         return referenceNoDao.count(filter);
     }
 
     @Override
-    public void saveReferenceNo(DexSequenceGenerator referenceNo) {
+    public void saveSequenceGenerator(DexSequenceGenerator referenceNo) {
         referenceNoDao.save(referenceNo, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void updateReferenceNo(DexSequenceGenerator referenceNo) {
+    public void updateSequenceGenerator(DexSequenceGenerator referenceNo) {
         referenceNoDao.update(referenceNo, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void removeReferenceNo(DexSequenceGenerator referenceNo) {
+    public void removeSequenceGenerator(DexSequenceGenerator referenceNo) {
         referenceNoDao.remove(referenceNo, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public String generateReferenceNo(String code) {
+    public String generateSequenceGenerator(String code) {
         String generatedRefNo = null;
         synchronized (this) {
             DexSequenceGenerator referenceNo = referenceNoDao.findByCode(code);
@@ -254,7 +255,7 @@ public class SystemServiceImpl implements SystemService {
         return generatedRefNo;
     }
 
-    public String generateFormattedReferenceNo(String code, Map<String, Object> map) {
+    public String generateFormattedSequenceGenerator(String code, Map<String, Object> map) {
         synchronized (this) {
             DexSequenceGenerator referenceNo = referenceNoDao.findByCode(code);
 

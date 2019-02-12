@@ -31,7 +31,7 @@ public class AssetServiceImplTest extends AbstractTest {
 
     @Test
     public void findAllLocations() {
-        List<DexLocation> locations = assetService.findAllLocations();
+        List<DexLocation> locations = assetService.findLocations();
         for (DexLocation location : locations) {
             LOG.debug("TEST: " + location.getDescription());
         }
@@ -125,9 +125,9 @@ public class AssetServiceImplTest extends AbstractTest {
     }
 
     @Test
-    public void findByCode() {
+    public void findAssetCodeByCode() {
         String code = "ASST_CODE_004";
-        DexAssetCode assetByCode = assetService.findByCode(code);
+        DexAssetCode assetByCode = assetService.findAssetCodeByCode(code);
         LOG.debug("NAH KOD ASSET " +assetByCode.getDescription());
     }
 

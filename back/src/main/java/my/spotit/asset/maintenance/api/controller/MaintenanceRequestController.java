@@ -3,6 +3,7 @@ package my.spotit.asset.maintenance.api.controller;
 import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexLocation;
+import my.spotit.asset.common.business.service.CommonService;
 import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.identity.domain.model.DexActor;
@@ -11,7 +12,9 @@ import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest;
 import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequestImpl;
 import my.spotit.asset.security.business.service.SecurityService;
 import my.spotit.asset.workflow.business.service.WorkflowService;
+
 import com.google.common.collect.Maps;
+
 import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,54 +40,45 @@ import my.spotit.asset.maintenance.api.vo.MaintenanceRequestTaskSummaryResult;
 @RestController
 @RequestMapping("/api/maintenance/")
 public class MaintenanceRequestController {
+
     private static final Logger LOG = LoggerFactory.getLogger(MaintenanceRequestController.class);
+
     private MaintenanceRequestService maintenanceRequestService;
     private MaintenanceRequestTransformer maintenanceRequestTransformer;
     private SecurityService securityService;
+    private CommonService commonService;
     private AssetService assetService;
     private IdentityService identityService;
     private WorkflowService workflowService;
 
     @Autowired
-    public MaintenanceRequestController(MaintenanceRequestService maintenanceRequestService, MaintenanceRequestTransformer maintenanceRequestTransformer, SecurityService securityService, AssetService assetService, IdentityService identityService, WorkflowService workflowService) {
+    public MaintenanceRequestController(MaintenanceRequestService maintenanceRequestService,
+                                        MaintenanceRequestTransformer maintenanceRequestTransformer,
+                                        SecurityService securityService, AssetService assetService,
+                                        CommonService commonService, IdentityService identityService,
+                                        WorkflowService workflowService) {
         this.maintenanceRequestService = maintenanceRequestService;
         this.maintenanceRequestTransformer = maintenanceRequestTransformer;
         this.securityService = securityService;
         this.assetService = assetService;
+        this.commonService = commonService;
         this.identityService = identityService;
         this.workflowService = workflowService;
     }
 
-
-
-    @GetMapping(value = "/requests", params = {"page"})
-    public ResponseEntity<MaintenanceRequestResult> findPagedRequests(@RequestParam Integer page) {
-        LOG.debug("findPagedRequests");
-        Integer count = maintenanceRequestService.countMaintenanceRequest("%");
-        List<MaintenanceRequest> requests = maintenanceRequestTransformer.toMaintenanceRequestVos(
-                maintenanceRequestService.findMaintenanceRequests("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
-        return new ResponseEntity<MaintenanceRequestResult>(new MaintenanceRequestResult(requests, count), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/requests/{referenceNo}")
-    public ResponseEntity<MaintenanceRequest> findMaintenanceRequestByReferenceNo(@PathVariable String referenceNo) {
-        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
-        return ResponseEntity.ok(maintenanceRequestTransformer.toMaintenanceRequestVo(maintenanceRequest));
-    }
-
-    @GetMapping(value = "/requests/count-assigned-task")
+    @GetMapping(value = "/maintenance-requests/count-assigned-task")
     public ResponseEntity<Integer> countAssignedMaintenanceRequestTask() {
         int count = maintenanceRequestService.countAssignedMaintenanceRequestTask("%");
         return new ResponseEntity<Integer>(count, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/requests/count-pooled-task")
+    @GetMapping(value = "/maintenance-requests/count-pooled-task")
     public ResponseEntity<Integer> countPooledMaintenanceRequestTask() {
         int count = maintenanceRequestService.countPooledMaintenanceRequestTask("%");
         return new ResponseEntity<Integer>(count, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/requests/assigned-tasks", params = {"filter"})
+    @GetMapping(value = "/maintenance-requests/assigned-tasks", params = {"filter"})
     public ResponseEntity<MaintenanceRequestTaskSummaryResult> findAssignedMaintenanceRequestTaskSummaries(@RequestParam(defaultValue = "%") String filter) {
         int count = maintenanceRequestService.countAssignedMaintenanceRequestTask(filter);
         List<Task> tasks = maintenanceRequestService.findAssignedMaintenanceRequestTasks(filter, 0, 999);
@@ -95,7 +89,7 @@ public class MaintenanceRequestController {
                 ));
     }
 
-    @GetMapping(value = "/requests/pooled-tasks", params = {"filter"})
+    @GetMapping(value = "/maintenance-requests/pooled-tasks", params = {"filter"})
     public ResponseEntity<MaintenanceRequestTaskSummaryResult> findPooledMaintenanceRequestTaskSummaries(@RequestParam(defaultValue = "%") String filter) {
         int count = maintenanceRequestService.countPooledMaintenanceRequestTask(filter);
         List<Task> tasks = maintenanceRequestService.findPooledMaintenanceRequestTasks(filter, 0, 999);
@@ -104,11 +98,10 @@ public class MaintenanceRequestController {
                         maintenanceRequestTransformer.toMaintenanceRequestTaskSummaryVos(tasks),
                         count
                 ));
-
     }
 
     // todo: via ACL
-    @GetMapping(value = "/requests/archived-records", params = {"filter", "page"})
+    @GetMapping(value = "/maintenance-requests/archived-records", params = {"filter", "page"})
     public ResponseEntity<MaintenanceRequestRecordSummaryResult> findPagedArchivedRequests(@RequestParam(defaultValue = "%") String filter,
                                                                                            @RequestParam Integer page) {
         Integer count = maintenanceRequestService.countMaintenanceRequest(filter);
@@ -121,7 +114,7 @@ public class MaintenanceRequestController {
                 ));
     }
 
-    @GetMapping(value = "/requests/archived-records")
+    @GetMapping(value = "/maintenance-requests/archived-records")
     public ResponseEntity<List<MaintenanceRequestRecordSummary>> findArchivedRequests() {
         LOG.debug("findArchivedRequests");
         List<DexMaintenanceRequest> requests = maintenanceRequestService.findMaintenanceRequests("%", 0, 999);
@@ -129,10 +122,9 @@ public class MaintenanceRequestController {
         return ResponseEntity.ok(maintenanceRequestTransformer.toMaintenanceRequestRecordSummaryVos(requests));
     }
 
-    @PostMapping(value = "/requests/start-task")
+    @PostMapping(value = "/maintenance-requests/start-task")
     public ResponseEntity<?> startMaintenanceRequestTask(@RequestBody MaintenanceRequest vo) throws Exception {
         DexMaintenanceRequest maintenanceRequest = new DexMaintenanceRequestImpl();
-
         DexAsset asset = assetService.findAssetByCode(vo.getAsset().getCode());
         DexActor requester = securityService.getCurrentUser().getActor();
         DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
@@ -143,18 +135,17 @@ public class MaintenanceRequestController {
         maintenanceRequest.setAsset(asset);
         maintenanceRequest.setDescription(vo.getDescription());
         maintenanceRequest.setRemark(vo.getRemark());
-
         maintenanceRequestService.startMaintenanceRequestTask(maintenanceRequest);
         LOG.debug("end task");
         return ResponseEntity.status(HttpStatus.CREATED).body(maintenanceRequestTransformer.toMaintenanceRequestVo(maintenanceRequest));
     }
 
-    @GetMapping(value = "/requests/view-task/{taskId}")
+    @GetMapping(value = "/maintenance-requests/view-task/{taskId}")
     public ResponseEntity<MaintenanceRequestTask> viewMaintenanceRequestTaskById(@PathVariable String taskId) {
         return ResponseEntity.ok(maintenanceRequestTransformer.toMaintenanceRequestTaskVo(maintenanceRequestService.findMaintenanceRequestTaskByTaskId(taskId)));
     }
 
-    @PostMapping(value = "/requests/claim-task/")
+    @PostMapping(value = "/maintenance-requests/claim-task/")
     public void claimMaintenanceRequestTask(@RequestBody List<String> taskIds) {
         taskIds.forEach(taskId -> {
             Task task = maintenanceRequestService.findMaintenanceRequestTaskByTaskId(taskId);
@@ -162,22 +153,21 @@ public class MaintenanceRequestController {
         });
     }
 
-    @PostMapping(value = "/requests/complete-task/{taskId}")
+    @PostMapping(value = "/maintenance-requests/complete-task/{taskId}")
     public void completeMaintenanceRequestTask(@PathVariable String taskId) {
         Task task = maintenanceRequestService.findMaintenanceRequestTaskByTaskId(taskId);
         workflowService.completeTask(task);
     }
 
-    @PostMapping(value = "/requests/release-task/{taskId}")
+    @PostMapping(value = "/maintenance-requests/release-task/{taskId}")
     public ResponseEntity<ApplicationSuccess> releaseMaintenanceRequestTask(@PathVariable String taskId) {
         Task task = maintenanceRequestService.findMaintenanceRequestTaskByTaskId(taskId);
         workflowService.releaseTask(task);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "/requests/remove-task/{taskId}")
+    @PostMapping(value = "/maintenance-requests/remove-task/{taskId}")
     public ResponseEntity<ApplicationSuccess> removeMaintenanceRequestTask(@PathVariable String taskId) {
-
         Map<String, Object> params = Maps.newHashMap();
         params.put("removeDecision", true);
 
@@ -186,37 +176,47 @@ public class MaintenanceRequestController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "/requests/{referenceNo}")
+    @GetMapping(value = "/maintenance-requests", params = {"page"})
+    public ResponseEntity<MaintenanceRequestResult> findPagedRequests(@RequestParam Integer page) {
+        LOG.debug("findPagedRequests");
+        Integer count = maintenanceRequestService.countMaintenanceRequest("%");
+        List<MaintenanceRequest> requests = maintenanceRequestTransformer.toMaintenanceRequestVos(
+                maintenanceRequestService.findMaintenanceRequests("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
+        return new ResponseEntity<MaintenanceRequestResult>(new MaintenanceRequestResult(requests, count), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/maintenance-requests/{referenceNo}")
+    public ResponseEntity<MaintenanceRequest> findMaintenanceRequestByReferenceNo(@PathVariable String referenceNo) {
+        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
+        return ResponseEntity.ok(maintenanceRequestTransformer.toMaintenanceRequestVo(maintenanceRequest));
+    }
+
+    @PutMapping(value = "/maintenance-requests/{referenceNo}")
     public ResponseEntity<ApplicationSuccess> updateMaintenanceRequest(@PathVariable String referenceNo, @RequestBody MaintenanceRequest vo) {
-        DexAsset asset = assetService.findAssetByCode(vo.getAsset().getCode());
-        DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
-//        DexActor delegator = identityService.findStaffByCode(vo.ge);
-
-
         DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
         maintenanceRequest.setSourceNo(vo.getSourceNo());
         maintenanceRequest.setDescription(vo.getDescription());
+        maintenanceRequest.setDelegated(vo.getDelegated());
         maintenanceRequest.setRemark(vo.getRemark());
-        maintenanceRequest.setLocation(location);
-        maintenanceRequest.setAsset(asset);
-//        maintenanceRequest.setDelegator(delegator);
-//        maintenanceRequest.setVerifier();
-//        maintenanceRequest.setDelegated();
-//        maintenanceRequest.setRequester();
-//        maintenanceRequest.setRequestedDate();
-
+        maintenanceRequest.setRequestedDate(vo.getRequestedDate());
+        maintenanceRequest.setLocation(assetService.findLocationById(vo.getLocation().getId()));
+        maintenanceRequest.setRequester(identityService.findActorById(vo.getRequester().getId()));
+        maintenanceRequest.setDelegator(identityService.findActorById(vo.getRequester().getId()));
+        maintenanceRequest.setVerifier(identityService.findActorById(vo.getRequester().getId()));
         maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest);
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping(value = "/requests/{referenceNo}/maintenanceRequest-items")
+    // todo: save this if we have items
+    //
+//    @GetMapping(value = "/maintenance-requests/{referenceNo}/maintenanceRequest-items")
 //    public ResponseEntity<List<MaintenanceRequestItem>> findMaintenanceRequestItems(@PathVariable String referenceNo) {
 //        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
 //        return ResponseEntity.ok(maintenanceRequestTransformer.toMaintenanceRequestItemVos(
 //                maintenanceRequestService.findMaintenanceRequestItems(maintenanceRequest)));
 //    }
 //
-//    @PostMapping(value = "/requests/{referenceNo}/maintenanceRequest-items")
+//    @PostMapping(value = "/maintenance-requests/{referenceNo}/maintenanceRequest-items")
 //    public ResponseEntity<MaintenanceRequestItem> addMaintenanceRequestItem(@PathVariable String referenceNo, @RequestBody MaintenanceRequestItem vo) {
 //        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
 //        DexMaintenanceRequestItem item = new DexMaintenanceRequestItemImpl();
@@ -229,7 +229,7 @@ public class MaintenanceRequestController {
 //        return ResponseEntity.ok().body(maintenanceRequestTransformer.toMaintenanceRequestItemVo(item));
 //    }
 //
-//    @PutMapping(value = "/requests/{referenceNo}/maintenanceRequest-items")
+//    @PutMapping(value = "/maintenance-requests/{referenceNo}/maintenanceRequest-items")
 //    public ResponseEntity<MaintenanceRequestItem> updateMaintenanceRequestItem(@PathVariable String referenceNo, @RequestBody MaintenanceRequestItem vo) {
 //        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
 //        DexMaintenanceRequestItem item = maintenanceRequestService.findMaintenanceRequestItemById(vo.getId());
@@ -242,7 +242,7 @@ public class MaintenanceRequestController {
 //        return ResponseEntity.ok().body(maintenanceRequestTransformer.toMaintenanceRequestItemVo(item));
 //    }
 //
-//    @DeleteMapping(value = "/requests/{referenceNo}/maintenanceRequest-items/{id}")
+//    @DeleteMapping(value = "/maintenance-requests/{referenceNo}/maintenanceRequest-items/{id}")
 //    public ResponseEntity<ApplicationSuccess> deleteMaintenanceRequestItem(@PathVariable Long id) {
 //        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestById(id);
 //        DexMaintenanceRequestItem item = maintenanceRequestService.findMaintenanceRequestItemById(id);
@@ -250,6 +250,5 @@ public class MaintenanceRequestController {
 //        return ResponseEntity.ok().build();
 //    }
 //
-
 
 }

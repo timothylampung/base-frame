@@ -18,12 +18,7 @@ public class DexPartCodeDaoImpl extends GenericDaoSupport<Long, DexPartCode> imp
 
     public DexPartCodeDaoImpl() { super(DexPartCodeImpl.class); }
 
-    @Override
-    public List<DexPartCode> findAllPartCodes() {
-        Query q = entityManager.createQuery("select e from DexPartCode e");
-        return q.getResultList();
-    }
-
+    // todo: metadata
     @Override
     public DexPartCode findPartCodeByCode(String code) {
         Query q = entityManager.createQuery("select e from DexPartCode e where e.code =:code")
@@ -31,6 +26,7 @@ public class DexPartCodeDaoImpl extends GenericDaoSupport<Long, DexPartCode> imp
         return (DexPartCode) q.getSingleResult();
     }
 
+    // todo: metadata
     @Override
     public List<DexPartCode> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexPartCode s where " +
@@ -44,7 +40,7 @@ public class DexPartCodeDaoImpl extends GenericDaoSupport<Long, DexPartCode> imp
         return (List<DexPartCode>) query.getResultList();
     }
 
-
+    // todo: metadata
     @Override
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(s) from DexPartCode s where " +

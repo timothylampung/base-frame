@@ -12,11 +12,12 @@ public interface InventoryService {
     // COMPONENT
     //==============================================================================================
 
-    List<DexComponent> findAllComponents();
 
     DexComponent findComponentById(Long id);
 
     DexComponent findComponentByCode(String code);
+
+    List<DexComponent> findComponents();
 
     List<DexComponent> findComponents(String filter, Integer offset, Integer limit);
 
@@ -30,18 +31,13 @@ public interface InventoryService {
 
     void removeComponent(DexComponent Component);
 
-
-
-//==============================================================================================
+    //==============================================================================================
     // PART
     //==============================================================================================
 
-
-
-
-    List<DexPart> findAllParts();
-
     DexPart findPartByCode(String code);
+
+    List<DexPart> findParts();
 
     List<DexPart> findParts(String filter, Integer offset, Integer limit);
 
@@ -55,15 +51,14 @@ public interface InventoryService {
 
     void removePart(DexPart Activity);
 
-//==============================================================================================
+    //==============================================================================================
     // PART CODES
     //==============================================================================================
 
 
-
-    List<DexPartCode> findAllPartCodes();
-
     DexPartCode findPartCodeByCode(String code);
+
+    List<DexPartCode> findPartCodes();
 
     List<DexPartCode> findPartCodes(String filter, Integer offset, Integer limit);
 
@@ -76,5 +71,4 @@ public interface InventoryService {
     void updatePartCode(DexPartCode Activity);
 
     void removePartCode(DexPartCode Activity);
-
 }

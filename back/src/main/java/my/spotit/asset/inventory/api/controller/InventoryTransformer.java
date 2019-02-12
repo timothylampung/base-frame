@@ -7,6 +7,7 @@ import my.spotit.asset.inventory.api.vo.PartCode;
 import my.spotit.asset.inventory.domain.model.DexComponent;
 import my.spotit.asset.inventory.domain.model.DexPart;
 import my.spotit.asset.inventory.domain.model.DexPartCode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,17 +18,17 @@ import java.util.stream.Collectors;
 public class InventoryTransformer {
 
 
-   private CoreTransformer coreTransformer;
+    private CoreTransformer coreTransformer;
 
     @Autowired
     public InventoryTransformer(CoreTransformer coreTransformer) {
         this.coreTransformer = coreTransformer;
     }
 
-
     // =============================================================================================
     // PART CODE
     // =============================================================================================
+
     public PartCode toPartCodeVo(DexPartCode e) {
         if (e == null) return null;
         PartCode vo = new PartCode();
@@ -38,11 +39,9 @@ public class InventoryTransformer {
         return vo;
     }
 
-
     public List<PartCode> toPartCodeVos(List<DexPartCode> e) {
         return e.stream().map(this::toPartCodeVo).collect(Collectors.toList());
     }
-
 
     // =============================================================================================
     // PART

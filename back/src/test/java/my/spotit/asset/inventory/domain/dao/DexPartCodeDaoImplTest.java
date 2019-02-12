@@ -26,7 +26,7 @@ public class DexPartCodeDaoImplTest extends AbstractTest {
     @Test
     @Rollback(false)
     public void findDexPartCodeTest() {
-        List<DexPartCode> partCodes = DexPartCodeDao.findAllPartCodes();
+        List<DexPartCode> partCodes = DexPartCodeDao.find();
         for (DexPartCode partCode : partCodes) {
             LOG.debug("TEST: " + partCode.getDescription());
         }

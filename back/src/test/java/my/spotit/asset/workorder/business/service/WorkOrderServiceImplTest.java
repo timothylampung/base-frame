@@ -44,9 +44,6 @@ public class WorkOrderServiceImplTest extends AbstractTest {
     @Autowired
     private IdentityService identityService;
 
-
-
-
     @Test
     public void userStory001() {
         DexWorkOrder order = new DexWorkOrderImpl();
@@ -94,7 +91,7 @@ public class WorkOrderServiceImplTest extends AbstractTest {
 
     @Test
     public void findWorkOrderByCode() {
-        DexWorkOrder findWorkOrderByCode = workOrderService.findWorkOrderByCode("CODE_@#!");
+        DexWorkOrder findWorkOrderByCode = workOrderService.findWorkOrderByReferenceNo("CODE_@#!");
         LOG.debug("TEST: " + findWorkOrderByCode.getDescription());
     }
 
@@ -133,8 +130,8 @@ public class WorkOrderServiceImplTest extends AbstractTest {
 
     @Test
     public void findActivityByCode() {
-        DexActivity findActivityByCode = workOrderService.findActivityByCode("ODSS");
-        LOG.debug("TEST: " + findActivityByCode.getDescription());
+        List<DexActivity> activities = workOrderService.findActivities("ODSS", null, 0, 999); // todo
+        LOG.debug("TEST: " + activities.isEmpty());
     }
 
     @Test

@@ -15,9 +15,10 @@ import org.springframework.util.Assert;
 import javax.persistence.Query;
 import java.util.List;
 
-@Repository("ActivityDao")
+// todo: don't need this
+// todo: should be api under workOrder
+@Repository("activityDao")
 public class DexActivityDaoImpl extends GenericDaoSupport<Long, DexActivity> implements DexActivityDao {
-
 
     private static final Logger LOG = LoggerFactory.getLogger(DexActivityImpl.class);
 
@@ -25,23 +26,11 @@ public class DexActivityDaoImpl extends GenericDaoSupport<Long, DexActivity> imp
         super(DexActivityImpl.class);
     }
 
-
     @Override
-    public DexActivity findActivityByCode(String code) {
+    public DexActivity findByCode(String code) {
         Query q = entityManager.createQuery("select e from DexActivity e where e.code =:code")
                 .setParameter("code", code);
         return (DexActivity) q.getSingleResult();
-    }
-
-    @Override
-    public DexActivity findActivityById(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<DexActivity> findActivities() {
-        Query q = entityManager.createQuery("select e from DexActivity e ");
-        return q.getResultList();
     }
 
     @Override

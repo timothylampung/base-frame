@@ -56,30 +56,30 @@ public interface SystemService {
     void updateSubModule(DexModule module, DexSubModule subModule);
 
     //==============================================================================================
-    // REFERENCE NO
+    // SEQUENCE GENERATOR
     //==============================================================================================
 
-    DexSequenceGenerator findReferenceNoById(Long id);
+    DexSequenceGenerator findSequenceGeneratorById(Long id);
 
-    DexSequenceGenerator findReferenceNoByCode(String code);
+    DexSequenceGenerator findSequenceGeneratorByCode(String code);
 
-    List<DexSequenceGenerator> findReferenceNos(Integer offset, Integer limit);
+    List<DexSequenceGenerator> findSequenceGenerators(Integer offset, Integer limit);
 
-    List<DexSequenceGenerator> findReferenceNos(String filter, Integer offset, Integer limit);
+    List<DexSequenceGenerator> findSequenceGenerators(String filter, Integer offset, Integer limit);
 
-    Integer countReferenceNo();
+    Integer countSequenceGenerator();
 
-    Integer countReferenceNo(String filter);
+    Integer countSequenceGenerator(String filter);
 
-    void saveReferenceNo(DexSequenceGenerator referenceNo);
+    void saveSequenceGenerator(DexSequenceGenerator referenceNo);
 
-    void updateReferenceNo(DexSequenceGenerator referenceNo);
+    void updateSequenceGenerator(DexSequenceGenerator referenceNo);
 
-    void removeReferenceNo(DexSequenceGenerator referenceNo);
+    void removeSequenceGenerator(DexSequenceGenerator referenceNo);
 
-    String generateReferenceNo(String code);
+    String generateSequenceGenerator(String code);
 
-    String generateFormattedReferenceNo(String code, Map<String, Object> map);
+    String generateFormattedSequenceGenerator(String code, Map<String, Object> map);
 
     //==============================================================================================
     // CONFIGURATION

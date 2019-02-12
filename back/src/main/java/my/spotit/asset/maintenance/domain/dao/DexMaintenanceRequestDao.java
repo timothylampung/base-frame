@@ -18,7 +18,6 @@ public interface DexMaintenanceRequestDao extends GenericDao<Long, DexMaintenanc
 
     Integer count(DexAsset asset);
 
-
 //    void addItem(DexMaintenanceRequest request, DexMaintenanceRequestItem item, DexUser user);
 //    void updateItem(DexMaintenanceRequest request, DexMaintenanceRequestItem item, DexUser user);
 //    void deleteItem(DexMaintenanceRequest request, DexMaintenanceRequestItem item, DexUser user);

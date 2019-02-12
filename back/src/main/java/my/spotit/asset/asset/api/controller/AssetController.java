@@ -1,12 +1,22 @@
 package my.spotit.asset.asset.api.controller;
 
-import my.spotit.asset.DexConstants;
 import my.spotit.asset.asset.api.vo.*;
 import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.asset.domain.model.*;
 import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.system.business.service.SystemService;
+import my.spotit.asset.workflow.business.service.WorkflowService;
+import my.spotit.asset.workorder.api.vo.WorkOrder;
+import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummaryResult;
+import my.spotit.asset.workorder.api.vo.WorkOrderResult;
+import my.spotit.asset.workorder.api.vo.WorkOrderTask;
+import my.spotit.asset.workorder.api.vo.WorkOrderTaskSummaryResult;
+import my.spotit.asset.workorder.domain.model.DexActivity;
+import my.spotit.asset.workorder.domain.model.DexActivityImpl;
+import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
 
+import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +26,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+
+import static my.spotit.asset.DexConstants.LIMIT;
+import static my.spotit.asset.DexConstants.WORK_ORDER_REFERENCE_NO;
 
 @Transactional
 @RestController
@@ -27,15 +41,18 @@ public class AssetController {
 
     private AssetService assetService;
     private SystemService systemService;
+    private WorkflowService workflowService;
     private AssetTransformer assetTransformer;
     private AuthenticationManager authenticationManager;
 
     @Autowired
     public AssetController(AssetService assetService, SystemService systemService,
+                           WorkflowService workflowService,
                            AssetTransformer assetTransformer,
                            AuthenticationManager authenticationManager) {
         this.assetService = assetService;
         this.systemService = systemService;
+        this.workflowService = workflowService;
         this.assetTransformer = assetTransformer;
         this.authenticationManager = authenticationManager;
     }
@@ -44,13 +61,12 @@ public class AssetController {
     // ASSET
     //==============================================================================================
 
-    @GetMapping(value = "/assets", params = {"page"})
-    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page) {
+    @GetMapping(value = "/assets", params = {"page, filter"})
+    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedAssets: {}", page);
-        Integer count = assetService.countAsset("%");
-        List<Asset> assets = assetTransformer.toAssetVos(
-                assetService.findAssets("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
-        return new ResponseEntity<AssetResult>(new AssetResult(assets, count), HttpStatus.OK);
+        Integer count = assetService.countAsset(filter);
+        List<DexAsset> assets = assetService.findAssets(filter, ((page - 1) * LIMIT), LIMIT);
+        return new ResponseEntity<AssetResult>(new AssetResult(assetTransformer.toAssetVos(assets), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/assets")
@@ -104,20 +120,27 @@ public class AssetController {
     public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedLocations: {}", page);
         Integer count = assetService.countLocation(filter);
-        List<DexLocation> locations = assetService.findLocations(filter, ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT);
+        List<DexLocation> locations = assetService.findLocations(filter, ((page - 1) * LIMIT), LIMIT);
         return new ResponseEntity<LocationResult>(new LocationResult(assetTransformer.toLocationVos(locations), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/locations")
     public ResponseEntity<List<Location>> findLocations() {
         return new ResponseEntity<List<Location>>(assetTransformer.toLocationVos(
-                assetService.findAllLocations()), HttpStatus.OK);
+                assetService.findLocations()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/locations/{code}")
     public ResponseEntity<Location> findLocationByCode(@PathVariable String code) {
         return new ResponseEntity<Location>(assetTransformer.toLocationVo(
                 assetService.findLocationByCode(code)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/locations/{code}/assets")
+    public ResponseEntity<List<Asset>> findAssetsByLocation(@PathVariable String code) {
+        DexLocation location = assetService.findLocationByCode(code);
+        List<DexAsset> assets = assetService.findAssetsByLocation(location);
+        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(assets), HttpStatus.OK);
     }
 
     @PostMapping(value = "/locations")
@@ -144,7 +167,6 @@ public class AssetController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-
     //==============================================================================================
     // ASSET-CODES
     //==============================================================================================
@@ -154,7 +176,7 @@ public class AssetController {
         LOG.debug("findPagedAssetCodes: {}", page);
         Integer count = assetService.countAsset("%");
         List<AssetCode> assetCodes = assetTransformer.toAssetCodeVos(
-                assetService.findAssetCodes("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
+                assetService.findAssetCodes("%", ((page - 1) * LIMIT), LIMIT));
         return new ResponseEntity<AssetCodeResult>(new AssetCodeResult(assetCodes, count), HttpStatus.OK);
     }
 
@@ -169,7 +191,6 @@ public class AssetController {
         return new ResponseEntity<AssetCode>(assetTransformer.toAssetCodeVo(
                 assetService.findAssetCodeByCode(code)), HttpStatus.OK);
     }
-
 
 
     @PostMapping(value = "/asset-codes")
@@ -195,5 +216,4 @@ public class AssetController {
         assetService.removeAssetCode(assetCode);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
-
 }

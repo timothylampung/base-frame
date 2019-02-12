@@ -146,7 +146,7 @@ public class InventoryServiceImplTest extends AbstractTest {
     @Test
     public void findAllComponents() {
 
-        List<DexComponent> components = inventoryService.findAllComponents();
+        List<DexComponent> components = inventoryService.findComponents();
         for (DexComponent component : components) {
             LOG.debug("TEST: " + component.getDescription());
         }
@@ -156,7 +156,7 @@ public class InventoryServiceImplTest extends AbstractTest {
     public void findAllParts() {
 
 
-        List<DexPart> parts = inventoryService.findAllParts();
+        List<DexPart> parts = inventoryService.findParts();
         for (DexPart part : parts) {
             LOG.debug("TEST: " + part.getDescription());
         }
@@ -164,7 +164,7 @@ public class InventoryServiceImplTest extends AbstractTest {
 
     @Test
     public void findAllPartCodes() {
-        List<DexPartCode> partCodes = inventoryService.findAllPartCodes();
+        List<DexPartCode> partCodes = inventoryService.findPartCodes();
         for (DexPartCode partCode : partCodes) {
             LOG.debug("TEST: " + partCode.getDescription());
         }

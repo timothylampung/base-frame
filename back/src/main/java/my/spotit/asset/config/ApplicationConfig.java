@@ -18,8 +18,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
         "my.spotit.asset.security",
         "my.spotit.asset.system",
         "my.spotit.asset.common",
-
-        // modules todo: add new module
         "my.spotit.asset.asset",
         "my.spotit.asset.workorder",
         "my.spotit.asset.maintenance",

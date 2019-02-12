@@ -66,7 +66,7 @@ public class CommonController {
                 commonService.findPositionCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/position-code/{code}")
+    @GetMapping(value = "/position-codes/{code}")
     public ResponseEntity<PositionCode> findPositionCodeByCode(@PathVariable String code) {
         return new ResponseEntity<PositionCode>(commonTransformer.toPositionCodeVo(
                 commonService.findPositionCodeByCode(code)), HttpStatus.OK);
@@ -81,7 +81,7 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @PutMapping(value = "/position-code/{code}")
+    @PutMapping(value = "/position-codes/{code}")
     public ResponseEntity<String> updatePositionCode(@PathVariable String code, @RequestBody PositionCode vo) {
         DexPositionCode positionCode = commonService.findPositionCodeById(vo.getId());
         positionCode.setDescription(vo.getDescription());
@@ -89,7 +89,7 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/position-code/{code}")
+    @DeleteMapping(value = "/position-codes/{code}")
     public ResponseEntity<String> removePositionCode(@PathVariable String code) {
         DexPositionCode positionCode = commonService.findPositionCodeByCode(code);
         commonService.removePositionCode(positionCode);
@@ -115,7 +115,7 @@ public class CommonController {
                 commonService.findGradeCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/grade-code/{code}")
+    @GetMapping(value = "/grade-codes/{code}")
     public ResponseEntity<GradeCode> findGradeCodeByCode(@PathVariable String code) {
         return new ResponseEntity<GradeCode>(commonTransformer.toGradeCodeVo(
                 commonService.findGradeCodeByCode(code)), HttpStatus.OK);
@@ -130,7 +130,7 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @PutMapping(value = "/grade-code/{code}")
+    @PutMapping(value = "/grade-codes/{code}")
     public ResponseEntity<String> updateGradeCode(@PathVariable String code, @RequestBody GradeCode vo) {
         DexGradeCode gradeCode = commonService.findGradeCodeById(vo.getId());
         gradeCode.setDescription(vo.getDescription());
@@ -138,7 +138,7 @@ public class CommonController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/grade-code/{code}")
+    @DeleteMapping(value = "/grade-codes/{code}")
     public ResponseEntity<String> removeGradeCode(@PathVariable String code) {
         DexGradeCode gradeCode = commonService.findGradeCodeByCode(code);
         commonService.removeGradeCode(gradeCode);

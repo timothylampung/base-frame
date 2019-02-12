@@ -31,7 +31,9 @@ public class MaintenanceRequestTransformer {
     private MaintenanceRequestService maintenanceRequestService;
 
     @Autowired
-    public MaintenanceRequestTransformer(IdentityTransformer identityTransformer, CoreTransformer coreTransformer, WorkflowService workflowService, MaintenanceRequestService maintenanceRequestService) {
+    public MaintenanceRequestTransformer(IdentityTransformer identityTransformer,
+                                         CoreTransformer coreTransformer, WorkflowService workflowService,
+                                         MaintenanceRequestService maintenanceRequestService) {
         this.identityTransformer = identityTransformer;
         this.coreTransformer = coreTransformer;
         this.workflowService = workflowService;
@@ -81,7 +83,6 @@ public class MaintenanceRequestTransformer {
         return vo;
     }
 
-
     public MaintenanceRequestRecordSummary toMaintenanceRequestRecordSummaryVo(DexMaintenanceRequest m) {
         MaintenanceRequestRecordSummary vo = new MaintenanceRequestRecordSummary();
         vo.setReferenceNo(m.getReferenceNo());
@@ -92,9 +93,7 @@ public class MaintenanceRequestTransformer {
         return vo;
     }
 
-
     public List<MaintenanceRequestRecordSummary> toMaintenanceRequestRecordSummaryVos(List<DexMaintenanceRequest> e) {
-
         List<MaintenanceRequestRecordSummary> vos = e.stream()
                 .map((e1) -> toMaintenanceRequestRecordSummaryVo(e1))
                 .collect(Collectors.toList());
@@ -102,7 +101,6 @@ public class MaintenanceRequestTransformer {
     }
 
     public MaintenanceRequestTask toMaintenanceRequestTaskVo(Task t) {
-
         Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
         DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestById((Long) vars.get(DexConstants.REQUEST_ID));
         MaintenanceRequestTask vo = new MaintenanceRequestTask();
@@ -117,7 +115,6 @@ public class MaintenanceRequestTransformer {
         vo.setCandidate(vo.getCandidate());
         vo.setFlowState(FlowState.get(maintenanceRequest.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(maintenanceRequest.getMetadata().getState().ordinal()));
-
         return vo;
     }
 }

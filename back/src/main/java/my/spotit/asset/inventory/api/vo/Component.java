@@ -9,7 +9,6 @@ public class Component extends MetaObject {
     private String description;
     private PartCode partCode;
     private Asset asset;
-    private Long id;
 
     public Component() {
     }
@@ -30,8 +29,6 @@ public class Component extends MetaObject {
         this.description = description;
     }
 
-
-
     public PartCode getPartCode() {
         return partCode;
     }
@@ -46,15 +43,5 @@ public class Component extends MetaObject {
 
     public void setAsset(Asset asset) {
         this.asset = asset;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
     }
 }

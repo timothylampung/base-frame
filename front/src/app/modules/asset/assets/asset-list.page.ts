@@ -4,10 +4,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectAssets} from "./asset-selector";
+import {selectAssetResultState, selectAssets} from "./asset-selector";
 import {Observable} from "rxjs";
 import {FindPagedAssetsAction} from "./asset-action";
-import {Asset} from "./asset-model";
+import {Asset, AssetResult} from "./asset-model";
 
 @Component({
     selector: 'dex-asset-list-page',
@@ -15,9 +15,11 @@ import {Asset} from "./asset-model";
 })
 export class AssetListPage implements OnInit {
 
-    assets$: Observable<Asset[]>;
+    assets$: Observable<AssetResult>;
     searchForm: FormGroup;
-    title = 'Senarai Asset';
+    searchQuery : string = '';
+
+    title = 'Assets';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -33,7 +35,7 @@ export class AssetListPage implements OnInit {
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
-        this.assets$ = this.store.pipe(select(selectAssets));
+        this.assets$ = this.store.pipe(select(selectAssetResultState));
     }
 
     ngOnInit() {
@@ -45,7 +47,8 @@ export class AssetListPage implements OnInit {
     }
 
     search() {
-        this.store.dispatch(new FindPagedAssetsAction({filter: this.searchForm.value.keyword, page: 1}));
+        console.log(this.searchQuery);
+        this.store.dispatch(new FindPagedAssetsAction({filter: this.searchQuery, page: 1}));
     }
 }
 

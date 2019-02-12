@@ -4,8 +4,6 @@ import my.spotit.asset.core.domain.DexMetaObject;
 
 public interface DexBank extends DexMetaObject {
 
-    void setId(Long id);
-
     String getCode();
 
     void setCode(String code);

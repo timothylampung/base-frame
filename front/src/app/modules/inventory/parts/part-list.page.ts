@@ -1,13 +1,13 @@
 import {Component, OnInit} from "@angular/core";
-import {InventoryState} from "../inventory.state";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
+import {selectPartResultState, selectParts} from "./part-selector";
 import {Observable} from "rxjs";
-import {Part} from "./part-model";
-import {selectParts} from "./part-selector";
 import {FindPagedPartsAction} from "./part-action";
+import {Part, PartResult} from "./part-model";
+import {InventoryState} from "../inventory.state";
 
 @Component({
     selector: 'dex-part-list-page',
@@ -15,10 +15,11 @@ import {FindPagedPartsAction} from "./part-action";
 })
 export class PartListPage implements OnInit {
 
-
-    parts$: Observable<Part[]>;
+    parts$: Observable<PartResult>;
     searchForm: FormGroup;
-    title = 'Senarai Part';
+    searchQuery : string = '';
+
+    title = 'Parts';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -34,7 +35,7 @@ export class PartListPage implements OnInit {
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
-        this.parts$ = this.store.pipe(select(selectParts));
+        this.parts$ = this.store.pipe(select(selectPartResultState));
     }
 
     ngOnInit() {
@@ -46,7 +47,7 @@ export class PartListPage implements OnInit {
     }
 
     search() {
-        this.store.dispatch(new FindPagedPartsAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedPartsAction({filter: this.searchQuery, page: 1}));
     }
 }
 

@@ -1,5 +1,16 @@
 package my.spotit.asset.asset.business.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import my.spotit.asset.asset.domain.dao.DexAssetCodeDao;
 import my.spotit.asset.asset.domain.dao.DexAssetDao;
 import my.spotit.asset.asset.domain.dao.DexLocationDao;
@@ -7,16 +18,8 @@ import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.security.business.service.SecurityService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-
-import java.util.List;
+import my.spotit.asset.system.business.service.SystemService;
+import my.spotit.asset.workflow.business.service.WorkflowService;
 
 @Transactional
 @Service("assetService")
@@ -25,16 +28,25 @@ public class AssetServiceImpl implements AssetService {
     private static final Logger LOG = LoggerFactory.getLogger(AssetServiceImpl.class);
 
     private EntityManager entityManager;
+    private ApplicationContext applicationContext;
     private SecurityService securityService;
+    private SystemService systemService;
+    private WorkflowService workflowService;
     private DexAssetCodeDao assetCodeDao;
     private DexAssetDao assetDao;
     private DexLocationDao locationDao;
 
     @Autowired
-    public AssetServiceImpl(EntityManager entityManager, SecurityService securityService,
-                            DexAssetCodeDao assetCodeDao, DexAssetDao assetDao, DexLocationDao locationDao) {
+    public AssetServiceImpl(EntityManager entityManager, ApplicationContext applicationContext,
+                            SecurityService securityService,
+                            SystemService systemService, WorkflowService workflowService,
+                            DexAssetCodeDao assetCodeDao, DexAssetDao assetDao,
+                            DexLocationDao locationDao) {
         this.entityManager = entityManager;
+        this.applicationContext = applicationContext;
         this.securityService = securityService;
+        this.workflowService = workflowService;
+        this.systemService = systemService;
         this.assetCodeDao = assetCodeDao;
         this.assetDao = assetDao;
         this.locationDao = locationDao;
@@ -44,46 +56,50 @@ public class AssetServiceImpl implements AssetService {
     // ASSET CODE
     //==============================================================================================
 
-    // todo:
     @Override
     public DexAssetCode findAssetCodeById(Long id) {
-        return null;
+        return assetCodeDao.findById(id);
     }
 
-    // todo:
     @Override
     public DexAssetCode findAssetCodeByCode(String code) {
         return assetCodeDao.findAssetCodeByCode(code);
     }
 
-    // todo:
     @Override
     public List<DexAssetCode> findAssetCodes(String filter, Integer offset, Integer limit) {
         return assetCodeDao.find(filter, offset, limit);
     }
 
-    // todo:
     @Override
     public Integer countAssetCode() {
         return assetCodeDao.count();
     }
 
-    // todo:
-    @Override
-    public void saveAssetCode(DexAssetCode AssetCode) {
 
+    @Override
+    public Integer countAssetCode(String filter) {
+        return assetCodeDao.count(filter);
     }
 
-    // todo:
-    @Override
-    public void updateAssetCode(DexAssetCode AssetCode) {
 
+
+    @Override
+    public void saveAssetCode(DexAssetCode assetCode) {
+        assetCodeDao.save(assetCode, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
-    // todo:
     @Override
-    public void removeAssetCode(DexAssetCode AssetCode) {
+    public void updateAssetCode(DexAssetCode assetCode) {
+        assetCodeDao.update(assetCode, securityService.getCurrentUser());
+        entityManager.flush();
+    }
 
+    @Override
+    public void removeAssetCode(DexAssetCode assetCode) {
+        assetCodeDao.remove(assetCode, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
     //==============================================================================================
@@ -91,7 +107,7 @@ public class AssetServiceImpl implements AssetService {
     //==============================================================================================
 
     @Override
-    public List<DexLocation> findAllLocations() {
+    public List<DexLocation> findLocations() {
         return locationDao.find();
     }
 
@@ -155,8 +171,8 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public List<DexAsset> findAssets(String s, int i, int limit) {
-        return assetDao.find();
+    public List<DexAsset> findAssets(String filter, Integer offset, Integer limit) {
+        return assetDao.find(filter, offset, limit);
     }
 
     @Override
@@ -187,4 +203,9 @@ public class AssetServiceImpl implements AssetService {
         assetDao.remove(asset, securityService.getCurrentUser());
         entityManager.flush();
     }
+
+    // =============================================================================================
+    // PRIVATE METHODS
+    // =============================================================================================
+
 }
