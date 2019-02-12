@@ -18,6 +18,7 @@ export class AssetListPage implements OnInit {
     assets$: Observable<AssetResult>;
     searchForm: FormGroup;
     searchQuery : string = '';
+    selectedRow: Asset = null;
 
     title = 'Assets';
     cols = [
@@ -28,6 +29,7 @@ export class AssetListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Assets', routerLink: ['/administration/assets/list']}
     ];
+    display : boolean = false;
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,

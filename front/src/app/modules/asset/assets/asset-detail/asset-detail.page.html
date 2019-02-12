@@ -1,7 +1,7 @@
-<h1>Add Location</h1>
+<h1>Add Asset</h1>
 <p-panel>
     <p-header>
-     Ref No.   {{selectedRow?.code}}
+        Ref No.   {{selectedRow?.code}}
     </p-header>
 
     <div class="ui-g ui-fluid">
@@ -9,17 +9,25 @@
             <div class="ui-g form-group">
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="name" type="text" pInputText
+                        <input [readOnly]="!edit" id="desc" type="text" pInputText
                                (click)="overlayPanel=!overlayPanel">
-                        <label for="name">Name</label>
+                        <label for="desc">Description</label>
                     </span>
                 </div>
 
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="desc" type="text" pInputText
+                        <input [readOnly]="!edit" id="astc" type="text" pInputText
                                (click)="overlayPanel=!overlayPanel">
-                        <label for="desc">Description</label>
+                        <label for="astc">Asset Code</label>
+                    </span>
+                </div>
+
+                <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="loca" type="text" pInputText
+                               (click)="overlayPanel=!overlayPanel">
+                        <label for="loca">Location</label>
 
                     </span>
                 </div>

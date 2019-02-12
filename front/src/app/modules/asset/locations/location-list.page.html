@@ -36,7 +36,7 @@
                     <input [(ngModel)]="searchQuery" placeholder="Keyword" style="border-left:0; color : white;" type="text"
                            class="ui-inputtext">
                     <button (click)="search()" pButton type="button" icon="pi pi-search"></button>
-                    <button pButton class="ui-button-success" type="button" icon="pi pi-plus"></button>
+                    <button pButton class="ui-button-success" (click)="display = !display; selectedRow = undefined;" type="button" icon="pi pi-plus"></button>
                 </div>
 
             </div>

@@ -1,3 +1,7 @@
+<p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
+    <dex-asset-detail-page [selectedRow]="selectedRow"></dex-asset-detail-page>
+</p-sidebar>
+
 <div class="ui-g">
     <div class="ui-g-12">
         <div class="card card-w-title">
@@ -19,6 +23,11 @@
             </div>
         </div>
         <div class="card card-w-title">
+            <p-toolbar>
+                <div class="ui-toolbar-group-right">
+                    <button pButton class="ui-button-success" (click)="display = !display; selectedRow = undefined;" type="button" icon="pi pi-plus"></button>
+                </div>
+            </p-toolbar>
             <p-table #dt
                      [columns]="cols"
                      [value]="(assets$ | async).data"
@@ -30,7 +39,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr [pSelectableRow]="rowData">
+                    <tr (click)="selectedRow = rowData; display = !display;" [pSelectableRow]="rowData">
                         <td>
                             {{rowData?.code}}
                         </td>
