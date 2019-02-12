@@ -76,6 +76,14 @@ public class AssetServiceImpl implements AssetService {
         return assetCodeDao.count();
     }
 
+
+    @Override
+    public Integer countAssetCode(String filter) {
+        return assetCodeDao.count(filter);
+    }
+
+
+
     @Override
     public void saveAssetCode(DexAssetCode assetCode) {
         assetCodeDao.save(assetCode, securityService.getCurrentUser());

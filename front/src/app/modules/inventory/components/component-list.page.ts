@@ -1,12 +1,13 @@
 import {Component, OnInit} from "@angular/core";
-import {InventoryState} from "../inventory.state";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
+import {selectComponentResultState, selectComponents} from "./component-selector";
 import {Observable} from "rxjs";
 import {FindPagedComponentsAction} from "./component-action";
-import {selectComponents} from "./component-selector";
+import {ComponentResult} from "./component-model";
+import {InventoryState} from "../inventory.state";
 
 @Component({
     selector: 'dex-component-list-page',
@@ -14,17 +15,18 @@ import {selectComponents} from "./component-selector";
 })
 export class ComponentListPage implements OnInit {
 
-
-    components$: Observable<Component[]>;
+    components$: Observable<ComponentResult>;
     searchForm: FormGroup;
-    title = 'Senarai Component';
+    searchQuery : string = '';
+
+    title = 'Components';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
     ];
     breadcrumbs = [
         {label: 'Pengurusan'},
-        {label: 'Components', routerLink: ['/inventory/components/list']}
+        {label: 'Components', routerLink: ['/administration/components/list']}
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,
@@ -33,7 +35,7 @@ export class ComponentListPage implements OnInit {
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
-        this.components$ = this.store.pipe(select(selectComponents));
+        this.components$ = this.store.pipe(select(selectComponentResultState));
     }
 
     ngOnInit() {
@@ -45,7 +47,7 @@ export class ComponentListPage implements OnInit {
     }
 
     search() {
-        this.store.dispatch(new FindPagedComponentsAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedComponentsAction({filter: this.searchQuery, page: 1}));
     }
 }
 
