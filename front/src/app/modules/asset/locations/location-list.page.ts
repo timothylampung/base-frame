@@ -18,6 +18,7 @@ export class LocationListPage implements OnInit {
     locations$: Observable<LocationResult>;
     searchForm: FormGroup;
     searchQuery : string = '';
+    selectedRow : Location = null;
 
     title = 'Locations';
     cols = [
@@ -28,6 +29,7 @@ export class LocationListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Locations', routerLink: ['/administration/locations/list']}
     ];
+    display : boolean = false;
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,

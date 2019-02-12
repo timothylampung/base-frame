@@ -1,3 +1,7 @@
+<p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
+    <dex-location-detail-page [selectedRow]="selectedRow"></dex-location-detail-page>
+</p-sidebar>
+
 <div class="ui-g">
     <div class="ui-g-12">
         <div class="card card-w-title">
@@ -51,7 +55,8 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr [pSelectableRow]="rowData">
+                    <!--<tr [pSelectableRow]="rowData">-->
+                    <tr (click)="selectedRow = rowData; display = !display;" [pSelectableRow]="rowData">
                         <td>
                             {{rowData?.code}}
                         </td>
