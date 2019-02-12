@@ -10,9 +10,11 @@ public interface DeviceService {
 
     void unregisterDevice(DexDevice device);
 
-    DexDevice findDeviceByDeviceId(String deviceId);
+    List<DexDevice> findDevices(String deviceId);
 
-    List<DexDevice> findDevicesByUserId(DexUser user);
+    List<DexDevice> findDevicesByUser(DexUser user);
 
-     boolean deviceExist(String deviceId);
+    DexDevice findDevices(String deviceId, DexUser user);
+
+     boolean deviceExist(String deviceId, DexUser user);
 }

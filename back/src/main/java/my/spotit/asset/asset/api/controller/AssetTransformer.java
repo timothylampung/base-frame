@@ -109,6 +109,9 @@ public class AssetTransformer {
         Location vo = new Location();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
+        vo.setAddress(e.getAddress());
+        vo.setName(e.getName());
+        vo.setParent(e.getParent());
         vo.setDescription(e.getDescription());
         coreTransformer.toMetadata(e, vo);
         return vo;

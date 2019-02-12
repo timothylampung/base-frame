@@ -3,12 +3,14 @@ package my.spotit.asset.onboarding.api;
 
 import my.spotit.asset.identity.api.controller.IdentityTransformer;
 import my.spotit.asset.identity.business.service.IdentityService;
+import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.onboarding.api.vo.OnBoardingResponse;
 import my.spotit.asset.onboarding.api.vo.UserVerification;
 import my.spotit.asset.onboarding.bussiness.service.DeviceService;
 import my.spotit.asset.onboarding.domain.model.DeviceStatus;
 import my.spotit.asset.onboarding.domain.model.DexDevice;
 import my.spotit.asset.onboarding.domain.model.DexDeviceImpl;
+import my.spotit.asset.security.business.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +34,16 @@ public class OnBoardingController {
     private IdentityTransformer identityTransformer;
     private UserDetailsService userDetailsService;
     private DeviceService deviceService;
+    private SecurityService securityService;
 
     @Autowired
-    public OnBoardingController(IdentityService identityService, IdentityTransformer identityTransformer, UserDetailsService userDetailsService, DeviceService deviceService) {
+    public OnBoardingController(IdentityService identityService, IdentityTransformer identityTransformer,
+                                UserDetailsService userDetailsService, DeviceService deviceService, SecurityService securityService) {
         this.identityService = identityService;
         this.identityTransformer = identityTransformer;
         this.userDetailsService = userDetailsService;
         this.deviceService = deviceService;
+        this.securityService = securityService;
     }
 
     @PostMapping(path = "/verify-account")
@@ -52,12 +57,14 @@ public class OnBoardingController {
             return ResponseEntity.ok(new OnBoardingResponse(false, "Please check your password and username"));
         } else {
 
-            if (!deviceService.deviceExist(userVerification.getDeviceId())) {
-                LOG.debug("Registering New Device");
+            DexUser currentUser = identityService.findUserByUsername(userDetail.getUsername());
+            LOG.debug("Looking for device "+ userVerification.getDeviceId() + " on user "+currentUser.getUsername());
+            if (!deviceService.deviceExist(userVerification.getDeviceId(), currentUser)) {
+                LOG.debug("Registering New Device on " + currentUser.getUsername());
                 DexDevice device = new DexDeviceImpl();
                 device.setDeviceId(userVerification.getDeviceId());
                 device.setDeviceName(userVerification.getDeviceName());
-                device.setUser(identityService.findUserByUsername(userDetail.getUsername()));
+                device.setUser(currentUser);
                 device.setDeviceStatus(DeviceStatus.VERIFIED);
                 deviceService.registerNewDevice(device);
                 return ResponseEntity.ok(new OnBoardingResponse(true, "on boarded"));

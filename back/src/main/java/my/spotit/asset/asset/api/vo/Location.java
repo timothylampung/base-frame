@@ -6,7 +6,6 @@ import my.spotit.asset.core.api.MetaObject;
 public class Location extends MetaObject {
     private String code;
     private String description;
-    private Long id;
     private DexLocation parent;
     private String address;
     private String name;
@@ -24,9 +23,6 @@ public class Location extends MetaObject {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Long getId() { return id; }
-    public void setId(Long Id) { this.id = id;}
 
     public DexLocation getParent() { return parent; }
     public void setParent(DexLocation parent) { this.parent = parent; }

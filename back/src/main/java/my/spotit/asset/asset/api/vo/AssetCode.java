@@ -5,7 +5,6 @@ import my.spotit.asset.core.api.MetaObject;
 public class AssetCode extends MetaObject {
     private String code;
     private String description;
-    private Long id;
 
     public String getCode() {
         return code;
@@ -21,6 +20,4 @@ public class AssetCode extends MetaObject {
         this.description = description;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long Id) { this.id = id;}
 }

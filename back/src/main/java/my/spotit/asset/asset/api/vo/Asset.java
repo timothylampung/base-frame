@@ -8,7 +8,6 @@ public class Asset extends MetaObject {
     private String description;
     private Location location;
     private AssetCode assetCode;
-    private Long id;
 
     public Asset() {
     }
@@ -45,13 +44,4 @@ public class Asset extends MetaObject {
         this.assetCode = assetCode;
     }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
