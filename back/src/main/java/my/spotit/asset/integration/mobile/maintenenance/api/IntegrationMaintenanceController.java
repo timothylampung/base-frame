@@ -43,10 +43,14 @@ public class IntegrationMaintenanceController {
 
     @PostMapping(value = "/start-task")
     public ResponseEntity<?> startMaintenanceRequestTask(@RequestParam String username, @RequestParam String deviceId, @RequestBody MaintenanceRequest vo) throws Exception {
+
+        LOG.debug("Username : {} , DeviceId : {}", username, deviceId);
+
         DexUser currentUser = mobileSecurityService.authenticate(username, deviceId);
         DexMaintenanceRequest maintenanceRequest = new DexMaintenanceRequestImpl();
         DexAsset asset = assetService.findAssetByCode(vo.getAsset().getCode());
         DexActor requester = currentUser.getActor();
+
         DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
         maintenanceRequest.setRequester(requester);
         maintenanceRequest.setAsset(asset);
