@@ -18,6 +18,8 @@ export class AssetCodeListPage implements OnInit {
     assetCodes$: Observable<AssetCode[]>;
     searchForm: FormGroup;
     title = 'Senarai Kod Asset';
+    searchQuery: string = '';
+    selectedRow: AssetCode = null;
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -26,6 +28,7 @@ export class AssetCodeListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Kod Asset', routerLink: ['/administration/asset-codes/list']}
     ];
+    display : boolean = false;
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,

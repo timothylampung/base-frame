@@ -12,6 +12,8 @@ import {LocationEffects} from "./locations/location-effect";
 import {AssetListPage} from "./assets/asset-list.page";
 import {AssetEffects} from "./assets/asset-effect";
 import {LocationDetailPage} from "./locations/location-detail/location-detail.page";
+import {AssetCodeDetailPage} from "./asset-codes/asset-code-detail/asset-code-detail.page";
+import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import {LocationDetailPage} from "./locations/location-detail/location-detail.pa
 
 
         AssetListPage,
+        AssetDetailPage,
         AssetCodeListPage,
+        AssetCodeDetailPage,
         LocationListPage,
         LocationDetailPage,
 
