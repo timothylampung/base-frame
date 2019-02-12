@@ -2,7 +2,8 @@ import {Meta} from "@angular/platform-browser";
 import {MetaObject} from "../../../models/meta-object.model";
 
 
-export  interface Component extends MetaObject {
+//FIXME @Uda change to part component? Component reserve by angular
+export  interface PartComponent extends MetaObject {
 
     code: string;
     description: string;
@@ -12,6 +13,6 @@ export  interface Component extends MetaObject {
 export interface ComponentResult {
 
     totalSize: number;
-    data: Component[];
+    data: PartComponent[];
 
 }

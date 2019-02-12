@@ -3,7 +3,7 @@ import {AppState} from "../../core/core.state";
 
 import {Part, PartResult} from "./parts/part-model";
 import { partResultReducer, partsReducer} from "./parts/part-reducer";
-import {Component, ComponentResult} from "./components/component-model";
+import {PartComponent, ComponentResult} from "./components/component-model";
 import {componentResultReducer, componentsReducer} from "./components/component-reducer";
 import {PartCode, PartCodeResult} from "./part-codes/part-code-model";
 import {ParsedCssResult} from "codelyzer/angular/styles/cssParser";
@@ -33,7 +33,7 @@ export interface InventoryState {
 
     parts:Part[];
     partResult:PartResult;
-    components:Component[];
+    components:PartComponent[];
     componentResult:ComponentResult;
     partCodes:PartCode[],
     partCodeResult: PartCodeResult;

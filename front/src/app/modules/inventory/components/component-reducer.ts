@@ -3,7 +3,7 @@ import {
     FIND_PAGED_COMPONENTS_SUCCESS,
     FindAllComponentsSuccessAction, FindPagedComponentsSuccessAction
 } from "./component-action";
-import {Component, ComponentResult} from "./component-model";
+import {PartComponent, ComponentResult} from "./component-model";
 
 
 const initialState: ComponentResult = {
@@ -23,7 +23,7 @@ export function componentResultReducer(state = initialState, action: FindPagedCo
     }
 }
 
-export function componentsReducer(state = [], action: FindAllComponentsSuccessAction): Component[] {
+export function componentsReducer(state = [], action: FindAllComponentsSuccessAction): PartComponent[] {
     switch (action.type) {
         case FIND_ALL_COMPONENTS_SUCCESS:
             return [...state, ...action.payload];

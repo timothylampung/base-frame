@@ -1,3 +1,7 @@
+<p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
+    <dex-part-detail-page [selectedRow]="selectedRow"></dex-part-detail-page>
+</p-sidebar>
+
 <div class="ui-g">
     <div class="ui-g-12">
         <div class="card card-w-title">
@@ -32,7 +36,7 @@
                     <input [(ngModel)]="searchQuery" placeholder="Keyword" style="border-left:0; color : white;" type="text"
                            class="ui-inputtext">
                     <button (click)="search()" pButton type="button" icon="pi pi-search"></button>
-                    <button pButton class="ui-button-success" type="button" icon="pi pi-plus"></button>
+                    <button pButton class="ui-button-success" (click)="display = !display; selectedRow = undefined;" type="button" icon="pi pi-plus"></button>
                 </div>
 
             </div>
@@ -51,7 +55,8 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr [pSelectableRow]="rowData">
+                    <!--<tr [pSelectableRow]="rowData">-->
+                    <tr (click)="selectedRow = rowData; display = !display;" [pSelectableRow]="rowData">
                         <td>
                             {{rowData?.code}}
                         </td>

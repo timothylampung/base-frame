@@ -8,6 +8,7 @@ import {Observable} from "rxjs";
 import {FindPagedPartCodesAction} from "./part-code-action";
 import {PartCode, PartCodeResult} from "./part-code-model";
 import {InventoryState} from "../inventory.state";
+import {Location} from "../../asset/locations/location-model";
 
 @Component({
     selector: 'dex-part-code-list-page',
@@ -18,6 +19,8 @@ export class PartCodeListPage implements OnInit {
     partCodes$: Observable<PartCodeResult>;
     searchForm: FormGroup;
     searchQuery : string = '';
+    selectedRow : PartCode = null;
+
 
     title = 'PartCodes';
     cols = [
@@ -28,6 +31,8 @@ export class PartCodeListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'PartCodes', routerLink: ['/administration/part-codes/list']}
     ];
+    display : boolean = false;
+
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,

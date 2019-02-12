@@ -6,8 +6,9 @@ import {BreadcrumbService} from "../../../breadcrumb.service";
 import {selectComponentResultState, selectComponents} from "./component-selector";
 import {Observable} from "rxjs";
 import {FindPagedComponentsAction} from "./component-action";
-import {ComponentResult} from "./component-model";
+import {ComponentResult, PartComponent} from "./component-model";
 import {InventoryState} from "../inventory.state";
+import {Location} from "../../asset/locations/location-model";
 
 @Component({
     selector: 'dex-component-list-page',
@@ -18,6 +19,8 @@ export class ComponentListPage implements OnInit {
     components$: Observable<ComponentResult>;
     searchForm: FormGroup;
     searchQuery : string = '';
+    selectedRow : PartComponent = null;
+
 
     title = 'Components';
     cols = [
@@ -28,6 +31,8 @@ export class ComponentListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Components', routerLink: ['/administration/components/list']}
     ];
+    display : boolean = false;
+
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,

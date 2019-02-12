@@ -7,7 +7,7 @@ import {LocationResult} from "../modules/asset/locations/location-model";
 import {Location} from "../modules/asset/locations/location-model";
 import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
 import {Part, PartResult} from "../modules/inventory/parts/part-model";
-import {Component, ComponentResult} from "../modules/inventory/components/component-model";
+import {PartComponent, ComponentResult} from "../modules/inventory/components/component-model";
 import {PartCode, PartCodeResult} from "../modules/inventory/part-codes/part-code-model";
 
 
@@ -55,7 +55,7 @@ export class InventoryService {
 
 
     // ===================================================================================================================
-    // Component
+    // PartComponent
     // ===================================================================================================================
 
     findPagedComponents(filter: string, page: number): Observable<ComponentResult> {
@@ -69,19 +69,19 @@ export class InventoryService {
         );
     }
 
-    findComponents(): Observable<Component[]> {
-        return this.http.get<Component[]>(this.INVENTORY_API + '/components');
+    findComponents(): Observable<PartComponent[]> {
+        return this.http.get<PartComponent[]>(this.INVENTORY_API + '/components');
     }
 
-    saveComponent(code: Component) {
+    saveComponent(code: PartComponent) {
         return this.http.post(this.INVENTORY_API + '/components', JSON.stringify(code));
     }
 
-    updateComponent(code: Component) {
+    updateComponent(code: PartComponent) {
         return this.http.put(this.INVENTORY_API + '/components/' + code.code, JSON.stringify(code));
     }
 
-    removeComponent(code: Component) {
+    removeComponent(code: PartComponent) {
         return this.http.delete(this.INVENTORY_API + '/components/' + code.code);
     }
 

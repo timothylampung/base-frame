@@ -18,6 +18,8 @@ export class PartListPage implements OnInit {
     parts$: Observable<PartResult>;
     searchForm: FormGroup;
     searchQuery : string = '';
+    selectedRow : Part = null;
+
 
     title = 'Parts';
     cols = [
@@ -28,6 +30,9 @@ export class PartListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Parts', routerLink: ['/administration/parts/list']}
     ];
+
+    display : boolean = false;
+
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,
