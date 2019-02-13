@@ -51,5 +51,7 @@ export class LocationListPage implements OnInit {
     search() {
         this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: 1}));
     }
+
+
 }
 

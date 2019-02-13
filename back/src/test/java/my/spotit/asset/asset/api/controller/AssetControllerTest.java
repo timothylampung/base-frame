@@ -7,6 +7,7 @@ import my.spotit.asset.asset.api.vo.Asset;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.http.ContentType;
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 
 import static io.restassured.RestAssured.given;
 
@@ -40,11 +41,12 @@ public class AssetControllerTest extends AbstractApiTest {
     }
 
     @Test
+    @Rollback(false)
     public void saveAsset() throws JsonProcessingException {
 
         Asset vo = new Asset();
-        vo.setCode("ASSET_CODE");
-        vo.setDescription("ASSET_DESC");
+        vo.setCode("ASSET_CODECONTEST");
+        vo.setDescription("ASSET_DESCCONTEST");
 
         given()
 

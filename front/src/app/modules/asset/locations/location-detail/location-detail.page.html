@@ -1,36 +1,82 @@
-<h1>Add Location</h1>
-<p-panel>
-    <p-header>
-     Ref No.   {{selectedRow?.code}}
-    </p-header>
+<ng-container [formGroup]="creatorForm">
 
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12">
-            <div class="ui-g form-group">
-                <div class="ui-g-12 ui-md-12">
-                    <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="name" type="text" pInputText
-                               (click)="overlayPanel=!overlayPanel">
-                        <label for="name">Name</label>
-                    </span>
-                </div>
+    <h1>Add Location</h1>
+    <p-panel>
+        <p-header>
+            Ref No.   {{selectedRow?.code}}
+        </p-header>
 
-                <div class="ui-g-12 ui-md-12">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="desc" type="text" pInputText
-                               (click)="overlayPanel=!overlayPanel">
-                        <label for="desc">Description</label>
+                        <input [readOnly]="!edit" id="code" type="text" formControlName="code" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="desc">Code</label>
 
                     </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <p-footer>
-        <button pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
-        <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
-    </p-footer>
-</p-panel>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="desc" type="text" formControlName="description" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="desc">Description</label>
+
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="name" type="text" formControlName="name" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="desc">Name</label>
+
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="address" type="text" formControlName="address" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="address">Address</label>
+
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <p-footer>
+            <button [disabled]="!creatorForm.valid"   pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
+        </p-footer>
+    </p-panel>
+
+
+
+
+</ng-container>
+
 
 

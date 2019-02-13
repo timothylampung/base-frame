@@ -5,6 +5,7 @@ import my.spotit.AbstractTest;
 import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.core.domain.DexMetaState;
 import my.spotit.asset.helper.IdentityServiceHelper;
 
 import org.junit.Test;
@@ -56,21 +57,24 @@ public class AssetServiceImplTest extends AbstractTest {
     }
 
     @Test
-    @Rollback(false)
+    @Rollback(true)
     public void saveLocation() {
 
+        identityServiceHelper.changeUser("maula");
+
         DexLocation location = new DexLocationImpl();
-        location.setCode("CODE44");
+
+        location.setCode("KOD66");
         location.setDescription("THIS CODE IS FAKE!");
         location.setName("Armband");
         location.setAddress("BigROom");
-
+        ((DexLocationImpl) location).setState(DexMetaState.ACTIVE);
         LOG.debug("----------------------prepared------------------------ {} ",location.getDescription() );
         assetService.saveLocation(location);
 
         entityManager.flush();
 
-        DexLocation savedLocation = assetService.findLocationByCode("CODE44");
+        DexLocation savedLocation = assetService.findLocationByCode("KOD66");
         LOG.debug("--------------------saved-------------------------- {} ",savedLocation.getAddress() );
 
 
