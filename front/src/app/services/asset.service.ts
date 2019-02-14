@@ -37,8 +37,8 @@ export class AssetService {
         return this.http.get<AssetCode[]>(this.ASSET_API + '/asset-codes');
     }
 
-    saveAssetCode(code: AssetCode) {
-        return this.http.post(this.ASSET_API + '/asset-codes', JSON.stringify(code));
+    saveAssetCode(assetCode: AssetCode) {
+        return this.http.post(this.ASSET_API + '/asset-codes', JSON.stringify(assetCode));
     }
 
     updateAssetCode(code: AssetCode) {
@@ -70,8 +70,8 @@ export class AssetService {
         return this.http.get<Location[]>(this.ASSET_API + '/locations');
     }
 
-    saveLocation(code: Location) {
-        return this.http.post(this.ASSET_API + '/locations', JSON.stringify(code));
+    saveLocation(location: Location) {
+        return this.http.post(this.ASSET_API + '/locations' , JSON.stringify(location));
     }
 
     updateLocation(code: Location) {
@@ -102,8 +102,8 @@ export class AssetService {
         return this.http.get<Asset[]>(this.ASSET_API + '/assets');
     }
 
-    saveAsset(code: Asset) {
-        return this.http.post(this.ASSET_API + '/assets', JSON.stringify(code));
+    saveAsset(asset: Asset) {
+        return this.http.post(this.ASSET_API + '/assets/' + asset.code , JSON.stringify(asset));
     }
 
     updateAsset(code: Asset) {

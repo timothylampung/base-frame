@@ -1,15 +1,33 @@
+<ng-container [formGroup]="creatorForm">
+
+
 <h1>Add Asset Code</h1>
 <p-panel>
     <p-header>
      Ref No.   {{selectedRow?.code}}
     </p-header>
 
+
     <div class="ui-g ui-fluid">
         <div class="ui-g-12">
             <div class="ui-g form-group">
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="desc" type="text" pInputText (click)="overlayPanel=!overlayPanel">
+                        <input [readOnly]="!edit" id="code" formControlName="code" type="text" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="desc">Code</label>
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <div class="ui-g form-group">
+                <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="desc" formControlName="description" type="text" pInputText (click)="overlayPanel=!overlayPanel">
                         <label for="desc">Description</label>
 
                     </span>
@@ -19,9 +37,10 @@
     </div>
 
     <p-footer>
-        <button pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
+        <button [disabled]="!creatorForm.valid" (click)="submit()"  pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
         <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
     </p-footer>
 </p-panel>
 
 
+    </ng-container>

@@ -47,6 +47,14 @@ export class LocationDetailPage implements OnInit, OnChanges {
     }
 
 
+    submit() {
+        console.log( this.location$);
+        console.log( this.creatorForm.value);
+        this.store.dispatch(new SaveLocationAction(this.creatorForm.value));
+
+    }
+
+
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes);

@@ -7,6 +7,7 @@ import my.spotit.asset.asset.api.vo.Asset;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.http.ContentType;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import static io.restassured.RestAssured.given;
@@ -14,6 +15,8 @@ import static io.restassured.RestAssured.given;
 public class AssetControllerTest extends AbstractApiTest {
 
     private final String ASSET_URL = "api/asset";
+
+
 
 
     @Test
@@ -47,6 +50,7 @@ public class AssetControllerTest extends AbstractApiTest {
         Asset vo = new Asset();
         vo.setCode("ASSET_CODECONTEST");
         vo.setDescription("ASSET_DESCCONTEST");
+
 
         given()
 

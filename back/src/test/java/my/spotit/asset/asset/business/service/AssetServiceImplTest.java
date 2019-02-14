@@ -75,7 +75,7 @@ public class AssetServiceImplTest extends AbstractTest {
         entityManager.flush();
 
         DexLocation savedLocation = assetService.findLocationByCode("KOD66");
-        LOG.debug("--------------------saved-------------------------- {} ",savedLocation.getAddress() );
+        LOG.debug("--------------------saved-------------------------- {} ",savedLocation.getId() );
 
 
     }
