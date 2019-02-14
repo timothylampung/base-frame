@@ -105,8 +105,8 @@ export class InventoryService {
         return this.http.get<Part[]>(this.INVENTORY_API + '/parts');
     }
 
-    savePart(code: Part) {
-        return this.http.post(this.INVENTORY_API + '/parts', JSON.stringify(code));
+    savePart(part: Part) {
+        return this.http.post(this.INVENTORY_API + '/parts', JSON.stringify(part));
     }
 
     updatePart(code: Part) {

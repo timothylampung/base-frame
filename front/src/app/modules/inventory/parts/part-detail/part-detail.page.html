@@ -1,35 +1,43 @@
-<h1>Add Part </h1>
-<p-panel>
-    <p-header>
-     Ref No.   {{selectedRow?.code}}
-    </p-header>
+<ng-container [formGroup]="creatorForm">
 
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12">
-            <div class="ui-g form-group">
-                <div class="ui-g-12 ui-md-12">
+
+    <h1>Add Part </h1>
+    <p-panel>
+        <p-header>
+            Ref No.   {{selectedRow?.code}}
+        </p-header>
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="name" type="text" pInputText (click)="overlayPanel=!overlayPanel">
-                        <label for="name">Name</label>
+                        <input [readOnly]="!edit" id="name" formControlName="code" type="text" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="name">Code</label>
                     </span>
-                </div>
+                    </div>
 
-                <div class="ui-g-12 ui-md-12">
+                    <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="desc" type="text" pInputText
+                        <input [readOnly]="!edit" id="desc" formControlName="description" type="text" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="desc">Description</label>
 
                     </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <p-footer>
-        <button pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
-        <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
-    </p-footer>
-</p-panel>
+        <p-footer>
+            <button pButton type="button"  [disabled]="!creatorForm.valid" (click)="submit()" label="Add" icon="pi pi-check"
+                    class="ui-button-success"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
+        </p-footer>
+    </p-panel>
+
+
+</ng-container>
+
 
 
