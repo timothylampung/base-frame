@@ -14,6 +14,7 @@ import {AssetEffects} from "./assets/asset-effect";
 import {LocationDetailPage} from "./locations/location-detail/location-detail.page";
 import {AssetCodeDetailPage} from "./asset-codes/asset-code-detail/asset-code-detail.page";
 import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
+import {NgxQRCodeModule} from "ngx-qrcode2";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
             AssetCodeEffects,
             LocationEffects,
 
-        ])
+        ]),
+        NgxQRCodeModule
     ],
     declarations: [
 

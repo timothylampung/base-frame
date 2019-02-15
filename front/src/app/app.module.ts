@@ -51,6 +51,7 @@ import {WorkOrderModule} from "./modules/work-order/work-order.module";
         InventoryModule,
         WorkOrderModule,
         MaintenanceRequestModule,
+
     ],
     declarations: [
         AppComponent,

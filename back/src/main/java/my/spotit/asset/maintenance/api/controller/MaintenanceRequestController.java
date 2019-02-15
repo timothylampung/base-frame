@@ -38,7 +38,7 @@ import my.spotit.asset.maintenance.api.vo.MaintenanceRequestTaskSummaryResult;
 
 @Transactional
 @RestController
-@RequestMapping("/api/maintenance/")
+@RequestMapping("/api/maintenance-request/")
 public class MaintenanceRequestController {
 
     private static final Logger LOG = LoggerFactory.getLogger(MaintenanceRequestController.class);

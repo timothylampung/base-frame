@@ -14,7 +14,8 @@ import {SaveLocationAction} from "../location-action";
 export class LocationDetailPage implements OnInit, OnChanges {
 
     private location$: Location;
-
+    elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
+    qrValue : string = '';
 
 
     creatorForm: FormGroup;
@@ -59,6 +60,15 @@ export class LocationDetailPage implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes);
         this.edit = this.selectedRow == undefined;
+        if(this.selectedRow!=undefined){
+            this.qrValue = this.selectedRow.code;
+            this.creatorForm.patchValue(this.selectedRow);
+        } else {
+          if(this.creatorForm!=undefined){
+              this.creatorForm.reset();
+          }
+        }
+
     }
 
 

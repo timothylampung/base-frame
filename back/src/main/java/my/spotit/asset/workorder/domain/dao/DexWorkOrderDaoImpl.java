@@ -45,7 +45,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     @Override
     public List<DexWorkOrder> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexWorkOrder s where " +
-                "(upper(s.code) like upper(:filter) " +
+                "(upper(s.referenceNo) like upper(:filter) " +
                 "or upper(s.description) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
@@ -59,7 +59,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     public List<DexActivity> findActivities(String filter, DexWorkOrder order, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexActivity s where " +
                 "upper(s.description) like upper(:filter) " +
-                "and s.order = :order " +
+                "and s.workOrder = :order " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("order", order);
@@ -72,7 +72,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     @Override
     public List<DexActivity> findActivities(DexWorkOrder order) {
         Query query = entityManager.createQuery("select s from DexActivity s where " +
-                " s.order = :order " +
+                " s.workOrder = :order " +
                 "and s.metadata.state = :state ");
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);
@@ -82,7 +82,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     @Override
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(s) from DexWorkOrder s where " +
-                "(upper(s.code) like upper(:filter) " +
+                "(upper(s.referenceNo) like upper(:filter) " +
                 "or upper(s.description) like upper(:filter)) " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
@@ -93,9 +93,8 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     @Override
     public Integer countActivity(String filter, DexWorkOrder order) {
         Query query = entityManager.createQuery("select count(s) from DexActivity s where " +
-                "(upper(s.code) like upper(:filter) " +
-                "or upper(s.description) like upper(:filter)) " +
-                "and s.order = :order " +
+                "upper(s.description) like upper(:filter) " +
+                "and s.workOrder = :order " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("order", order);
@@ -106,7 +105,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     @Override
     public Integer countActivity(DexWorkOrder order) {
         Query query = entityManager.createQuery("select count(s) from DexActivity s where " +
-                "s.order = :order " +
+                "s.workOrder = :order " +
                 "and s.metadata.state = :state ");
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);

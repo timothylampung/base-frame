@@ -1,7 +1,7 @@
 package my.spotit.asset.onboarding.api.vo;
 
 public class OnBoardingResponse {
-    private boolean onBoarded;
+    private Boolean onBoarded;
     private String message;
 
     public OnBoardingResponse(boolean onBoarded, String message) {
@@ -17,11 +17,11 @@ public class OnBoardingResponse {
         this.message = message;
     }
 
-    public boolean isOnBoarded() {
+    public Boolean isOnBoarded() {
         return onBoarded;
     }
 
-    public void setOnBoarded(boolean onBoarded) {
+    public void setOnBoarded(Boolean onBoarded) {
         this.onBoarded = onBoarded;
     }
 }
