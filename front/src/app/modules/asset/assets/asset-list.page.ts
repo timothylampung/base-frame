@@ -53,4 +53,3 @@ export class AssetListPage implements OnInit {
         this.store.dispatch(new FindPagedAssetsAction({filter: this.searchQuery, page: 1}));
     }
 }
-

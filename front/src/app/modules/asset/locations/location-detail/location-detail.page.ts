@@ -38,10 +38,11 @@ export class LocationDetailPage implements OnInit, OnChanges {
 
 
         this.creatorForm = this.fb.group({
+            address: ['', Validators.required],
             code: ['', Validators.required],
             description: ['', Validators.required],
             name: ['', Validators.required],
-            address: ['', Validators.required],
+            
 
         });
 

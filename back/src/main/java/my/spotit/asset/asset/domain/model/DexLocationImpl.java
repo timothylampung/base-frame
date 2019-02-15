@@ -17,6 +17,10 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     private Long id;
 
     @NotNull
+    @Column(name = "ADDRESS")
+    private String address;
+
+    @NotNull
     @Column(name = "CODE")
     private String code;
 
@@ -28,9 +32,6 @@ public class DexLocationImpl extends DexMetadata implements DexLocation{
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
-    @Column(name = "ADDRESS")
-    private String address;
 
     @ManyToOne(targetEntity = DexLocationImpl.class, fetch = FetchType.LAZY)
     private DexLocation parent;
