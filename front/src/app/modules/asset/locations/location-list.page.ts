@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectLocationResultState, selectLocations} from "./location-selector";
+import {selectLocationResultState} from "./location-selector";
 import {Observable} from "rxjs";
 import {FindPagedLocationsAction} from "./location-action";
 import {Location, LocationResult} from "./location-model";

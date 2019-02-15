@@ -4,8 +4,6 @@ import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssetState} from "../../asset.state";
 import {AssetCode} from "../asset-code-model";
-import {Location} from "../../locations/location-model";
-import {SaveLocationAction} from "../../locations/location-action";
 import {SaveAssetCodeAction} from "../asset-code.action";
 
 @Component({

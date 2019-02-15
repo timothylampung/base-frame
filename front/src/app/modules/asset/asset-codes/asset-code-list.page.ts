@@ -7,7 +7,7 @@ import {BreadcrumbService} from "../../../breadcrumb.service";
 import {selectAssetCodes} from "./asset-code.selector";
 import {Observable} from "rxjs";
 import {FindPagedAssetCodesAction} from "./asset-code.action";
-import {AssetCode} from "./asset-code-model";
+import {AssetCode, AssetCodeResult} from "./asset-code-model";
 
 @Component({
     selector: 'dex-asset-code-list-page',
@@ -15,7 +15,7 @@ import {AssetCode} from "./asset-code-model";
 })
 export class AssetCodeListPage implements OnInit {
 
-    assetCodes$: Observable<AssetCode[]>;
+    assetCodes$: Observable<AssetCodeResult>;
     searchForm: FormGroup;
     title = 'Senarai Kod Asset';
     searchQuery: string = '';
@@ -48,7 +48,7 @@ export class AssetCodeListPage implements OnInit {
     }
 
     search() {
-        this.store.dispatch(new FindPagedAssetCodesAction({filter: this.searchForm.value.keyword, page: 1}));
+        this.store.dispatch(new FindPagedAssetCodesAction({filter: this.searchQuery, page: 1}));
     }
 }
 

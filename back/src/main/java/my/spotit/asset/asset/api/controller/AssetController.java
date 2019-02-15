@@ -171,13 +171,12 @@ public class AssetController {
     // ASSET-CODES
     //==============================================================================================
 
-    @GetMapping(value = "/asset-codes", params = {"page"})
-    public ResponseEntity<AssetCodeResult> findPagedAssetCodes(@RequestParam Integer page) {
+    @GetMapping(value = "/asset-codes", params = {"page", "filter"})
+    public ResponseEntity<AssetCodeResult> findPagedAssetCodes(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedAssetCodes: {}", page);
-        Integer count = assetService.countAsset("%");
-        List<AssetCode> assetCodes = assetTransformer.toAssetCodeVos(
-                assetService.findAssetCodes("%", ((page - 1) * LIMIT), LIMIT));
-        return new ResponseEntity<AssetCodeResult>(new AssetCodeResult(assetCodes, count), HttpStatus.OK);
+        Integer count = assetService.countAssetCode(filter);
+        List<DexAssetCode> assetCodes = assetService.findAssetCodes(filter, ((page - 1) * LIMIT), LIMIT);
+        return new ResponseEntity<AssetCodeResult>(new AssetCodeResult(assetTransformer.toAssetCodeVos(assetCodes), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/asset-codes")
