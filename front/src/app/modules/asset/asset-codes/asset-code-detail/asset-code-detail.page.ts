@@ -14,14 +14,12 @@ import {SaveAssetCodeAction} from "../asset-code.action";
 })
 export class AssetCodeDetailPage implements OnInit, OnChanges {
 
-
-    private assetCodes$: AssetCode;
-
-
+    private assetCode$: AssetCode;
+    elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
+    qrValue : string = '';
 
     creatorForm: FormGroup;
     value: boolean;
-
 
     title = 'Asset Codes';
     @Input() selectedRow: AssetCode;
@@ -35,7 +33,6 @@ export class AssetCodeDetailPage implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-
         this.creatorForm = this.fb.group({
             code: ['', Validators.required],
             description: ['', Validators.required],
@@ -45,17 +42,24 @@ export class AssetCodeDetailPage implements OnInit, OnChanges {
 
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
-        this.edit = this.selectedRow == undefined;
-    }
-
-
     submit() {
-        console.log( this.assetCodes$);
+        console.log( this.assetCode$);
         console.log( this.creatorForm.value);
         this.store.dispatch(new SaveAssetCodeAction(this.creatorForm.value));
 
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes);
+        this.edit = this.selectedRow == undefined;
+        if(this.selectedRow!=undefined){
+            this.qrValue = this.selectedRow.code;
+            this.creatorForm.patchValue(this.selectedRow);
+        } else {
+            if(this.creatorForm!=undefined){
+                this.creatorForm.reset();
+            }
+        }
     }
 
 

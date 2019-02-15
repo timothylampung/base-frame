@@ -40,7 +40,7 @@ export class PartCodeEffects {
         .pipe(
             ofType(SAVE_PART_CODE),
             map((action: SavePartCodeAction) => action.payload),
-            switchMap((part) => this.inventoryService.savePartCode(part)),
+            switchMap((partCode) => this.inventoryService.savePartCode(partCode)),
             map((message) => new SavePartCodeSuccessAction({message: 'success'})),
             mergeMap((action) => from([action, new FindPagedPartCodesAction({filter: 'todo', page: 1})])),);
 

@@ -1,3 +1,6 @@
+<ng-container [formGroup]="creatorForm">
+
+
 <h1>Add Asset</h1>
 <p-panel>
     <p-header>
@@ -35,10 +38,17 @@
         </div>
     </div>
 
+    <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "qrValue"></ngx-qrcode>
+
+
     <p-footer>
         <button pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
         <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
     </p-footer>
 </p-panel>
+
+
+</ng-container>
+
 
 

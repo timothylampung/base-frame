@@ -16,6 +16,7 @@ import {ComponentDetailPage} from "./components/component-detail/component-detai
 import {LocationDetailPage} from "../asset/locations/location-detail/location-detail.page";
 import {PartCodeDetailPage} from "./part-codes/part-code-detail/part-code-detail.page";
 import {PartDetailPage} from "./parts/part-detail/part-detail.page";
+import {NgxQRCodeModule} from "ngx-qrcode2";
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import {PartDetailPage} from "./parts/part-detail/part-detail.page";
             ComponentEffects,
             PartCodeEffects,
 
-        ])
+        ]),
+        NgxQRCodeModule
+
     ],
     declarations: [
 

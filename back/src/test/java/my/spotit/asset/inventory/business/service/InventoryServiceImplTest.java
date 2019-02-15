@@ -1,10 +1,15 @@
 package my.spotit.asset.inventory.business.service;
 
 import my.spotit.AbstractTest;
+import my.spotit.asset.asset.domain.model.DexLocation;
+import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.core.domain.DexMetaState;
+import my.spotit.asset.helper.IdentityServiceHelper;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.inventory.domain.model.DexComponent;
 import my.spotit.asset.inventory.domain.model.DexPart;
 import my.spotit.asset.inventory.domain.model.DexPartCode;
+import my.spotit.asset.inventory.domain.model.DexPartCodeImpl;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +27,7 @@ public class InventoryServiceImplTest extends AbstractTest {
 
 
     @Autowired
-    private IdentityService identityService;
+    private IdentityServiceHelper identityServiceHelper;
     @Autowired
     private InventoryService inventoryService;
 
@@ -132,6 +137,34 @@ public class InventoryServiceImplTest extends AbstractTest {
 
     @Test
     public void savePartCode() {
+
+        identityServiceHelper.changeUser("maula");
+
+        DexPartCode partCode = new DexPartCodeImpl();
+        partCode.setCode("PC_70");
+        partCode.setDescription("PART CODE 70");
+
+        LOG.debug("----------------------prepared------------------------ {} ",partCode.getDescription() );
+        inventoryService.savePartCode(partCode);
+
+        entityManager.flush();
+
+        DexPartCode savedPartCode = inventoryService.findPartCodeByCode("PC_70");
+        LOG.debug("--------------------saved-------------------------- {} ",savedPartCode.getDescription() );
+        LOG.debug("--------------------saved-------------------------- {} ",savedPartCode.getId() );
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     @Test

@@ -1,15 +1,10 @@
 import {environment} from '../../environments/environment';
 import {Injectable} from "@angular/core";
-import {AssetCode, AssetCodeResult} from "../modules/asset/asset-codes/asset-code-model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {LocationResult} from "../modules/asset/locations/location-model";
-import {Location} from "../modules/asset/locations/location-model";
-import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
 import {Part, PartResult} from "../modules/inventory/parts/part-model";
 import {PartComponent, ComponentResult} from "../modules/inventory/components/component-model";
 import {PartCode, PartCodeResult} from "../modules/inventory/part-codes/part-code-model";
-
 
 
 @Injectable()
@@ -33,15 +28,15 @@ export class InventoryService {
                     page: page.toString()
                 }
             }
-            );
+        );
     }
 
     findPartCodes(): Observable<PartCode[]> {
         return this.http.get<PartCode[]>(this.INVENTORY_API + '/part-codes');
     }
 
-    savePartCode(code: PartCode) {
-        return this.http.post(this.INVENTORY_API + '/part-codes', JSON.stringify(code));
+    savePartCode(partCode: PartCode) {
+        return this.http.post(this.INVENTORY_API + '/part-codes', JSON.stringify(partCode));
     }
 
     updatePartCode(code: PartCode) {
@@ -51,7 +46,6 @@ export class InventoryService {
     removePartCode(code: PartCode) {
         return this.http.delete(this.INVENTORY_API + '/part-codes/' + code.code);
     }
-
 
 
     // ===================================================================================================================

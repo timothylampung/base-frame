@@ -1,9 +1,10 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InventoryState} from "../../inventory.state";
 import {PartComponent} from "../component-model";
+import {Part} from "../../parts/part-model";
 
 
 @Component({
@@ -11,6 +12,15 @@ import {PartComponent} from "../component-model";
     templateUrl: './component-detail.page.html'
 })
 export class ComponentDetailPage implements OnInit, OnChanges {
+
+
+    private components$: Part;
+    elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
+    qrValue : string = '';
+
+    creatorForm: FormGroup;
+    value: boolean;
+
 
     title = 'Components';
     @Input() selectedRow: PartComponent;
@@ -25,11 +35,24 @@ export class ComponentDetailPage implements OnInit, OnChanges {
 
     ngOnInit() {
 
+        this.creatorForm = this.fb.group({
+            code: ['', Validators.required],
+            description: ['', Validators.required],})
+
+
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes);
         this.edit = this.selectedRow == undefined;
+        if(this.selectedRow!=undefined){
+            this.qrValue = this.selectedRow.code;
+            this.creatorForm.patchValue(this.selectedRow);
+        } else {
+            if(this.creatorForm!=undefined){
+                this.creatorForm.reset();
+            }
+        }
     }
 
 

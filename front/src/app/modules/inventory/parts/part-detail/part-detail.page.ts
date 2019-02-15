@@ -17,7 +17,14 @@ export class PartDetailPage implements OnInit, OnChanges {
 
 
     private parts$: Part;
+    elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
+    qrValue : string = '';
+
+
+
     creatorForm: FormGroup;
+    value: boolean;
+
 
 
     title = 'Parts';
@@ -42,6 +49,15 @@ export class PartDetailPage implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes);
         this.edit = this.selectedRow == undefined;
+        if(this.selectedRow!=undefined){
+            this.qrValue = this.selectedRow.code;
+            this.creatorForm.patchValue(this.selectedRow);
+        } else {
+            if(this.creatorForm!=undefined){
+                this.creatorForm.reset();
+            }
+        }
+
     }
 
 
