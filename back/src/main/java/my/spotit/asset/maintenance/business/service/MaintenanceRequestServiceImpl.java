@@ -73,10 +73,8 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
             maintenanceRequestDao.save(request, securityService.getCurrentUser());
             entityManager.flush();
             entityManager.refresh(request);
-
             // trigger process event
             workflowService.processWorkflow(request, toMap(request));
-
             // trigger event
             applicationContext.publishEvent(new MaintenanceRequestDraftedEvent(request));
 

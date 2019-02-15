@@ -40,13 +40,13 @@ public class MaintenanceRequestRouter {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
         candidate = "GRP_USR";// todo
-        return Arrays.asList(candidate, securityService.getCurrentUser().getUsername());
+        return Arrays.asList(candidate);
     }
     public List<String> findDrafterCandidates(Long requestId){
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
         candidate = "GRP_USR";// todo
-        return Arrays.asList(candidate, securityService.getCurrentUser().getUsername());
+        return Arrays.asList(candidate);
     }
 
     public List<String> findCheckerCandidates(Long requestId) {
