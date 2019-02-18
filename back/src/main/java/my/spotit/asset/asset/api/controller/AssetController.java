@@ -6,17 +6,7 @@ import my.spotit.asset.asset.domain.model.*;
 import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.system.business.service.SystemService;
 import my.spotit.asset.workflow.business.service.WorkflowService;
-import my.spotit.asset.workorder.api.vo.WorkOrder;
-import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummaryResult;
-import my.spotit.asset.workorder.api.vo.WorkOrderResult;
-import my.spotit.asset.workorder.api.vo.WorkOrderTask;
-import my.spotit.asset.workorder.api.vo.WorkOrderTaskSummaryResult;
-import my.spotit.asset.workorder.domain.model.DexActivity;
-import my.spotit.asset.workorder.domain.model.DexActivityImpl;
-import my.spotit.asset.workorder.domain.model.DexWorkOrder;
-import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
 
-import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +16,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static my.spotit.asset.DexConstants.LIMIT;
-import static my.spotit.asset.DexConstants.WORK_ORDER_REFERENCE_NO;
 
 @Transactional
 @RestController
@@ -144,12 +132,14 @@ public class AssetController {
     }
 
     @PostMapping(value = "/locations")
-    public ResponseEntity<String> saveLocation(@RequestBody Location vo) {
+    public ResponseEntity<ApplicationSuccess> saveLocation(@RequestBody Location vo) {
         DexLocation location = new DexLocationImpl();
         location.setCode(vo.getCode());
         location.setDescription(vo.getDescription());
+        location.setAddress(vo.getAddress());
+        location.setName(vo.getName());
         assetService.saveLocation(location);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
 
     @PutMapping(value = "/locations/{code}")

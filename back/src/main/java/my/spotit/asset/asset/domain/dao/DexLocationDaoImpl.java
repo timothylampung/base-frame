@@ -48,7 +48,9 @@ public class DexLocationDaoImpl extends GenericDaoSupport<Long, DexLocation> imp
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(s) from DexLocation s where " +
                 "(upper(s.code) like upper(:filter) " +
-                "or upper(s.description) like upper(:filter)) " +
+                "or upper(s.description) like upper(:filter) " +
+                "or upper(s.name) like upper(:filter)" +
+                "or upper(s.address) like upper(:filter))" +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("state", DexMetaState.ACTIVE);
