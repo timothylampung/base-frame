@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {InventoryState} from "../../inventory.state";
 import {PartComponent} from "../component-model";
 import {Part} from "../../parts/part-model";
+import {SavePartCodeAction} from "../../part-codes/part-code-action";
+import {SaveComponentAction} from "../component-action";
 
 
 @Component({
@@ -14,7 +16,7 @@ import {Part} from "../../parts/part-model";
 export class ComponentDetailPage implements OnInit, OnChanges {
 
 
-    private components$: Part;
+    private components$: Component;
     elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
     qrValue : string = '';
 
@@ -39,6 +41,13 @@ export class ComponentDetailPage implements OnInit, OnChanges {
             code: ['', Validators.required],
             description: ['', Validators.required],})
 
+
+    }
+
+    submit() {
+        console.log( this.components$);
+        console.log( this.creatorForm.value);
+        this.store.dispatch(new SaveComponentAction(this.creatorForm.value));
 
     }
 

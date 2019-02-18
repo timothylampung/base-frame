@@ -4,10 +4,11 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectAssetCodes} from "./asset-code.selector";
+import {selectAssetCodeResultState, selectAssetCodes} from "./asset-code.selector";
 import {Observable} from "rxjs";
 import {FindPagedAssetCodesAction} from "./asset-code.action";
 import {AssetCode, AssetCodeResult} from "./asset-code-model";
+import {selectAccountCodeResultState} from "../../common/account-codes/account-code.selector";
 
 @Component({
     selector: 'dex-asset-code-list-page',
@@ -36,7 +37,7 @@ export class AssetCodeListPage implements OnInit {
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
-        this.assetCodes$ = this.store.pipe(select(selectAssetCodes));
+        this.assetCodes$ = this.store.pipe(select(selectAssetCodeResultState));
     }
 
     ngOnInit() {

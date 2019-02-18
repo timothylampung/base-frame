@@ -44,7 +44,7 @@
         <div class="card card-w-title">
             <p-table #dt
                      [columns]="cols"
-                     [value]="assetCodes$ | async"
+                     [value]="(assetCodes$ | async).data"
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>

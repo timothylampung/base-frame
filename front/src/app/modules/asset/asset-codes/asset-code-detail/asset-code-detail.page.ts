@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AssetState} from "../../asset.state";
 import {AssetCode} from "../asset-code-model";
 import {SaveAssetCodeAction} from "../asset-code.action";
+import {all} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
     selector: 'dex-asset-code-detail-page',
@@ -44,8 +45,11 @@ export class AssetCodeDetailPage implements OnInit, OnChanges {
         console.log( this.assetCode$);
         console.log( this.creatorForm.value);
         this.store.dispatch(new SaveAssetCodeAction(this.creatorForm.value));
+        this.creatorForm.reset();
 
     }
+
+
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes);

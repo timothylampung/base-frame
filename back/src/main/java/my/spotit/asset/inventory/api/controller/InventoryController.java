@@ -2,7 +2,17 @@ package my.spotit.asset.inventory.api.controller;
 
 import my.spotit.asset.DexConstants;
 
+import my.spotit.asset.asset.api.vo.Asset;
+import my.spotit.asset.asset.api.vo.Location;
+import my.spotit.asset.asset.domain.model.DexAsset;
+import my.spotit.asset.asset.domain.model.DexLocation;
+import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.inventory.business.service.InventoryService;
+import my.spotit.asset.inventory.domain.model.DexComponent;
+import my.spotit.asset.inventory.domain.model.DexComponentImpl;
+import my.spotit.asset.inventory.domain.model.DexPartCode;
+import my.spotit.asset.inventory.domain.model.DexPartCodeImpl;
 import my.spotit.asset.system.business.service.SystemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,6 +130,44 @@ public class InventoryController {
                 inventoryService.findPartCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/part-codes/{code}")
+    public ResponseEntity<PartCode> findPartCodeByCode(@PathVariable String code) {
+        return new ResponseEntity<PartCode>(inventoryTransformer.toPartCodeVo(
+                inventoryService.findPartCodeByCode(code)), HttpStatus.OK);
+    }
+
+
+
+    @PostMapping(value = "/part-codes")
+    public ResponseEntity<ApplicationSuccess> savePartCode(@RequestBody PartCode vo) {
+        DexPartCode partCode = new DexPartCodeImpl();
+        partCode.setCode(vo.getCode());
+        partCode.setDescription(vo.getDescription());
+        inventoryService.savePartCode(partCode);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+    }
+
+//    @PutMapping(value = "/part-codes/{code}")
+//    public ResponseEntity<String> updatePartCode(@PathVariable String code, @RequestBody PartCode vo) {
+//        DexPartCode partCode = inventoryService.findLocationById(vo.getId());
+//        location.setDescription(vo.getDescription());
+//        assetService.updateLocation(location);
+//        return new ResponseEntity<String>("Success", HttpStatus.OK);
+//    }
+//
+//    @DeleteMapping(value = "/locations/{code}")
+//    public ResponseEntity<String> removeLocation(@PathVariable String code) {
+//        DexLocation location = assetService.findLocationByCode(code);
+//        assetService.removeLocation(location);
+//        return new ResponseEntity<String>("Success", HttpStatus.OK);
+//    }
+//
+
+
+
+
+
     //==============================================================================================
     // COMPONENT
     //==============================================================================================
@@ -139,20 +187,20 @@ public class InventoryController {
                 inventoryService.findComponents("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/location/{code}")
-//    public ResponseEntity<Location> findLocationByCode(@PathVariable String code) {
-//        return new ResponseEntity<Location>(assetTransformer.toLocationVo(
-//                assetService.findLocationByCode(code)), HttpStatus.OK);
-//    }
-//
-//    @PostMapping(value = "/location")
-//    public ResponseEntity<String> saveLocation(@RequestBody Location vo) {
-//        DexLocation location = new DexLocationImpl();
-//        location.setCode(vo.getCode());
-//        location.setDescription(vo.getDescription());
-//        assetService.saveLocation(location);
-//        return new ResponseEntity<String>("Success", HttpStatus.OK);
-//    }
+    @GetMapping(value = "/components/{code}")
+    public ResponseEntity<Component> findComponentByCode(@PathVariable String code) {
+        return new ResponseEntity<Component>(inventoryTransformer.toComponentVo(
+                inventoryService.findComponentByCode(code)), HttpStatus.OK);
+    }
+    @PostMapping(value = "/components")
+    public ResponseEntity<ApplicationSuccess> saveComponent(@RequestBody Component vo) {
+        DexComponent component = new DexComponentImpl();
+        component.setCode(vo.getCode());
+        component.setDescription(vo.getDescription());
+        inventoryService.saveComponent(component);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+    }
+
 //
 //    @PutMapping(value = "/location/{code}")
 //    public ResponseEntity<String> updateLocation(@PathVariable String code, @RequestBody Location vo) {

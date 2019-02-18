@@ -53,6 +53,7 @@ export class LocationDetailPage implements OnInit, OnChanges {
         console.log( this.location$);
         console.log( this.creatorForm.value);
         this.store.dispatch(new SaveLocationAction(this.creatorForm.value));
+        this.creatorForm.reset();
 
     }
 
