@@ -88,17 +88,12 @@ export class AssetService {
     // ===================================================================================================================
 
     findPagedAssets(filter: string, page: number): Observable<AssetResult> {
-        return this.http.get<AssetResult>(this.ASSET_API + '/assets',
-            {
-                params: {
-                    filter: filter,
-                    page: page.toString()
-                }
-            }
-        );
+        console.log(filter + " " + page)
+        return this.http.get<AssetResult>(this.ASSET_API + '/assets?filter='+filter+"&page="+page);
     }
 
     findAssets(): Observable<Asset[]> {
+        console.log("AssetService.findAssets()")
         return this.http.get<Asset[]>(this.ASSET_API + '/assets');
     }
 

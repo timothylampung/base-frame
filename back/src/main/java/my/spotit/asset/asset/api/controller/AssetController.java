@@ -49,15 +49,15 @@ public class AssetController {
     // ASSET
     //==============================================================================================
 
-    @GetMapping(value = "/assets", params = {"page, filter"})
-    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page, @RequestParam String filter) {
+    @GetMapping(value = "/assets", params = {"page","filter"})
+    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page, @RequestParam(defaultValue = "%") String filter) {
         LOG.debug("findPagedAssets: {}", page);
         Integer count = assetService.countAsset(filter);
         List<DexAsset> assets = assetService.findAssets(filter, ((page - 1) * LIMIT), LIMIT);
         return new ResponseEntity<AssetResult>(new AssetResult(assetTransformer.toAssetVos(assets), count), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/assets")
+    @GetMapping(value = "/all-assets")
     public ResponseEntity<List<Asset>> findAssets() {
         return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
                 assetService.findAssets("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);

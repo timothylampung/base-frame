@@ -25,7 +25,7 @@ public class AssetControllerTest extends AbstractApiTest {
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + getAccessToken())
                 .when()
-                .get(ASSET_URL + "/assets")
+                .get(ASSET_URL + "/assets?page=1&filter=%")
                 .getBody().prettyPrint();
     }
 
