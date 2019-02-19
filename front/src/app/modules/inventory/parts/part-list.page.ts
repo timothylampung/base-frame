@@ -8,6 +8,7 @@ import {Observable} from "rxjs";
 import {FindPagedPartsAction} from "./part-action";
 import {Part, PartResult} from "./part-model";
 import {InventoryState} from "../inventory.state";
+import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({
     selector: 'dex-part-list-page',
@@ -53,6 +54,11 @@ export class PartListPage implements OnInit {
 
     search() {
         this.store.dispatch(new FindPagedPartsAction({filter: this.searchQuery, page: 1}));
+    }
+
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedPartsAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }
 

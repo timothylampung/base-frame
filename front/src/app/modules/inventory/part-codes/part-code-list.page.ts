@@ -9,6 +9,7 @@ import {FindPagedPartCodesAction} from "./part-code-action";
 import {PartCode, PartCodeResult} from "./part-code-model";
 import {InventoryState} from "../inventory.state";
 import {Location} from "../../asset/locations/location-model";
+import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({
     selector: 'dex-part-code-list-page',
@@ -53,6 +54,11 @@ export class PartCodeListPage implements OnInit {
 
     search() {
         this.store.dispatch(new FindPagedPartCodesAction({filter: this.searchQuery, page: 1}));
+    }
+
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedPartCodesAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }
 

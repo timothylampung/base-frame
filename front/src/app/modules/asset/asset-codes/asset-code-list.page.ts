@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 import {FindPagedAssetCodesAction} from "./asset-code.action";
 import {AssetCode, AssetCodeResult} from "./asset-code-model";
 import {selectAccountCodeResultState} from "../../common/account-codes/account-code.selector";
+import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({
     selector: 'dex-asset-code-list-page',
@@ -50,6 +51,10 @@ export class AssetCodeListPage implements OnInit {
 
     search() {
         this.store.dispatch(new FindPagedAssetCodesAction({filter: this.searchQuery, page: 1}));
+    }
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedAssetCodesAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }
 

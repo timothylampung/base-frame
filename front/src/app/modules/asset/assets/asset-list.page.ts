@@ -8,6 +8,7 @@ import {selectAssetResultState, selectAssets} from "./asset-selector";
 import {Observable} from "rxjs";
 import {FindPagedAssetsAction} from "./asset-action";
 import {Asset, AssetResult} from "./asset-model";
+import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({
     selector: 'dex-asset-list-page',
@@ -51,5 +52,10 @@ export class AssetListPage implements OnInit {
     search() {
         console.log(this.searchQuery);
         this.store.dispatch(new FindPagedAssetsAction({filter: this.searchQuery, page: 1}));
+    }
+
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedAssetsAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }

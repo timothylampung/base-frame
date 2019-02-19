@@ -9,6 +9,7 @@ import {FindPagedComponentsAction} from "./component-action";
 import {ComponentResult, PartComponent} from "./component-model";
 import {InventoryState} from "../inventory.state";
 import {Location} from "../../asset/locations/location-model";
+import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({
     selector: 'dex-component-list-page',
@@ -53,6 +54,11 @@ export class ComponentListPage implements OnInit {
 
     search() {
         this.store.dispatch(new FindPagedComponentsAction({filter: this.searchQuery, page: 1}));
+    }
+
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedComponentsAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }
 

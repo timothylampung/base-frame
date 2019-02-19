@@ -8,6 +8,7 @@ import {selectLocationResultState} from "./location-selector";
 import {Observable} from "rxjs";
 import {FindPagedLocationsAction} from "./location-action";
 import {Location, LocationResult} from "./location-model";
+import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({
     selector: 'dex-location-list-page',
@@ -50,6 +51,11 @@ export class LocationListPage implements OnInit {
 
     search() {
         this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: 1}));
+    }
+
+    page(event) {
+        // console.log(event)
+        this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: event.page + 1}));
     }
 
 

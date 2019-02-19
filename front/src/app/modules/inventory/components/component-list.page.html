@@ -68,5 +68,7 @@
                 </ng-template>
             </p-table>
         </div>
+        <p-paginator (onPageChange)="page($event)" [rows]="10" [totalRecords]="(components$ | async).totalSize"></p-paginator>
+
     </div>
 </div>
