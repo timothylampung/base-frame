@@ -3,16 +3,16 @@ package my.spotit.asset.inventory.api.controller;
 import my.spotit.asset.DexConstants;
 
 import my.spotit.asset.asset.api.vo.Asset;
+import my.spotit.asset.asset.api.vo.AssetResult;
 import my.spotit.asset.asset.api.vo.Location;
+import my.spotit.asset.asset.api.vo.LocationResult;
 import my.spotit.asset.asset.domain.model.DexAsset;
+import my.spotit.asset.asset.domain.model.DexAssetImpl;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
 import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.inventory.business.service.InventoryService;
-import my.spotit.asset.inventory.domain.model.DexComponent;
-import my.spotit.asset.inventory.domain.model.DexComponentImpl;
-import my.spotit.asset.inventory.domain.model.DexPartCode;
-import my.spotit.asset.inventory.domain.model.DexPartCodeImpl;
+import my.spotit.asset.inventory.domain.model.*;
 import my.spotit.asset.system.business.service.SystemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +31,8 @@ import my.spotit.asset.inventory.api.vo.Part;
 import my.spotit.asset.inventory.api.vo.PartCode;
 import my.spotit.asset.inventory.api.vo.PartCodeResult;
 import my.spotit.asset.inventory.api.vo.PartResult;
+
+import static my.spotit.asset.DexConstants.LIMIT;
 
 @Transactional
 @RestController
@@ -58,13 +60,12 @@ public class InventoryController {
     // PARTS
     //==============================================================================================
 
-    @GetMapping(value = "/parts", params = {"page"})
-    public ResponseEntity<PartResult> findPagedParts(@RequestParam Integer page) {
+    @GetMapping(value = "/parts", params ={"page", "filter"})
+    public ResponseEntity<PartResult> findPagedParts(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedParts: {}", page);
         Integer count = inventoryService.countPart("%");
-        List<Part> parts = inventoryTransformer.toPartVos(
-                inventoryService.findParts("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
-        return new ResponseEntity<PartResult>(new PartResult(parts, count), HttpStatus.OK);
+        List<DexPart> parts = inventoryService.findParts(filter, ((page - 1) * LIMIT), LIMIT);
+        return new ResponseEntity<PartResult>(new PartResult(inventoryTransformer.toPartVos(parts), count), HttpStatus.OK);
     }
 
 
@@ -74,28 +75,29 @@ public class InventoryController {
                 inventoryService.findParts()), HttpStatus.OK);
     }
 
-//
-//    @GetMapping(value = "/asset/{code}")
-//    public ResponseEntity<Asset> findAssetByAssetCode(@PathVariable String code) {
-//        return new ResponseEntity<Asset>(assetTransformer.toAssetVo(
-//                assetService.findAssetByCode(code)), HttpStatus.OK);
-//    }
-//
+
+    @GetMapping(value = "/part/{code}")
+    public ResponseEntity<Part> findPartByCode(@PathVariable String code) {
+        return new ResponseEntity<Part>(inventoryTransformer.toPartVo(
+                inventoryService.findPartByCode(code)), HttpStatus.OK);
+    }
+
 //    @GetMapping(value = "/assets/{location}") // one location have many assets no One asset
 //    public ResponseEntity<List<Asset>> findAssetByLocation(@PathVariable DexLocation location) {
 //        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
 //                assetService.findAssetsByLocation(location)), HttpStatus.OK);
 //    }
-//
-//    @PostMapping(value = "/asset")
-//    public ResponseEntity<String> saveAsset(@RequestBody Asset vo) {
-//        DexAsset asset = new DexAssetImpl();
-//        asset.setCode(vo.getCode());
-//        asset.setDescription(vo.getDescription());
-//        assetService.saveAsset(asset);
-//        return new ResponseEntity<String>("Success", HttpStatus.OK);
-//    }
-//
+
+    @PostMapping(value = "/parts")
+    public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Part vo) {
+        DexPart part = new DexPartImpl();
+        part.setCode(vo.getCode());
+        part.setDescription(vo.getDescription());
+        inventoryService.savePart(part);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+    }
+
+
 //    @PutMapping(value = "/asset/{code}")
 //    public ResponseEntity<String> updateAsset(@PathVariable String code, @RequestBody Asset vo) {
 //        DexAsset asset = assetService.findAssetById(vo.getId());
@@ -115,13 +117,12 @@ public class InventoryController {
     // PART CODE
     //==============================================================================================
 
-    @GetMapping(value = "/part-codes", params = {"page"})
-    public ResponseEntity<PartCodeResult> findPagedPartCodes(@RequestParam Integer page) {
+    @GetMapping(value = "/part-codes", params ={"page","filter"})
+    public ResponseEntity<PartCodeResult> findPagedPartCodes(@RequestParam Integer page, @RequestParam(defaultValue = "%") String filter) {
         LOG.debug("findPagedPartCodes: {}", page);
         Integer count = inventoryService.countPartCode("%");
-        List<PartCode> partCodes = inventoryTransformer.toPartCodeVos(
-                inventoryService.findPartCodes("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
-        return new ResponseEntity<PartCodeResult>(new PartCodeResult(partCodes, count), HttpStatus.OK);
+        List<DexPartCode> partCodes = inventoryService.findPartCodes(filter, ((page - 1) * LIMIT), LIMIT);
+        return new ResponseEntity<PartCodeResult>(new PartCodeResult(inventoryTransformer.toPartCodeVos(partCodes), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/part-codes")
@@ -172,13 +173,12 @@ public class InventoryController {
     // COMPONENT
     //==============================================================================================
 
-    @GetMapping(value = "/components", params = {"page"})
-    public ResponseEntity<ComponentResult> findPagedComponents(@RequestParam Integer page) {
+    @GetMapping(value = "/components", params = {"page", "filter"})
+    public ResponseEntity<ComponentResult> findPagedComponents(@RequestParam Integer page, @RequestParam String filter) {
         LOG.debug("findPagedComponents: {}", page);
         Integer count = inventoryService.countComponent("%");
-        List<Component> components = inventoryTransformer.toComponentVos(
-                inventoryService.findComponents("%", ((page - 1) * DexConstants.LIMIT), DexConstants.LIMIT));
-        return new ResponseEntity<ComponentResult>(new ComponentResult(components, count), HttpStatus.OK);
+        List<DexComponent> components = inventoryService.findComponents(filter, ((page - 1) * LIMIT), LIMIT);
+        return new ResponseEntity<ComponentResult>(new ComponentResult(inventoryTransformer.toComponentVos(components), count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/components")

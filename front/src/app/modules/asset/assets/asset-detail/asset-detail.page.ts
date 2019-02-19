@@ -13,7 +13,7 @@ import {AssetCode} from "../../asset-codes/asset-code-model";
 })
 export class AssetDetailPage implements OnInit, OnChanges {
 
-    private assetCodes$: AssetCode;
+    private asset$: AssetCode;
     elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
     qrValue : string = '';
 
