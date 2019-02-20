@@ -2,10 +2,12 @@ package my.spotit.asset.inventory.api.controller;
 
 import my.spotit.asset.DexConstants;
 
+import my.spotit.asset.asset.api.controller.AssetTransformer;
 import my.spotit.asset.asset.api.vo.Asset;
 import my.spotit.asset.asset.api.vo.AssetResult;
 import my.spotit.asset.asset.api.vo.Location;
 import my.spotit.asset.asset.api.vo.LocationResult;
+import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetImpl;
 import my.spotit.asset.asset.domain.model.DexLocation;
@@ -44,15 +46,22 @@ public class InventoryController {
     private InventoryService inventoryService;
     private SystemService systemService;
     private InventoryTransformer inventoryTransformer;
+    private AssetTransformer assetTransformer;
+    private AssetService assetService;
+
     private AuthenticationManager authenticationManager;
 
     @Autowired
     public InventoryController(InventoryService inventoryService, SystemService systemService,
                                InventoryTransformer inventoryTransformer,
-                               AuthenticationManager authenticationManager) {
+                               AuthenticationManager authenticationManager,
+                               AssetService assetService,
+                               AssetTransformer assetTransformer) {
         this.inventoryService = inventoryService;
         this.systemService = systemService;
         this.inventoryTransformer = inventoryTransformer;
+        this.assetTransformer = assetTransformer;
+
         this.authenticationManager = authenticationManager;
     }
 
@@ -197,6 +206,9 @@ public class InventoryController {
         DexComponent component = new DexComponentImpl();
         component.setCode(vo.getCode());
         component.setDescription(vo.getDescription());
+        component.setAsset(assetService.findAssetById(vo.getAsset().getId()));
+        component.setPartCode(inventoryService.findPartCodeById(vo.getPartCode().getId()));
+
         inventoryService.saveComponent(component);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }

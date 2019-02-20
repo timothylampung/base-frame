@@ -144,6 +144,14 @@ public class InventoryServiceImpl implements InventoryService {
     // PARTCODE
     //====================================================================================================
 
+
+
+    @Override
+    public DexPartCode findPartCodeById(Long id) {
+        return partCodeDao.findById(id);
+    }
+
+
     @Override
     public List<DexPartCode> findPartCodes() {
         return partCodeDao.find();

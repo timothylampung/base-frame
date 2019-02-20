@@ -11,5 +11,7 @@ public interface DexPartCodeDao extends GenericDao<Long, DexPartCode> {
 
     List<DexPartCode> find(String filter, Integer offset, Integer limit);
 
+//    DexPartCode findPartCodeById (long id);
+
     Integer count(String filter);
 }

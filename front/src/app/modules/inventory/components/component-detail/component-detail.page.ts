@@ -39,7 +39,15 @@ export class ComponentDetailPage implements OnInit, OnChanges {
 
         this.creatorForm = this.fb.group({
             code: ['', Validators.required],
-            description: ['', Validators.required],})
+            description: ['', Validators.required],
+            asset: ['', Validators.required],
+            partCode: ['', Validators.required],
+
+
+                }
+
+            )
+
 
 
     }

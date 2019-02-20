@@ -42,7 +42,7 @@ export class AssetCodeEffects {
             map((action: SaveAssetCodeAction) => action.payload),
             switchMap((assetCode) => this.assetService.saveAssetCode(assetCode)),
             map((message) => new SaveAssetCodeSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedAssetCodesAction({filter: 'todo', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedAssetCodesAction({filter: '%', page: 1})])),);
 
     @Effect() updateAssetCode$ = this.actions$
         .pipe(
@@ -51,7 +51,7 @@ export class AssetCodeEffects {
             switchMap((assetCode) => this.assetService.updateAssetCode(assetCode)),
             map((assetCode) => new UpdateAssetCodeSuccessAction({message: 'success'})),
             switchMap(() => this.assetService.findAssetCodes()),
-            map((assetCodes) => new FindPagedAssetCodesAction({filter: 'todo', page: 1})));
+            map((assetCodes) => new FindPagedAssetCodesAction({filter: '%', page: 1})));
 
     @Effect() removeAssetCode$ = this.actions$
         .pipe(
@@ -59,5 +59,5 @@ export class AssetCodeEffects {
             map((action: RemoveAssetCodeAction) => action.payload),
             switchMap(payload => this.assetService.removeAssetCode(payload)),
             map(message => new RemoveAssetCodeSuccessAction({message: 'success'})),
-            mergeMap(action => from([action, new FindPagedAssetCodesAction({filter: 'todo', page: 1})])),);
+            mergeMap(action => from([action, new FindPagedAssetCodesAction({filter: '%', page: 1})])),);
 }

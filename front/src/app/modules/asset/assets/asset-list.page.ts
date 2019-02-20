@@ -44,9 +44,11 @@ export class AssetListPage implements OnInit {
     ngOnInit() {
         this.searchForm = this.fb.group({
             'keyword': [''],
+
         });
         this.store.dispatch(new FindPagedAssetsAction({filter: '', page: 1}));
         this.assets$.subscribe(data=>{console.log(data)});
+        console.log(this.searchForm)
     }
 
     search() {

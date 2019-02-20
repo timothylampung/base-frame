@@ -42,7 +42,7 @@ export class LocationEffects {
             map((action: SaveLocationAction) => action.payload),
             switchMap((location) => this.assetService.saveLocation(location)),
             map((message) => new SaveLocationSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedLocationsAction({filter: 'todo', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedLocationsAction({filter: '%', page: 1})])),);
 
     @Effect() updateLocation$ = this.actions$
         .pipe(
@@ -51,7 +51,7 @@ export class LocationEffects {
             switchMap((location) => this.assetService.updateLocation(location)),
             map((location) => new UpdateLocationSuccessAction({message: 'success'})),
             switchMap(() => this.assetService.findLocations()),
-            map((locations) => new FindPagedLocationsAction({filter: 'todo', page: 1})));
+            map((locations) => new FindPagedLocationsAction({filter: '%', page: 1})));
 
     @Effect() removeLocation$ = this.actions$
         .pipe(
@@ -59,5 +59,5 @@ export class LocationEffects {
             map((action: RemoveLocationAction) => action.payload),
             switchMap(payload => this.assetService.removeLocation(payload)),
             map(message => new RemoveLocationSuccessAction({message: 'success'})),
-            mergeMap(action => from([action, new FindPagedLocationsAction({filter: 'todo', page: 1})])),);
+            mergeMap(action => from([action, new FindPagedLocationsAction({filter: '%', page: 1})])),);
 }
