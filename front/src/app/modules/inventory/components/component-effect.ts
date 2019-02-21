@@ -42,7 +42,7 @@ export class ComponentEffects {
             map((action: SaveComponentAction) => action.payload),
             switchMap((component) => this.inventoryService.saveComponent(component)),
             map((message) => new SaveComponentSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedComponentsAction({filter: 'todo', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedComponentsAction({filter: '%', page: 1})])),);
 
     @Effect() updateComponent$ = this.actions$
         .pipe(

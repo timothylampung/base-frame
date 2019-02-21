@@ -1,6 +1,9 @@
 package my.spotit.asset.inventory.api.controller;
 
 
+import my.spotit.asset.asset.api.controller.AssetTransformer;
+import my.spotit.asset.asset.business.service.AssetService;
+import my.spotit.asset.common.business.service.CommonService;
 import my.spotit.asset.core.api.controller.CoreTransformer;
 import my.spotit.asset.inventory.api.vo.Part;
 import my.spotit.asset.inventory.api.vo.PartCode;
@@ -19,10 +22,19 @@ public class InventoryTransformer {
 
 
     private CoreTransformer coreTransformer;
+    private AssetService assetService;
+    private CommonService commonService;
+    private AssetTransformer assetTransformer;
 
     @Autowired
-    public InventoryTransformer(CoreTransformer coreTransformer) {
+    public InventoryTransformer(CoreTransformer coreTransformer,
+                                AssetService assetService,
+                                CommonService commonService,
+                                AssetTransformer assetTransformer) {
+        this.assetService = assetService;
+        this.commonService = commonService;
         this.coreTransformer = coreTransformer;
+        this.assetTransformer = assetTransformer;
     }
 
     // =============================================================================================
@@ -72,6 +84,8 @@ public class InventoryTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
+        vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
+        vo.setPartCode(toPartCodeVo(e.getPartCode()));
         coreTransformer.toMetadata(e, vo);
         return vo;
     }

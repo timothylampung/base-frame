@@ -35,6 +35,8 @@ public interface InventoryService {
     // PART
     //==============================================================================================
 
+
+
     DexPart findPartByCode(String code);
 
     List<DexPart> findParts();
@@ -57,6 +59,9 @@ public interface InventoryService {
 
 
     DexPartCode findPartCodeByCode(String code);
+
+    DexPartCode findPartCodeById(Long id);
+
 
     List<DexPartCode> findPartCodes();
 

@@ -1,15 +1,13 @@
 package my.spotit.asset.inventory.business.service;
 
 import my.spotit.AbstractTest;
+import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
 import my.spotit.asset.core.domain.DexMetaState;
 import my.spotit.asset.helper.IdentityServiceHelper;
 import my.spotit.asset.identity.business.service.IdentityService;
-import my.spotit.asset.inventory.domain.model.DexComponent;
-import my.spotit.asset.inventory.domain.model.DexPart;
-import my.spotit.asset.inventory.domain.model.DexPartCode;
-import my.spotit.asset.inventory.domain.model.DexPartCodeImpl;
+import my.spotit.asset.inventory.domain.model.*;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +28,9 @@ public class InventoryServiceImplTest extends AbstractTest {
     private IdentityServiceHelper identityServiceHelper;
     @Autowired
     private InventoryService inventoryService;
+
+    @Autowired
+    private AssetService assetService;
 
     @Autowired
     private EntityManager entityManager;
@@ -57,7 +58,10 @@ public class InventoryServiceImplTest extends AbstractTest {
     public void findComponents() {
         List<DexComponent> components = inventoryService.findComponents("%",0,999);
         for (DexComponent component : components) {
+            LOG.debug("TEST: " + component.getPartCode());
+            LOG.debug("TEST: " + component.getAsset());
             LOG.debug("TEST: " + component.getDescription());
+
         }
     }
 
@@ -72,6 +76,28 @@ public class InventoryServiceImplTest extends AbstractTest {
 
     @Test
     public void saveComponent() {
+
+//        identityServiceHelper.changeUser("maula");
+//
+//        assetService.findAssetById(1L);
+//
+//        DexComponent component = new DexComponentImpl();
+//        component.setCode("PC_70");
+//        component.setDescription("PART CODE 70");
+//
+//        LOG.debug("----------------------prepared------------------------ {} ",partCode.getDescription() );
+//        inventoryService.savePartCode(partCode);
+//
+//        entityManager.flush();
+//
+//        DexPartCode savedPartCode = inventoryService.findPartCodeByCode("PC_70");
+//        LOG.debug("--------------------saved-------------------------- {} ",savedPartCode.getDescription() );
+//        LOG.debug("--------------------saved-------------------------- {} ",savedPartCode.getId() );
+//
+
+
+
+
     }
 
     @Test

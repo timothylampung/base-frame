@@ -12,8 +12,8 @@
             <div class="ui-g form-group">
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="name"  formControlName="code" type="text" pInputText (click)="overlayPanel=!overlayPanel">
-                        <label for="name">Name</label>
+                        <input [readOnly]="!edit" id="code"  formControlName="code" type="text" pInputText (click)="overlayPanel=!overlayPanel">
+                        <label for="code">Name</label>
                     </span>
                 </div>
 
@@ -25,6 +25,25 @@
 
                     </span>
                 </div>
+
+                <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="asset"  formControlName="asset" type="text" pInputText
+                               (click)="overlayPanel=!overlayPanel">
+                        <label for="desc">AssetID</label>
+
+                    </span>
+                </div>
+
+                <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="part"  formControlName="partCode" type="text" pInputText
+                               (click)="overlayPanel=!overlayPanel">
+                        <label for="desc">PartCodeID</label>
+
+                    </span>
+                </div>
+
             </div>
         </div>
     </div>
