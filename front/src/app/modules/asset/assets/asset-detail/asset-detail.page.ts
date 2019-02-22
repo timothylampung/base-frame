@@ -4,8 +4,7 @@ import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssetState} from "../../asset.state";
 import {Asset} from "../asset-model";
-import {Part} from "../../../inventory/parts/part-model";
-import {AssetCode} from "../../asset-codes/asset-code-model";
+import {SaveAssetAction} from "../asset-action";
 
 @Component({
     selector: 'dex-asset-detail-page',
@@ -13,7 +12,7 @@ import {AssetCode} from "../../asset-codes/asset-code-model";
 })
 export class AssetDetailPage implements OnInit, OnChanges {
 
-    private asset$: AssetCode;
+    private asset$: Asset;
     elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
     qrValue : string = '';
 
@@ -37,9 +36,16 @@ export class AssetDetailPage implements OnInit, OnChanges {
 
         this.creatorForm = this.fb.group({
             code: ['', Validators.required],
-            description: ['', Validators.required],})
+            description: ['', Validators.required],
+            assetCode: ['', Validators.required],
+            location: ['', Validators.required]})
+    }
 
-
+    submit() {
+        console.log( this.asset$);
+        console.log( this.creatorForm.value);
+        this.store.dispatch(new SaveAssetAction(this.creatorForm.value));
+        this.creatorForm.reset();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -54,7 +60,5 @@ export class AssetDetailPage implements OnInit, OnChanges {
             }
         }
     }
-
-
 }
 

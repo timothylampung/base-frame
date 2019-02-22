@@ -12,7 +12,15 @@
             <div class="ui-g form-group">
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="desc" type="text" pInputText
+                        <input [readOnly]="!edit" id="code" type="text" formControlName="code" pInputText
+                               (click)="overlayPanel=!overlayPanel">
+                        <label for="code">Code</label>
+                    </span>
+                </div>
+
+                <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="desc" type="text" formControlName="description" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="desc">Description</label>
                     </span>
@@ -20,7 +28,7 @@
 
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="astc" type="text" pInputText
+                        <input [readOnly]="!edit" id="astc" type="text" formControlName="assetCode" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="astc">Asset Code</label>
                     </span>
@@ -28,7 +36,7 @@
 
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="loca" type="text" pInputText
+                        <input [readOnly]="!edit" id="loca" type="text" formControlName="location" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="loca">Location</label>
 
@@ -42,7 +50,7 @@
 
 
     <p-footer>
-        <button pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
+        <button [disabled]="!creatorForm.valid" (click)="submit()" pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
         <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
     </p-footer>
 </p-panel>

@@ -73,6 +73,7 @@ export class LocationListPage implements OnInit {
             accept: () => {
                 this.msgs = [{severity:'info', summary:'Location Deleted'}];
                 this.store.dispatch(new RemoveLocationAction(rowData));
+                console.log(rowData);
             },
             reject: () => {
                 this.msgs = [{severity:'info', summary:'Delete cancelled'}];

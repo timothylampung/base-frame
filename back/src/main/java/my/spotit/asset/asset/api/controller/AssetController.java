@@ -81,6 +81,8 @@ public class AssetController {
         DexAsset asset = new DexAssetImpl();
         asset.setCode(vo.getCode());
         asset.setDescription(vo.getDescription());
+        asset.setAssetCode(vo.getAssetCode());
+        asset.setLocation(vo.getLocation());
         assetService.saveAsset(asset);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
