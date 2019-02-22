@@ -42,7 +42,9 @@ export class PartDetailPage implements OnInit, OnChanges {
 
         this.creatorForm = this.fb.group({
             code: ['', Validators.required],
-            description: ['', Validators.required],})
+            description: ['', Validators.required],
+            partCode: ['', Validators.required]
+        })
 
     }
 

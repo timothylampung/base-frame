@@ -25,6 +25,15 @@
 
                     </span>
                     </div>
+
+                    <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="partCode" formControlName="partCode" type="text" pInputText
+                               (click)="overlayPanel=!overlayPanel">
+                        <label for="partCode">PartCode</label>
+
+                    </span>
+                    </div>
                 </div>
             </div>
         </div>
