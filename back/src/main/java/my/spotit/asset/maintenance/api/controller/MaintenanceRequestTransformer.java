@@ -80,6 +80,7 @@ public class MaintenanceRequestTransformer {
         vo.setRequest(toMaintenanceRequestVo(m));
         vo.setFlowState(FlowState.get(m.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(m.getMetadata().getState().ordinal()));
+        //todo more props
         return vo;
     }
 
