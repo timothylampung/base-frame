@@ -10,6 +10,7 @@ import {environment} from "../../../environments/environment";
 })
 export class DashboardPage implements OnInit {
 
+    DASHBOARD_API: string = environment.endpoint + '/api/dashboard';
     currentUser$: Observable<any>;
 
     lineData: any;
@@ -17,6 +18,7 @@ export class DashboardPage implements OnInit {
     pieData: any;
     polarData: any;
     radarData: any;
+    workOrderWeeklyChartData: any[] = [1, 2, 3, 4, 5];
 
     breadcrumbs: any [] = [
         {label: 'Dashboard'},
@@ -46,23 +48,30 @@ export class DashboardPage implements OnInit {
             ]
         };
 
+        this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
+            .subscribe((projection: any[]) => {
+                this.workOrderWeeklyChartData[0].data.length = 0;
+                projection.forEach(p => this.workOrderWeeklyChartData.push(p.count));
+            });
+
         this.barData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    backgroundColor: '#2162b0',
-                    borderColor: '#2162b0',
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: 'My Second dataset',
-                    backgroundColor: '#e02365',
-                    borderColor: '#e02365',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+            datasets: [{
+                backgroundColor: '#2162b0',
+                borderColor: '#2162b0',
+                data: this.workOrderWeeklyChartData
+            }
             ]
-        };
+            //     datasets: [
+            //         {
+            //             label: 'My First dataset',
+            //             backgroundColor: '#2162b0',
+            //             borderColor: '#2162b0',
+            //             data: [65, 59, 80, 81, 56, 55, 40]
+            //         },
+            //     ]
+        }
+        ;
 
         this.pieData = {
             labels: ['A', 'B', 'C'],
