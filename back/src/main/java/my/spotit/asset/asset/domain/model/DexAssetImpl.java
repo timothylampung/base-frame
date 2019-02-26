@@ -23,6 +23,16 @@ public class DexAssetImpl implements DexAsset {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @NotNull
+    @Column(name = "COST")
+    private String cost;
+
+    @NotNull
+    @Column(name = "QUANTITY")
+    private String quantity;
+
+
+
     @OneToOne(targetEntity = DexAssetCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_CODE_ID")
     private DexAssetCode assetCode;
@@ -61,6 +71,26 @@ public class DexAssetImpl implements DexAsset {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String getCost() {
+        return cost;
+    }
+
+    @Override
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public String getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     @Override

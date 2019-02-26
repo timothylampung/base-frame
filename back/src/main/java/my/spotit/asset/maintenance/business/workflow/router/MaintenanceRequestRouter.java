@@ -36,11 +36,11 @@ public class MaintenanceRequestRouter {
     @Autowired
     private TaskService taskService;
 
-    public List<String> findDrafterAssignee(Long requestId) {
+    public String findDrafterCandidates(Long requestId) {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");
-        candidate = "GRP_FACI";// todo
-        return Arrays.asList(candidate);
+        candidate = "zamir.zaharul";// todo
+        return candidate   ;
     }
 
 }

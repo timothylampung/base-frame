@@ -12,6 +12,14 @@ public interface DexAsset  extends  DexMetaObject  {
 
     void setDescription(String description);
 
+    String getCost();
+
+    void setCost(String cost);
+
+    String getQuantity();
+
+    void setQuantity(String quantity);
+
     DexAssetCode getAssetCode();
 
     void setAssetCode(DexAssetCode assetCode);
