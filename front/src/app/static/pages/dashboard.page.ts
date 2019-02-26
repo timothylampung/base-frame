@@ -50,7 +50,6 @@ export class DashboardPage implements OnInit {
 
         this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
             .subscribe((projection: any[]) => {
-                this.workOrderWeeklyChartData[0].data.length = 0;
                 projection.forEach(p => this.workOrderWeeklyChartData.push(p.count));
             });
 

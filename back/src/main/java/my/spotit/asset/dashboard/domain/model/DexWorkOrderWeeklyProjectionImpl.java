@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Immutable
 @Entity(name = "DexWorkOrderWeeklyProjection")
 @Table(name = "DEX_WORK_ORDR_WEEK_PRJN")
-@Subselect("select * from DEX_WORK_ORDR_WEEK_PRJN")
 public class DexWorkOrderWeeklyProjectionImpl implements DexWorkOrderWeeklyProjection {
 
     @Id
