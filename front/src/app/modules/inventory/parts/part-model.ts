@@ -1,11 +1,11 @@
-import {Meta} from "@angular/platform-browser";
-import {MetaObject} from "../../../models/meta-object.model";
-
+import {MetaObject} from "../../../models";
+import {PartCode} from "../part-codes/part-code-model";
 
 export  interface Part extends MetaObject {
 
     code: string;
     description: string;
+    partCode: PartCode;
 
 }
 

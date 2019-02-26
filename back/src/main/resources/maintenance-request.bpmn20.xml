@@ -15,7 +15,7 @@
 
         <userTask id="maintenanceRequest_draft_UT"
                   name="my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest:DRAFTED"
-                  flowable:candidateGroups="#{maintenanceRequestRouter.findDrafterCandidates(requestId)}">
+                  flowable:candidateGroups="#{maintenanceRequestRouter.findDrafterAssignee(requestId)}">
         </userTask>
 
         <sequenceFlow id="flow2.3" sourceRef="maintenanceRequest_draft_UT"

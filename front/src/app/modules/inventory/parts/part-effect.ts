@@ -42,7 +42,7 @@ export class PartEffects {
             map((action: SavePartAction) => action.payload),
             switchMap((part) => this.inventoryService.savePart(part)),
             map((message) => new SavePartSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedPartsAction({filter: 'todo', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedPartsAction({filter: '%', page: 1})])),);
 
     @Effect() updatePart$ = this.actions$
         .pipe(

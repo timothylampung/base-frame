@@ -7,7 +7,11 @@ import {Observable, Subject} from 'rxjs';
 import {AppState} from '../../core/core.state';
 import {FindMaintenanceRequestByReferenceNoAction} from './maintenance-request.action';
 import {MaintenanceRequest} from './maintenance-request.model';
-import {selectMaintenanceRequest} from './maintenance-request.selector';
+import {
+    selectMaintenanceRequest,
+    selectMaintenanceRequestRecordResult,
+    selectMaintenanceRequestRecords
+} from './maintenance-request.selector';
 import {ActivatedRoute} from "@angular/router";
 import {takeUntil} from "rxjs/internal/operators";
 
@@ -51,6 +55,11 @@ export class MaintenanceRequestArchiveDetailPage implements OnInit {
             referenceNo: [''],
             sourceNo: [''],
             description: [''],
+        });
+
+        this.store.pipe(select(selectMaintenanceRequestRecords)).subscribe(maintenanceRequest => {
+            // this.maintenanceRequest = maintenanceRequest;
+            console.log( this.maintenanceRequest);
         });
 
         this.route.params.subscribe((params: { referenceNo: string }) => {

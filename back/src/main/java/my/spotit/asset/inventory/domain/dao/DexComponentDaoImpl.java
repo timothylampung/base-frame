@@ -32,7 +32,7 @@ public class DexComponentDaoImpl extends GenericDaoSupport<Long, DexComponent> i
         Query query = entityManager.createQuery("select s from DexComponent s where " +
                 "(upper(s.code) like upper(:filter) " +
                 "or upper(s.description) like upper(:filter)) " +
-                "and s.metadata.state = :state ");
+                "and s.metadata.state = :state "+"order by  s.code desc");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("state", DexMetaState.ACTIVE);
         query.setFirstResult(offset);

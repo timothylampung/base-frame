@@ -84,4 +84,52 @@ public class InventoryControllerTest extends AbstractApiTest {
                 .getBody().prettyPrint();
 
     }
+
+    @Test
+    public void findPagedParts1() {
+    }
+
+    @Test
+    public void findParts1() {
+    }
+
+    @Test
+    public void findPartByCode() {
+    }
+
+    @Test
+    public void saveAsset() {
+    }
+
+    @Test
+    public void findPagedPartCodes1() {
+    }
+
+    @Test
+    public void findPartCodes1() {
+    }
+
+    @Test
+    public void findPartCodeByCode() {
+    }
+
+    @Test
+    public void savePartCode() {
+    }
+
+    @Test
+    public void findPagedComponents1() {
+    }
+
+    @Test
+    public void findComponents1() {
+    }
+
+    @Test
+    public void findComponentByCode() {
+    }
+
+    @Test
+    public void saveComponent() {
+    }
 }

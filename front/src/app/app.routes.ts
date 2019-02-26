@@ -110,7 +110,7 @@ export const routes: Routes = [
                         component: MaintenanceRequestArchiveListPage
                     },
                     {
-                        path: 'maintenance-request-records/:referenceNo',
+                        path: 'maintenance-request-records/history/detail/:referenceNo',
                         component: MaintenanceRequestArchiveDetailPage
                     }
                 ]

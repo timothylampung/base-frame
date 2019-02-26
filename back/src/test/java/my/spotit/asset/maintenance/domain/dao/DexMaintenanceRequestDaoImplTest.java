@@ -86,4 +86,28 @@ public class DexMaintenanceRequestDaoImplTest extends AbstractTest {
         LOG.debug("TEST: " + ((DexMaintenanceRequest) request).getDescription());
     }
 
+    @Test
+    public void findByReferenceNo() {
+
+        DexMaintenanceRequest maintenanceRequestByCode = maintenanceRequestDao.findByReferenceNo("MR000005");
+
+            LOG.debug("TEST: " + maintenanceRequestByCode.getDescription());
+
+    }
+
+    @Test
+    public void find() {
+    }
+
+    @Test
+    public void find1() {
+    }
+
+    @Test
+    public void count() {
+    }
+
+    @Test
+    public void count1() {
+    }
 }

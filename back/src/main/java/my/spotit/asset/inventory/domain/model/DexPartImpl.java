@@ -22,7 +22,7 @@ public class DexPartImpl  implements DexPart {
 
     @OneToOne(targetEntity = DexPartCodeImpl.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "PART_CODE_ID", nullable = false)
+    @JoinColumn(name = "PART_CODE_ID", nullable = true)
     private DexPartCode partCode;
 
     @ManyToOne(targetEntity = DexWorkOrderImpl.class,

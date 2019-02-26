@@ -8,7 +8,7 @@ import {ConfirmationService} from 'primeng/api';
 import {BreadcrumbService} from '../../breadcrumb.service';
 import {MaintenanceRequestRecordSummary} from './maintenance-request.model';
 import {MaintenanceRequestState} from './maintenance-request.state';
-import {selectMaintenanceRequestRecords} from './maintenance-request.selector';
+import {selectMaintenanceRequest, selectMaintenanceRequestRecords} from './maintenance-request.selector';
 import {FindArchivedMaintenanceRequestsAction} from './maintenance-request.action';
 
 @Component({
@@ -50,11 +50,12 @@ export class MaintenanceRequestArchiveListPage implements OnInit {
     }
 
     view(evt) {
-        this.router.navigate(['/maintenance/maintenance-request-records/detail', evt.data.referenceNo]);
+        this.router.navigate(['/maintenance/maintenance-request-records/history/detail', evt.data.referenceNo]);
     }
 
     search() {
         this.store.dispatch(new FindArchivedMaintenanceRequestsAction({filter: this.searchForm.value.searchTerm, page: 1}));
+        console.log("")
     }
 
     resetSearchForm(){
