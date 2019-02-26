@@ -31,6 +31,7 @@ import {AssetModule} from "./modules/asset/asset.module";
 import {MaintenanceRequestModule} from "./modules/maintenance/maintenance-request.module";
 import {InventoryModule} from "./modules/inventory/inventory.module";
 import {WorkOrderModule} from "./modules/work-order/work-order.module";
+import {DashboardPage} from "./static/pages/dashboard.page";
 
 
 
@@ -64,6 +65,7 @@ import {WorkOrderModule} from "./modules/work-order/work-order.module";
         AppInlineProfileComponent,
         NotFoundPage,
         LoginPage,
+        DashboardPage,
         AppShellComponent,
         LoaderComponent,
         AutofocusDirective

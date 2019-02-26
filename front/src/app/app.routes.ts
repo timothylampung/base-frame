@@ -35,6 +35,7 @@ import {MaintenanceRequestPooledTaskListPage} from "./modules/maintenance/mainte
 import {MaintenanceRequestTaskDetailPage} from "./modules/maintenance/maintenance-request-task-detail.page";
 import {MaintenanceRequestArchiveListPage} from "./modules/maintenance/maintenance-request-archive-list.page";
 import {MaintenanceRequestArchiveDetailPage} from "./modules/maintenance/maintenance-request-archive-detail.page";
+import {DashboardPage} from "./static/pages/dashboard.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
@@ -43,6 +44,7 @@ export const routes: Routes = [
         component: AppShellComponent,
         canActivate: [AuthGuard],
         children: [
+            {path: '', component: DashboardPage},
             {
                 path: 'asset',
                 children: [
