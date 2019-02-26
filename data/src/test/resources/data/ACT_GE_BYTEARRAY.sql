@@ -1,4 +1,4 @@
-INSERT INTO public.act_ge_bytearray (id_, rev_, name_, deployment_id_, bytes_, generated_) VALUES ('2', 1, 'maintenance-request.bpmn20.xml', '1', '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO act_ge_bytearray (id_, rev_, name_, deployment_id_, bytes_, generated_) VALUES ('2', 1, 'maintenance-request.bpmn20.xml', '1', '<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns:flowable="http://flowable.org/bpmn"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              typeLanguage="http://www.w3.org/2001/XMLSchema"
@@ -25,7 +25,7 @@ INSERT INTO public.act_ge_bytearray (id_, rev_, name_, deployment_id_, bytes_, g
         <endEvent id="end"/>
     </process>
 </definitions>', false);
-INSERT INTO public.act_ge_bytearray (id_, rev_, name_, deployment_id_, bytes_, generated_) VALUES ('5', 1, 'work-order.bpmn20.xml', '4', '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO act_ge_bytearray (id_, rev_, name_, deployment_id_, bytes_, generated_) VALUES ('5', 1, 'work-order.bpmn20.xml', '4', '<?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns:flowable="http://flowable.org/bpmn"
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              typeLanguage="http://www.w3.org/2001/XMLSchema"

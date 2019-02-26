@@ -1,1 +1,1 @@
-INSERT INTO public.dex_faci (id) VALUES (3);
+INSERT INTO dex_faci (id) VALUES (3);

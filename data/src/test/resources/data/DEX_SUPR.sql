@@ -1,1 +1,1 @@
-INSERT INTO public.dex_supr (id) VALUES (2);
+INSERT INTO dex_supr (id) VALUES (2);
