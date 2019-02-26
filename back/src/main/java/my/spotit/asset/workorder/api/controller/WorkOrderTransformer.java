@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import my.spotit.asset.DexConstants;
 import my.spotit.asset.asset.api.vo.Activity;
 import my.spotit.asset.asset.api.vo.Asset;
 import my.spotit.asset.asset.api.vo.AssetCode;
@@ -136,7 +137,7 @@ public class WorkOrderTransformer {
 
     public WorkOrderTaskSummary toWorkOrderTaskSummaryVo(Task t) {
         Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
-        DexWorkOrder m = workOrderService.findWorkOrderById((Long) vars.get(JOB_ID));
+        DexWorkOrder m = workOrderService.findWorkOrderById((Long) vars.get(DexConstants.ORDER_ID));
 
         WorkOrderTaskSummary vo = new WorkOrderTaskSummary();
         vo.setId(m.getId());
