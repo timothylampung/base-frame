@@ -1,2 +1,0 @@
-INSERT INTO act_re_deployment (id_, name_, category_, key_, tenant_id_, deploy_time_, engine_version_) VALUES ('1', 'maintenanceRequest', null, null, '', '2019-02-07 12:46:52.630000', null);
-INSERT INTO act_re_deployment (id_, name_, category_, key_, tenant_id_, deploy_time_, engine_version_) VALUES ('4', 'orderInvoice', null, null, '', '2019-02-07 12:46:53.622000', null);

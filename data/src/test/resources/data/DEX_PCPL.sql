@@ -1,13 +1,144 @@
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (1, true, true, '2019-02-07 12:47:13.405698', 1, null, null, null, null, 1, 'root', 0);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (2, true, true, '2019-02-07 12:47:13.469505', 1, null, null, null, null, 1, 'admin', 0);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (3, true, true, '2019-02-07 12:47:13.536753', 1, null, null, null, null, 1, 'system', 0);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (4, true, true, '2019-02-07 12:47:13.584560', 1, null, null, null, null, 1, 'GRP_USR', 1);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (5, true, true, '2019-02-07 12:47:13.644822', 1, null, null, null, null, 1, 'GRP_SPVR', 1);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (6, true, true, '2019-02-07 12:47:13.707158', 1, null, null, null, null, 1, 'GRP_STAF', 1);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (7, true, true, '2019-02-07 12:47:13.765596', 1, null, null, null, null, 1, 'GRP_FACI', 1);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (8, true, true, '2019-02-07 12:47:13.828576', 1, null, null, null, null, 1, 'GRP_TECH', 1);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (9, true, true, '2019-02-07 12:47:13.892228', 1, null, null, null, null, 1, 'GRP_ADM', 1);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (10, true, false, '2019-02-07 12:47:13.970182', 1, null, null, null, null, 1, 'timothy.lampung', 0);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (11, true, false, '2019-02-07 12:47:14.040374', 1, null, null, null, null, 1, 'amirul.yunik', 0);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (12, true, false, '2019-02-07 12:47:14.106510', 1, null, null, null, null, 1, 'zamir.zaharul', 0);
-INSERT INTO dex_pcpl (id, enabled, locked, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, name, principal_type) VALUES (13, true, false, '2019-02-07 12:47:14.172798', 1, null, null, null, null, 1, 'maula', 0);
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'root', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'root', 'root@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'admin', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'admin', 'admin@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'integrator', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'integrator', 'integrator@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'system', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'system', 'system@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'timothy.lampung', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'timothy.lampung', 'timothy.lampung@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'amirul.yunik', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'amirul.yunik', 'amirul.yunik@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'zamir.zaharul', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'zamir.zaharul', 'zamir.zaharul@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'maula.zin', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'maula.zin', 'maula.zin@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'staff1', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'staff1', 'staff1@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'staff2', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'staff2', 'staff2@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'tech1', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'tech1', 'tech1@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'tech2', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'tech2', 'tech2@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'fm1', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'fm1', 'fm1@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'fm2', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'fm2', 'fm2@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'supervisor1', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'supervisor1', 'supervisor1@spotit.my', 'abc123');
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'supervisor2', true, true, 0, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_USER (ID, REAL_NAME, EMAIL, PASSWORD)
+VALUES (currval('SQ_DEX_PCPL'), 'supervisor2', 'supervisor2@spotit.my', 'abc123');
+
+-- GROUP
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'GRP_USER', true, true, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID)
+VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID
+                                   FROM DEX_PCPL
+                                   WHERE NAME =
+                                         'GRP_USER'),
+        1, 1, 1, CURRENT_TIMESTAMP);
+
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'GRP_SPVR', true, true, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID)
+VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID
+                                   FROM DEX_PCPL
+                                   WHERE NAME =
+                                         'GRP_SPVR'),
+        1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'GRP_STAF', true, true, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID)
+VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID
+                                   FROM DEX_PCPL
+                                   WHERE NAME =
+                                         'GRP_STAF'),
+        1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'GRP_FACI', true, true, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID)
+VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID
+                                   FROM DEX_PCPL
+                                   WHERE NAME =
+                                         'GRP_FACI'),
+        1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'GRP_TECH', true, true, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID)
+VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID
+                                   FROM DEX_PCPL
+                                   WHERE NAME =
+                                         'GRP_TECH'),
+        1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_PCPL (ID, NAME, ENABLED, LOCKED, PRINCIPAL_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL'), 'GRP_ADMN', true, true, 1, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_GROP (ID)
+VALUES (currval('SQ_DEX_PCPL'));
+INSERT INTO DEX_PCPL_ROLE (ID, PRINCIPAL_ID, ROLE_TYPE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_PCPL_ROLE'), (SELECT ID
+                                   FROM DEX_PCPL
+                                   WHERE NAME =
+                                         'GRP_ADMN'),
+
+
+        1, 1, 1, CURRENT_TIMESTAMP);
