@@ -151,6 +151,7 @@ export class FindPagedMaintenanceRequestsAction implements Action {
     readonly type: string = FIND_PAGED_WORK_ORDERS;
 
     constructor(public payload: { filter: string, page: number }) {
+
     }
 }
 
@@ -158,6 +159,8 @@ export class FindPagedMaintenanceRequestsSuccessAction implements Action {
     readonly type: string = FIND_PAGED_WORK_ORDERS_SUCCESS;
 
     constructor(public payload: MaintenanceRequestResult) {
+        console.log(payload);
+
     }
 }
 

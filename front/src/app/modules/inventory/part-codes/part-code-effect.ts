@@ -42,7 +42,7 @@ export class PartCodeEffects {
             map((action: SavePartCodeAction) => action.payload),
             switchMap((partCode) => this.inventoryService.savePartCode(partCode)),
             map((message) => new SavePartCodeSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedPartCodesAction({filter: 'todo', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedPartCodesAction({filter: '&', page: 1})])),);
 
     @Effect() updatePartCode$ = this.actions$
         .pipe(
@@ -51,7 +51,7 @@ export class PartCodeEffects {
             switchMap((part) => this.inventoryService.updatePartCode(part)),
             map((part) => new UpdatePartCodeSuccessAction({message: 'success'})),
             switchMap(() => this.inventoryService.findPartCodes()),
-            map((parts) => new FindPagedPartCodesAction({filter: 'todo', page: 1})));
+            map((parts) => new FindPagedPartCodesAction({filter: '%', page: 1})));
 
     @Effect() removePartCode$ = this.actions$
         .pipe(

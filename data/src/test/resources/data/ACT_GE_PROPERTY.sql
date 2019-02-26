@@ -1,0 +1,10 @@
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('common.schema.version', '6.2.0.0', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('identitylink.schema.version', '6.2.0.0', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('task.schema.version', '6.2.0.0', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('variable.schema.version', '6.2.0.0', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('job.schema.version', '6.2.0.0', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('schema.version', '6.2.0.0', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('schema.history', 'create(6.2.0.0)', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('cfg.execution-related-entities-count', 'false', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('cfg.task-related-entities-count', 'false', 1);
+INSERT INTO public.act_ge_property (name_, value_, rev_) VALUES ('next.dbid', '30001', 13);

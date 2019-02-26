@@ -259,9 +259,9 @@
                         </goals>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/postgres</url>
+                            <url>jdbc:postgresql://159.165.3.103:5432/postgres</url>
                             <username>postgres</username>
-                            <password>postgres</password>
+                            <password>abc123</password>
                             <autocommit>true</autocommit>
                             <srcFiles>
                                 <srcFile>src/test/resources/DATABASE.sql</srcFile>
@@ -277,28 +277,82 @@
                         </goals>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/spotit</url>
+                            <url>jdbc:postgresql://159.165.3.103:5432/spotit</url>
                             <username>spotit</username>
                             <password>spotit</password>
                             <autocommit>true</autocommit>
                             <srcFiles>
                                 <!--CORE-->
-                                <!--<srcFile>src/test/resources/ddl/SCHEMA.sql</srcFile>-->
-                                <!--<srcFile>src/test/resources/ddl/act.postgres.sql</srcFile>-->
-                                <!--<srcFile>src/test/resources/ddl/CREATE.sql</srcFile>-->
+                                <srcFile>src/test/resources/ddl/SCHEMA.sql</srcFile>
+                                <srcFile>src/test/resources/ddl/act.postgres.sql</srcFile>
+                                <srcFile>src/test/resources/ddl/CREATE.sql</srcFile>
 
                                 <!--SYSTEM-->
 
                                 <!--COMMON-->
 
                                 <!--IDENTITY-->
-                                <srcFile>src/test/resources/data/DEX_IDENTITY.sql</srcFile>
-                                <srcFile>src/test/resources/data/DEX_SQNC_GNTR.sql</srcFile>
-                                <srcFile>src/test/resources/data/DEX_LCTN.sql</srcFile>
-                                <srcFile>src/test/resources/data/DEX_PART_CODE.sql</srcFile>
-                                <srcFile>src/test/resources/data/DEX_PART.sql</srcFile>
-                                <srcFile>src/test/resources/data/DEX_ASST_CODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_GE_BYTEARRAY.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_GE_PROPERTY.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_HI_ACTINST.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_HI_COMMENT.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_HI_IDENTITYLINK.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_HI_PROCINST.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_HI_TASKINST.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_HI_VARINST.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_ID_PROPERTY.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RE_DEPLOYMENT.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RE_MODEL.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RE_PROCDEF.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_EXECUTION.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_HISTORY_JOB.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_IDENTITYLINK.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_JOB.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_SUSPENDED_JOB.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_TASK.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_TIMER_JOB.sql</srcFile>
+                                <srcFile>src/test/resources/data/ACT_RU_VARIABLE.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_ACTR.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_ASST.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_ASST_CODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_COMP.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_FACI.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_GROP.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_GROP_MMBR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_IDENTITY.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_LCTN.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_MNTC.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_MNTC_RQST.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PART.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PART_CODE.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PCPL_ROLE.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_SQNC_GNTR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_STAF.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_SUPR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_TECH.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_USER.sql</srcFile>
+                                <srcFile>src/test/resources/data/WORK_ORDR.sql</srcFile>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                 <!--FIXME update asset code-->
                                 <!--<srcFile>src/test/resources/data/DEX_MNTC.sql</srcFile>-->

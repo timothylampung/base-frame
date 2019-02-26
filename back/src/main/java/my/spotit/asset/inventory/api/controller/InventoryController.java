@@ -98,10 +98,11 @@ public class InventoryController {
 //    }
 
     @PostMapping(value = "/parts")
-    public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Part vo) {
+    public ResponseEntity<ApplicationSuccess> savePart(@RequestBody Part vo) {
         DexPart part = new DexPartImpl();
         part.setCode(vo.getCode());
         part.setDescription(vo.getDescription());
+        part.setPartCode(inventoryService.findPartCodeById(vo.getPartCode().getId()));
         inventoryService.savePart(part);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
@@ -208,7 +209,6 @@ public class InventoryController {
         component.setDescription(vo.getDescription());
         component.setAsset(assetService.findAssetById(vo.getAsset().getId()));
         component.setPartCode(inventoryService.findPartCodeById(vo.getPartCode().getId()));
-
         inventoryService.saveComponent(component);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
