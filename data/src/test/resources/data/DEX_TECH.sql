@@ -1,0 +1,1 @@
+INSERT INTO public.dex_tech (id) VALUES (1);
