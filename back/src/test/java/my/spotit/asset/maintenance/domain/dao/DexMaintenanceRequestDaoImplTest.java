@@ -68,9 +68,9 @@ public class DexMaintenanceRequestDaoImplTest extends AbstractTest {
     @Rollback(false)
     public void findMaintenanceRequestByAsset() {
         DexUser user = userDao.findByUsername("root");
-        DexStaff st000X = staffDao.findByCode("ST000X");
+        DexStaff st000X = staffDao.findByCode("staff1");
         DexAsset asset = assetDao.findByCode("AST001");
-        DexLocation lctn001 = locationDao.findByCode("LCTN001");
+        DexLocation lctn001 = locationDao.findByCode("SM_001");
 
         String referenceNo = "RQST" + System.currentTimeMillis();
         DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
@@ -88,11 +88,8 @@ public class DexMaintenanceRequestDaoImplTest extends AbstractTest {
 
     @Test
     public void findByReferenceNo() {
-
         DexMaintenanceRequest maintenanceRequestByCode = maintenanceRequestDao.findByReferenceNo("MR000005");
-
             LOG.debug("TEST: " + maintenanceRequestByCode.getDescription());
-
     }
 
     @Test

@@ -64,18 +64,14 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
     @Rollback(false)
     public void maintenance_request_staff_story_001() throws Exception {
 
-        identityServiceHelper.changeUser("timothy.lampung"); //login web
+        identityServiceHelper.changeUser("staff1"); //login web
 
-        DexStaff st000X = identityService.findStaffByIdentityNo("348938398934"); //staff buat req
-
-
-        DexActor technician001 = identityService.findTechnicianByCode("TECH_1549007206147"); //tech
-        DexActor supervisor001 = identityService.findSupervisorByCode("SPVR_1549007207144"); //sup
+        DexStaff st000X = identityService.findStaffByIdentityNo("staff1"); //staff buat req
+        DexStaff technician001 = identityService.findStaffByCode("tech1"); //tech
+        DexStaff supervisor001 = identityService.findStaffByCode("supervisor1"); //sup
 
         DexAsset ast001 = assetService.findAssetByCode("ASST_001");
         DexLocation lctn001 = assetService.findLocationByCode("SM_003");
-
-
 
         DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
         request.setRemark("Some lampu is not working");
@@ -119,7 +115,6 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
 //        identityServiceHelper.changeUser("timothy.lampung");
 //        List<Task> assignedWorkOrderTasks = workOrderService.findAssignedWorkOrderTasks("%", 0, 9999);
 //        Assert.assertTrue(!assignedWorkOrderTasks.isEmpty());
-
 
     }
 }
