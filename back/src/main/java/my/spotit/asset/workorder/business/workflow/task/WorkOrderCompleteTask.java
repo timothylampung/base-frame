@@ -30,6 +30,6 @@ public class WorkOrderCompleteTask extends WorkOrderTaskSupport {
         applicationContext.publishEvent(new WorkOrderCompletedEvent(order));
 
 
-        // serialize to work orders
+
     }
 }

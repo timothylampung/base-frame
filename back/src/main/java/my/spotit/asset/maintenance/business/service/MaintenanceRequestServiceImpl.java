@@ -77,7 +77,6 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
             workflowService.processWorkflow(request, toMap(request));
             // trigger event
             applicationContext.publishEvent(new MaintenanceRequestDraftedEvent(request));
-
             return request.getReferenceNo();
 
         } catch (Exception e) {

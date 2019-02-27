@@ -33,13 +33,13 @@ public class IntegrationMaintenanceController {
     private MaintenanceRequestTransformer maintenanceRequestTransformer;
 
     @Autowired
-    public IntegrationMaintenanceController(MaintenanceRequestService maintenanceRequestService, MobileSecurityService mobileSecurityService, AssetService assetService, MaintenanceRequestTransformer maintenanceRequestTransformer) {
+    public IntegrationMaintenanceController(MaintenanceRequestService maintenanceRequestService, MobileSecurityService mobileSecurityService,
+                                            AssetService assetService, MaintenanceRequestTransformer maintenanceRequestTransformer) {
         this.maintenanceRequestService = maintenanceRequestService;
         this.mobileSecurityService = mobileSecurityService;
         this.assetService = assetService;
         this.maintenanceRequestTransformer = maintenanceRequestTransformer;
     }
-
 
     @PostMapping(value = "/start-task")
     public ResponseEntity<?> startMaintenanceRequestTask(@RequestParam String username, @RequestParam String deviceId, @RequestBody MaintenanceRequest vo) throws Exception {
