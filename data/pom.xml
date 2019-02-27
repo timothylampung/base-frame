@@ -290,6 +290,7 @@
 
                                 <!--SYSTEM-->
                                 <srcFile>src/test/resources/data/DEX_SQNC_GNTR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_CNFG.sql</srcFile>
 
                                 <!--COMMON-->
                                 <srcFile>src/test/resources/data/DEX_LCTN.sql</srcFile>

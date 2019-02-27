@@ -28,12 +28,14 @@ import my.spotit.asset.core.api.controller.CoreTransformer;
 import my.spotit.asset.identity.api.controller.IdentityTransformer;
 import my.spotit.asset.workflow.business.service.WorkflowService;
 import my.spotit.asset.workorder.api.vo.WorkOrder;
+import my.spotit.asset.workorder.api.vo.WorkOrderLog;
 import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummary;
 import my.spotit.asset.workorder.api.vo.WorkOrderTask;
 import my.spotit.asset.workorder.api.vo.WorkOrderTaskSummary;
 import my.spotit.asset.workorder.business.service.WorkOrderService;
 import my.spotit.asset.workorder.domain.model.DexActivity;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
 
 import static org.flowable.job.service.impl.JobQueryProperty.JOB_ID;
 
@@ -105,6 +107,15 @@ public class WorkOrderTransformer {
         return vo;
     }
 
+    public WorkOrderLog toWorkOrderLogVo(DexWorkOrderLog e) {
+        if (null == e) return null;
+        WorkOrderLog vo = new WorkOrderLog();
+        vo.setId(e.getId());
+        vo.setStartTime(e.getStartTime());
+        vo.setEndTime(e.getEndTime());
+        return vo;
+    }
+
     public WorkOrderRecordSummary toWorkOrderRecordSummaryVo(DexWorkOrder m) {
         WorkOrderRecordSummary vo = new WorkOrderRecordSummary();
         vo.setReferenceNo(m.getReferenceNo());
@@ -164,6 +175,13 @@ public class WorkOrderTransformer {
     public List<Activity> toActivityVos(List<DexActivity> e) {
         List<Activity> vos = e.stream()
                 .map((e1) -> toActivityVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+
+    public List<WorkOrderLog> toWorkOrderLogVos(List<DexWorkOrderLog> e) {
+        List<WorkOrderLog> vos = e.stream()
+                .map((e1) -> toWorkOrderLogVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }

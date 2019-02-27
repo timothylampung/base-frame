@@ -4,6 +4,7 @@ import my.spotit.asset.core.domain.DexFlowState;
 import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest;
 import my.spotit.asset.workorder.domain.model.DexActivity;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
 
 import org.flowable.task.api.Task;
 
@@ -51,11 +52,15 @@ public interface WorkOrderService {
 
     List<DexActivity> findActivities(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
 
+    List<DexWorkOrderLog> findWorkOrderLogs(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
+
     Integer countWorkOrder();
 
     Integer countWorkOrder(String filter);
 
     Integer counActivity(DexWorkOrder workOrder);
+
+    Integer counWorkOrderLog(DexWorkOrder workOrder);
 
     void saveWorkOrder(DexWorkOrder WorkOrder);
 
@@ -69,6 +74,18 @@ public interface WorkOrderService {
 
     void deleteActivity(DexWorkOrder workOrder, DexActivity activity);
 
+    void addWorkOrderLog(DexWorkOrder workOrder, DexWorkOrderLog log);
+
+    void updateWorkOrderLog(DexWorkOrder workOrder, DexWorkOrderLog log);
+
+    void deleteWorkOrderLog(DexWorkOrder workOrder, DexWorkOrderLog log);
+
+
+    // business
+
     void serializeToWorkOrder(DexMaintenanceRequest request);
 
+    void startLog(DexWorkOrder order);
+
+    void stopLog(DexWorkOrder order);
 }

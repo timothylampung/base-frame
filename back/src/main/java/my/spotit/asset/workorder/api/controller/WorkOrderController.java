@@ -27,6 +27,7 @@ import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.system.business.service.SystemService;
 import my.spotit.asset.workflow.business.service.WorkflowService;
 import my.spotit.asset.workorder.api.vo.WorkOrder;
+import my.spotit.asset.workorder.api.vo.WorkOrderLog;
 import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummaryResult;
 import my.spotit.asset.workorder.api.vo.WorkOrderResult;
 import my.spotit.asset.workorder.api.vo.WorkOrderTask;
@@ -36,6 +37,8 @@ import my.spotit.asset.workorder.domain.model.DexActivity;
 import my.spotit.asset.workorder.domain.model.DexActivityImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderLogImpl;
 
 import static my.spotit.asset.DexConstants.LIMIT;
 import static my.spotit.asset.DexConstants.WORK_ORDER_REFERENCE_NO;
@@ -51,20 +54,20 @@ public class WorkOrderController {
     private WorkOrderService workOrderService;
     private SystemService systemService;
     private WorkflowService workflowService;
-    private WorkOrderTransformer assetTransformer;
+    private WorkOrderTransformer workOrderTransformer;
     private AuthenticationManager authenticationManager;
 
     @Autowired
     public WorkOrderController(AssetService assetService, SystemService systemService,
                                WorkflowService workflowService,
                                WorkOrderService workOrderService,
-                               WorkOrderTransformer assetTransformer,
+                               WorkOrderTransformer workOrderTransformer,
                                AuthenticationManager authenticationManager) {
         this.assetService = assetService;
         this.systemService = systemService;
         this.workOrderService = workOrderService;
         this.workflowService = workflowService;
-        this.assetTransformer = assetTransformer;
+        this.workOrderTransformer = workOrderTransformer;
         this.authenticationManager = authenticationManager;
     }
 
@@ -98,7 +101,7 @@ public class WorkOrderController {
         LOG.debug("findArchivedWorkOrders: {}", orders.size());
         return ResponseEntity.ok(
                 new WorkOrderRecordSummaryResult(
-                        assetTransformer.toWorkOrderSummaryVos(orders),
+                        workOrderTransformer.toWorkOrderSummaryVos(orders),
                         count
                 ));
     }
@@ -109,7 +112,7 @@ public class WorkOrderController {
         List<Task> tasks = workOrderService.findAssignedWorkOrderTasks(filter, 0, 999);
         return ResponseEntity.ok(
                 new WorkOrderTaskSummaryResult(
-                        assetTransformer.toWorkOrderTaskSummaryVos(tasks),
+                        workOrderTransformer.toWorkOrderTaskSummaryVos(tasks),
                         count
                 ));
     }
@@ -120,7 +123,7 @@ public class WorkOrderController {
         List<Task> tasks = workOrderService.findPooledWorkOrderTasks(filter, 0, 999);
         return ResponseEntity.ok(
                 new WorkOrderTaskSummaryResult(
-                        assetTransformer.toWorkOrderTaskSummaryVos(tasks),
+                        workOrderTransformer.toWorkOrderTaskSummaryVos(tasks),
                         count
                 ));
 
@@ -147,7 +150,7 @@ public class WorkOrderController {
     @GetMapping(value = "/work-orders/view-task/{taskId}")
     public ResponseEntity<WorkOrderTask> viewWorkOrderWorkOrderById(@PathVariable String taskId) {
         return new ResponseEntity<WorkOrderTask>(
-                assetTransformer.toWorkOrderTaskVo(workOrderService.findWorkOrderTaskByTaskId(taskId)),
+                workOrderTransformer.toWorkOrderTaskVo(workOrderService.findWorkOrderTaskByTaskId(taskId)),
                 HttpStatus.OK);
     }
 
@@ -176,26 +179,26 @@ public class WorkOrderController {
     public ResponseEntity<WorkOrderResult> findPagedWorkOrders(@RequestParam(defaultValue = "%") String filter, @RequestParam Integer page) {
         LOG.debug("findPagedWorkOrders: {}", page);
         Integer count = workOrderService.countWorkOrder(filter);
-        List<WorkOrder> order = assetTransformer.toWorkOrderVos(workOrderService.findWorkOrders(filter, LIMIT * (page - 1), LIMIT));
+        List<WorkOrder> order = workOrderTransformer.toWorkOrderVos(workOrderService.findWorkOrders(filter, LIMIT * (page - 1), LIMIT));
         return new ResponseEntity<WorkOrderResult>(new WorkOrderResult(order, count), HttpStatus.OK);
     }
 
     @GetMapping(value = "/work-orders/{id}")
     public ResponseEntity<WorkOrder> findWorkOrderById(@PathVariable long id) {
-        return new ResponseEntity<WorkOrder>(assetTransformer.toWorkOrderVo(
+        return new ResponseEntity<WorkOrder>(workOrderTransformer.toWorkOrderVo(
                 workOrderService.findWorkOrderById(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/work-orders/{referenceNo}")
     public ResponseEntity<WorkOrder> findWorkOrderByReferenceNo(@PathVariable String referenceNo) {
-        WorkOrder transformed = assetTransformer.toWorkOrderVo(
+        WorkOrder transformed = workOrderTransformer.toWorkOrderVo(
                 workOrderService.findWorkOrderByReferenceNo(referenceNo));
         return new ResponseEntity<WorkOrder>(transformed, HttpStatus.OK);
     }
 
     @GetMapping(value = "/work-orders")
     public ResponseEntity<List<WorkOrder>> findWorkOrders() {
-        return new ResponseEntity<List<WorkOrder>>(assetTransformer.toWorkOrderVos(
+        return new ResponseEntity<List<WorkOrder>>(workOrderTransformer.toWorkOrderVos(
                 workOrderService.findWorkOrders("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
@@ -222,44 +225,42 @@ public class WorkOrderController {
     }
 
     //==============================================================================================
-    // ACTIVITIES
+    // WORK ORDER ACTIVITY
     //==============================================================================================
 
     @GetMapping(value = "/work-orders/{referenceNo}/activities")
     public ResponseEntity<List<Activity>> findActivities(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        List<Activity> activities = assetTransformer.toActivityVos(workOrderService.findActivities("%", order, 0, 9999)); // todo: page
+        List<Activity> activities = workOrderTransformer.toActivityVos(workOrderService.findActivities("%", order, 0, 9999)); // todo: page
         return new ResponseEntity<List<Activity>>(activities, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/work-orders/{referenceNo}/activities/{id}")
-    public ResponseEntity<Activity> findActivityById(@PathVariable String referenceNo, @PathVariable long id) {
+    //==============================================================================================
+    // WORK ORDER LOG
+    //==============================================================================================
+
+    @GetMapping(value = "/work-orders/{referenceNo}/work-order-logs")
+    public ResponseEntity<List<WorkOrderLog>> findWorkOrderLogs(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        Activity activity = assetTransformer.toActivityVo(workOrderService.findActivityById(id));
-        return new ResponseEntity<Activity>(activity, HttpStatus.OK);
+        List<WorkOrderLog> workOrderLogs = workOrderTransformer.toWorkOrderLogVos(workOrderService.findWorkOrderLogs("%", order, 0, 9999)); // todo: page
+        return new ResponseEntity<List<WorkOrderLog>>(workOrderLogs, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/work-orders/{referenceNo}/activities")
-    public ResponseEntity<String> saveActivity(@PathVariable String referenceNo, @RequestBody Activity vo) {
+    @PostMapping(value = "/work-orders/{referenceNo}/start-log")
+    public ResponseEntity<String> startLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        DexActivity activity = new DexActivityImpl();
-        workOrderService.addActivity(order, activity);
+        workOrderService.startLog(order);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
-    @PutMapping(value = "/work-orders/{referenceNo}/activities/{id}")
-    public ResponseEntity<String> updateActivity(@PathVariable String referenceNo, @PathVariable Long id, @RequestBody Activity vo) {
+    @PostMapping(value = "/work-orders/{referenceNo}/stop-log")
+    public ResponseEntity<String> stopLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        DexActivity activity = workOrderService.findActivityById(id);
-        workOrderService.updateActivity(order, activity);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/work-orders/{referenceNo}/activities/{id}")
-    public ResponseEntity<String> removeActivity(@PathVariable String referenceNo, @PathVariable Long id) {
-        DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        DexActivity attachment = workOrderService.findActivityById(id);
-        workOrderService.deleteActivity(order, attachment);
+        workOrderService.stopLog(order);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 }
+
+
+
+

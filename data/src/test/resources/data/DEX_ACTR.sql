@@ -65,20 +65,3 @@ VALUES (nextval('SQ_DEX_ACTR'), 'tech2', 'tech2', 0, 'Tech 1',
         'tech2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
 INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
 UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'tech2@spotit.my')where EMAIL = 'tech2@spotit.my';
-
--- =================================================================================================
--- SUPERVISOR
--- =================================================================================================
-INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
-                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
-VALUES (nextval('SQ_DEX_ACTR'), 'supervisor1', 'supervisor1', 0, 'Supervisor 1',
-        'supervisor1@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
-INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
-UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'supervisor1@spotit.my')where EMAIL = 'supervisor1@spotit.my';
-
-INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
-                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
-VALUES (nextval('SQ_DEX_ACTR'), 'supervisor2', 'supervisor2', 0, 'Supervisor 1',
-        'supervisor2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
-INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
-UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'supervisor2@spotit.my')where EMAIL = 'supervisor2@spotit.my';

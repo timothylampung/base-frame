@@ -27,10 +27,10 @@ public class DexConfigurationImpl implements DexConfiguration {
     private Long id;
 
     @NotNull
-    @Column(name = "CONFIG_KEY", nullable = false)
+    @Column(name = "KEY_", nullable = false)
     private String key;
 
-    @Column(name = "CONFIG_VALUE")
+    @Column(name = "VALUE_")
     private String value;
 
     @Column(name = "CONFIG_VALUE_DOUBLE")

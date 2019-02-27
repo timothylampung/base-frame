@@ -75,7 +75,7 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
 
         DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
         request.setRemark("Some lampu is not working");
-        request.setDescription("Some lampu is not working fuse suspected");
+        request.setDescription("Some booboo is not working fuse suspected");
         request.setRequestedDate(new Date());
         request.setRequester(st000X);
         request.setAsset(ast001);
