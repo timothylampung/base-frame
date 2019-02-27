@@ -36,6 +36,13 @@ public class MaintenanceRequestRouter {
     @Autowired
     private TaskService taskService;
 
+    public String findDrafterAssignee(Long requestId) {
+        String candidate = null;
+        Assert.notNull(requestId, "Id must not be null");
+        candidate = "tech1";// todo
+        return candidate   ;
+    }
+
     public String findDrafterCandidates(Long requestId) {
         String candidate = null;
         Assert.notNull(requestId, "Id must not be null");

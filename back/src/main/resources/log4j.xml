@@ -17,7 +17,7 @@
     </appender>
 
     <logger name="org.springframework.boot.autoconfigure.jms">
-        <level value="debug"/>
+        <level value="error"/>
     </logger>
 
     <!-- Application Loggers -->
@@ -31,7 +31,7 @@
     </logger>
 
     <logger name="org.springframework.boot">
-        <level value="debug"/>
+        <level value="error"/>
     </logger>
 
     <logger name="org.springframework.beans">
@@ -43,7 +43,7 @@
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="debug"/>
+        <level value="error"/>
     </logger>
 
     <!-- Root Logger -->

@@ -8,11 +8,15 @@ import java.io.FileNotFoundException;
  * @author canang technologies
  */
 public class SchemaExporter {
+
+    private static final String OUTPUT_FILE = "./data/src/test/resources/ddl/CREATE.sql";
+
+
     public static void main(String[] args) throws FileNotFoundException {
         HibernateExporterUtil exporter = new HibernateExporterUtil(
                 "org.hibernate.dialect.PostgreSQL82Dialect",
                 "my.spotit.asset");
-        exporter.setGenerateDropQueries(true);
-        exporter.export(new File("CREATE.sql"));
+        exporter.setGenerateDropQueries(false);
+        exporter.export(new File(OUTPUT_FILE));
     }
 }

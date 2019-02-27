@@ -1,4 +1,84 @@
-INSERT INTO public.dex_actr (id, actor_type, address1, address2, address3, code, email, fax, identity_no, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, mobile, name, phone, postcode) VALUES (1, 1, 'xtyaxvcgcx', 'alelcoiozy', 'seiteknvmo', 'TECH_1549007206147', 'timothy.lampung@gmail.com', 'luzgr', '950808136453', '2019-02-07 12:47:12.821557', 1, null, null, null, null, 1, 'slvhvxyszvlt', 'Timothy Lampung', '313215364928', 'dlrsa');
-INSERT INTO public.dex_actr (id, actor_type, address1, address2, address3, code, email, fax, identity_no, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, mobile, name, phone, postcode) VALUES (2, 0, 'qdodgovkhf', 'txbdlzybyo', 'bmtfualkbj', 'SPVR_1549007207144', 'amirul.yunik@gmail.com', 'uwxtp', '238912399923', '2019-02-07 12:47:12.901425', 1, null, null, null, null, 1, 'clclatvyybct', 'Amirul Yunik', '482531584488', 'fbvah');
-INSERT INTO public.dex_actr (id, actor_type, address1, address2, address3, code, email, fax, identity_no, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, mobile, name, phone, postcode) VALUES (3, 0, 'sjnnhjfkjr', 'gezcsdhano', 'cyvbletuoe', 'FM_1549007208043', 'zamir.zaharul@gmail.com', 'xasip', '348938398934', '2019-02-07 12:47:12.971394', 1, null, null, null, null, 1, 'abscgczjawab', 'Zamir Zaharul', '784243701030', 'upltp');
-INSERT INTO public.dex_actr (id, actor_type, address1, address2, address3, code, email, fax, identity_no, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, mobile, name, phone, postcode) VALUES (4, 0, 'sjnnhjfkjr', 'gezcsdhano', 'cyvbletuoe', 'FACI_1549007208043', 'maula@gmail.com', 'xasip', '348938398934', '2019-02-07 12:47:13.042363', 1, null, null, null, null, 1, 'abscgczjawab', 'maula', '784243701030', 'upltp');
+-- =================================================================================================
+-- STAFF
+-- =================================================================================================
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'staff1', 'staff1', 0, 'Staff 1',
+        'staff1@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'staff1@spotit.my')where EMAIL = 'staff1@spotit.my';
+
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'staff2', 'staff2', 0, 'Staff 1',
+        'staff2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'staff2@spotit.my')where EMAIL = 'staff2@spotit.my';
+
+-- =================================================================================================
+-- FM
+-- =================================================================================================
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'fm1', 'fm1', 0, 'Fm 1',
+        'fm1@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'fm1@spotit.my')where EMAIL = 'fm1@spotit.my';
+
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'fm2', 'fm2', 0, 'Fm 1',
+        'fm2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'fm2@spotit.my')where EMAIL = 'fm2@spotit.my';
+
+-- =================================================================================================
+-- SUPERVISOR
+-- =================================================================================================
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'supervisor1', 'supervisor1', 0, 'Supervisor 1',
+        'supervisor1@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'supervisor1@spotit.my')where EMAIL = 'supervisor1@spotit.my';
+
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'supervisor2', 'supervisor2', 0, 'Supervisor 1',
+        'supervisor2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'supervisor2@spotit.my')where EMAIL = 'supervisor2@spotit.my';
+
+-- =================================================================================================
+-- TECH
+-- =================================================================================================
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'tech1', 'tech1', 0, 'Tech 1',
+        'tech1@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'tech1@spotit.my')where EMAIL = 'tech1@spotit.my';
+
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'tech2', 'tech2', 0, 'Tech 1',
+        'tech2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'tech2@spotit.my')where EMAIL = 'tech2@spotit.my';
+
+-- =================================================================================================
+-- SUPERVISOR
+-- =================================================================================================
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'supervisor1', 'supervisor1', 0, 'Supervisor 1',
+        'supervisor1@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'supervisor1@spotit.my')where EMAIL = 'supervisor1@spotit.my';
+
+INSERT INTO DEX_ACTR (ID, CODE, IDENTITY_NO, ACTOR_TYPE, NAME, EMAIL, PHONE, MOBILE,
+                      FAX, ADDRESS1, ADDRESS2, POSTCODE, M_ST, C_ID, C_TS)
+VALUES (nextval('SQ_DEX_ACTR'), 'supervisor2', 'supervisor2', 0, 'Supervisor 1',
+        'supervisor2@spotit.my', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CURRENT_TIMESTAMP);
+INSERT INTO DEX_STAF (ID) VALUES (currval('SQ_DEX_ACTR'));
+UPDATE DEX_USER set ACTOR_ID = (SELECT ID from DEX_ACTR where email = 'supervisor2@spotit.my')where EMAIL = 'supervisor2@spotit.my';

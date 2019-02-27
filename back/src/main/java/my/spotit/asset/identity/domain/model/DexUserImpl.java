@@ -23,7 +23,7 @@ public class DexUserImpl extends DexPrincipalImpl implements DexUser {
     private String email;
 
     @OneToOne(targetEntity = DexActorImpl.class)
-    @JoinColumn(name = "ACTOR_ID")
+    @JoinColumn(name = "ACTOR_ID", nullable = true)
     private DexActor actor;
 
     public DexUserImpl() {
