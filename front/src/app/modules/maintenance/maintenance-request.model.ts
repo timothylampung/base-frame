@@ -11,8 +11,9 @@ export interface MaintenanceRequest extends Document {
     reporter: Actor;
     delegator: Actor;
     verifier: Actor;
-    location: Location
-    asset: Asset
+    location: Location;
+    asset: Asset;
+    remark:String;
 }
 
 export interface MaintenanceRequestResult {
@@ -62,6 +63,7 @@ export const initStateMaintenanceRequest: MaintenanceRequest = {
     verifier: null,
     location: null,
     asset: null,
+    remark:null,
 };
 
 export const initStateMaintenanceRequestTaskSummary: MaintenanceRequestTaskSummary = {
