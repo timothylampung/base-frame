@@ -74,8 +74,8 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
         DexLocation lctn001 = assetService.findLocationByCode("SM_003");
 
         DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
-        request.setRemark("Some lampu is not working");
-        request.setDescription("Some lampu is not working fuse suspected");
+        request.setRemark("Dirty Fan");
+        request.setDescription("Needs Thorough Cleaning");
         request.setRequestedDate(new Date());
         request.setRequester(st000X);
         request.setAsset(ast001);
@@ -84,7 +84,7 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
         String referenceNo = maintenanceRequestService.startMaintenanceRequestTask(request);
 
         // log in as FM
-        identityServiceHelper.changeUser("zamir.zaharul");
+        identityServiceHelper.changeUser("fm1");
         List<Task> pooledDraftedTasks = maintenanceRequestService.findPooledMaintenanceRequestTasks("%", 0, 999);
         Assert.assertTrue(!pooledDraftedTasks.isEmpty());
         for (Task task : pooledDraftedTasks) {
