@@ -79,14 +79,6 @@ public class WorkOrderTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
-        vo.setDescription(e.getDescription());
         return vo;
     }
 
@@ -128,7 +120,7 @@ public class WorkOrderTransformer {
 
     public WorkOrderTask toWorkOrderTaskVo(Task t) {
         Map<String, Object> vars = workflowService.getVariables(t.getExecutionId());
-        DexWorkOrder job = workOrderService.findWorkOrderById((Long) vars.get(JOB_ID));
+        DexWorkOrder job = workOrderService.findWorkOrderById((Long) vars.get(DexConstants.ORDER_ID));
 
         WorkOrderTask vo = new WorkOrderTask();
         vo.setId(job.getId());

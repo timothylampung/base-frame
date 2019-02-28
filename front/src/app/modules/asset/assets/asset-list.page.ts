@@ -4,11 +4,11 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectAssetResultState, selectAssets} from "./asset-selector";
+import {selectAssetResultState} from "./asset-selector";
 import {Observable} from "rxjs";
-import {FindPagedAssetsAction} from "./asset-action";
+import {FindPagedAssetsAction, RemoveAssetAction} from "./asset-action";
 import {Asset, AssetResult} from "./asset-model";
-import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
+import {ConfirmationService, Message} from "primeng/api";
 
 @Component({
     selector: 'dex-asset-list-page',
@@ -20,6 +20,9 @@ export class AssetListPage implements OnInit {
     searchForm: FormGroup;
     searchQuery : string = '';
     selectedRow: Asset = null;
+    display : boolean = false;
+    displayDelete: boolean = false;
+    msgs: Message[] = [];
 
     title = 'Assets';
     cols = [
@@ -30,13 +33,13 @@ export class AssetListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Assets', routerLink: ['/administration/assets/list']}
     ];
-    display : boolean = false;
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,
                 public store: Store<AssetState>,
                 public route: ActivatedRoute,
-                public router: Router) {
+                public router: Router,
+                public confirmationService: ConfirmationService) {
         this.breadcrumbService.setItems(this.breadcrumbs);
         this.assets$ = this.store.pipe(select(selectAssetResultState));
     }
@@ -44,11 +47,39 @@ export class AssetListPage implements OnInit {
     ngOnInit() {
         this.searchForm = this.fb.group({
             'keyword': [''],
-
         });
         this.store.dispatch(new FindPagedAssetsAction({filter: '', page: 1}));
         this.assets$.subscribe(data=>{console.log(data)});
         console.log(this.searchForm)
+    }
+
+    dialogClosed(result) {
+        console.log(result);
+        this.display = !result;
+    }
+
+    deleteLocation() {
+        this.displayDelete = true;
+    }
+
+    cancelDelete() {
+        this.displayDelete = false;
+    }
+
+    confirmDelete(rowData : Asset) {
+        this.confirmationService.confirm({
+            message: 'Are you sure you want to delete this?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.msgs = [{severity:'info', summary:'Asset Deleted'}];
+                this.store.dispatch(new RemoveAssetAction(rowData));
+                console.log(rowData);
+            },
+            reject: () => {
+                this.msgs = [{severity:'info', summary:'Delete cancelled'}];
+            }
+        });
     }
 
     search() {

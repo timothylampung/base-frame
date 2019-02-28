@@ -1,5 +1,5 @@
 <p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
-    <dex-asset-code-detail-page [selectedRow]="selectedRow"></dex-asset-code-detail-page>
+    <dex-asset-code-detail-page [selectedRow]="selectedRow" (onSubmit)="dialogClosed($event)"></dex-asset-code-detail-page>
 </p-sidebar>
 
 <div class="ui-g">
@@ -12,11 +12,15 @@
                         <label for="keyword">Search</label>
                     </div>
                     <div class="ui-g-6">
-                        <input [(ngModel)]="searchQuery" pInputText type="text" name="keyword" id="keyword">
+                        <input [(ngModel)]="searchQuery" pInputText
+                               type="text"
+                               name="keyword"
+                               id="keyword">
                     </div>
                 </div>
                 <div class="ui-g-12 ui-button-toolbar-mr">
-                    <button pButton type="button" label="Cari"
+                    <button pButton type="button"
+                            label="Cari"
                             icon="fa fa-search"
                             (click)="search()"></button>
                 </div>
@@ -30,14 +34,24 @@
             </div>
 
             <div class="ui-toolbar-group-right">
-
                 <div class="ui-inputgroup">
-                    <input [(ngModel)]="searchQuery" placeholder="Keyword" style="border-left:0; color : white;" type="text"
+                    <input [(ngModel)]="searchQuery"
+                           placeholder="Keyword"
+                           style="border-left:0; color : white;"
+                           type="text"
                            class="ui-inputtext">
-                    <button (click)="search()" pButton type="button" icon="pi pi-search"></button>
-                    <button pButton class="ui-button-success" (click)="display = !display; selectedRow = undefined;" type="button" icon="pi pi-plus"></button>
+                    <button (click)="search()" pButton
+                            type="button"
+                            icon="pi pi-search"></button>
+                    <button pButton class="ui-button-success"
+                            (click)="display = !display; selectedRow = undefined;"
+                            type="button"
+                            icon="pi pi-plus"></button>
+                    <button pButton class="ui-button-danger"
+                            (click)="displayDelete = !displayDelete;"
+                            type="button"
+                            icon="pi pi-trash" ></button>
                 </div>
-
             </div>
         </p-toolbar>
 
@@ -48,23 +62,45 @@
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width: 20%">Product</th>
+                        <th style="width: 7%" *ngIf="displayDelete == true">DELETE</th>
+                        <th style="width: 10%">Product</th>
                         <th style="width: 80%">Manufacturer</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr (click)="selectedRow = rowData; display = !display;" [pSelectableRow]="rowData">
-                        <td>
+                    <tr>
+                        <td *ngIf="displayDelete == true" style="width: 7%">
+                            <button pButton class="ui-button-danger"
+                                    (click)="confirmDelete(rowData)"
+                                    type="button"
+                                    icon="pi pi-trash"
+                                    style="font-size: 11px"></button>
+                        </td>
+                        <td [pSelectableRow]="rowData"
+                            (click)="selectedRow = rowData; display = !display;">
                             {{rowData?.code}}
                         </td>
-                        <td>
+                        <td [pSelectableRow]="rowData"
+                            (click)="selectedRow = rowData; display = !display;">
                             {{rowData?.description}}
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
-        </div>
-        <p-paginator (onPageChange)="page($event)" [rows]="10" [totalRecords]="(assetCodes$ | async).totalSize"></p-paginator>
 
+            <button pButton type="button"
+                    label="Cancel"
+                    class="ui-button-raised ui-button-secondary"
+                    *ngIf="displayDelete == true"
+                    (click)="cancelDelete()"></button>
+
+            <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+            <p-messages [value]="msgs"></p-messages>
+
+        </div>
+        <p-paginator (onPageChange)="page($event)"
+                     [rows]="10"
+                     [totalRecords]="(assetCodes$ | async).totalSize"></p-paginator>
     </div>
 </div>

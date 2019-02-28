@@ -16,6 +16,7 @@ import {Store} from "@ngrx/store";
 import {WorkOrderState} from "./work-order.state";
 import {SelectWorkOrderAction} from "./work-order.action";
 import {FlowState} from "../../models";
+import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
 
 @Component({
     selector: 'dex-work-order-workflow-page',
@@ -50,6 +51,8 @@ export class WorkOrderWorkflowPage {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderRegisterPage);
                 } else if (this.workOrderTask.flowState === FlowState.CHECKED) {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderCheckPage);
+                } else if (this.workOrderTask.flowState === FlowState.SELECTED) {
+                    componentFactory = this.cfr.resolveComponentFactory(WorkOrderDetailPage);
                 } else {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderNewPage);
                 }

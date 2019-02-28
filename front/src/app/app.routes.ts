@@ -140,7 +140,7 @@ export const routes: Routes = [
                         component: WorkOrderArchiveListPage
                     },
                     {
-                        path: 'work-order-records/:referenceNo',
+                        path: 'work-order-records/detail/:referenceNo',
                         component: WorkOrderArchiveDetailPage
                     }
                 ]

@@ -16,7 +16,6 @@ import {AssetCodeDetailPage} from "./asset-codes/asset-code-detail/asset-code-de
 import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 
-
 @NgModule({
     imports: [
         SharedModule,
@@ -30,15 +29,12 @@ import {NgxQRCodeModule} from "ngx-qrcode2";
         NgxQRCodeModule
     ],
     declarations: [
-
-
         AssetListPage,
         AssetDetailPage,
         AssetCodeListPage,
         AssetCodeDetailPage,
         LocationListPage,
         LocationDetailPage,
-
     ],
     exports: [
 

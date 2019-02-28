@@ -24,8 +24,6 @@ import {User} from "../identity/principals/user/user.model";
 })
 export class MaintenanceRequestArchiveDetailPage implements OnInit {
     maintenanceRequest: MaintenanceRequest;
-    user : User
-    actor: Actor;
     mainForm: FormGroup;
     totalAmount = 0;
     displayAboutDialog: boolean;
@@ -60,6 +58,9 @@ export class MaintenanceRequestArchiveDetailPage implements OnInit {
             sourceNo: [''],
             description: [''],
             name: [''],
+            requester: [''],
+
+
         });
 
         this.store.pipe(select(selectMaintenanceRequest)).subscribe(maintenanceRequest => {

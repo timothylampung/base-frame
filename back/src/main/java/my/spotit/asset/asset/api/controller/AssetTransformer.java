@@ -90,8 +90,8 @@ public class AssetTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
-        vo.setLocation(toLocationVo(e.getLocation()));
-        vo.setAssetCode(toAssetCodeVo(e.getAssetCode()));
+        /*vo.setAssetCode(e.getAssetCode());
+        vo.setLocation(e.getLocation());*/
         coreTransformer.toMetadata(e, vo);
         return vo;
     }
@@ -105,7 +105,7 @@ public class AssetTransformer {
     // =============================================================================================
 
     public Location toLocationVo(DexLocation e) {
-        if (null == e) return null;
+        if (e == null) return null;
         Location vo = new Location();
         vo.setId(e.getId());
         vo.setCode(e.getCode());

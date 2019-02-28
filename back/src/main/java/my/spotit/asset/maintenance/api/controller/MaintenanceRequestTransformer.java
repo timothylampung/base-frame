@@ -44,7 +44,7 @@ public class MaintenanceRequestTransformer {
         if (e == null) return null;
 
         MaintenanceRequest vo = new MaintenanceRequest();
-        vo.setDescription(e.getDescription());
+        vo.setId(e.getId());
         vo.setDescription(e.getDescription());
         Actor requester = identityTransformer.toActor(e.getRequester());
         vo.setRequester(requester);
@@ -86,6 +86,7 @@ public class MaintenanceRequestTransformer {
 
     public MaintenanceRequestRecordSummary toMaintenanceRequestRecordSummaryVo(DexMaintenanceRequest m) {
         MaintenanceRequestRecordSummary vo = new MaintenanceRequestRecordSummary();
+        vo.setId(m.getId());
         vo.setReferenceNo(m.getReferenceNo());
         vo.setSourceNo(m.getSourceNo());
         vo.setDescription(m.getDescription());

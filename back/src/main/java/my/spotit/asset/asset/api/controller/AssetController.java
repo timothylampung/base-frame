@@ -81,6 +81,8 @@ public class AssetController {
         DexAsset asset = new DexAssetImpl();
         asset.setCode(vo.getCode());
         asset.setDescription(vo.getDescription());
+        asset.setAssetCode(vo.getAssetCode());
+        asset.setLocation(vo.getLocation());
         assetService.saveAsset(asset);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
@@ -151,10 +153,10 @@ public class AssetController {
     }
 
     @DeleteMapping(value = "/locations/{code}")
-    public ResponseEntity<String> removeLocation(@PathVariable String code) {
+    public ResponseEntity<ApplicationSuccess> removeLocation(@PathVariable String code) {
         DexLocation location = assetService.findLocationByCode(code);
         assetService.removeLocation(location);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
 
     //==============================================================================================

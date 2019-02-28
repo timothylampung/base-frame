@@ -32,7 +32,7 @@ export class WorkOrderArchiveDetailPage implements OnInit {
         {label: 'Work Order'},
         {
             label: 'Search Work Order',
-            routerLink: ['/work-order/work-order-records/history']
+            routerLink: ['/work-order/work-order-records/detail/:referenceNo']
         },
         {
             label: 'Butiran Work Order'
@@ -63,13 +63,8 @@ export class WorkOrderArchiveDetailPage implements OnInit {
             this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
         });
 
-        this.store.pipe(takeUntil(this.destroy$), select(selectWorkOrder)).subscribe(workOrder => {
-            if (workOrder.referenceNo) {
+        this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
                 this.workOrder = workOrder;
-                // thisdate issues .workOrder.workOrderDate = new Date(workOrder.workOrderDate);
-                this.mainForm.patchValue(workOrder);
-                this.store.dispatch(new FindActivitiesAction({workOrder: workOrder}));
-            }
         });
     }
 

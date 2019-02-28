@@ -4,12 +4,13 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectAssetCodeResultState, selectAssetCodes} from "./asset-code.selector";
+import {selectAssetCodeResultState} from "./asset-code.selector";
 import {Observable} from "rxjs";
-import {FindPagedAssetCodesAction} from "./asset-code.action";
+import {FindPagedAssetCodesAction, RemoveAssetCodeAction} from "./asset-code.action";
 import {AssetCode, AssetCodeResult} from "./asset-code-model";
-import {selectAccountCodeResultState} from "../../common/account-codes/account-code.selector";
-import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
+import {ConfirmationService, Message} from "primeng/api";
+import {Location} from "../locations/location-model";
+import {RemoveLocationAction} from "../locations/location-action";
 
 @Component({
     selector: 'dex-asset-code-list-page',
@@ -19,9 +20,13 @@ export class AssetCodeListPage implements OnInit {
 
     assetCodes$: Observable<AssetCodeResult>;
     searchForm: FormGroup;
-    title = 'Senarai Kod Asset';
     searchQuery: string = '';
     selectedRow: AssetCode = null;
+    display : boolean = false;
+    displayDelete: boolean = false;
+    msgs: Message[] = [];
+
+    title = 'Senarai Kod Asset';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -30,13 +35,14 @@ export class AssetCodeListPage implements OnInit {
         {label: 'Pengurusan'},
         {label: 'Kod Asset', routerLink: ['/administration/asset-codes/list']}
     ];
-    display : boolean = false;
+
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,
                 public store: Store<AssetState>,
                 public route: ActivatedRoute,
-                public router: Router) {
+                public router: Router,
+                public confirmationService: ConfirmationService) {
         this.breadcrumbService.setItems(this.breadcrumbs);
         this.assetCodes$ = this.store.pipe(select(selectAssetCodeResultState));
     }
@@ -47,6 +53,35 @@ export class AssetCodeListPage implements OnInit {
         });
         this.store.dispatch(new FindPagedAssetCodesAction({filter: '', page: 1}));
         this.assetCodes$.subscribe(data=>{console.log(data)});
+    }
+
+    dialogClosed(result) {
+        console.log(result);
+        this.display = !result;
+    }
+
+    deleteLocation() {
+        this.displayDelete = true;
+    }
+
+    cancelDelete() {
+        this.displayDelete = false;
+    }
+
+    confirmDelete(rowData : AssetCode) {
+        this.confirmationService.confirm({
+            message: 'Are you sure you want to delete this?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.msgs = [{severity:'info', summary:'Asset Code Deleted'}];
+                this.store.dispatch(new RemoveAssetCodeAction(rowData));
+                console.log(rowData);
+            },
+            reject: () => {
+                this.msgs = [{severity:'info', summary:'Delete cancelled'}];
+            }
+        });
     }
 
     search() {

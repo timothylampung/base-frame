@@ -59,7 +59,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr (click)="selectedRow = rowData; display = !display;" [pSelectableRow]="rowData">
+                    <tr>
                         <td *ngIf="displayDelete == true" style="width: 7%">
                             <button pButton class="ui-button-danger" (click)="confirmDelete(rowData)" type="button"
                                     icon="pi pi-trash" style="font-size: 11px"></button>
