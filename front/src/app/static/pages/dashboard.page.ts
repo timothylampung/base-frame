@@ -134,7 +134,6 @@ export class DashboardPage implements OnInit {
         this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
             .subscribe((projection: any[]) => {
                 projection.forEach(p => {
-                    console.log('data: ' + p.count);
                     data.push(p.count);
                 });
 

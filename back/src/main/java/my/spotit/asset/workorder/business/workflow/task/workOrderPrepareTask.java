@@ -12,21 +12,21 @@ import java.sql.Timestamp;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@Component("workOrder_register_ST")
-public class WorkOrderRegisterTask extends WorkOrderTaskSupport {
+@Component("workOrder_prepare_ST")
+public class workOrderPrepareTask extends WorkOrderTaskSupport {
 
-    private static final Logger LOG = getLogger(WorkOrderRegisterTask.class);
+    private static final Logger LOG = getLogger(workOrderPrepareTask.class);
 
     public void execute(DelegateExecution execution) {
+
         Long orderId = (Long) execution.getVariable(DexConstants.ORDER_ID);
         DexWorkOrder order = workOrderService.findWorkOrderById(orderId);
-        LOG.info("registering order refno {}", order.getReferenceNo());
+        LOG.info("drafting order refno {}", order.getReferenceNo());
 
         // update flow state
-        order.getFlowdata().setState(DexFlowState.REGISTERED);
-        order.getFlowdata().setRegisteredDate(new Timestamp(System.currentTimeMillis()));
-        order.getFlowdata().setRegistererId(securityService.getCurrentUser().getId());
+        order.getFlowdata().setState(DexFlowState.PREPARED);
+        order.getFlowdata().setDraftedDate(new Timestamp(System.currentTimeMillis()));
+        order.getFlowdata().setDrafterId(securityService.getCurrentUser().getId());
         workOrderService.updateWorkOrder(order);
-
     }
 }

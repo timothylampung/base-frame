@@ -12,8 +12,8 @@
                       targetRef="workOrder_prepare_UT"/>
         <userTask id="workOrder_prepare_UT"
                   name="my.spotit.asset.workorder.domain.model.DexWorkOrder:PREPARED"
-                  flowable:assignee="#{workOrderRouter.findPreparedAssignee(orderId)}"
-                  flowable:candidateGroups="#{workOrderRouter.findPreparedCandidates(orderId)}">
+                  flowable:assignee="#{workOrderRouter.findPreparerAssignee(orderId)}"
+                  flowable:candidateGroups="#{workOrderRouter.findPreparerCandidates(orderId)}">
         </userTask>
         <sequenceFlow id="flow2.3" sourceRef="workOrder_prepare_UT"
                       targetRef="workOrder_check_ST"/>

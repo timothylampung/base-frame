@@ -16,6 +16,7 @@ import {TechnicianEffects} from "./technicians/technician.effect";
 import {FacilityManagerListPage} from "./facilitymanager/facility-manager-list.page";
 import {FacilityManagerEffects} from "./facilitymanager/facility-manager.effect";
 import {SupervisorEffects} from "./supervisors/supervisor.effect";
+import {ActorAutocompleteComponent} from "./actors/actor-autocomplete.component";
 
 
 
@@ -33,6 +34,7 @@ import {SupervisorEffects} from "./supervisors/supervisor.effect";
         ])
     ],
     declarations: [
+        ActorAutocompleteComponent,
         UserListPage,
         GroupListPage,
         StaffListPage,
@@ -42,7 +44,7 @@ import {SupervisorEffects} from "./supervisors/supervisor.effect";
         FacilityManagerListPage
     ],
     exports: [
-
+        ActorAutocompleteComponent,
     ],
     providers: [IdentityService]
 })

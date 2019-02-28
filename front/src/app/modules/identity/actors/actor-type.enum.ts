@@ -1,3 +1,4 @@
 export enum ActorType {
-    STAFF, APPLICATION
+    STAFF,
+    APPLICATION
 }

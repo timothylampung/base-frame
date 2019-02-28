@@ -60,6 +60,7 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
     private AssetService assetService;
 
 
+    // DRAFT --> COMPLETED
     @Test
     @Rollback(false)
     public void maintenance_request_staff_story_001() throws Exception {
@@ -86,12 +87,7 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
 
        // log in as FM
         identityServiceHelper.changeUser("fm1");
-        List<Task> pooledDraftedTasks = maintenanceRequestService.findPooledMaintenanceRequestTasks("%", 0, 999);
-        Assert.assertTrue(!pooledDraftedTasks.isEmpty());
-        for (Task task : pooledDraftedTasks) {
-            workflowService.claimTask(task);
-        }
-
+        //find serialized workorder and assign task to assignee
         List<Task> assignedDraftedTasks = maintenanceRequestService.findAssignedMaintenanceRequestTasks("%", 0, 999);
         Assert.assertTrue(!assignedDraftedTasks.isEmpty());
         for (Task task : assignedDraftedTasks) {
@@ -100,22 +96,9 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
             mr.setDelegator(tech1);
             mr.setVerifier(supervisor1);
             mr.setDelegated(true);
+            maintenanceRequestService.updateMaintenanceRequest(mr);
+            entityManager.flush();
             workflowService.completeTask(task);
         }
-//
-//        //find serialized workorder and assign task to assignee
-//        List<Task> pooledWorkOrderTasks = workOrderService.findPooledWorkOrderTasks("%", 0, 9999);
-//        Assert.assertTrue(!pooledWorkOrderTasks.isEmpty());
-//        for (Task task : pooledWorkOrderTasks) {
-//            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
-//            DexWorkOrder wr = workOrderService.findWorkOrderById((Long) vars.get(ORDER_ID));
-//            workflowService.assignTask(task,wr.getAssignee().getName());
-//        }
-
-//        // work order exist
-//        identityServiceHelper.changeUser("timothy.lampung");
-//        List<Task> assignedWorkOrderTasks = workOrderService.findAssignedWorkOrderTasks("%", 0, 9999);
-//        Assert.assertTrue(!assignedWorkOrderTasks.isEmpty());
-
     }
 }

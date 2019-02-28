@@ -13,6 +13,9 @@ import {FacilityManager, FacilityManagerResult} from "./facilitymanager/facility
 import {facilityManagerResultReducer, facilityManagersReducer} from "./facilitymanager/facility-manager.reducer";
 import {supervisorResultReducer, supervisorsReducer} from "./supervisors/supervisor.reducer";
 import {Supervisor, SupervisorResult} from "./supervisors/supervisor.model";
+import {actorResultReducer, actorsReducer} from "./actors/actor.reducer";
+import {Actor} from "./actors/actor.model";
+import {ActorResult} from "./actors/actor-result.model";
 
 
 export const FEATURE_NAME = 'identity';
@@ -23,6 +26,8 @@ export const selectIdentityState = createFeatureSelector<State, IdentityState>(
 export const reducers: ActionReducerMap<IdentityState> = {
     userResult: userResultReducer,
     users: usersReducer,
+    actorResult: actorResultReducer,
+    actors: actorsReducer,
     groupResult: groupResultReducer,
     staffResult: staffResultReducer,
     staffs: staffsReducer,
@@ -37,6 +42,8 @@ export const reducers: ActionReducerMap<IdentityState> = {
 export interface IdentityState {
     userResult: UserResult;
     users: User[];
+    actorResult: ActorResult;
+    actors: Actor[];
     groupResult: GroupResult;
     staffResult: StaffResult;
     staffs: Staff[];
