@@ -10,10 +10,12 @@ import {MaintenanceRequest} from './maintenance-request.model';
 import {
     selectMaintenanceRequest,
     selectMaintenanceRequestRecordResult,
-    selectMaintenanceRequestRecords
+    selectMaintenanceRequestRecords, selectMaintenanceRequestResult
 } from './maintenance-request.selector';
 import {ActivatedRoute} from "@angular/router";
 import {takeUntil} from "rxjs/internal/operators";
+import {Actor} from "../identity/actors/actor.model";
+import {User} from "../identity/principals/user/user.model";
 
 @Component({
     selector: 'dex-maintenance-request-archive-detail-page',
@@ -22,6 +24,8 @@ import {takeUntil} from "rxjs/internal/operators";
 })
 export class MaintenanceRequestArchiveDetailPage implements OnInit {
     maintenanceRequest: MaintenanceRequest;
+    user : User
+    actor: Actor;
     mainForm: FormGroup;
     totalAmount = 0;
     displayAboutDialog: boolean;
@@ -55,10 +59,11 @@ export class MaintenanceRequestArchiveDetailPage implements OnInit {
             referenceNo: [''],
             sourceNo: [''],
             description: [''],
+            name: [''],
         });
 
-        this.store.pipe(select(selectMaintenanceRequestRecords)).subscribe(maintenanceRequest => {
-            // this.maintenanceRequest = maintenanceRequest;
+        this.store.pipe(select(selectMaintenanceRequest)).subscribe(maintenanceRequest => {
+             this.maintenanceRequest = maintenanceRequest;
             console.log( this.maintenanceRequest);
         });
 

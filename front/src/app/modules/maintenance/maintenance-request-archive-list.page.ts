@@ -47,6 +47,7 @@ export class MaintenanceRequestArchiveListPage implements OnInit {
         });
 
         this.store.dispatch(new FindArchivedMaintenanceRequestsAction({filter: '', page: 1}));
+        console.log(this.maintenanceRequestRecords$);
     }
 
     view(evt) {

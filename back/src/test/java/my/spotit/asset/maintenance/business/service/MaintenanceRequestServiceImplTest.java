@@ -74,8 +74,8 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
         DexLocation lctn001 = assetService.findLocationByCode("SM_003");
 
         DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
-        request.setRemark("Dirty Fan");
-        request.setDescription("Needs Thorough Cleaning");
+        request.setRemark("DIM LAMP");
+        request.setDescription("REPLACEMENT");
         request.setRequestedDate(new Date());
         request.setRequester(st000X);
         request.setAsset(ast001);
@@ -83,33 +83,33 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
 
         String referenceNo = maintenanceRequestService.startMaintenanceRequestTask(request);
 
-        // log in as FM
-        identityServiceHelper.changeUser("fm1");
-        List<Task> pooledDraftedTasks = maintenanceRequestService.findPooledMaintenanceRequestTasks("%", 0, 999);
-        Assert.assertTrue(!pooledDraftedTasks.isEmpty());
-        for (Task task : pooledDraftedTasks) {
-            workflowService.claimTask(task);
-        }
-
-        List<Task> assignedDraftedTasks = maintenanceRequestService.findAssignedMaintenanceRequestTasks("%", 0, 999);
-        Assert.assertTrue(!assignedDraftedTasks.isEmpty());
-        for (Task task : assignedDraftedTasks) {
-            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
-            DexMaintenanceRequest mr = maintenanceRequestService.findMaintenanceRequestById((Long) vars.get(REQUEST_ID));
-            mr.setDelegator(technician001);
-            mr.setVerifier(supervisor001);
-            mr.setDelegated(true);
-            workflowService.completeTask(task);
-        }
-
-        //find serialized workorder and assign task to assignee
-        List<Task> pooledWorkOrderTasks = workOrderService.findPooledWorkOrderTasks("%", 0, 9999);
-        Assert.assertTrue(!pooledWorkOrderTasks.isEmpty());
-        for (Task task : pooledWorkOrderTasks) {
-            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
-            DexWorkOrder wr = workOrderService.findWorkOrderById((Long) vars.get(ORDER_ID));
-            workflowService.assignTask(task,wr.getAssignee().getName());
-        }
+//        // log in as FM
+//        identityServiceHelper.changeUser("fm1");
+//        List<Task> pooledDraftedTasks = maintenanceRequestService.findPooledMaintenanceRequestTasks("%", 0, 999);
+//        Assert.assertTrue(!pooledDraftedTasks.isEmpty());
+//        for (Task task : pooledDraftedTasks) {
+//            workflowService.claimTask(task);
+//        }
+//
+//        List<Task> assignedDraftedTasks = maintenanceRequestService.findAssignedMaintenanceRequestTasks("%", 0, 999);
+//        Assert.assertTrue(!assignedDraftedTasks.isEmpty());
+//        for (Task task : assignedDraftedTasks) {
+//            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
+//            DexMaintenanceRequest mr = maintenanceRequestService.findMaintenanceRequestById((Long) vars.get(REQUEST_ID));
+//            mr.setDelegator(technician001);
+//            mr.setVerifier(supervisor001);
+//            mr.setDelegated(true);
+//            workflowService.completeTask(task);
+//        }
+//
+//        //find serialized workorder and assign task to assignee
+//        List<Task> pooledWorkOrderTasks = workOrderService.findPooledWorkOrderTasks("%", 0, 9999);
+//        Assert.assertTrue(!pooledWorkOrderTasks.isEmpty());
+//        for (Task task : pooledWorkOrderTasks) {
+//            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
+//            DexWorkOrder wr = workOrderService.findWorkOrderById((Long) vars.get(ORDER_ID));
+//            workflowService.assignTask(task,wr.getAssignee().getName());
+//        }
 
 //        // work order exist
 //        identityServiceHelper.changeUser("timothy.lampung");
