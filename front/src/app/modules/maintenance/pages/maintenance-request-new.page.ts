@@ -44,6 +44,14 @@ export class MaintenanceRequestNewPage implements OnInit {
             maintenanceRequestNo: [null, Validators.required],
             sourceNo: [''],
             description: ['', Validators.required],
+            remark: ['', Validators.required],
+            requestedDate: ['', Validators.required],
+            requester: ['', Validators.required],
+            asset: [''],
+            location: [''],
+
+
+
         });
 
         // date workaround

@@ -1,11 +1,26 @@
 <div class="ui-g ui-fluid">
     <div class="ui-g-12">
         <div class="ui-g-12 card card-w-title">
-            <h1>Maintenance Request Ref# {{ maintenanceRequestTask?.referenceNo}}</h1>
+            <!--<h1>Maintenance Request Ref# {{ maintenanceRequestTask?.referenceNo}}</h1>-->
+            <h1>Submit New Maintenance Order Request</h1>
+
             <div class="ui-g-6 ui-g " [formGroup]="mainForm">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label>Keterangan</label>
+                        <label>Remark</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="remark"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Description</label>
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
@@ -15,6 +30,64 @@
                     </span>
                     </div>
                 </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Requested Date</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="date"
+                               formControlName="requestedDate"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Requester</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="requester"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Asset</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="asset"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Location</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="location"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+                <p-footer>
+                    <button pButton type="button" label="Add" icon="pi pi-check"
+                            class="ui-button-success"></button>
+                    <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
+                </p-footer>
+
                 <div class="ui-g-12">
                     <!--todo -->
                 </div>
@@ -38,5 +111,13 @@
             pButton></button>
     </div>
 </div>
+
+<!--<p-footer>-->
+    <!--<button pButton type="button"  [disabled]="!creatorForm.valid" (click)="submit()" label="Add" icon="pi pi-check"-->
+            <!--class="ui-button-success"></button>-->
+    <!--<button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>-->
+<!--</p-footer>-->
+
+
 
 <p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
