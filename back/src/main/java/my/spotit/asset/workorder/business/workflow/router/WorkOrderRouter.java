@@ -2,9 +2,12 @@ package my.spotit.asset.workorder.business.workflow.router;
 
 
 import my.spotit.asset.identity.business.service.IdentityService;
+import my.spotit.asset.identity.domain.model.DexActor;
+import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.security.business.service.SecurityService;
 import my.spotit.asset.system.business.service.SystemService;
 import my.spotit.asset.workorder.business.service.WorkOrderService;
+import my.spotit.asset.workorder.domain.model.DexWorkOrder;
 
 import org.flowable.engine.TaskService;
 import org.slf4j.Logger;
@@ -37,30 +40,51 @@ public class WorkOrderRouter {
     @Autowired
     private TaskService taskService;
 
-    public List<String> findDrafterCandidates(Long orderId) {
+    public List<String> findPreparerCandidates(Long orderId) {
         String candidate = null;
         Assert.notNull(orderId, "Id must not be null");
-
-        candidate = "GRP";// todo
-
+        candidate = "GRP_TECH";
         return Arrays.asList(candidate, securityService.getCurrentUser().getUsername());
+    }
+
+    public String findPreparerAssignee(Long orderId) {
+        Assert.notNull(orderId, "Id must not be null");
+
+        DexWorkOrder workOrder = workOrderService.findWorkOrderById(orderId);
+        DexActor delegator = workOrder.getMaintenanceRequest().getDelegator();
+        DexUser user = identityService.findUserByActor(delegator);
+        return user.getUsername();
     }
 
     public List<String> findCheckerCandidates(Long orderId) {
         String candidate = null;
         Assert.notNull(orderId, "Id must not be null");
-
-        candidate = "GRP";// todo
-
+        candidate = "GRP_SPVR";
         return Arrays.asList(candidate);
     }
 
-    public List<String> findApproverCandidates(Long orderId) {
-        String candidate = null;
+    public String findCheckerAssignee(Long orderId) {
         Assert.notNull(orderId, "Id must not be null");
 
-        candidate = "GRP"; // todo
+        DexWorkOrder workOrder = workOrderService.findWorkOrderById(orderId);
+        DexActor delegator = workOrder.getMaintenanceRequest().getVerifier();
+        DexUser user = identityService.findUserByActor(delegator);
+        return user.getUsername();
+    }
 
+    public List<String> findVerifierCandidates(Long orderId) {
+        String candidate = null;
+        Assert.notNull(orderId, "Id must not be null");
+        candidate = "GRP_FM";
         return Arrays.asList(candidate);
+    }
+
+    public String findVerifierAssignee(Long orderId) {
+        Assert.notNull(orderId, "Id must not be null");
+
+        DexWorkOrder workOrder = workOrderService.findWorkOrderById(orderId);
+        DexActor delegator = workOrder.getMaintenanceRequest().getVerifier();
+        DexUser user = identityService.findUserByActor(delegator);
+        return user.getUsername();
     }
 }

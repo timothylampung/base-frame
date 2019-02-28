@@ -5,36 +5,39 @@
              expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Fixed">
     <process id="work_order_workflow" name="Work Order Workflow" isExecutable="true">
         <startEvent id="start"/>
-        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="workOrder_draft_ST"/>
-        <serviceTask id="workOrder_draft_ST" name="draft_ST"
-                     flowable:expression="#{workOrder_draft_ST.execute(execution)}"/>
-        <sequenceFlow id="flow2.1" sourceRef="workOrder_draft_ST"
-                      targetRef="workOrder_draft_UT"/>
-        <userTask id="workOrder_draft_UT"
-                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:DRAFTED"
-                  flowable:candidateGroups="#{workOrderRouter.findDrafterCandidates(orderId)}">
+        <sequenceFlow id="flow1.1" sourceRef="start" targetRef="workOrder_prepare_ST"/>
+        <serviceTask id="workOrder_prepare_ST" name="prepare_ST"
+                     flowable:expression="#{workOrder_prepare_ST.execute(execution)}"/>
+        <sequenceFlow id="flow2.1" sourceRef="workOrder_prepare_ST"
+                      targetRef="workOrder_prepare_UT"/>
+        <userTask id="workOrder_prepare_UT"
+                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:PREPARED"
+                  flowable:assignee="#{workOrderRouter.findPreparedAssignee(orderId)}"
+                  flowable:candidateGroups="#{workOrderRouter.findPreparedCandidates(orderId)}">
         </userTask>
-        <sequenceFlow id="flow2.3" sourceRef="workOrder_draft_UT"
-                      targetRef="workOrder_register_ST"/>
-
-        <serviceTask id="workOrder_register_ST" name="register_ST"
-                     flowable:expression="#{workOrder_register_ST.execute(execution)}"/>
-        <sequenceFlow id="flow2.4" sourceRef="workOrder_register_ST"
-                      targetRef="workOrder_register_UT"/>
-        <userTask id="workOrder_register_UT"
-                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:REGISTERED"
-                  flowable:candidateGroups="#{workOrderRouter.findCheckerCandidates(orderId)}">
-        </userTask>
-
-        <sequenceFlow id="flow2.5" sourceRef="workOrder_register_UT"
+        <sequenceFlow id="flow2.3" sourceRef="workOrder_prepare_UT"
                       targetRef="workOrder_check_ST"/>
+
         <serviceTask id="workOrder_check_ST" name="check_ST"
                      flowable:expression="#{workOrder_check_ST.execute(execution)}"/>
-        <sequenceFlow id="flow2.6" sourceRef="workOrder_check_ST"
+        <sequenceFlow id="flow2.4" sourceRef="workOrder_check_ST"
                       targetRef="workOrder_check_UT"/>
         <userTask id="workOrder_check_UT"
                   name="my.spotit.asset.workorder.domain.model.DexWorkOrder:CHECKED"
-                  flowable:candidateGroups="#{workOrderRouter.findApproverCandidates(orderId)}">
+                  flowable:assignee="#{workOrderRouter.findCheckerAssignee(orderId)}"
+                  flowable:candidateGroups="#{workOrderRouter.findCheckerCandidates(orderId)}">
+        </userTask>
+
+        <sequenceFlow id="flow2.5" sourceRef="workOrder_check_UT"
+                      targetRef="workOrder_check_ST"/>
+        <serviceTask id="workOrder_verify_ST" name="verify_ST"
+                     flowable:expression="#{workOrder_verify_ST.execute(execution)}"/>
+        <sequenceFlow id="flow2.6" sourceRef="workOrder_verify_ST"
+                      targetRef="workOrder_verify_UT"/>
+        <userTask id="workOrder_verify_UT"
+                  name="my.spotit.asset.workorder.domain.model.DexWorkOrder:VERIFIED"
+                  flowable:assignee="#{workOrderRouter.findVerifierAssignee(orderId)}"
+                  flowable:candidateGroups="#{workOrderRouter.findVerifierCandidates(orderId)}">
         </userTask>
         <sequenceFlow id="flow2.7" sourceRef="workOrder_check_UT"
                       targetRef="workOrder_approve_ST"/>

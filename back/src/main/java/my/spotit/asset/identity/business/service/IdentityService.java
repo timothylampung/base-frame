@@ -50,6 +50,8 @@ public interface IdentityService {
 
     DexUser findUserById(Long id);
 
+    DexUser findUserByActor(DexActor actor);
+
     List<DexUser> findUsers(Integer offset, Integer limit);
 
     List<DexUser> findUsers(String filter, Integer offset, Integer limit);
@@ -220,5 +222,6 @@ public interface IdentityService {
     void updateTechnician(DexTechnician technician);
 
     void removeTechnician(DexTechnician technician);
+
 }
 

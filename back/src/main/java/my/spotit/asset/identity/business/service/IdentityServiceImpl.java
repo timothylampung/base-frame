@@ -149,6 +149,11 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public DexUser findUserByActor(DexActor actor) {
+        return userDao.findByActor(actor);
+    }
+
+    @Override
     public List<DexUser> findUsers(Integer offset, Integer limit) {
         return userDao.find(offset, limit);
     }

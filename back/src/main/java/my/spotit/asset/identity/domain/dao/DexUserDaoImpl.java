@@ -1,6 +1,7 @@
 package my.spotit.asset.identity.domain.dao;
 
 import my.spotit.asset.core.domain.GenericDaoSupport;
+import my.spotit.asset.identity.domain.model.DexActor;
 import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.identity.domain.model.DexGroup;
 import my.spotit.asset.identity.domain.model.DexUserImpl;
@@ -54,6 +55,13 @@ public class DexUserDaoImpl extends GenericDaoSupport<Long, DexUser> implements 
         LOG.debug("username = " + username);
         Query query = entityManager.createQuery("select u from DexUser u where u.name = :username ");
         query.setParameter("username", username);
+        return (DexUser) query.getSingleResult();
+    }
+
+    @Override
+    public DexUser findByActor(DexActor actor) {
+        Query query = entityManager.createQuery("select u from DexUser u where u.actor = :actor ");
+        query.setParameter("actor", actor);
         return (DexUser) query.getSingleResult();
     }
 
