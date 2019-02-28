@@ -1,1 +1,0 @@
-INSERT INTO dex_supr (id) VALUES (2);

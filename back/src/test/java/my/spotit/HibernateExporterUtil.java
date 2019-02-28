@@ -89,7 +89,7 @@ public class HibernateExporterUtil {
                 hibernateConfiguration.addAnnotatedClass(cl);
                 log.info("Mapped = " + cl.getName());
             } else {
-                hibernateConfiguration.addAnnotatedClass(cl);
+//                hibernateConfiguration.addAnnotatedClass(cl);
             }
         }
         hibernateConfiguration.setProperty(AvailableSettings.DIALECT, dialect);

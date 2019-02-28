@@ -60,18 +60,19 @@ export const UPDATE_WORK_ORDER = '[WorkOrder] Update WorkOrder';
 export const UPDATE_WORK_ORDER_SUCCESS = '[WorkOrder] Update WorkOrder Success';
 export const UPDATE_WORK_ORDER_ERROR = '[WorkOrder] Update WorkOrder Error';
 
-export const FIND_ACTIVITIES = '[WorkOrder] Find workOrder items';
-export const FIND_ACTIVITIES_SUCCESS = '[WorkOrder] Find workOrder items success';
-export const FIND_ACTIVITIES_ERROR = '[WorkOrder] Find workOrder items error';
-export const ADD_ACTIVITY = '[WorkOrder] Add workOrder item';
-export const ADD_ACTIVITY_SUCCESS = '[WorkOrder] Add workOrder item success';
-export const ADD_ACTIVITY_ERROR = '[WorkOrder] Add workOrder item error';
-export const UPDATE_ACTIVITY = '[WorkOrder] Update workOrder item';
-export const UPDATE_ACTIVITY_SUCCESS = '[WorkOrder] Update workOrder item success';
-export const UPDATE_ACTIVITY_ERROR = '[WorkOrder] Update workOrder item error';
-export const REMOVE_ACTIVITY = '[WorkOrder] Remove workOrder item';
-export const REMOVE_ACTIVITY_SUCCESS = '[WorkOrder] Remove workOrder item success';
-export const REMOVE_ACTIVITY_ERROR = '[WorkOrder] Remove workOrder item error';
+export const FIND_ACTIVITIES = '[WorkOrder] Find workOrder activities';
+export const FIND_ACTIVITIES_SUCCESS = '[WorkOrder] Find workOrder activities success';
+export const FIND_ACTIVITIES_ERROR = '[WorkOrder] Find workOrder activities error';
+
+export const FIND_WORK_ORDER_LOGS = '[WorkOrder] Find workOrder items';
+export const FIND_WORK_ORDER_LOGS_SUCCESS = '[WorkOrder] Find workOrder items success';
+export const FIND_WORK_ORDER_LOGS_ERROR = '[WorkOrder] Find workOrder items error';
+export const START_WORK_ORDER_LOG = '[WorkOrder] Add workOrder item';
+export const START_WORK_ORDER_LOG_SUCCESS = '[WorkOrder] Add workOrder item success';
+export const START_WORK_ORDER_LOG_ERROR = '[WorkOrder] Add workOrder item error';
+export const END_WORK_ORDER_LOG = '[WorkOrder] Add workOrder item';
+export const END_WORK_ORDER_LOG_SUCCESS = '[WorkOrder] Add workOrder item success';
+export const END_WORK_ORDER_LOG_ERROR = '[WorkOrder] Add workOrder item error';
 
 export const SELECT_WORK_ORDER = '[WorkOrder] Select workOrder';
 export const NEW_WORK_ORDER_TASK = '[WorkOrder] New WorkOrder';
@@ -420,64 +421,22 @@ export class RemoveWorkOrderTaskErrorAction implements Action {
     }
 }
 
-export class AddActivityAction implements Action {
-    readonly type: string = ADD_ACTIVITY;
+export class StartWorkOrderLogAction implements Action {
+    readonly type: string = UPDATE_WORK_ORDER;
 
-    constructor(public payload: { workOrder: WorkOrder, workOrderItem: Activity }) {
+    constructor(public payload: WorkOrder) {
     }
 }
 
-export class AddActivitySuccessAction implements Action {
-    readonly type: string = ADD_ACTIVITY_SUCCESS;
-
-    constructor(public payload: Activity) {
-    }
-}
-
-export class AddActivityErrorAction implements Action {
-    readonly type: string = ADD_ACTIVITY_ERROR;
-
-    constructor(public payload: ApplicationError) {
-    }
-}
-
-export class UpdateActivityAction implements Action {
-    readonly type: string = UPDATE_ACTIVITY;
-
-    constructor(public payload: { workOrder: WorkOrder, workOrderItem: Activity }) {
-    }
-}
-
-export class UpdateActivitySuccessAction implements Action {
-    readonly type: string = UPDATE_ACTIVITY_SUCCESS;
-
-    constructor(public payload: Activity) {
-    }
-}
-
-export class UpdateActivityErrorAction implements Action {
-    readonly type: string = UPDATE_ACTIVITY_ERROR;
-
-    constructor(public payload: ApplicationError) {
-    }
-}
-
-export class RemoveActivityAction implements Action {
-    readonly type: string = REMOVE_ACTIVITY;
-
-    constructor(public payload: { workOrder: WorkOrder, workOrderItem: Activity }) {
-    }
-}
-
-export class RemoveActivitySuccessAction implements Action {
-    readonly type: string = REMOVE_ACTIVITY_SUCCESS;
+export class StartWorkOrderLogSuccessAction implements Action {
+    readonly type: string = UPDATE_WORK_ORDER_SUCCESS;
 
     constructor(public payload: { message: string }) {
     }
 }
 
-export class RemoveActivityErrorAction implements Action {
-    readonly type: string = REMOVE_ACTIVITY_ERROR;
+export class StartWorkOrderLogErrorAction implements Action {
+    readonly type: string = UPDATE_WORK_ORDER_ERROR;
 
     constructor(public payload: ApplicationError) {
     }

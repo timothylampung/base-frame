@@ -15,10 +15,10 @@ export class DashboardPage implements OnInit {
 
     lineData: any;
     barData: any;
+    changedBarData: any;
     pieData: any;
     polarData: any;
     radarData: any;
-    workOrderWeeklyChartData: any[] = [1, 2, 3, 4, 5];
 
     breadcrumbs: any [] = [
         {label: 'Dashboard'},
@@ -27,6 +27,17 @@ export class DashboardPage implements OnInit {
     constructor(public http: HttpClient,
                 public breadcrumbService: BreadcrumbService) {
         this.breadcrumbService.setItems(this.breadcrumbs);
+
+        this.barData = {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+            datasets: [{
+                label: 'Weekly Work Order',
+                backgroundColor: '#2162b0',
+                borderColor: '#2162b0',
+                data: []
+            }
+            ]
+        }
     }
 
     ngOnInit() {
@@ -48,29 +59,6 @@ export class DashboardPage implements OnInit {
             ]
         };
 
-        this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
-            .subscribe((projection: any[]) => {
-                projection.forEach(p => this.workOrderWeeklyChartData.push(p.count));
-            });
-
-        this.barData = {
-            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
-            datasets: [{
-                backgroundColor: '#2162b0',
-                borderColor: '#2162b0',
-                data: this.workOrderWeeklyChartData
-            }
-            ]
-            //     datasets: [
-            //         {
-            //             label: 'My First dataset',
-            //             backgroundColor: '#2162b0',
-            //             borderColor: '#2162b0',
-            //             data: [65, 59, 80, 81, 56, 55, 40]
-            //         },
-            //     ]
-        }
-        ;
 
         this.pieData = {
             labels: ['A', 'B', 'C'],
@@ -137,9 +125,30 @@ export class DashboardPage implements OnInit {
                 }
             ]
         };
+
+        this.changeData();
     }
 
-    fetchCurrentUser() {
-        this.currentUser$ = this.http.get(environment.endpoint + '/api/identity/authenticated-user');
+    changeData() {
+        let data = [];
+        this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
+            .subscribe((projection: any[]) => {
+                projection.forEach(p => {
+                    console.log('data: ' + p.count);
+                    data.push(p.count);
+                });
+
+                this.changedBarData = {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                    datasets: [{
+                        label: 'Weekly Work Order',
+                        backgroundColor: '#2162b0',
+                        borderColor: '#2162b0',
+                        data: data
+                    }
+                    ]
+                };
+                this.barData = Object.assign({}, this.changedBarData);
+            });
     }
 }

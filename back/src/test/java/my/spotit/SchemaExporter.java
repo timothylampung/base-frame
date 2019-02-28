@@ -15,7 +15,7 @@ public class SchemaExporter {
     public static void main(String[] args) throws FileNotFoundException {
         HibernateExporterUtil exporter = new HibernateExporterUtil(
                 "org.hibernate.dialect.PostgreSQL82Dialect",
-                "my.spotit.asset");
+                "my.spotit.asset", "my.spotit.asset.dashboard");
         exporter.setGenerateDropQueries(false);
         exporter.export(new File(OUTPUT_FILE));
     }
