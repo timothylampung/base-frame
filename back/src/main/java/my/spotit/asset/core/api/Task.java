@@ -1,6 +1,8 @@
 package my.spotit.asset.core.api;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @author canang technologies
  */
@@ -14,7 +16,9 @@ public class Task {
     private String description;
     private String candidate;
     private String assignee;
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private MetaState metaState;
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private FlowState flowState;
 
     public Long getId() {

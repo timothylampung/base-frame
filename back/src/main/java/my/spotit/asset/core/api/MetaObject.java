@@ -16,6 +16,7 @@ public abstract class MetaObject {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a")
     private Date deletedDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private MetaState metaState;
 
     public Long getId() {
