@@ -1,0 +1,35 @@
+<p-dialog header="Add Comment"
+          [(visible)]="showDialog"
+          [responsive]="true"
+          showEffect="fade"
+          [focusOnShow]="false"
+          [modal]="true"
+          (onShow)="onShow()"
+          (onHide)="onHide()"
+          [width]="600"
+          [contentStyle]="{'overflow':'visible'}">
+    <ng-container [formGroup]="editorForm">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Comment</label>
+                </div>
+                <div class="ui-g-8">
+                    <input #bodyField
+                           id="body"
+                           pInputText
+                           type="text"
+                           formControlName="body"/>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-check"
+                    (click)="save()"
+                    [label]="'Save'"
+                    [disabled]="!editorForm.valid"></button>
+        </div>
+    </p-footer>
+</p-dialog>

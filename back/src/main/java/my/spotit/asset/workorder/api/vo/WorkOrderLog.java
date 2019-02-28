@@ -3,11 +3,12 @@ package my.spotit.asset.workorder.api.vo;
 import java.sql.Timestamp;
 
 import my.spotit.asset.core.api.MetaObject;
+import my.spotit.asset.identity.api.vo.User;
 
 /**
  * {
  *     "startTime": 12313123,
- *     "endTime": 12313123,
+ *     "stopTime": 12313123,
  * }
  *
  * @author canang technologies
@@ -15,7 +16,8 @@ import my.spotit.asset.core.api.MetaObject;
 public class WorkOrderLog extends MetaObject
 {
     private Timestamp startTime;
-    private Timestamp endTime;
+    private Timestamp stopTime;
+    private User logger;
 
     public Timestamp getStartTime() {
         return startTime;
@@ -25,11 +27,19 @@ public class WorkOrderLog extends MetaObject
         this.startTime = startTime;
     }
 
-    public Timestamp getEndTime() {
-        return endTime;
+    public Timestamp getStopTime() {
+        return stopTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+    public void setStopTime(Timestamp stopTime) {
+        this.stopTime = stopTime;
+    }
+
+    public User getLogger() {
+        return logger;
+    }
+
+    public void setLogger(User logger) {
+        this.logger = logger;
     }
 }

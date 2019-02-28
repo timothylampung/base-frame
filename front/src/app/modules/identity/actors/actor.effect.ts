@@ -3,20 +3,12 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {from, Observable} from 'rxjs';
-import {
-    FIND_ALL_ACTORS,
-    FIND_PAGED_ACTORS,
-    FindAllActorsSuccessAction,
-    FindPagedActorsAction,
-    FindPagedActorsSuccessAction, REMOVE_ACTOR, RemoveActorAction, RemoveActorSuccessAction,
-    SAVE_ACTOR,
-    SaveActorAction,
-    SaveActorSuccessAction,
-    UPDATE_ACTOR,
-    UpdateActorAction,
-    UpdateActorSuccessAction
-} from "./actor.action";
 import {IdentityService} from "../../../services/identity.service";
+import {
+    FIND_ALL_ACTORS, FIND_PAGED_ACTORS,
+    FindAllActorsSuccessAction, FindPagedActorsAction,
+    FindPagedActorsSuccessAction
+} from "./actor.action";
 
 @Injectable()
 export class ActorEffect {

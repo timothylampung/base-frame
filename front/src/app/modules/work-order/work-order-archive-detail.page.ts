@@ -4,11 +4,11 @@ import {select, Store} from '@ngrx/store';
 import {BreadcrumbService} from '../../breadcrumb.service';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {Observable, Subject} from 'rxjs';
-import {Activity} from './activity.model';
+import {WorkOrderActivity} from './work-order-activity.model';
 import {AppState} from '../../core/core.state';
-import {FindWorkOrderByReferenceNoAction, FindActivitiesAction} from './work-order.action';
+import {FindWorkOrderByReferenceNoAction, FindWorkOrderActivitiesAction} from './work-order.action';
 import {WorkOrder} from './work-order.model';
-import {selectWorkOrder, selectActivities} from './work-order.selector';
+import {selectWorkOrder, selectWorkOrderActivities} from './work-order.selector';
 import {ActivatedRoute} from "@angular/router";
 import {takeUntil} from "rxjs/internal/operators";
 
@@ -19,8 +19,8 @@ import {takeUntil} from "rxjs/internal/operators";
 })
 export class WorkOrderArchiveDetailPage implements OnInit {
     workOrder: WorkOrder;
-    activities$: Observable<Activity[]>;
-    selectedItem: Activity;
+    activities$: Observable<WorkOrderActivity[]>;
+    selectedItem: WorkOrderActivity;
     mainForm: FormGroup;
     totalAmount = 0;
     displayAboutDialog: boolean;
@@ -57,7 +57,7 @@ export class WorkOrderArchiveDetailPage implements OnInit {
             description: [''],
         });
 
-        this.activities$ = this.store.pipe(select(selectActivities));
+        this.activities$ = this.store.pipe(select(selectWorkOrderActivities));
 
         this.route.params.subscribe((params: { referenceNo: string }) => {
             this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));

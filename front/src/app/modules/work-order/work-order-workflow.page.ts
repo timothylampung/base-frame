@@ -8,7 +8,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import {WorkOrderTaskSummary} from './work-order.model';
-import {WorkOrderDraftPage} from './pages/work-order-draft.page';
+import {WorkOrderPreparePage} from './pages/work-order-prepare.page';
 import {WorkOrderRegisterPage} from './pages/work-order-register.page';
 import {WorkOrderNewPage} from './pages/work-order-new.page';
 import {WorkOrderCheckPage} from "./pages/work-order-check.page";
@@ -44,9 +44,8 @@ export class WorkOrderWorkflowPage {
                     this.componentRef.destroy();
                 }
 
-                // todo: what's our states?
-                if (this.workOrderTask.flowState === FlowState.DRAFTED) {
-                    componentFactory = this.cfr.resolveComponentFactory(WorkOrderDraftPage);
+                if (this.workOrderTask.flowState === FlowState.PREPARED) {
+                    componentFactory = this.cfr.resolveComponentFactory(WorkOrderPreparePage);
                 } else if (this.workOrderTask.flowState === FlowState.REGISTERED) {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderRegisterPage);
                 } else if (this.workOrderTask.flowState === FlowState.CHECKED) {

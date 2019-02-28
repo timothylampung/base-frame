@@ -4,13 +4,13 @@ import my.spotit.asset.core.api.Task;
 
 public class WorkOrderTask extends Task {
 
-    private WorkOrder order;
+    private WorkOrder workOrder;
 
-    public WorkOrder getOrder() {
-        return order;
+    public WorkOrder getWorkOrder() {
+        return workOrder;
     }
 
-    public void setOrder(WorkOrder order) {
-        this.order = order;
+    public void setWorkOrder(WorkOrder workOrder) {
+        this.workOrder = workOrder;
     }
 }

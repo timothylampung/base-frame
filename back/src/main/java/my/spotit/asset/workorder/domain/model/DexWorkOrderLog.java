@@ -3,6 +3,7 @@ package my.spotit.asset.workorder.domain.model;
 import java.sql.Timestamp;
 
 import my.spotit.asset.core.domain.DexMetaObject;
+import my.spotit.asset.identity.domain.model.DexUser;
 
 /**
  * @author canang technologies
@@ -13,9 +14,13 @@ public interface DexWorkOrderLog extends DexMetaObject {
 
     void setStartTime(Timestamp startTime);
 
-    Timestamp getEndTime();
+    Timestamp getStopTime();
 
-    void setEndTime(Timestamp endTime);
+    void setStopTime(Timestamp stopTime);
+
+    DexUser getLogger();
+
+    void setLogger(DexUser logger);
 
     DexWorkOrder getWorkOrder();
 

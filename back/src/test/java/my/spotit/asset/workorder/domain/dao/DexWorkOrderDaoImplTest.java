@@ -21,7 +21,6 @@ public class DexWorkOrderDaoImplTest extends AbstractTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(DexWorkOrderDaoImplTest.class);
 
-
     @Autowired
     private DexUserDao dexUserDao;
 

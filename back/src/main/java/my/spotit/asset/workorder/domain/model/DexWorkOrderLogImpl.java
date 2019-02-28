@@ -15,6 +15,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import my.spotit.asset.core.domain.DexMetadata;
+import my.spotit.asset.identity.domain.model.DexUser;
+import my.spotit.asset.identity.domain.model.DexUserImpl;
 
 /**
  * @author canang technologies
@@ -32,12 +34,16 @@ public class DexWorkOrderLogImpl implements DexWorkOrderLog
     @Column(name = "START_TIME")
     private Timestamp startTime;
 
-    @Column(name = "END_TIME")
-    private Timestamp endTime;
+    @Column(name = "STOP_TIME")
+    private Timestamp stopTime;
 
-    @ManyToOne(targetEntity = DexWorkOrderImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = DexWorkOrderImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "WORK_ORDER_ID", nullable = true)
     private DexWorkOrder workOrder;
+
+    @ManyToOne(targetEntity = DexUserImpl.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "LOGGER_ID", nullable = true)
+    private DexUser logger;
 
     @Embedded
     private DexMetadata metadata;
@@ -61,13 +67,23 @@ public class DexWorkOrderLogImpl implements DexWorkOrderLog
     }
 
     @Override
-    public Timestamp getEndTime() {
-        return endTime;
+    public Timestamp getStopTime() {
+        return stopTime;
     }
 
     @Override
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+    public void setStopTime(Timestamp stopTime) {
+        this.stopTime = stopTime;
+    }
+
+    @Override
+    public DexUser getLogger() {
+        return logger;
+    }
+
+    @Override
+    public void setLogger(DexUser logger) {
+        this.logger = logger;
     }
 
     @Override

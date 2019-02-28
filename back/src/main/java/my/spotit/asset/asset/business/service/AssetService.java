@@ -1,12 +1,8 @@
 package my.spotit.asset.asset.business.service;
 
-import org.flowable.task.api.Task;
-
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexLocation;
-import my.spotit.asset.workorder.domain.model.DexActivity;
-import my.spotit.asset.workorder.domain.model.DexWorkOrder;
 
 import java.util.List;
 

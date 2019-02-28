@@ -21,6 +21,7 @@ import {Staff, StaffResult} from "../modules/identity/staffs/staff.model";
 import {Technician, TechnicianResult} from "../modules/identity/technicians/technician.model";
 import {FacilityManager, FacilityManagerResult} from "../modules/identity/facilitymanager/facility-manager.model";
 import {Supervisor, SupervisorResult} from "../modules/identity/supervisors/supervisor.model";
+import {ActorResult} from "../modules/identity/actors/actor-result.model";
 
 @Injectable()
 export class IdentityService {
@@ -142,9 +143,14 @@ export class IdentityService {
         return this.http.get<Actor[]>(this.IDENTITY_API + '/actors');
     }
 
+    findPagedActors(filter: string, page: number): Observable<ActorResult> {
+        const url = `${this.IDENTITY_API}/actors?filter=${filter}&page=${page}`;
+        return this.http.get<ActorResult>(url);
+    }
+
     findActorByCode(code: string): Observable<Actor> {
-        console.log('findActorByCode');
-        return this.http.get<Actor>(this.IDENTITY_API + '/actors/' + code);
+        const url = `${this.IDENTITY_API}/actors/${code}`;
+        return this.http.get<Actor>(url);
     }
 
     findActorByIdentityNo(identityNo: string): Observable<Actor> {

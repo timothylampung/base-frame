@@ -8,7 +8,9 @@ import {
     WorkOrderTaskSummaryResult
 } from './work-order.model';
 import {ApplicationError} from '../../models/application-error.model';
-import {Activity} from "./activity.model";
+import {WorkOrderActivity} from "./work-order-activity.model";
+import {WorkOrderLog} from "./work-order-log.model";
+import {WorkOrderComment} from "./work-order-comment.model";
 
 export const FIND_ASSIGNED_WORK_ORDERS = '[WorkOrder] Find Assigned WorkOrders';
 export const FIND_ASSIGNED_WORK_ORDERS_SUCCESS = '[WorkOrder] Find Assigned WorkOrders Success';
@@ -60,19 +62,32 @@ export const UPDATE_WORK_ORDER = '[WorkOrder] Update WorkOrder';
 export const UPDATE_WORK_ORDER_SUCCESS = '[WorkOrder] Update WorkOrder Success';
 export const UPDATE_WORK_ORDER_ERROR = '[WorkOrder] Update WorkOrder Error';
 
-export const FIND_ACTIVITIES = '[WorkOrder] Find workOrder activities';
-export const FIND_ACTIVITIES_SUCCESS = '[WorkOrder] Find workOrder activities success';
-export const FIND_ACTIVITIES_ERROR = '[WorkOrder] Find workOrder activities error';
+export const FIND_WORK_ORDER_ACTIVITIES = '[WorkOrder] Find workOrder workOrderActivities';
+export const FIND_WORK_ORDER_ACTIVITIES_SUCCESS = '[WorkOrder] Find workOrder workOrderActivities success';
+export const FIND_WORK_ORDER_ACTIVITIES_ERROR = '[WorkOrder] Find workOrder workOrderActivities error';
+
+export const FIND_WORK_ORDER_COMMENTS = '[WorkOrder] Find workOrder comments';
+export const FIND_WORK_ORDER_COMMENTS_SUCCESS = '[WorkOrder] Find workOrder comments success';
+export const FIND_WORK_ORDER_COMMENTS_ERROR = '[WorkOrder] Find workOrder comments error';
+export const ADD_WORK_ORDER_COMMENT = '[WorkOrder] Add workOrder item';
+export const ADD_WORK_ORDER_COMMENT_SUCCESS = '[WorkOrder] Add workOrder comments success';
+export const ADD_WORK_ORDER_COMMENT_ERROR = '[WorkOrder] Add workOrder comments error';
+export const UPDATE_WORK_ORDER_COMMENT = '[WorkOrder] Update workOrder comments';
+export const UPDATE_WORK_ORDER_COMMENT_SUCCESS = '[WorkOrder] Update workOrder comments success';
+export const UPDATE_WORK_ORDER_COMMENT_ERROR = '[WorkOrder] Update workOrder comments error';
+export const REMOVE_WORK_ORDER_COMMENT = '[WorkOrder] Remove workOrder comments';
+export const REMOVE_WORK_ORDER_COMMENT_SUCCESS = '[WorkOrder] Remove workOrder comments success';
+export const REMOVE_WORK_ORDER_COMMENT_ERROR = '[WorkOrder] Remove workOrder comments error';
 
 export const FIND_WORK_ORDER_LOGS = '[WorkOrder] Find workOrder items';
 export const FIND_WORK_ORDER_LOGS_SUCCESS = '[WorkOrder] Find workOrder items success';
 export const FIND_WORK_ORDER_LOGS_ERROR = '[WorkOrder] Find workOrder items error';
-export const START_WORK_ORDER_LOG = '[WorkOrder] Add workOrder item';
-export const START_WORK_ORDER_LOG_SUCCESS = '[WorkOrder] Add workOrder item success';
-export const START_WORK_ORDER_LOG_ERROR = '[WorkOrder] Add workOrder item error';
-export const END_WORK_ORDER_LOG = '[WorkOrder] Add workOrder item';
-export const END_WORK_ORDER_LOG_SUCCESS = '[WorkOrder] Add workOrder item success';
-export const END_WORK_ORDER_LOG_ERROR = '[WorkOrder] Add workOrder item error';
+export const START_WORK_ORDER_LOG = '[WorkOrder] Start workOrder item';
+export const START_WORK_ORDER_LOG_SUCCESS = '[WorkOrder] Start workOrder item success';
+export const START_WORK_ORDER_LOG_ERROR = '[WorkOrder] Start workOrder item error';
+export const STOP_WORK_ORDER_LOG = '[WorkOrder] Stop workOrder item';
+export const STOP_WORK_ORDER_LOG_SUCCESS = '[WorkOrder] Stop workOrder item success';
+export const STOP_WORK_ORDER_LOG_ERROR = '[WorkOrder] Stop workOrder item error';
 
 export const SELECT_WORK_ORDER = '[WorkOrder] Select workOrder';
 export const NEW_WORK_ORDER_TASK = '[WorkOrder] New WorkOrder';
@@ -94,27 +109,6 @@ export class FindWorkOrderByReferenceNoSuccessAction implements Action {
 
 export class FindWorkOrderByReferenceNoErrorAction implements Action {
     readonly type: string = FIND_WORK_ORDER_BY_REFERENCE_NO_ERROR;
-
-    constructor(public payload: ApplicationError) {
-    }
-}
-
-export class FindActivitiesAction implements Action {
-    readonly type: string = FIND_ACTIVITIES;
-
-    constructor(public payload: { workOrder: WorkOrder }) {
-    }
-}
-
-export class FindActivitiesSuccessAction implements Action {
-    readonly type: string = FIND_ACTIVITIES_SUCCESS;
-
-    constructor(public payload: Activity[]) {
-    }
-}
-
-export class FindActivitiesErrorAction implements Action {
-    readonly type: string = FIND_ACTIVITIES_ERROR;
 
     constructor(public payload: ApplicationError) {
     }
@@ -422,21 +416,42 @@ export class RemoveWorkOrderTaskErrorAction implements Action {
 }
 
 export class StartWorkOrderLogAction implements Action {
-    readonly type: string = UPDATE_WORK_ORDER;
+    readonly type: string = START_WORK_ORDER_LOG;
 
     constructor(public payload: WorkOrder) {
     }
 }
 
 export class StartWorkOrderLogSuccessAction implements Action {
-    readonly type: string = UPDATE_WORK_ORDER_SUCCESS;
+    readonly type: string = START_WORK_ORDER_LOG_SUCCESS;
 
     constructor(public payload: { message: string }) {
     }
 }
 
 export class StartWorkOrderLogErrorAction implements Action {
-    readonly type: string = UPDATE_WORK_ORDER_ERROR;
+    readonly type: string = START_WORK_ORDER_LOG_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class StopWorkOrderLogAction implements Action {
+    readonly type: string = STOP_WORK_ORDER_LOG;
+
+    constructor(public payload: WorkOrder) {
+    }
+}
+
+export class StopWorkOrderLogSuccessAction implements Action {
+    readonly type: string = STOP_WORK_ORDER_LOG_SUCCESS;
+
+    constructor(public payload: { message: string }) {
+    }
+}
+
+export class StopWorkOrderLogErrorAction implements Action {
+    readonly type: string = STOP_WORK_ORDER_LOG_ERROR;
 
     constructor(public payload: ApplicationError) {
     }
@@ -460,6 +475,132 @@ export class ReloadWorkOrderPageAction implements Action {
     readonly type: string = RELOAD_WORK_ORDER_PAGE;
 
     constructor() {
+    }
+}
+
+export class FindWorkOrderActivitiesAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_ACTIVITIES;
+
+    constructor(public payload: { workOrder: WorkOrder }) {
+    }
+}
+
+export class FindWorkOrderActivitiesSuccessAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_ACTIVITIES_SUCCESS;
+
+    constructor(public payload: WorkOrderActivity[]) {
+    }
+}
+
+export class FindWorkOrderActivitiesErrorAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_ACTIVITIES_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class FindWorkOrderLogsAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_LOGS;
+
+    constructor(public payload: { workOrder: WorkOrder }) {
+    }
+}
+
+export class FindWorkOrderLogsSuccessAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_LOGS_SUCCESS;
+
+    constructor(public payload: WorkOrderLog[]) {
+    }
+}
+
+export class FindWorkOrderLogsErrorAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_LOGS_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class FindWorkOrderCommentsAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_COMMENTS;
+
+    constructor(public payload: { workOrder: WorkOrder }) {
+    }
+}
+
+export class FindWorkOrderCommentsSuccessAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_COMMENTS_SUCCESS;
+
+    constructor(public payload: WorkOrderComment[]) {
+    }
+}
+
+export class FindWorkOrderCommentsErrorAction implements Action {
+    readonly type: string = FIND_WORK_ORDER_COMMENTS_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class AddWorkOrderCommentAction implements Action {
+    readonly type: string = ADD_WORK_ORDER_COMMENT;
+
+    constructor(public payload: { workOrder: WorkOrder, comment: WorkOrderComment }) {
+    }
+}
+
+export class AddWorkOrderCommentSuccessAction implements Action {
+    readonly type: string = ADD_WORK_ORDER_COMMENT_SUCCESS;
+
+    constructor(public payload: WorkOrderComment) {
+    }
+}
+
+export class AddWorkOrderCommentErrorAction implements Action {
+    readonly type: string = ADD_WORK_ORDER_COMMENT_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class UpdateWorkOrderCommentAction implements Action {
+    readonly type: string = UPDATE_WORK_ORDER_COMMENT;
+
+    constructor(public payload: { workOrder: WorkOrder, comment: WorkOrderComment }) {
+    }
+}
+
+export class UpdateWorkOrderCommentSuccessAction implements Action {
+    readonly type: string = UPDATE_WORK_ORDER_COMMENT_SUCCESS;
+
+    constructor(public payload: WorkOrderComment) {
+    }
+}
+
+export class UpdateWorkOrderCommentErrorAction implements Action {
+    readonly type: string = UPDATE_WORK_ORDER_COMMENT_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class RemoveWorkOrderCommentAction implements Action {
+    readonly type: string = REMOVE_WORK_ORDER_COMMENT;
+
+    constructor(public payload: { workOrder: WorkOrder, comment: WorkOrderComment }) {
+    }
+}
+
+export class RemoveWorkOrderCommentSuccessAction implements Action {
+    readonly type: string = REMOVE_WORK_ORDER_COMMENT_SUCCESS;
+
+    constructor(public payload: { message: string }) {
+    }
+}
+
+export class RemoveWorkOrderCommentErrorAction implements Action {
+    readonly type: string = REMOVE_WORK_ORDER_COMMENT_ERROR;
+
+    constructor(public payload: ApplicationError) {
     }
 }
 

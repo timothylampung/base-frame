@@ -1,21 +1,18 @@
 package my.spotit.asset.workorder.business.service;
 
 import my.spotit.asset.DexConstants;
-import my.spotit.asset.common.business.service.CommonServiceImpl;
 import my.spotit.asset.core.domain.DexFlowState;
 import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest;
 import my.spotit.asset.security.business.service.SecurityService;
 import my.spotit.asset.system.business.service.SystemService;
 import my.spotit.asset.workflow.business.service.WorkflowConstants;
 import my.spotit.asset.workflow.business.service.WorkflowService;
-import my.spotit.asset.workorder.api.vo.WorkOrder;
-import my.spotit.asset.workorder.api.vo.WorkOrderLog;
 import my.spotit.asset.workorder.business.event.WorkOrderCancelledEvent;
 import my.spotit.asset.workorder.business.event.WorkOrderDraftedEvent;
-import my.spotit.asset.workorder.domain.dao.DexActivityDao;
 import my.spotit.asset.workorder.domain.dao.DexWorkOrderDao;
-import my.spotit.asset.workorder.domain.model.DexActivity;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivity;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderComment;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderLogImpl;
@@ -23,7 +20,6 @@ import my.spotit.asset.workorder.domain.model.DexWorkOrderLogImpl;
 import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +39,7 @@ import static my.spotit.asset.workflow.business.service.WorkflowConstants.DELIMI
 @Service("workOrderService")
 public class WorkOrderServiceImpl implements WorkOrderService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CommonServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(WorkOrderServiceImpl.class);
 
     private EntityManager entityManager;
     private SecurityService securityService;
@@ -51,21 +47,18 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     private WorkflowService workflowService;
     private ApplicationContext applicationContext;
     private DexWorkOrderDao workOrderDao;
-    private DexActivityDao activityDao;
 
     public WorkOrderServiceImpl(EntityManager entityManager, SecurityService securityService,
                                 WorkflowService workflowService,
                                 ApplicationContext applicationContext,
                                 SystemService systemService,
-                                DexWorkOrderDao workOrderDao,
-                                DexActivityDao activityDao) {
+                                DexWorkOrderDao workOrderDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
         this.systemService = systemService;
         this.workflowService = workflowService;
         this.applicationContext = applicationContext;
         this.workOrderDao = workOrderDao;
-        this.activityDao = activityDao;
     }
 
     //====================================================================================================
@@ -186,7 +179,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public DexActivity findActivityById(Long id) {
+    public DexWorkOrderActivity findActivityById(Long id) {
         return workOrderDao.findActivityById(id);
     }
 
@@ -196,13 +189,18 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public List<DexActivity> findActivities(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
-        return activityDao.find(filter, workOrder, offset, limit);
+    public List<DexWorkOrderActivity> findWorkOrderActivities(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
+        return workOrderDao.findActivities(filter, workOrder, offset, limit);
     }
 
     @Override
     public List<DexWorkOrderLog> findWorkOrderLogs(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
         return workOrderDao.findLogs(filter, workOrder, offset, limit);
+    }
+
+    @Override
+    public List<DexWorkOrderComment> findWorkOrderComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
+        return workOrderDao.findComments(filter, workOrder, offset, limit);
     }
 
     @Override
@@ -217,13 +215,18 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public Integer counActivity(DexWorkOrder workOrder) {
-        return null;
+    public Integer countActivity(DexWorkOrder workOrder) {
+        return workOrderDao.countActivity(workOrder);
     }
 
     @Override
-    public Integer counWorkOrderLog(DexWorkOrder workOrder) {
-        return null;
+    public Integer countWorkOrderLog(DexWorkOrder workOrder) {
+        return workOrderDao.countLog(workOrder);
+    }
+
+    @Override
+    public Integer countWorkOrderComment(DexWorkOrder workOrder) {
+        return workOrderDao.countComment(workOrder);
     }
 
     @Override
@@ -246,37 +249,60 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public void addActivity(DexWorkOrder workOrder, DexActivity activity) {
+    public void addWorkOrderActivity(DexWorkOrder workOrder, DexWorkOrderActivity activity) {
         workOrderDao.addActivity(workOrder, activity, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void updateActivity(DexWorkOrder workOrder, DexActivity activity) {
+    public void updateWorkOrderActivity(DexWorkOrder workOrder, DexWorkOrderActivity activity) {
         workOrderDao.updateActivity(workOrder, activity, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
-    public void deleteActivity(DexWorkOrder workOrder, DexActivity activity) {
+    public void deleteWorkOrderActivity(DexWorkOrder workOrder, DexWorkOrderActivity activity) {
         workOrderDao.deleteActivity(workOrder, activity, securityService.getCurrentUser());
         entityManager.flush();
     }
 
     @Override
     public void addWorkOrderLog(DexWorkOrder workOrder, DexWorkOrderLog log) {
-
+        workOrderDao.addLog(workOrder, log, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
     @Override
     public void updateWorkOrderLog(DexWorkOrder workOrder, DexWorkOrderLog log) {
-
+        workOrderDao.updateLog(workOrder, log, securityService.getCurrentUser());
+        entityManager.flush();
     }
 
     @Override
     public void deleteWorkOrderLog(DexWorkOrder workOrder, DexWorkOrderLog log) {
-
+        workOrderDao.deleteLog(workOrder, log, securityService.getCurrentUser());
+        entityManager.flush();
     }
+
+    @Override
+    public void addWorkOrderComment(DexWorkOrder workOrder, DexWorkOrderComment comment) {
+        workOrderDao.addComment(workOrder, comment, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateWorkOrderComment(DexWorkOrder workOrder, DexWorkOrderComment comment) {
+        workOrderDao.updateComment(workOrder, comment, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    @Override
+    public void deleteWorkOrderComment(DexWorkOrder workOrder, DexWorkOrderComment comment) {
+        workOrderDao.deleteComment(workOrder, comment, securityService.getCurrentUser());
+        entityManager.flush();
+    }
+
+    // business
 
     @Override
     public void serializeToWorkOrder(DexMaintenanceRequest request) {
@@ -298,13 +324,14 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     public void startLog(DexWorkOrder order) {
         if (workOrderDao.hasUnendedLog(order)) {
             DexWorkOrderLog unendedLog = workOrderDao.findUnendedLog(order);
-            unendedLog.setEndTime(new Timestamp(System.currentTimeMillis()));
+            unendedLog.setStopTime(new Timestamp(System.currentTimeMillis()));
             workOrderDao.updateLog(order, unendedLog, securityService.getCurrentUser());
             entityManager.flush();
         }
 
         DexWorkOrderLog orderLog = new DexWorkOrderLogImpl();
         orderLog.setStartTime(new Timestamp(System.currentTimeMillis()));
+        orderLog.setLogger(securityService.getCurrentUser());
         workOrderDao.addLog(order, orderLog, securityService.getCurrentUser());
         entityManager.flush();
     }
@@ -313,7 +340,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     public void stopLog(DexWorkOrder order) {
         if (workOrderDao.hasUnendedLog(order)) {
             DexWorkOrderLog unendedLog = workOrderDao.findUnendedLog(order);
-            unendedLog.setEndTime(new Timestamp(System.currentTimeMillis()));
+            unendedLog.setStopTime(new Timestamp(System.currentTimeMillis()));
             workOrderDao.updateLog(order, unendedLog, securityService.getCurrentUser());
             entityManager.flush();
         }

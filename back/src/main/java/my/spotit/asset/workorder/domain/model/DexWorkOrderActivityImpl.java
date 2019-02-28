@@ -5,14 +5,14 @@ import my.spotit.asset.core.domain.DexMetadata;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "DexActivity")
-@Table(name = "DEX_ATVT")
-public class DexActivityImpl extends DexMetadata implements DexActivity {
+@Entity(name = "DexWorkOrderActivity")
+@Table(name = "DEX_WORK_ORDR_ATVT")
+public class DexWorkOrderActivityImpl extends DexMetadata implements DexWorkOrderActivity {
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(generator = "SQ_DEX_ATVT")
-    @SequenceGenerator(name = "SQ_DEX_ATVT", sequenceName = "SQ_DEX_ATVT", allocationSize = 1)
+    @GeneratedValue(generator = "SQ_DEX_WORK_ORDR_ATVT")
+    @SequenceGenerator(name = "SQ_DEX_WORK_ORDR_ATVT", sequenceName = "SQ_DEX_WORK_ORDR_ATVT", allocationSize = 1)
     private Long id;
 
     @NotNull
@@ -67,6 +67,6 @@ public class DexActivityImpl extends DexMetadata implements DexActivity {
 
     @Override
     public Class<?> getInterfaceClass() {
-        return DexActivity.class;
+        return DexWorkOrderActivity.class;
     }
 }

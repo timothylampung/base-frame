@@ -11,7 +11,7 @@ import {WorkOrderPooledTaskListPage} from './work-order-pooled-task-list.page';
 import {WorkOrderTaskDetailPage} from './work-order-task-detail.page';
 import {WorkOrderWorkflowPage} from './work-order-workflow.page';
 import {WorkOrderRegisterPage} from './pages/work-order-register.page';
-import {WorkOrderDraftPage} from './pages/work-order-draft.page';
+import {WorkOrderPreparePage} from './pages/work-order-prepare.page';
 import {WorkOrderTaskNewPage} from './work-order-task-new.page';
 import {WorkOrderNewPage} from './pages/work-order-new.page';
 import {WorkOrderCheckPage} from './pages/work-order-check.page';
@@ -20,6 +20,7 @@ import {WorkOrderArchiveDetailPage} from './work-order-archive-detail.page';
 import {WorkOrderPage} from './pages/work-order.page';
 import {MessageService} from "primeng/api";
 import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
+import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
 
 @NgModule({
     imports: [
@@ -35,7 +36,7 @@ import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
         WorkOrderPage,
         WorkOrderNewPage,
         WorkOrderDetailPage,
-        WorkOrderDraftPage,
+        WorkOrderPreparePage,
         WorkOrderRegisterPage,
         WorkOrderCheckPage,
         WorkOrderAssignedTaskListPage,
@@ -44,14 +45,16 @@ import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
         WorkOrderTaskDetailPage,
         WorkOrderWorkflowPage,
         WorkOrderArchiveListPage,
-        WorkOrderArchiveDetailPage
+        WorkOrderArchiveDetailPage,
+        WorkOrderCommentEditorDialog,
     ],
     entryComponents: [
         WorkOrderPage,
         WorkOrderNewPage,
-        WorkOrderDraftPage,
+        WorkOrderPreparePage,
         WorkOrderRegisterPage,
         WorkOrderCheckPage,
+        WorkOrderCommentEditorDialog,
     ],
     providers: [
         WorkOrderService,

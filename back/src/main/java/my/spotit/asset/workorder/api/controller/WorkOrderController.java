@@ -21,24 +21,27 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 
-import my.spotit.asset.asset.api.vo.Activity;
+import my.spotit.asset.asset.api.vo.WorkOrderActivity;
 import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.core.api.ApplicationSuccess;
+import my.spotit.asset.identity.business.service.IdentityService;
+import my.spotit.asset.security.business.service.SecurityService;
 import my.spotit.asset.system.business.service.SystemService;
 import my.spotit.asset.workflow.business.service.WorkflowService;
 import my.spotit.asset.workorder.api.vo.WorkOrder;
+import my.spotit.asset.workorder.api.vo.WorkOrderComment;
 import my.spotit.asset.workorder.api.vo.WorkOrderLog;
+import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummary;
 import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummaryResult;
 import my.spotit.asset.workorder.api.vo.WorkOrderResult;
 import my.spotit.asset.workorder.api.vo.WorkOrderTask;
+import my.spotit.asset.workorder.api.vo.WorkOrderTaskSummary;
 import my.spotit.asset.workorder.api.vo.WorkOrderTaskSummaryResult;
 import my.spotit.asset.workorder.business.service.WorkOrderService;
-import my.spotit.asset.workorder.domain.model.DexActivity;
-import my.spotit.asset.workorder.domain.model.DexActivityImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderComment;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderCommentImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
-import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
-import my.spotit.asset.workorder.domain.model.DexWorkOrderLogImpl;
 
 import static my.spotit.asset.DexConstants.LIMIT;
 import static my.spotit.asset.DexConstants.WORK_ORDER_REFERENCE_NO;
@@ -51,6 +54,8 @@ public class WorkOrderController {
     private static final Logger LOG = LoggerFactory.getLogger(WorkOrderController.class);
 
     private AssetService assetService;
+    private IdentityService identityService;
+    private SecurityService securityService;
     private WorkOrderService workOrderService;
     private SystemService systemService;
     private WorkflowService workflowService;
@@ -59,12 +64,16 @@ public class WorkOrderController {
 
     @Autowired
     public WorkOrderController(AssetService assetService, SystemService systemService,
+                               IdentityService identityService,
+                               SecurityService securityService,
                                WorkflowService workflowService,
                                WorkOrderService workOrderService,
                                WorkOrderTransformer workOrderTransformer,
                                AuthenticationManager authenticationManager) {
         this.assetService = assetService;
         this.systemService = systemService;
+        this.securityService = securityService;
+        this.identityService = identityService;
         this.workOrderService = workOrderService;
         this.workflowService = workflowService;
         this.workOrderTransformer = workOrderTransformer;
@@ -99,34 +108,24 @@ public class WorkOrderController {
         Integer count = workOrderService.countWorkOrder(filter);
         List<DexWorkOrder> orders = workOrderService.findWorkOrders(filter, (page - 1) * LIMIT, LIMIT);
         LOG.debug("findArchivedWorkOrders: {}", orders.size());
-        return ResponseEntity.ok(
-                new WorkOrderRecordSummaryResult(
-                        workOrderTransformer.toWorkOrderSummaryVos(orders),
-                        count
-                ));
+        List<WorkOrderRecordSummary> data = workOrderTransformer.toWorkOrderSummaryVos(orders);
+        return ResponseEntity.ok(new WorkOrderRecordSummaryResult(data, count));
     }
 
     @GetMapping(value = "/work-orders/assigned-tasks", params = {"filter"})
     public ResponseEntity<WorkOrderTaskSummaryResult> findAssignedWorkOrderTaskSummaries(@RequestParam(defaultValue = "%") String filter) {
         int count = workOrderService.countAssignedWorkOrderTask(filter);
         List<Task> tasks = workOrderService.findAssignedWorkOrderTasks(filter, 0, 999);
-        return ResponseEntity.ok(
-                new WorkOrderTaskSummaryResult(
-                        workOrderTransformer.toWorkOrderTaskSummaryVos(tasks),
-                        count
-                ));
+        List<WorkOrderTaskSummary> data = workOrderTransformer.toWorkOrderTaskSummaryVos(tasks);
+        return ResponseEntity.ok(new WorkOrderTaskSummaryResult(data, count));
     }
 
     @GetMapping(value = "/work-orders/pooled-tasks", params = {"filter"})
     public ResponseEntity<WorkOrderTaskSummaryResult> findPooledWorkOrderTaskSummaries(@RequestParam(defaultValue = "%") String filter) {
         int count = workOrderService.countPooledWorkOrderTask(filter);
         List<Task> tasks = workOrderService.findPooledWorkOrderTasks(filter, 0, 999);
-        return ResponseEntity.ok(
-                new WorkOrderTaskSummaryResult(
-                        workOrderTransformer.toWorkOrderTaskSummaryVos(tasks),
-                        count
-                ));
-
+        List<WorkOrderTaskSummary> data = workOrderTransformer.toWorkOrderTaskSummaryVos(tasks);
+        return ResponseEntity.ok(new WorkOrderTaskSummaryResult(data, count));
     }
 
     @PostMapping(value = "/work-orders/start-task")
@@ -228,11 +227,11 @@ public class WorkOrderController {
     // WORK ORDER ACTIVITY
     //==============================================================================================
 
-    @GetMapping(value = "/work-orders/{referenceNo}/activities")
-    public ResponseEntity<List<Activity>> findActivities(@PathVariable String referenceNo) {
+    @GetMapping(value = "/work-orders/{referenceNo}/work-order-activities")
+    public ResponseEntity<List<WorkOrderActivity>> findWorkOrderActivities(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        List<Activity> activities = workOrderTransformer.toActivityVos(workOrderService.findActivities("%", order, 0, 9999)); // todo: page
-        return new ResponseEntity<List<Activity>>(activities, HttpStatus.OK);
+        List<WorkOrderActivity> activities = workOrderTransformer.toWorkOrderActivityVos(workOrderService.findWorkOrderActivities("%", order, 0, 9999)); // todo: page
+        return new ResponseEntity<List<WorkOrderActivity>>(activities, HttpStatus.OK);
     }
 
     //==============================================================================================
@@ -246,19 +245,41 @@ public class WorkOrderController {
         return new ResponseEntity<List<WorkOrderLog>>(workOrderLogs, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/work-orders/{referenceNo}/start-log")
-    public ResponseEntity<String> startLog(@PathVariable String referenceNo) {
+    @PostMapping(value = "/work-orders/{referenceNo}/start-work-order-log")
+    public ResponseEntity<ApplicationSuccess> startLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
         workOrderService.startLog(order);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/work-orders/{referenceNo}/stop-log")
-    public ResponseEntity<String> stopLog(@PathVariable String referenceNo) {
+    @PostMapping(value = "/work-orders/{referenceNo}/stop-work-order-log")
+    public ResponseEntity<ApplicationSuccess> stopLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
         workOrderService.stopLog(order);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess(), HttpStatus.OK);
     }
+    //==============================================================================================
+    // WORK ORDER COMMENT
+    //==============================================================================================
+
+    @GetMapping(value = "/work-orders/{referenceNo}/work-order-comments")
+    public ResponseEntity<List<WorkOrderComment>> findWorkOrderComments(@PathVariable String referenceNo) {
+        DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
+        List<WorkOrderComment> workOrderComments = workOrderTransformer.toWorkOrderCommentVos(workOrderService.findWorkOrderComments("%", order, 0, 9999));
+        return new ResponseEntity<List<WorkOrderComment>>(workOrderComments, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/work-orders/{referenceNo}/work-order-comments")
+    public ResponseEntity<ApplicationSuccess> addComment(@PathVariable String referenceNo, @RequestBody WorkOrderComment vo) {
+        DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
+        DexWorkOrderComment comment = new DexWorkOrderCommentImpl();
+        comment.setBody(vo.getBody());
+        comment.setPoster(securityService.getCurrentUser());
+        workOrderService.addWorkOrderComment(order, comment);
+        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess(), HttpStatus.OK);
+    }
+
+    // todo: remove comment
 }
 
 

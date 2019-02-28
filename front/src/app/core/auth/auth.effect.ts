@@ -134,7 +134,6 @@ export class AuthEffects implements OnInit, OnDestroy {
     }
 
     navigateOnSuccess(): void {
-        console.log(`%cnavigate on success`, 'background:red', this.redirectUrl);
         if (this.redirectUrl) {
             this.router.navigateByUrl(this.redirectUrl);
         } else {

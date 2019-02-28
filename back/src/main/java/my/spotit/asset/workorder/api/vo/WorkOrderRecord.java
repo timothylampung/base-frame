@@ -7,7 +7,7 @@ public class WorkOrderRecord extends Record {
     private String referenceNo;
     private String sourceNo;
     private String description;
-    private WorkOrder order;
+    private WorkOrder workOrder;
 
     public String getReferenceNo() {
         return referenceNo;
@@ -33,11 +33,11 @@ public class WorkOrderRecord extends Record {
         this.description = description;
     }
 
-    public WorkOrder getOrder() {
-        return order;
+    public WorkOrder getWorkOrder() {
+        return workOrder;
     }
 
-    public void setOrder(WorkOrder order) {
-        this.order = order;
+    public void setWorkOrder(WorkOrder workOrder) {
+        this.workOrder = workOrder;
     }
 }

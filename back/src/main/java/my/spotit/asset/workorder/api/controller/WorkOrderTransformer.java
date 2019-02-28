@@ -12,14 +12,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import my.spotit.asset.DexConstants;
-import my.spotit.asset.asset.api.vo.Activity;
-import my.spotit.asset.asset.api.vo.Asset;
-import my.spotit.asset.asset.api.vo.AssetCode;
-import my.spotit.asset.asset.api.vo.Location;
+import my.spotit.asset.asset.api.vo.WorkOrderActivity;
 import my.spotit.asset.asset.business.service.AssetService;
-import my.spotit.asset.asset.domain.model.DexAsset;
-import my.spotit.asset.asset.domain.model.DexAssetCode;
-import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.common.api.controller.CommonTransformer;
 import my.spotit.asset.common.business.service.CommonService;
 import my.spotit.asset.core.api.FlowState;
@@ -28,16 +22,16 @@ import my.spotit.asset.core.api.controller.CoreTransformer;
 import my.spotit.asset.identity.api.controller.IdentityTransformer;
 import my.spotit.asset.workflow.business.service.WorkflowService;
 import my.spotit.asset.workorder.api.vo.WorkOrder;
+import my.spotit.asset.workorder.api.vo.WorkOrderComment;
 import my.spotit.asset.workorder.api.vo.WorkOrderLog;
 import my.spotit.asset.workorder.api.vo.WorkOrderRecordSummary;
 import my.spotit.asset.workorder.api.vo.WorkOrderTask;
 import my.spotit.asset.workorder.api.vo.WorkOrderTaskSummary;
 import my.spotit.asset.workorder.business.service.WorkOrderService;
-import my.spotit.asset.workorder.domain.model.DexActivity;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivity;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderComment;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
-
-import static org.flowable.job.service.impl.JobQueryProperty.JOB_ID;
 
 @Component("workOrderTransformer")
 public class WorkOrderTransformer {
@@ -91,9 +85,9 @@ public class WorkOrderTransformer {
         return vo;
     }
 
-    public Activity toActivityVo(DexActivity e) {
+    public WorkOrderActivity toWorkOrderActivityVo(DexWorkOrderActivity e) {
         if (null == e) return null;
-        Activity vo = new Activity();
+        WorkOrderActivity vo = new WorkOrderActivity();
         vo.setId(e.getId());
         vo.setDescription(e.getDescription());
         return vo;
@@ -104,7 +98,17 @@ public class WorkOrderTransformer {
         WorkOrderLog vo = new WorkOrderLog();
         vo.setId(e.getId());
         vo.setStartTime(e.getStartTime());
-        vo.setEndTime(e.getEndTime());
+        vo.setStopTime(e.getStopTime());
+        vo.setLogger(identityTransformer.toUserVo(e.getLogger()));
+        return vo;
+    }
+
+    public WorkOrderComment toWorkOrderCommentVo(DexWorkOrderComment e) {
+        if (null == e) return null;
+        WorkOrderComment vo = new WorkOrderComment();
+        vo.setId(e.getId());
+        vo.setBody(e.getBody());
+        vo.setPoster(identityTransformer.toUserVo(e.getPoster()));
         return vo;
     }
 
@@ -131,7 +135,7 @@ public class WorkOrderTransformer {
         vo.setDescription(job.getDescription());
         vo.setCandidate(vo.getCandidate());
         vo.setAssignee(vo.getAssignee());
-        vo.setOrder(toWorkOrderVo(job));
+        vo.setWorkOrder(toWorkOrderVo(job));
 
         vo.setFlowState(FlowState.get(job.getFlowdata().getState().ordinal()));
         vo.setMetaState(MetaState.get(job.getMetadata().getState().ordinal()));
@@ -164,9 +168,9 @@ public class WorkOrderTransformer {
         return vos;
     }
 
-    public List<Activity> toActivityVos(List<DexActivity> e) {
-        List<Activity> vos = e.stream()
-                .map((e1) -> toActivityVo(e1))
+    public List<WorkOrderActivity> toWorkOrderActivityVos(List<DexWorkOrderActivity> e) {
+        List<WorkOrderActivity> vos = e.stream()
+                .map((e1) -> toWorkOrderActivityVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }
@@ -174,6 +178,13 @@ public class WorkOrderTransformer {
     public List<WorkOrderLog> toWorkOrderLogVos(List<DexWorkOrderLog> e) {
         List<WorkOrderLog> vos = e.stream()
                 .map((e1) -> toWorkOrderLogVo(e1))
+                .collect(Collectors.toList());
+        return vos;
+    }
+
+    public List<WorkOrderComment> toWorkOrderCommentVos(List<DexWorkOrderComment> e) {
+        List<WorkOrderComment> vos = e.stream()
+                .map((e1) -> toWorkOrderCommentVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }

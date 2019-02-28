@@ -4,11 +4,14 @@ import my.spotit.asset.core.domain.DexMetaState;
 import my.spotit.asset.core.domain.DexMetadata;
 import my.spotit.asset.core.domain.GenericDaoSupport;
 import my.spotit.asset.identity.domain.model.DexUser;
-import my.spotit.asset.workorder.domain.model.DexActivity;
-import my.spotit.asset.workorder.domain.model.DexActivityImpl;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivity;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivityImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderComment;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderCommentImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderLog;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderLogImpl;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -40,8 +43,18 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
-    public DexActivity findActivityById(Long id) {
-        return entityManager.find(DexActivityImpl.class, id);
+    public DexWorkOrderActivity findActivityById(Long id) {
+        return entityManager.find(DexWorkOrderActivityImpl.class, id);
+    }
+
+    @Override
+    public DexWorkOrderLog findLogById(Long id) {
+        return entityManager.find(DexWorkOrderLogImpl.class, id);
+    }
+
+    @Override
+    public DexWorkOrderComment findCommentById(Long id) {
+        return entityManager.find(DexWorkOrderCommentImpl.class, id);
     }
 
     @Override
@@ -49,7 +62,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
         Query query = entityManager.createQuery("select s from DexWorkOrderLog s where " +
                 " s.workOrder = :order " +
                 "and s.startTime is not null " +
-                "and s.endTime is null " +
+                "and s.stopTime is null " +
                 "and s.metadata.state = :state ");
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);
@@ -70,7 +83,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
-    public List<DexActivity> findActivities(String filter, DexWorkOrder order, Integer offset, Integer limit) {
+    public List<DexWorkOrderActivity> findActivities(String filter, DexWorkOrder order, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexActivity s where " +
                 "upper(s.description) like upper(:filter) " +
                 "and s.workOrder = :order " +
@@ -80,17 +93,17 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
         query.setParameter("state", DexMetaState.ACTIVE);
         query.setFirstResult(offset);
         query.setMaxResults(limit);
-        return (List<DexActivity>) query.getResultList();
+        return (List<DexWorkOrderActivity>) query.getResultList();
     }
 
     @Override
-    public List<DexActivity> findActivities(DexWorkOrder order) {
+    public List<DexWorkOrderActivity> findActivities(DexWorkOrder order) {
         Query query = entityManager.createQuery("select s from DexActivity s where " +
                 " s.workOrder = :order " +
                 "and s.metadata.state = :state ");
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);
-        return (List<DexActivity>) query.getResultList();
+        return (List<DexWorkOrderActivity>) query.getResultList();
     }
 
     @Override
@@ -111,6 +124,26 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);
         return (List<DexWorkOrderLog>) query.getResultList();
+    }
+
+    @Override
+    public List<DexWorkOrderComment> findComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
+        Query query = entityManager.createQuery("select s from DexWorkOrderComment s where " +
+                " s.workOrder = :order " +
+                "and s.metadata.state = :state ");
+        query.setParameter("order", workOrder);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return (List<DexWorkOrderComment>) query.getResultList();
+    }
+
+    @Override
+    public List<DexWorkOrderComment> findComments(DexWorkOrder order) {
+        Query query = entityManager.createQuery("select s from DexWorkOrderComment s where " +
+                " s.workOrder = :order " +
+                "and s.metadata.state = :state ");
+        query.setParameter("order", order);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return (List<DexWorkOrderComment>) query.getResultList();
     }
 
     @Override
@@ -169,11 +202,21 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
+    public Integer countComment(DexWorkOrder workOrder) {
+        Query query = entityManager.createQuery("select count(s) from DexWorkOrderComment s where " +
+                "s.workOrder = :order " +
+                "and s.metadata.state = :state ");
+        query.setParameter("order", workOrder);
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    @Override
     public boolean hasUnendedLog(DexWorkOrder order) {
         Query query = entityManager.createQuery("select count(s) from DexWorkOrderLog s where " +
                 " s.workOrder = :order " +
                 "and s.startTime is not null " +
-                "and s.endTime is null " +
+                "and s.stopTime is null " +
                 "and s.metadata.state = :state ");
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);
@@ -181,7 +224,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
-    public void addActivity(DexWorkOrder wo, DexActivity activity, DexUser user) {
+    public void addActivity(DexWorkOrder wo, DexWorkOrderActivity activity, DexUser user) {
         Validate.notNull(user, "User cannot be null");
         activity.setWorkOrder(wo);
 
@@ -195,7 +238,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
-    public void updateActivity(DexWorkOrder wo, DexActivity activity, DexUser user) {
+    public void updateActivity(DexWorkOrder wo, DexWorkOrderActivity activity, DexUser user) {
         Validate.notNull(user, "User cannot be null");
         activity.setWorkOrder(wo);
 
@@ -208,7 +251,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
-    public void deleteActivity(DexWorkOrder wo, DexActivity activity, DexUser user) {
+    public void deleteActivity(DexWorkOrder wo, DexWorkOrderActivity activity, DexUser user) {
         Validate.notNull(user, "User cannot be null");
         entityManager.remove(activity);
     }
@@ -244,5 +287,38 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     public void deleteLog(DexWorkOrder wo, DexWorkOrderLog log, DexUser user) {
         Validate.notNull(user, "User cannot be null");
         entityManager.remove(log);
+    }
+
+    @Override
+    public void addComment(DexWorkOrder wo, DexWorkOrderComment comment, DexUser user) {
+        Validate.notNull(user, "User cannot be null");
+        comment.setWorkOrder(wo);
+
+        // prepare metadata
+        DexMetadata metadata = new DexMetadata();
+        metadata.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setCreatorId(user.getId());
+        metadata.setState(DexMetaState.ACTIVE);
+        comment.setMetadata(metadata);
+        entityManager.persist(comment);
+    }
+
+    @Override
+    public void updateComment(DexWorkOrder wo, DexWorkOrderComment comment, DexUser user) {
+        Validate.notNull(user, "User cannot be null");
+        comment.setWorkOrder(wo);
+
+        // prepare metadata
+        DexMetadata metadata = comment.getMetadata();
+        metadata.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+        metadata.setModifierId(user.getId());
+        comment.setMetadata(metadata);
+        entityManager.merge(comment);
+    }
+
+    @Override
+    public void deleteComment(DexWorkOrder wo, DexWorkOrderComment comment, DexUser user) {
+        Validate.notNull(user, "User cannot be null");
+        entityManager.remove(comment);
     }
 }

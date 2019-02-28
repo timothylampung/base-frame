@@ -9,14 +9,18 @@ import {
 } from './work-order.model';
 import {
     workOrderCountTaskReducer,
-    activitiesReducer,
     workOrderRecordResultReducer,
     workOrderReducer,
     workOrderResultReducer,
     workOrderTaskReducer,
     workOrderTaskResultReducer,
+    workOrderActivitiesReducer,
+    workOrderLogsReducer,
+    workOrderCommentsReducer,
 } from './work-order.reducer';
-import {Activity} from './activity.model';
+import {WorkOrderActivity} from './work-order-activity.model';
+import {WorkOrderLog} from "./work-order-log.model";
+import {WorkOrderComment} from "./work-order-comment.model";
 
 export const FEATURE_NAME = 'workOrder';
 export const selectWorkOrderState = createFeatureSelector<State, WorkOrderState>(FEATURE_NAME);
@@ -28,7 +32,9 @@ export const reducers: ActionReducerMap<WorkOrderState> = {
     workOrderRecordResult: workOrderRecordResultReducer,
     workOrderResult: workOrderResultReducer,
     workOrder: workOrderReducer,
-    activities: activitiesReducer,
+    workOrderActivities: workOrderActivitiesReducer,
+    workOrderLogs: workOrderLogsReducer,
+    workOrderComments: workOrderCommentsReducer,
 };
 
 export interface WorkOrderState {
@@ -38,7 +44,9 @@ export interface WorkOrderState {
     workOrderRecordResult: WorkOrderRecordSummaryResult;
     workOrderResult: WorkOrderResult;
     workOrder: WorkOrder;
-    activities: Activity[];
+    workOrderActivities: WorkOrderActivity[];
+    workOrderComments: WorkOrderComment[];
+    workOrderLogs: WorkOrderLog[];
 }
 
 export interface State extends AppState {

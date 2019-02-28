@@ -5,12 +5,22 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {Observable, Subject} from "rxjs/index";
 import {map, skip, take, takeUntil, withLatestFrom} from "rxjs/operators";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {Activity} from "../activity.model";
+import {WorkOrderActivity} from "../work-order-activity.model";
 import {AppState} from "../../../core/core.state";
-import {selectActivities} from "../work-order.selector";
+import {
+    selectWorkOrderActivities,
+    selectWorkOrderComments,
+    selectWorkOrderLogs
+} from "../work-order.selector";
 import {WorkOrderTaskSummary} from "../work-order.model";
 import {tap} from "rxjs/internal/operators";
-import {FindActivitiesAction} from "../work-order.action";
+import {
+    FindWorkOrderActivitiesAction,
+    FindWorkOrderCommentsAction,
+    FindWorkOrderLogsAction
+} from "../work-order.action";
+import {WorkOrderLog} from "../work-order-log.model";
+import {WorkOrderComment} from "../work-order-comment.model";
 
 @Component({
     selector: 'dex-work-order-page',
@@ -19,12 +29,12 @@ import {FindActivitiesAction} from "../work-order.action";
 export class WorkOrderPage {
 
     @Input() workOrderTask: WorkOrderTaskSummary;
-    totalAmount = 0;
-    activities: Activity[];
-    activities$: Observable<Activity[]>;
+    activities$: Observable<WorkOrderActivity[]>;
+    logs$: Observable<WorkOrderLog[]>;
+    comments$: Observable<WorkOrderComment[]>;
     destroy$ = new Subject<any>();
     mainForm: FormGroup;
-    displayDialog: boolean;
+    displayCommentDialog: boolean;
     breadcrumbs = [
         {label: 'Work Order'},
         {
@@ -50,43 +60,34 @@ export class WorkOrderPage {
             description: ['', Validators.required],
         });
 
-        this.activities$ = this.store.pipe(select(selectActivities));
-        this.activities$.pipe(takeUntil(this.destroy$)).subscribe(activities => {
-            return this.activities = activities;
-        });
-
-        // todo: date workaround
-        // this.workOrderTask.workOrder.workOrderDate = new Date(this.workOrderTask.workOrder.workOrderDate);
+        this.activities$ = this.store.pipe(select(selectWorkOrderActivities));
+        this.comments$ = this.store.pipe(select(selectWorkOrderComments));
+        this.logs$ = this.store.pipe(select(selectWorkOrderLogs));
         this.mainForm.patchValue(this.workOrderTask.workOrder);
+
         if (this.workOrderTask.referenceNo) {
             this.store.dispatch(
-                new FindActivitiesAction({workOrder: this.workOrderTask.workOrder})
+                new FindWorkOrderCommentsAction({workOrder: this.workOrderTask.workOrder})
+            );
+            this.store.dispatch(
+                new FindWorkOrderLogsAction({workOrder: this.workOrderTask.workOrder})
             );
         }
     }
 
-    showDialog() {
-        this.displayDialog = true;
+    showCommentDialog() {
+        this.displayCommentDialog = true;
     }
 
-    hideDialog() {
-        this.displayDialog = false;
+    hideCommentDialog() {
+        this.displayCommentDialog = false;
     }
 
     validateDocument() {
-        if (this.activities.length === 0) {
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: `Sila masukkan item invois`
-            });
-            return false;
-        }
         return true;
     }
 
     ngOnDestroy() {
-        console.log('%cdestroy', 'background-color:red;color:#fff')
         this.destroy$.next();
         this.destroy$.complete();
     }

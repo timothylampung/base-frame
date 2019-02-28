@@ -6,7 +6,7 @@ import {
     FIND_ARCHIVED_WORK_ORDERS_SUCCESS,
     FIND_ASSIGNED_WORK_ORDERS_SUCCESS,
     FIND_WORK_ORDER_BY_REFERENCE_NO_SUCCESS,
-    FIND_ACTIVITIES_SUCCESS,
+    FIND_WORK_ORDER_ACTIVITIES_SUCCESS,
     FIND_WORK_ORDER_TASK_BY_TASK_ID_SUCCESS,
     FIND_PAGED_WORK_ORDERS_SUCCESS,
     FIND_POOLED_WORK_ORDERS_SUCCESS,
@@ -15,7 +15,7 @@ import {
     FindPagedWorkOrdersSuccessAction,
     FindPooledWorkOrdersSuccessAction,
     NEW_WORK_ORDER_TASK,
-    SELECT_WORK_ORDER
+    SELECT_WORK_ORDER, FIND_WORK_ORDER_LOGS_SUCCESS, FIND_WORK_ORDER_COMMENTS_SUCCESS
 } from "./work-order.action";
 import {
     initStateWorkOrder,
@@ -29,7 +29,9 @@ import {
     WorkOrderTaskSummary,
     WorkOrderTaskSummaryResult
 } from "./work-order.model";
-import {Activity} from "./activity.model";
+import {WorkOrderActivity} from "./work-order-activity.model";
+import {WorkOrderLog} from "./work-order-log.model";
+import {WorkOrderComment} from "./work-order-comment.model";
 
 export function workOrderResultReducer(state = initStateWorkOrderResult,
                                      action: FindPagedWorkOrdersSuccessAction): WorkOrderResult {
@@ -125,9 +127,29 @@ export function workOrderReducer(state = initStateWorkOrder, action): WorkOrder 
     }
 }
 
-export function activitiesReducer(state = [], action): Activity[] {
+export function workOrderActivitiesReducer(state = [], action): WorkOrderActivity[] {
     switch (action.type) {
-        case FIND_ACTIVITIES_SUCCESS:
+        case FIND_WORK_ORDER_ACTIVITIES_SUCCESS:
+            return [...action.payload];
+        default: {
+            return state;
+        }
+    }
+}
+
+export function workOrderLogsReducer(state = [], action): WorkOrderLog[] {
+    switch (action.type) {
+        case FIND_WORK_ORDER_LOGS_SUCCESS:
+            return [...action.payload];
+        default: {
+            return state;
+        }
+    }
+}
+
+export function workOrderCommentsReducer(state = [], action): WorkOrderComment[] {
+    switch (action.type) {
+        case FIND_WORK_ORDER_COMMENTS_SUCCESS:
             return [...action.payload];
         default: {
             return state;

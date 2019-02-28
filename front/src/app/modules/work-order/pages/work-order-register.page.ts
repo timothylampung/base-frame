@@ -84,7 +84,7 @@ export class WorkOrderRegisterPage extends WorkOrderPage implements OnInit {
     }
 
     addActivity() {
-        this.showDialog();
+        this.showCommentDialog();
     }
 
     viewAbout() {

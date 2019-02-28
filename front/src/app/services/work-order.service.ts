@@ -10,7 +10,10 @@ import {
     WorkOrderTaskSummary,
     WorkOrderTaskSummaryResult
 } from '../modules/work-order/work-order.model';
-import {Activity} from "../modules/work-order/activity.model";
+import {WorkOrderActivity} from "../modules/work-order/work-order-activity.model";
+import {WorkOrderComment} from "../modules/work-order/work-order-comment.model";
+import {WorkOrderLog} from "../modules/work-order/work-order-log.model";
+import {ApplicationSuccess} from "../models/application-success.model";
 
 @Injectable()
 export class WorkOrderService {
@@ -28,9 +31,19 @@ export class WorkOrderService {
         return this.http.get<WorkOrder>(url);
     }
 
-    findActivities(workOrder: WorkOrder): Observable<Activity[]> {
-        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/activities`;
-        return this.http.get<Activity[]>(url);
+    findWorkOrderActivities(workOrder: WorkOrder): Observable<WorkOrderActivity[]> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/work-order-comments`;
+        return this.http.get<WorkOrderActivity[]>(url);
+    }
+
+    findWorkOrderComments(workOrder: WorkOrder): Observable<WorkOrderComment[]> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/work-order-comments`;
+        return this.http.get<WorkOrderComment[]>(url);
+    }
+
+    findWorkOrderLogs(workOrder: WorkOrder): Observable<WorkOrderLog[]> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/work-order-logs`;
+        return this.http.get<WorkOrderLog[]>(url);
     }
 
     findAssignedWorkOrders(filter: string, page: number): Observable<WorkOrderTaskSummaryResult> {
@@ -111,18 +124,28 @@ export class WorkOrderService {
         return this.http.put(url, JSON.stringify(workOrder));
     }
 
-    addActivity(workOrder: WorkOrder, item: Activity): Observable<Activity> {
-        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/activities`;
-        return this.http.post<Activity>(url, item);
+    addWorkOrderComment(workOrder: WorkOrder, item: WorkOrderComment): Observable<WorkOrderComment> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/work-order-comments`;
+        return this.http.post<WorkOrderComment>(url, item);
     }
 
-    updateActivity(workOrder: WorkOrder, item: Activity): Observable<Activity> {
-        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/activities/${item.id}`;
-        return this.http.put<Activity>(url, JSON.stringify(item));
+    updateWorkOrderComment(workOrder: WorkOrder, item: WorkOrderComment): Observable<WorkOrderComment> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/work-order-comments/${item.id}`;
+        return this.http.put<WorkOrderComment>(url, JSON.stringify(item));
     }
 
-    deleteActivity(workOrder: WorkOrder, item: Activity) {
-        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/activities/${item.id}`;
+    deleteWorkOrderComment(workOrder: WorkOrder, item: WorkOrderComment) {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/work-order-comments/${item.id}`;
         return this.http.delete(url);
+    }
+
+    startWorkOrderLog(workOrder: WorkOrder): Observable<ApplicationSuccess> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/start-work-order-log`;
+        return this.http.post<ApplicationSuccess>(url, null);
+    }
+
+    stopWorkOrderLog(workOrder: WorkOrder):Observable<ApplicationSuccess> {
+        const url = `${this.WORK_ORDER_API}/${workOrder.referenceNo}/stop-work-order-log`;
+        return this.http.post<ApplicationSuccess>(url, null);
     }
 }

@@ -1,13 +1,10 @@
-import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Action, select, Store} from '@ngrx/store';
-import {forkJoin, Observable, of} from 'rxjs';
+import {forkJoin, from, Observable, of} from 'rxjs';
 import * as _ from 'lodash';
 import {
-    ADD_ACTIVITY,
-    AddActivityAction,
-    AddActivitySuccessAction,
     CLAIM_WORK_ORDER_TASK,
     ClaimWorkOrderTaskAction,
     ClaimWorkOrderTaskSuccessAction,
@@ -21,7 +18,7 @@ import {
     FIND_ARCHIVED_WORK_ORDERS,
     FIND_ASSIGNED_WORK_ORDERS,
     FIND_WORK_ORDER_BY_REFERENCE_NO,
-    FIND_ACTIVITIES,
+    FIND_WORK_ORDER_ACTIVITIES,
     FIND_WORK_ORDER_RECORD_BY_RECORD_ID,
     FIND_WORK_ORDER_TASK_BY_TASK_ID,
     FIND_PAGED_WORK_ORDERS,
@@ -32,8 +29,8 @@ import {
     FindAssignedWorkOrdersSuccessAction,
     FindWorkOrderByReferenceNoAction,
     FindWorkOrderByReferenceNoSuccessAction,
-    FindActivitiesAction,
-    FindActivitiesSuccessAction,
+    FindWorkOrderActivitiesAction,
+    FindWorkOrderActivitiesSuccessAction,
     FindWorkOrderRecordByRecordIdAction,
     FindWorkOrderRecordByRecordIdSuccessAction,
     FindWorkOrderTaskByTaskIdAction,
@@ -47,27 +44,42 @@ import {
     ReleaseWorkOrderTaskSuccessAction,
     RELOAD_WORK_ORDER_PAGE,
     ReloadWorkOrderPageAction,
-    REMOVE_ACTIVITY,
     REMOVE_WORK_ORDER_TASK,
-    RemoveActivityAction,
-    RemoveActivitySuccessAction,
     RemoveWorkOrderTaskAction,
     RemoveWorkOrderTaskSuccessAction,
     START_WORK_ORDER_TASK,
     StartWorkOrderTaskAction,
     StartWorkOrderTaskSuccessAction,
     UPDATE_WORK_ORDER,
-    UPDATE_ACTIVITY,
     UpdateWorkOrderAction,
-    UpdateActivityAction,
-    UpdateActivitySuccessAction,
     UpdateWorkOrderSuccessAction,
+    FindWorkOrderCommentsAction,
+    FindWorkOrderLogsAction,
+    FIND_WORK_ORDER_LOGS,
+    FindWorkOrderLogsSuccessAction,
+    FIND_WORK_ORDER_COMMENTS,
+    FindWorkOrderCommentsSuccessAction,
+    UpdateWorkOrderCommentAction,
+    UPDATE_WORK_ORDER_COMMENT,
+    UpdateWorkOrderCommentSuccessAction,
+    REMOVE_WORK_ORDER_COMMENT,
+    RemoveWorkOrderCommentAction,
+    RemoveWorkOrderCommentSuccessAction,
+    AddWorkOrderCommentAction,
+    ADD_WORK_ORDER_COMMENT,
+    AddWorkOrderCommentSuccessAction,
+    START_WORK_ORDER_LOG,
+    StartWorkOrderLogAction,
+    StartWorkOrderLogSuccessAction,
+    StopWorkOrderLogAction,
+    STOP_WORK_ORDER_LOG,
+    StopWorkOrderLogSuccessAction,
 } from './work-order.action';
 import {WorkOrderService} from '../../services/work-order.service';
 import {Router} from '@angular/router';
 import {selectWorkOrder, selectWorkOrderTask} from './work-order.selector';
 import {AppState} from '../../core/core.state';
-import {Activity} from "./activity.model";
+import {WorkOrderActivity} from "./work-order-activity.model";
 import {concatMap} from "rxjs/internal/operators";
 import {WorkOrder} from "./work-order.model";
 import {LoadError} from "../../static/app.action";
@@ -88,27 +100,51 @@ export class WorkOrderEffects {
             return this.workOrderService
                 .findWorkOrderByReferenceNo(referenceNo)
                 .pipe(
-                    map(
-                        result =>
-                            new FindWorkOrderByReferenceNoSuccessAction(result)
-                    ),
+                    map(result => new FindWorkOrderByReferenceNoSuccessAction(result)),
                     catchError(err => of(new LoadError(err)))
                 );
-        })
-    );
-
+        }),
+        mergeMap(action => from([action,
+            new FindWorkOrderCommentsAction({workOrder: action.payload}),
+            new FindWorkOrderActivitiesAction({workOrder: action.payload}),
+            new FindWorkOrderLogsAction({workOrder: action.payload}),
+        ])));
 
     @Effect()
-    public findActivities$: Observable<Action> = this.actions$.pipe(
-        ofType(FIND_ACTIVITIES),
-        map((action: FindActivitiesAction) => action.payload),
-        switchMap(payload => {
-            return forkJoin(
-                this.workOrderService.findActivities(payload.workOrder),
-                of(payload.workOrder)
-            );
-        }),
-        concatMap((z: Activity[]) => [new FindActivitiesSuccessAction(z)]));
+    public findWorkOrderActivities$: Observable<Action> = this.actions$.pipe(
+        ofType(FIND_WORK_ORDER_ACTIVITIES),
+        map((action: FindWorkOrderActivitiesAction) => action.payload),
+        switchMap(payload => this.workOrderService.findWorkOrderActivities(payload.workOrder)
+            .pipe(
+                map(result => new FindWorkOrderActivitiesSuccessAction(result)),
+                catchError(err => of(new LoadError(err)))
+            )
+        )
+    );
+
+    @Effect()
+    public findWorkOrderLogs$: Observable<Action> = this.actions$.pipe(
+        ofType(FIND_WORK_ORDER_LOGS),
+        map((action: FindWorkOrderLogsAction) => action.payload),
+        switchMap(payload => this.workOrderService.findWorkOrderLogs(payload.workOrder)
+            .pipe(
+                map(result => new FindWorkOrderLogsSuccessAction(result)),
+                catchError(err => of(new LoadError(err)))
+            )
+        )
+    );
+
+    @Effect()
+    public findWorkOrderComments$: Observable<Action> = this.actions$.pipe(
+        ofType(FIND_WORK_ORDER_COMMENTS),
+        map((action: FindWorkOrderCommentsAction) => action.payload),
+        switchMap(payload => this.workOrderService.findWorkOrderComments(payload.workOrder)
+            .pipe(
+                map(result => new FindWorkOrderCommentsSuccessAction(result)),
+                catchError(err => of(new LoadError(err)))
+            )
+        )
+    );
 
     @Effect()
     public findAssignedWorkOrders$: Observable<Action> = this.actions$.pipe(
@@ -299,64 +335,95 @@ export class WorkOrderEffects {
     );
 
     @Effect()
-    addActivity$ = this.actions$.pipe(
-        ofType(ADD_ACTIVITY),
-        map((action: AddActivityAction) => action.payload),
+    public reloadWorkOrderPage$: Observable<Action> = this.actions$.pipe(
+        ofType(RELOAD_WORK_ORDER_PAGE),
+        withLatestFrom(this.store.select(selectWorkOrder)),
+        concatMap(([action, workOrder]: [Action, WorkOrder]) =>
+            [new FindWorkOrderActivitiesAction({workOrder: workOrder})]),
+    );
+
+    @Effect()
+    addWorkOrderComment$ = this.actions$.pipe(
+        ofType(ADD_WORK_ORDER_COMMENT),
+        map((action: AddWorkOrderCommentAction) => action.payload),
         switchMap(payload =>
-            this.workOrderService.addActivity(
+            this.workOrderService.addWorkOrderComment(
                 payload.workOrder,
-                payload.workOrderItem
+                payload.comment
             ).pipe(
-                map(item => new AddActivitySuccessAction(item)),
+                map(item => new AddWorkOrderCommentSuccessAction(item)),
                 withLatestFrom(this.store.pipe(select(selectWorkOrderTask))),
                 map((latest) => latest[1]),
-                map((task) => new FindActivitiesAction({workOrder: task.workOrder})),
+                map((task) => new FindWorkOrderCommentsAction({workOrder: task.workOrder})),
                 catchError(err => of(new LoadError(err)))
             )
         )
     );
 
     @Effect()
-    updateActivity$ = this.actions$.pipe(
-        ofType(UPDATE_ACTIVITY),
-        map((action: UpdateActivityAction) => action.payload),
+    updateWorkOrderComment$ = this.actions$.pipe(
+        ofType(UPDATE_WORK_ORDER_COMMENT),
+        map((action: UpdateWorkOrderCommentAction) => action.payload),
         switchMap(payload =>
-            this.workOrderService.updateActivity(
+            this.workOrderService.updateWorkOrderComment(
                 payload.workOrder,
-                payload.workOrderItem
+                payload.comment
             ).pipe(
-                map(item => new UpdateActivitySuccessAction(item)),
+                map(item => new UpdateWorkOrderCommentSuccessAction(item)),
                 withLatestFrom(this.store.pipe(select(selectWorkOrderTask))),
                 map((latest) => latest[1]),
-                map((task) => new FindActivitiesAction({workOrder: task.workOrder})),
+                map((task) => new FindWorkOrderCommentsAction({workOrder: task.workOrder})),
                 catchError(err => of(new LoadError(err)))
             )
         )
     );
 
     @Effect()
-    deleteActivity$ = this.actions$.pipe(
-        ofType(REMOVE_ACTIVITY),
-        map((action: RemoveActivityAction) => action.payload),
+    deleteWorkOrderComment$ = this.actions$.pipe(
+        ofType(REMOVE_WORK_ORDER_COMMENT),
+        map((action: RemoveWorkOrderCommentAction) => action.payload),
         switchMap(payload =>
-            this.workOrderService.deleteActivity(
+            this.workOrderService.deleteWorkOrderComment(
                 payload.workOrder,
-                payload.workOrderItem
+                payload.comment
             ).pipe(
-                map(message => new RemoveActivitySuccessAction({message: 'success'})),
+                map(message => new RemoveWorkOrderCommentSuccessAction({message: 'success'})),
                 withLatestFrom(this.store.pipe(select(selectWorkOrderTask))),
                 map((latest) => latest[1]),
-                map((task) => new FindActivitiesAction({workOrder: task.workOrder})),
+                map((task) => new FindWorkOrderCommentsAction({workOrder: task.workOrder})),
                 catchError(err => of(new LoadError(err)))
             )
         ),
     );
 
     @Effect()
-    public reloadWorkOrderPage$: Observable<Action> = this.actions$.pipe(
-        ofType(RELOAD_WORK_ORDER_PAGE),
-        withLatestFrom(this.store.select(selectWorkOrder)),
-        concatMap(([action, workOrder]: [Action, WorkOrder]) =>
-            [new FindActivitiesAction({workOrder: workOrder})]),
+    startWorkOrderLog$ = this.actions$.pipe(
+        ofType(START_WORK_ORDER_LOG),
+        map((action: StartWorkOrderLogAction) => action.payload),
+        switchMap(payload =>
+            this.workOrderService.startWorkOrderLog(payload)
+                .pipe(
+                map(message => new StartWorkOrderLogSuccessAction({message:'success'})),
+                withLatestFrom(this.store.pipe(select(selectWorkOrderTask))),
+                map((latest) => latest[1]),
+                map((task) => new FindWorkOrderLogsAction({workOrder: task.workOrder})),
+                catchError(err => of(new LoadError(err)))
+            )
+        )
+    );
+    @Effect()
+    stopWorkOrderLog$ = this.actions$.pipe(
+        ofType(STOP_WORK_ORDER_LOG),
+        map((action: StopWorkOrderLogAction) => action.payload),
+        switchMap(payload =>
+            this.workOrderService.stopWorkOrderLog(payload)
+                .pipe(
+                map(message => new StopWorkOrderLogSuccessAction({message:'success'})),
+                withLatestFrom(this.store.pipe(select(selectWorkOrderTask))),
+                map((latest) => latest[1]),
+                map((task) => new FindWorkOrderLogsAction({workOrder: task.workOrder})),
+                catchError(err => of(new LoadError(err)))
+            )
+        )
     );
 }

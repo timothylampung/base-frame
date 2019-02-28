@@ -9,7 +9,9 @@ export const selectWorkOrderAssignedCount = createSelector(selectWorkOrderState,
 export const selectWorkOrderPooledCount = createSelector(selectWorkOrderState, state => state.workOrderCountTask);
 
 export const selectWorkOrder = createSelector(selectWorkOrderState, state => state.workOrder);
-export const selectActivities = createSelector(selectWorkOrderState, state => state.activities);
+export const selectWorkOrderActivities = createSelector(selectWorkOrderState, state => state.workOrderActivities);
+export const selectWorkOrderComments = createSelector(selectWorkOrderState, state => state.workOrderComments);
+export const selectWorkOrderLogs = createSelector(selectWorkOrderState, state => state.workOrderLogs);
 
 export const selectWorkOrderAssignedTaskResult = createSelector(selectWorkOrderState, state => state.workOrderTaskResult);
 export const selectWorkOrderAssignedTasks = createSelector(selectWorkOrderAssignedTaskResult, state => state.data);

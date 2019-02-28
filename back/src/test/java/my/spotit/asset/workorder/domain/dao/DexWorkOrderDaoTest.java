@@ -3,8 +3,8 @@ package my.spotit.asset.workorder.domain.dao;
 
 import my.spotit.AbstractTest;
 import my.spotit.asset.asset.domain.dao.DexAssetDao;
-import my.spotit.asset.workorder.domain.model.DexActivity;
-import my.spotit.asset.workorder.domain.model.DexActivityImpl;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivity;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivityImpl;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class DexWorkOrderDaoTest extends AbstractTest {
         entityManager.refresh(workOrder);
 
 
-        DexActivity activity = new DexActivityImpl();
+        DexWorkOrderActivity activity = new DexWorkOrderActivityImpl();
         activity.setDescription("DESC");
         activity.setWorkOrder(workOrder);
 //        activityDao.save(activity,getCurrentUser());//TODO identity helper

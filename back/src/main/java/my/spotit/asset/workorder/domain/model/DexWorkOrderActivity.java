@@ -2,7 +2,7 @@ package my.spotit.asset.workorder.domain.model;
 
 import my.spotit.asset.core.domain.DexMetaObject;
 
-public interface DexActivity  extends DexMetaObject  {
+public interface DexWorkOrderActivity extends DexMetaObject  {
 
     String getDescription();
 

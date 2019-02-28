@@ -5,7 +5,7 @@ import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.helper.IdentityServiceHelper;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.workflow.business.service.WorkflowService;
-import my.spotit.asset.workorder.domain.model.DexActivity;
+import my.spotit.asset.workorder.domain.model.DexWorkOrderActivity;
 import my.spotit.asset.workorder.domain.model.DexWorkOrder;
 import my.spotit.asset.workorder.domain.model.DexWorkOrderImpl;
 
@@ -130,14 +130,14 @@ public class WorkOrderServiceImplTest extends AbstractTest {
 
     @Test
     public void findActivityByCode() {
-        List<DexActivity> activities = workOrderService.findActivities("ODSS", null, 0, 999); // todo
+        List<DexWorkOrderActivity> activities = workOrderService.findWorkOrderActivities("ODSS", null, 0, 999); // todo
         LOG.debug("TEST: " + activities.isEmpty());
     }
 
     @Test
     public void findActivitys() {
-        List<DexActivity> Activities = null; // tod workOrderService.findActivities("%",null 0,999);
-        for (DexActivity activity : Activities) {
+        List<DexWorkOrderActivity> Activities = null; // tod workOrderService.findWorkOrderActivities("%",null 0,999);
+        for (DexWorkOrderActivity activity : Activities) {
             LOG.debug("TEST: " + activity.getDescription());
         }
     }

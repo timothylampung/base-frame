@@ -5,7 +5,7 @@ import my.spotit.asset.core.api.MetaObject;
 /**
  * @author canang technologies
  */
-public class Activity extends MetaObject {
+public class WorkOrderActivity extends MetaObject {
     private String description;
 
     public String getDescription() {

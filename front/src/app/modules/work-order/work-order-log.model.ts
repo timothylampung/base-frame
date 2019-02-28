@@ -1,4 +1,7 @@
+import {User} from "../identity/principals/user/user.model";
+
 export interface WorkOrderLog {
     startTime: Date;
-    endTime: Date;
+    stopTime: Date;
+    logger: User;
 }

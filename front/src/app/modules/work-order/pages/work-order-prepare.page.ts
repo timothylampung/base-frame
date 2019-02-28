@@ -2,27 +2,27 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {Activity} from '../activity.model';
+import {WorkOrderActivity} from '../work-order-activity.model';
 import {
+    AddWorkOrderCommentAction,
     CompleteWorkOrderTaskAction,
-    RemoveWorkOrderTaskAction,
+    RemoveWorkOrderTaskAction, StartWorkOrderLogAction, StopWorkOrderLogAction,
     UpdateWorkOrderAction,
 } from '../work-order.action';
 import {WorkOrderPage} from "./work-order.page";
 import {BreadcrumbService} from "../../../breadcrumb.service";
 import {AppState} from "../../../core/core.state";
 import {About} from "../../../models";
+import {Observable} from "rxjs";
+import {WorkOrderComment} from "../work-order-comment.model";
 
 @Component({
-    selector: 'dex-work-order-draft-page',
-    templateUrl: './work-order-draft.page.html',
-    styleUrls: ['./work-order-draft.page.css']
+    selector: 'dex-work-order-prepare-page',
+    templateUrl: './work-order-prepare.page.html',
+    styleUrls: ['./work-order-prepare.page.css']
 })
-export class WorkOrderDraftPage extends WorkOrderPage implements OnInit {
+export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
     selectedAbout: About;
-    cols = [
-        {field: 'description', header: 'Keterangan'},
-    ];
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
@@ -84,13 +84,35 @@ export class WorkOrderDraftPage extends WorkOrderPage implements OnInit {
         });
     }
 
-    addActivity() {
-        this.showDialog();
+    addComment() {
+        this.showCommentDialog();
+    }
+
+    startLog() {
+        this.store.dispatch(
+            new StartWorkOrderLogAction(this.workOrderTask.workOrder)
+        );
+    }
+
+    stopLog() {
+        this.store.dispatch(
+            new StopWorkOrderLogAction(this.workOrderTask.workOrder)
+        );
+    }
+
+    onSaveComment(comment: WorkOrderComment) {
+        console.log(JSON.stringify(this.workOrderTask.workOrder));
+        this.store.dispatch(
+            new AddWorkOrderCommentAction({
+                workOrder: this.workOrderTask.workOrder,
+                comment: comment
+            })
+        );
+        this.hideCommentDialog();
     }
 
     viewAbout() {
         this.selectedAbout = null;
         // this.showAboutDialog();
     }
-
 }

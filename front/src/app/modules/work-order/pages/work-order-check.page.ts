@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {Activity} from '../activity.model';
+import {WorkOrderActivity} from '../work-order-activity.model';
 import {
     CompleteWorkOrderTaskAction,
     RemoveWorkOrderTaskAction,
@@ -85,7 +85,7 @@ export class WorkOrderCheckPage extends WorkOrderPage implements OnInit {
     }
 
     addActivity() {
-        this.showDialog();
+        this.showCommentDialog();
     }
 
     viewAbout() {
