@@ -105,7 +105,7 @@ public class AssetTransformer {
     // =============================================================================================
 
     public Location toLocationVo(DexLocation e) {
-        if (null == e) return null;
+        if (e == null) return null;
         Location vo = new Location();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
