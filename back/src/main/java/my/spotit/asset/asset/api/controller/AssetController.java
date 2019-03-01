@@ -83,6 +83,8 @@ public class AssetController {
         asset.setDescription(vo.getDescription());
         asset.setAssetCode(vo.getAssetCode());
         asset.setLocation(vo.getLocation());
+        asset.setCost(vo.getCost());
+        asset.setQuantity(vo.getQuantity());
         assetService.saveAsset(asset);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }

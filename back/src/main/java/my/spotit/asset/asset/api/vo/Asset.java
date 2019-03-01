@@ -7,6 +7,8 @@ import my.spotit.asset.core.api.MetaObject;
 
 public class Asset extends MetaObject {
     private String code;
+    private String cost;
+    private String quantity;
     private String description;
     private DexLocation location;
     private DexAssetCode assetCode;
@@ -29,6 +31,25 @@ public class Asset extends MetaObject {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+
 
     public DexLocation getLocation() {
         return location;

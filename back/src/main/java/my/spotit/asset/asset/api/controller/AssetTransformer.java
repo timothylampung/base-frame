@@ -77,8 +77,8 @@ public class AssetTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setDescription(e.getDescription());
-        /*vo.setAssetCode(e.getAssetCode());
-        vo.setLocation(e.getLocation());*/
+        vo.setAssetCode(e.getAssetCode());
+        vo.setLocation(e.getLocation());
         coreTransformer.toMetadata(e, vo);
         return vo;
     }
