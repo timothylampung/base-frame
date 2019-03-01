@@ -184,12 +184,7 @@ public class IdentityTransformer {
         vo.setMobile(e.getMobile());
         vo.setName(e.getName());
         vo.setPhone(e.getPhone());
-        DexMetadata metadata = e.getMetadata();
-        vo.setCreatedDate(metadata.getCreatedDate());
-        vo.setDeletedDate(metadata.getDeletedDate());
-        vo.setModifiedDate(metadata.getModifiedDate());
         coreTransformer.toMetadata(e, vo);
-        vo.setMetaState(MetaState.get(metadata.getState().ordinal()));
         return vo;
     }
 
