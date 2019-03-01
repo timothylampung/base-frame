@@ -1,5 +1,7 @@
 package my.spotit.asset.maintenance.api.controller;
 
+import my.spotit.asset.asset.api.controller.AssetTransformer;
+import my.spotit.asset.asset.api.vo.Asset;
 import my.spotit.asset.core.api.FlowState;
 import my.spotit.asset.core.api.MetaState;
 import my.spotit.asset.core.api.controller.CoreTransformer;
@@ -29,15 +31,18 @@ public class MaintenanceRequestTransformer {
     private CoreTransformer coreTransformer;
     private WorkflowService workflowService;
     private MaintenanceRequestService maintenanceRequestService;
+    private AssetTransformer assetTransformer;
 
     @Autowired
     public MaintenanceRequestTransformer(IdentityTransformer identityTransformer,
-                                         CoreTransformer coreTransformer, WorkflowService workflowService,
+                                         CoreTransformer coreTransformer,AssetTransformer assetTransformer, WorkflowService workflowService,
                                          MaintenanceRequestService maintenanceRequestService) {
         this.identityTransformer = identityTransformer;
         this.coreTransformer = coreTransformer;
         this.workflowService = workflowService;
         this.maintenanceRequestService = maintenanceRequestService;
+        this.assetTransformer = assetTransformer;
+
     }
 
     public MaintenanceRequest toMaintenanceRequestVo(DexMaintenanceRequest e) {
@@ -46,10 +51,20 @@ public class MaintenanceRequestTransformer {
         MaintenanceRequest vo = new MaintenanceRequest();
         vo.setId(e.getId());
         vo.setDescription(e.getDescription());
+        vo.setRemark(e.getRemark());
+//        Asset asset = assetTransformer.toAssetVo(e.getAsset());
+//        vo.setAsset(asset);
+//        vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
+//        vo.setLocation(assetTransformer.toLocationVo(e.getLocation()));
+        Actor delegator = identityTransformer.toActor(e.getDelegator());
+        vo.setDelegator(delegator);
+        Actor verifier = identityTransformer.toActor(e.getVerifier());
+        vo.setVerifier(verifier);
         Actor requester = identityTransformer.toActor(e.getRequester());
         vo.setRequester(requester);
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         coreTransformer.toMetadata(e, vo);
-        vo.setId(e.getId());
+
         return vo;
     }
 

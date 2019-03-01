@@ -8,12 +8,13 @@ import {Asset} from "../asset/assets/asset-model";
 
 export interface MaintenanceRequest extends Document {
     requestedDate: Date;
-    reporter: Actor;
+    requester: Actor;
     delegator: Actor;
     verifier: Actor;
     location: Location;
     asset: Asset;
     remark:String;
+    reporter:Asset;
 }
 
 export interface MaintenanceRequestResult {
@@ -58,7 +59,8 @@ export const initStateMaintenanceRequest: MaintenanceRequest = {
     flowState: FlowState.NEW,
     sourceNo: null,
     requestedDate:null,
-    reporter: null,
+    requester: null,
+    reporter:null,
     delegator: null,
     verifier: null,
     location: null,

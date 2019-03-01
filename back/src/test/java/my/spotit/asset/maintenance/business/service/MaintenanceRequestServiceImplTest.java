@@ -75,8 +75,8 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
         DexLocation lctn001 = assetService.findLocationByCode("SM_003");
 
         DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
-        request.setRemark("DIM LAMP");
-        request.setDescription("REPLACEMENT");
+        request.setRemark("DIM SUM");
+        request.setDescription("ME WANT");
         request.setRequestedDate(new Date());
         request.setRequester(staff1);
         request.setAsset(ast001);
@@ -85,20 +85,20 @@ public class MaintenanceRequestServiceImplTest extends AbstractTest {
         String referenceNo = maintenanceRequestService.startMaintenanceRequestTask(request);
         LOG.debug("generated referenceNo = " + referenceNo);
 
-       // log in as FM
-        identityServiceHelper.changeUser("fm1");
-        //find serialized workorder and assign task to assignee
-        List<Task> assignedDraftedTasks = maintenanceRequestService.findAssignedMaintenanceRequestTasks("%", 0, 999);
-        Assert.assertTrue(!assignedDraftedTasks.isEmpty());
-        for (Task task : assignedDraftedTasks) {
-            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
-            DexMaintenanceRequest mr = maintenanceRequestService.findMaintenanceRequestById((Long) vars.get(REQUEST_ID));
-            mr.setDelegator(tech1);
-            mr.setVerifier(supervisor1);
-            mr.setDelegated(true);
-            maintenanceRequestService.updateMaintenanceRequest(mr);
-            entityManager.flush();
-            workflowService.completeTask(task);
-        }
+//       // log in as FM
+//        identityServiceHelper.changeUser("fm1");
+//        //find serialized workorder and assign task to assignee
+//        List<Task> assignedDraftedTasks = maintenanceRequestService.findAssignedMaintenanceRequestTasks("%", 0, 999);
+//        Assert.assertTrue(!assignedDraftedTasks.isEmpty());
+//        for (Task task : assignedDraftedTasks) {
+//            Map<String, Object> vars = workflowService.getVariables(task.getExecutionId());
+//            DexMaintenanceRequest mr = maintenanceRequestService.findMaintenanceRequestById((Long) vars.get(REQUEST_ID));
+//            mr.setDelegator(tech1);
+//            mr.setVerifier(supervisor1);
+//            mr.setDelegated(true);
+//            maintenanceRequestService.updateMaintenanceRequest(mr);
+//            entityManager.flush();
+//            workflowService.completeTask(task);
+//        }
     }
 }
