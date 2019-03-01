@@ -18,8 +18,6 @@ import javax.persistence.PersistenceContext;
 public class DexWorkOrderDaoTest extends AbstractTest {
 
     @Autowired
-    private DexActivityDao activityDao;
-    @Autowired
     private DexWorkOrderDao workOrderDao;
     @Autowired
     private DexAssetDao assetDao;
