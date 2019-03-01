@@ -35,7 +35,7 @@ export class WorkOrderArchiveDetailPage implements OnInit {
             routerLink: ['/work-order/work-order-records/detail/:referenceNo']
         },
         {
-            label: 'Butiran Work Order'
+            label: 'Work Order Detail'
         }
     ];
 
@@ -55,6 +55,7 @@ export class WorkOrderArchiveDetailPage implements OnInit {
             workOrderNo: [null],
             sourceNo: [''],
             description: [''],
+            createdDate: [''],
         });
 
         this.activities$ = this.store.pipe(select(selectWorkOrderActivities));
@@ -65,6 +66,8 @@ export class WorkOrderArchiveDetailPage implements OnInit {
 
         this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
                 this.workOrder = workOrder;
+                console.log( this.workOrder);
+
         });
     }
 

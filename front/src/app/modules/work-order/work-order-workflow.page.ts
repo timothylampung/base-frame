@@ -16,7 +16,6 @@ import {Store} from "@ngrx/store";
 import {WorkOrderState} from "./work-order.state";
 import {SelectWorkOrderAction} from "./work-order.action";
 import {FlowState} from "../../models";
-import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
 
 @Component({
     selector: 'dex-work-order-workflow-page',

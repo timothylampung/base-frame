@@ -44,6 +44,10 @@ export class WorkOrderNewPage implements OnInit {
             workOrderNo: [null, Validators.required],
             sourceNo: [''],
             description: ['', Validators.required],
+            requestedDate: ['', Validators.required],
+            requester: ['', Validators.required],
+            asset: [''],
+            location: ['']
         });
 
         // date workaround
@@ -54,9 +58,9 @@ export class WorkOrderNewPage implements OnInit {
     draft() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
+                message: 'Confirm information',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
                 accept: () => {
                     console.log(this.mainForm.value);
                     let workOrder: WorkOrder = {
@@ -69,7 +73,11 @@ export class WorkOrderNewPage implements OnInit {
         }
     }
 
-    validateDocument() {
+    goBack() {
+        window.history.back();
+    }
+
+    validateDocument(){
         return true;
     }
 }
