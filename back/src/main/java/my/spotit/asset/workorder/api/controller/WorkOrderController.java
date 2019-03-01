@@ -248,14 +248,14 @@ public class WorkOrderController {
     @PostMapping(value = "/work-orders/{referenceNo}/start-work-order-log")
     public ResponseEntity<ApplicationSuccess> startLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        workOrderService.startLog(order);
+        workOrderService.startWorkOrderLog(order);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/work-orders/{referenceNo}/stop-work-order-log")
     public ResponseEntity<ApplicationSuccess> stopLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-        workOrderService.stopLog(order);
+        workOrderService.stopWorkOrderLog(order);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess(), HttpStatus.OK);
     }
     //==============================================================================================

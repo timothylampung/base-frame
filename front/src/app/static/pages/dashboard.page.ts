@@ -15,7 +15,9 @@ export class DashboardPage implements OnInit {
 
     lineData: any;
     barData: any;
+    timeData: any;
     changedBarData: any;
+    changedTimeData: any;
     pieData: any;
     polarData: any;
     radarData: any;
@@ -37,7 +39,18 @@ export class DashboardPage implements OnInit {
                 data: []
             }
             ]
-        }
+        };
+
+        this.timeData = {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+            datasets: [{
+                label: 'Work Order Time Spent',
+                backgroundColor: '#2162b0',
+                borderColor: '#2162b0',
+                data: []
+            }
+            ]
+        };
     }
 
     ngOnInit() {
@@ -148,6 +161,26 @@ export class DashboardPage implements OnInit {
                     ]
                 };
                 this.barData = Object.assign({}, this.changedBarData);
+            });
+
+        let tdata = [];
+        this.http.get(this.DASHBOARD_API + '/work-order-weekly-time-spent-projections')
+            .subscribe((projection: any[]) => {
+                projection.forEach(p => {
+                    tdata.push(p.total);
+                });
+
+                this.changedTimeData = {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                    datasets: [{
+                        label: 'Time Spent Weekly',
+                        backgroundColor: '#2162b0',
+                        borderColor: '#2162b0',
+                        data: tdata
+                    }
+                    ]
+                };
+                this.timeData = Object.assign({}, this.changedTimeData);
             });
     }
 }

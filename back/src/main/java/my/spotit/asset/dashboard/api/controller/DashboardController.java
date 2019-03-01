@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import my.spotit.asset.dashboard.api.vo.WorkOrderWeeklyProjection;
+import my.spotit.asset.dashboard.api.vo.WorkOrderWeeklyTimeSpentProjection;
 import my.spotit.asset.dashboard.business.service.DashboardService;
 import my.spotit.asset.dashboard.domain.model.DexWorkOrderWeeklyProjection;
+import my.spotit.asset.dashboard.domain.model.DexWorkOrderWeeklyTimeSpentProjection;
 
 
 @RestController
@@ -37,5 +39,11 @@ public class DashboardController {
     public ResponseEntity<List<WorkOrderWeeklyProjection>> getWorkOrderWeeklyProjections() {
         List<DexWorkOrderWeeklyProjection> projections = dashboardService.findWorkOrderWeeklyProjections();
         return ResponseEntity.ok(dashboardTransformer.toWorkOrderWeeklyProjectionVos(projections));
+    }
+
+    @GetMapping("/work-order-weekly-time-spent-projections")
+    public ResponseEntity<List<WorkOrderWeeklyTimeSpentProjection>> getWorkOrderWeeklyTimeSpentProjections() {
+        List<DexWorkOrderWeeklyTimeSpentProjection> projections = dashboardService.findWorkOrderWeeklyTimeSpentProjections();
+        return ResponseEntity.ok(dashboardTransformer.toWorkOrderWeeklyTimeSpentProjectionVos(projections));
     }
 }

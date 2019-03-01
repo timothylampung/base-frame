@@ -321,7 +321,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public void startLog(DexWorkOrder order) {
+    public void startWorkOrderLog(DexWorkOrder order) {
         if (workOrderDao.hasUnendedLog(order)) {
             DexWorkOrderLog unendedLog = workOrderDao.findUnendedLog(order);
             unendedLog.setStopTime(new Timestamp(System.currentTimeMillis()));
@@ -337,7 +337,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
-    public void stopLog(DexWorkOrder order) {
+    public void stopWorkOrderLog(DexWorkOrder order) {
         if (workOrderDao.hasUnendedLog(order)) {
             DexWorkOrderLog unendedLog = workOrderDao.findUnendedLog(order);
             unendedLog.setStopTime(new Timestamp(System.currentTimeMillis()));

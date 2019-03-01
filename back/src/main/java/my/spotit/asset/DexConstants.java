@@ -18,4 +18,5 @@ public interface DexConstants {
     // common
     public static final String REPORT_PATH = "";
     public static final int LIMIT = 10;
+    public static final int MAX_LIMIT = 999;
 }

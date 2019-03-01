@@ -95,8 +95,8 @@ public interface WorkOrderService {
 
     void serializeToWorkOrder(DexMaintenanceRequest request);
 
-    void startLog(DexWorkOrder order);
+    void startWorkOrderLog(DexWorkOrder order);
 
-    void stopLog(DexWorkOrder order);
+    void stopWorkOrderLog(DexWorkOrder order);
 
 }

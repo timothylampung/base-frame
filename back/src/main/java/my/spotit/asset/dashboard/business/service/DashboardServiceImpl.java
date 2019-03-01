@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import my.spotit.asset.dashboard.domain.model.DexWorkOrderWeeklyProjection;
+import my.spotit.asset.dashboard.domain.model.DexWorkOrderWeeklyTimeSpentProjection;
 
 /**
  * @author canang technologies
@@ -32,6 +33,12 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public List<DexWorkOrderWeeklyProjection> findWorkOrderWeeklyProjections() {
         Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyProjection a group by a.week");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<DexWorkOrderWeeklyTimeSpentProjection> findWorkOrderWeeklyTimeSpentProjections() {
+        Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyTimeSpentProjection a group by a.week, a.total");
         return query.getResultList();
     }
 }
