@@ -32,9 +32,7 @@ import {MaintenanceRequestModule} from "./modules/maintenance/maintenance-reques
 import {InventoryModule} from "./modules/inventory/inventory.module";
 import {WorkOrderModule} from "./modules/work-order/work-order.module";
 import {DashboardPage} from "./static/pages/dashboard.page";
-
-
-
+import {ReportModule} from "./modules/report/report.module";
 
 @NgModule({
     imports: [
@@ -51,8 +49,7 @@ import {DashboardPage} from "./static/pages/dashboard.page";
         MaintenanceRequestModule,
         InventoryModule,
         WorkOrderModule,
-        MaintenanceRequestModule,
-
+        ReportModule,
     ],
     declarations: [
         AppComponent,
