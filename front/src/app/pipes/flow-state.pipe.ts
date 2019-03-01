@@ -8,12 +8,19 @@ export class FlowStatePipe implements PipeTransform {
     if (!value) {
       return value;
     }
+
     switch (FlowState[value.toString()]) {
       case FlowState.DRAFTED : {
         return 'BARU';
       }
       case FlowState.REGISTERED : {
         return 'DAFTAR';
+      }
+      case FlowState.PREPARED : {
+        return 'PREPARED';
+      }
+      case FlowState.CHECKED : {
+        return 'CHECKED';
       }
       case FlowState.VERIFIED : {
         return 'SAH';
@@ -28,6 +35,7 @@ export class FlowStatePipe implements PipeTransform {
         return 'HAPUS';
       }
       default: {
+          console.log('default');
         return value;
       }
     }

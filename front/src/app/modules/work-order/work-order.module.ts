@@ -10,7 +10,7 @@ import {WorkOrderAssignedTaskListPage} from './work-order-assigned-task-list.pag
 import {WorkOrderPooledTaskListPage} from './work-order-pooled-task-list.page';
 import {WorkOrderTaskDetailPage} from './work-order-task-detail.page';
 import {WorkOrderWorkflowPage} from './work-order-workflow.page';
-import {WorkOrderRegisterPage} from './pages/work-order-register.page';
+import {WorkOrderVerifyPage} from './pages/work-order-verify.page';
 import {WorkOrderPreparePage} from './pages/work-order-prepare.page';
 import {WorkOrderTaskNewPage} from './work-order-task-new.page';
 import {WorkOrderNewPage} from './pages/work-order-new.page';
@@ -37,7 +37,7 @@ import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
         WorkOrderNewPage,
         WorkOrderDetailPage,
         WorkOrderPreparePage,
-        WorkOrderRegisterPage,
+        WorkOrderVerifyPage,
         WorkOrderCheckPage,
         WorkOrderAssignedTaskListPage,
         WorkOrderPooledTaskListPage,
@@ -52,7 +52,7 @@ import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
         WorkOrderPage,
         WorkOrderNewPage,
         WorkOrderPreparePage,
-        WorkOrderRegisterPage,
+        WorkOrderVerifyPage,
         WorkOrderCheckPage,
         WorkOrderCommentEditorDialog,
     ],

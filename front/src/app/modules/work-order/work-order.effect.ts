@@ -257,7 +257,7 @@ export class WorkOrderEffects {
         switchMap(workOrder => this.workOrderService.startWorkOrderTask(workOrder)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['workOrder/workOrder-tasks/assigned']);
+                    this.router.navigate(['work-order/work-order-tasks/assigned']);
                     return new StartWorkOrderTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
@@ -271,7 +271,7 @@ export class WorkOrderEffects {
         switchMap(payload => this.workOrderService.completeWorkOrderTask(payload.taskId)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['workOrder/workOrder-tasks/assigned']);
+                    this.router.navigate(['work-order/work-order-tasks/assigned']);
                     return new CompleteWorkOrderTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
@@ -287,7 +287,7 @@ export class WorkOrderEffects {
             this.workOrderService.claimWorkOrderTask(payload.taskIds)
                 .pipe(
                     map(_ => {
-                        this.router.navigate(['workOrder/workOrder-tasks/assigned']);
+                        this.router.navigate(['work-order/work-order-tasks/assigned']);
                         return new ClaimWorkOrderTaskSuccessAction({message: ''});
                     }),
                     catchError(err => of(new LoadError(err)))
@@ -303,7 +303,7 @@ export class WorkOrderEffects {
             this.workOrderService.completeWorkOrderTask(payload.taskId)
                 .pipe(
                     map(_ => {
-                        this.router.navigate(['workOrder/workOrder-tasks/assigned']);
+                        this.router.navigate(['work-order/work-order-tasks/assigned']);
                         return new ReleaseWorkOrderTaskSuccessAction({message: ''});
                     }),
                     catchError(err => of(new LoadError(err)))

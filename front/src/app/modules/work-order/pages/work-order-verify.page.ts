@@ -2,31 +2,34 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
+import {WorkOrderActivity} from '../work-order-activity.model';
 import {
+    AddWorkOrderCommentAction,
     CompleteWorkOrderTaskAction,
-    RemoveWorkOrderTaskAction,
+    RemoveWorkOrderTaskAction, StartWorkOrderLogAction, StopWorkOrderLogAction,
     UpdateWorkOrderAction,
 } from '../work-order.action';
 import {WorkOrderPage} from "./work-order.page";
 import {BreadcrumbService} from "../../../breadcrumb.service";
 import {AppState} from "../../../core/core.state";
 import {About} from "../../../models";
+import {Observable} from "rxjs";
+import {Location} from "@angular/common";
+import {WorkOrderComment} from "../work-order-comment.model";
 
 @Component({
-    selector: 'dex-work-order-register-page',
-    templateUrl: './work-order-register.page.html',
-    styleUrls: ['./work-order-register.page.css']
+    selector: 'dex-work-order-verify-page',
+    templateUrl: './work-order-verify.page.html',
+    styleUrls: ['./work-order-verify.page.css']
 })
-export class WorkOrderRegisterPage extends WorkOrderPage implements OnInit {
+export class WorkOrderVerifyPage extends WorkOrderPage implements OnInit {
     selectedAbout: About;
-    cols = [
-        {field: 'description', header: 'Keterangan'},
-    ];
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public location: Location,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
         super(breadcrumbService, messageService, confirmationService, fb, store, cdr);
@@ -36,19 +39,19 @@ export class WorkOrderRegisterPage extends WorkOrderPage implements OnInit {
         super.ngOnInit()
     }
 
-    approve() {
+    complete() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
+                message: 'Are you sure?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
                 accept: () => {
                     this.store.dispatch(new CompleteWorkOrderTaskAction({taskId: this.workOrderTask.taskId}));
-                    this.store.dispatch(new UpdateWorkOrderAction({
-                            ...this.workOrderTask,
-                            ...this.mainForm.value
-                        })
-                    );
+                    // this.store.dispatch(new UpdateWorkOrderAction({
+                    //         ...this.workOrderTask,
+                    //         ...this.mainForm.value
+                    //     })
+                    // );
                 }
             });
         }
@@ -83,13 +86,40 @@ export class WorkOrderRegisterPage extends WorkOrderPage implements OnInit {
         });
     }
 
-    addActivity() {
+    addComment() {
         this.showCommentDialog();
+    }
+
+    startLog() {
+        this.store.dispatch(
+            new StartWorkOrderLogAction(this.workOrderTask.workOrder)
+        );
+    }
+
+    stopLog() {
+        this.store.dispatch(
+            new StopWorkOrderLogAction(this.workOrderTask.workOrder)
+        );
+    }
+
+    onSaveComment(comment: WorkOrderComment) {
+        console.log(JSON.stringify(this.workOrderTask.workOrder));
+        this.store.dispatch(
+            new AddWorkOrderCommentAction({
+                workOrder: this.workOrderTask.workOrder,
+                comment: comment
+            })
+        );
+        this.hideCommentDialog();
     }
 
     viewAbout() {
         this.selectedAbout = null;
         // this.showAboutDialog();
+    }
+
+    goBack() {
+        this.location.back()
     }
 
 }

@@ -139,7 +139,7 @@
         <button
             type="button"
             [label]="'Lulus'"
-            (click)="approve()"
+            (click)="check()"
             [disabled]="!mainForm.valid"
             icon="fa fa-save"
             pButton></button>
@@ -162,14 +162,6 @@
             icon="fa fa-trash"
             pButton></button>
     </div>
-    <!--<div class="ui-g-1">-->
-    <!--<button-->
-    <!--type="button"-->
-    <!--label="Perihal"-->
-    <!--(click)="showAboutDialog()"-->
-    <!--icon="fa fa-flag"-->
-    <!--pButton></button>-->
-    <!--</div>-->
 </div>
 
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"

@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {WorkOrderActivity} from '../work-order-activity.model';
 import {
     AddWorkOrderCommentAction,
     CompleteWorkOrderTaskAction,
@@ -13,6 +12,7 @@ import {WorkOrderPage} from "./work-order.page";
 import {BreadcrumbService} from "../../../breadcrumb.service";
 import {AppState} from "../../../core/core.state";
 import {About} from "../../../models";
+import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {WorkOrderComment} from "../work-order-comment.model";
 
@@ -28,6 +28,7 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public location: Location,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
         super(breadcrumbService, messageService, confirmationService, fb, store, cdr);
@@ -37,19 +38,19 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
         super.ngOnInit()
     }
 
-    approve() {
+    check() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
+                message: 'Are you sure?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
                 accept: () => {
                     this.store.dispatch(new CompleteWorkOrderTaskAction({taskId: this.workOrderTask.taskId}));
-                    this.store.dispatch(new UpdateWorkOrderAction({
-                            ...this.workOrderTask,
-                            ...this.mainForm.value
-                        })
-                    );
+                    // this.store.dispatch(new UpdateWorkOrderAction({
+                    //         ...this.workOrderTask,
+                    //         ...this.mainForm.value
+                    //     })
+                    // );
                 }
             });
         }
@@ -115,4 +116,9 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
         this.selectedAbout = null;
         // this.showAboutDialog();
     }
+
+    goBack() {
+        this.location.back()
+    }
+
 }

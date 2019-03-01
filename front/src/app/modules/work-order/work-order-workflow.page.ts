@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import {WorkOrderTaskSummary} from './work-order.model';
 import {WorkOrderPreparePage} from './pages/work-order-prepare.page';
-import {WorkOrderRegisterPage} from './pages/work-order-register.page';
+import {WorkOrderVerifyPage} from './pages/work-order-verify.page';
 import {WorkOrderNewPage} from './pages/work-order-new.page';
 import {WorkOrderCheckPage} from "./pages/work-order-check.page";
 import {Store} from "@ngrx/store";
@@ -46,12 +46,10 @@ export class WorkOrderWorkflowPage {
 
                 if (this.workOrderTask.flowState === FlowState.PREPARED) {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderPreparePage);
-                } else if (this.workOrderTask.flowState === FlowState.REGISTERED) {
-                    componentFactory = this.cfr.resolveComponentFactory(WorkOrderRegisterPage);
                 } else if (this.workOrderTask.flowState === FlowState.CHECKED) {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderCheckPage);
-                } else if (this.workOrderTask.flowState === FlowState.SELECTED) {
-                    componentFactory = this.cfr.resolveComponentFactory(WorkOrderDetailPage);
+                } else if (this.workOrderTask.flowState === FlowState.VERIFIED) {
+                    componentFactory = this.cfr.resolveComponentFactory(WorkOrderVerifyPage);
                 } else {
                     componentFactory = this.cfr.resolveComponentFactory(WorkOrderNewPage);
                 }
