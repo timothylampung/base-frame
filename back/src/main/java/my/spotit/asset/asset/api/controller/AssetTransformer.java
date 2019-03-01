@@ -76,11 +76,11 @@ public class AssetTransformer {
         Asset vo = new Asset();
         vo.setId(e.getId());
         vo.setCode(e.getCode());
-        vo.setDescription(e.getDescription());
-//        vo.setAssetCode(e.getAssetCode());
-//        vo.setLocation(e.getLocation());
         vo.setCost(e.getCost());
         vo.setQuantity(e.getQuantity());
+        vo.setDescription(e.getDescription());
+        vo.setAssetCode(toAssetCodeVo(e.getAssetCode()));
+        vo.setLocation(toLocationVo(e.getLocation()));
         coreTransformer.toMetadata(e, vo);
         return vo;
     }
