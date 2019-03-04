@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_0004" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0dc6261e-b35b-4a87-bc39-1683e169e909">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="spotit-web.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString language="SQL">
 		<![CDATA[select dl.address, da.name, dl.description, d.description, reference_no, coalesce(EXTRACT(EPOCH FROM sum(dwol.stop_time - dwol.start_time)/3600*12), 0)  FROM dex_work_ordr
                                                                                                            left join dex_work_ordr_log dwol on dex_work_ordr.id = dwol.work_order_id
@@ -34,26 +34,26 @@ order by coalesce(EXTRACT(EPOCH FROM sum(dwol.stop_time - dwol.start_time)/3600*
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="86" splitType="Stretch">
+		<band height="94" splitType="Stretch">
 			<rectangle>
 				<reportElement mode="Transparent" x="0" y="0" width="555" height="83" uuid="4409ac22-f315-4bff-88a3-4ba03dc85fe0"/>
 			</rectangle>
-			<image>
-				<reportElement x="10" y="10" width="170" height="50" uuid="e18a72ca-dda2-408d-a7e0-cbe4aab2e341"/>
-				<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement x="220" y="10" width="190" height="50" uuid="a3a5e7cf-e2ec-40e4-b57b-ab11f9187d18"/>
+				<reportElement x="130" y="13" width="300" height="50" uuid="a3a5e7cf-e2ec-40e4-b57b-ab11f9187d18"/>
 				<textElement textAlignment="Center">
 					<font size="16"/>
 				</textElement>
 				<text><![CDATA[WORK ORDER
-COST BY LOCATION]]></text>
+Cost Per Work Order by Location]]></text>
 			</staticText>
+			<image>
+				<reportElement x="10" y="16" width="132" height="47" uuid="866b8faf-749b-43eb-9fc1-6818236da645"/>
+				<imageExpression><![CDATA["C:/Users/razif/project/spotit-web/front/src/assets/layout/images/logo2x.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="12" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="30" splitType="Stretch">
@@ -115,7 +115,7 @@ COST BY LOCATION]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<text><![CDATA[Total(RM)]]></text>
+				<text><![CDATA[Total (RM)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="30" height="30" uuid="db03c0d8-23b1-4de7-b4c3-6b95c9c0d636"/>
