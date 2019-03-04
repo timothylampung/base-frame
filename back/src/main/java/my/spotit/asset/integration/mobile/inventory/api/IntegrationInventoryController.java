@@ -20,12 +20,10 @@ import java.util.List;
 public class IntegrationInventoryController {
 
     private InventoryService inventoryService;
-    private MobileSecurityService securityService;
     private InventoryTransformer inventoryTransformer;
 
-    public IntegrationInventoryController(InventoryService inventoryService, MobileSecurityService securityService, InventoryTransformer inventoryTransformer) {
+    public IntegrationInventoryController(InventoryService inventoryService, InventoryTransformer inventoryTransformer) {
         this.inventoryService = inventoryService;
-        this.securityService = securityService;
         this.inventoryTransformer = inventoryTransformer;
     }
 

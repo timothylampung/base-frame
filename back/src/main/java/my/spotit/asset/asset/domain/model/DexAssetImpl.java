@@ -31,8 +31,6 @@ public class DexAssetImpl implements DexAsset {
     @Column(name = "QUANTITY")
     private String quantity;
 
-
-
     @OneToOne(targetEntity = DexAssetCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_CODE_ID")
     private DexAssetCode assetCode;
@@ -72,6 +70,7 @@ public class DexAssetImpl implements DexAsset {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     @Override
     public String getCost() {

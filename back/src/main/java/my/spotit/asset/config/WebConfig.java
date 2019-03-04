@@ -1,5 +1,7 @@
 package my.spotit.asset.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+
     @Bean
     public ViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
@@ -18,6 +21,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")

@@ -2,7 +2,21 @@
     <div class="ui-g-12">
         <div class="ui-g-12 card card-w-title">
             <h1>Maintenance Request Ref# {{ maintenanceRequestTask?.referenceNo}}</h1>
-            <div class="ui-g-6 ui-g" [formGroup]="mainForm">
+
+            <div class="ui-g-6 ui-g " [formGroup]="mainForm">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Remark</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="remark"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
                 <div class="ui-g-12">
                     <div class="ui-g-4">
                         <label>Description</label>
@@ -15,9 +29,62 @@
                     </span>
                     </div>
                 </div>
-            </div>
-            <div class="ui-g-6 ui-g" [formGroup]="mainForm">
-                <!--todo-->
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Requested Date</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="date"
+                               formControlName="requestedDate"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Requester</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="requester"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Asset</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="asset"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Location</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <input type="text"
+                               formControlName="location"
+                               pInputText>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <!--todo -->
+                </div>
             </div>
         </div>
     </div>

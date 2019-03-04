@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/api/registration/**")
-                .antMatchers("/api/mobile/**")
+                .antMatchers("/api/mobile/**") //Release here and let mobile integration security filter
                 .antMatchers("/swagger-ui.html")
                 .antMatchers("/servlet/**")
                 .antMatchers(HttpMethod.GET, "/index.html")

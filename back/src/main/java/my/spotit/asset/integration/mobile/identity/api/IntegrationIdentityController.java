@@ -19,19 +19,15 @@ public class IntegrationIdentityController {
 
     private ActorService actorService;
     private IdentityTransformer identityTransformer;
-    private MobileSecurityServiceImpl securityService;
 
     public IntegrationIdentityController(ActorService actorService,
-                                         IdentityTransformer identityTransformer,
-                                         MobileSecurityServiceImpl securityService) {
+                                         IdentityTransformer identityTransformer) {
         this.actorService = actorService;
         this.identityTransformer = identityTransformer;
-        this.securityService = securityService;
     }
 
     @GetMapping(value = "/actors")
-    public ResponseEntity<List<Actor>> findAllActors(String username, String deviceId) throws Exception {
-        securityService.authenticate(username, deviceId);
+    public ResponseEntity<List<Actor>> findAllActors() throws Exception {
         return ResponseEntity.ok(identityTransformer.toActors(actorService.findAllActors()));
     }
 

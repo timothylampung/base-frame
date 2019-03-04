@@ -1,5 +1,6 @@
 package my.spotit.asset;
 
+import my.spotit.asset.config.MobileIntegrationSecurityFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -8,6 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -43,5 +45,13 @@ public class Application extends SpringBootServletInitializer implements WebAppl
                 container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
             }
         };
+    }
+
+    @Bean
+    public FilterRegistrationBean mobileFilter() {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new MobileIntegrationSecurityFilter());
+        registrationBean.addUrlPatterns("/api/mobile/*");
+        return registrationBean;
     }
 }
