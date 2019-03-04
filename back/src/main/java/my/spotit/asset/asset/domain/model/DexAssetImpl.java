@@ -31,6 +31,11 @@ public class DexAssetImpl implements DexAsset {
     @Column(name = "QUANTITY")
     private String quantity;
 
+
+    @Column(name = "Category")
+    private String category;
+
+
     @OneToOne(targetEntity = DexAssetCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_CODE_ID")
     private DexAssetCode assetCode;
@@ -93,6 +98,16 @@ public class DexAssetImpl implements DexAsset {
     }
 
     @Override
+    public String getCategory() {
+        return category;
+    }
+
+    @Override
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @Override
     public DexAssetCode getAssetCode() {
         return assetCode;
     }
@@ -126,4 +141,6 @@ public class DexAssetImpl implements DexAsset {
     public Class<?> getInterfaceClass() {
         return DexAsset.class;
     }
+
+
 }

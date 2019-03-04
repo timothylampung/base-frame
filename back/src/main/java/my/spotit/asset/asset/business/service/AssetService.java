@@ -61,6 +61,9 @@ public interface AssetService {
 
     List<DexAsset> findAssetsByLocation(DexLocation location);
 
+    List<DexAsset> findAssetsByCategory(String category);
+
+
     Integer countAsset();
 
     Integer countAsset(String filter);

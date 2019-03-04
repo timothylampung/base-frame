@@ -53,6 +53,20 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
         Query query = entityManager.createQuery("select e from DexAsset e where " +
                 "e.location =:location");
         query.setParameter("location", location);
+
+
+        return query.getResultList();
+    }
+
+
+    // todo: metastate
+    @Override
+    public List<DexAsset> findByCategory(String category) {
+        Query query = entityManager.createQuery("select e from DexAsset e where " +
+                "e.category =:category");
+        query.setParameter("category", category);
+
+
         return query.getResultList();
     }
 
