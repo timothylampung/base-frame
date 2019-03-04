@@ -287,7 +287,6 @@
                                 <!--<srcFile>src/test/resources/ddl/SCHEMA.sql</srcFile>-->
                                 <srcFile>src/test/resources/ddl/act.postgres.sql</srcFile>
                                 <srcFile>src/test/resources/ddl/CREATE.sql</srcFile>
-                                <srcFile>src/test/resources/ddl/VIEW.sql</srcFile>
 
                                 <!--SYSTEM-->
                                 <srcFile>src/test/resources/data/DEX_SQNC_GNTR.sql</srcFile>
@@ -305,6 +304,7 @@
                                 <!--<srcFile>src/test/resources/data/DEX_COMP.sql</srcFile>-->
                                 <!--<srcFile>src/test/resources/data/DEX_PART.sql</srcFile>-->
                                 <!--<srcFile>src/test/resources/data/DEX_PART_CODE.sql</srcFile>-->
+                                <srcFile>src/test/resources/ddl/VIEW.sql</srcFile>
 
                             </srcFiles>
                         </configuration>
