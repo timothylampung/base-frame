@@ -68,7 +68,7 @@ public class AssetServiceImplTest extends AbstractTest {
         location.setDescription("THIS CODE IS FAKE!");
         location.setName("Armband");
         location.setAddress("BigROom");
-        ((DexLocationImpl) location).setState(DexMetaState.ACTIVE);
+        ((DexLocationImpl) location).getMetadata().setState(DexMetaState.ACTIVE);
         LOG.debug("----------------------prepared------------------------ {} ",location.getDescription() );
         assetService.saveLocation(location);
 

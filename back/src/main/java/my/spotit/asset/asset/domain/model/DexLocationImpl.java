@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity(name = "DexLocation")
 @Table(name = "DEX_LCTN")
-public class DexLocationImpl extends DexMetadata implements DexLocation{
+public class DexLocationImpl implements DexLocation{
 
     @Id
     @Column(name = "ID", nullable = false)

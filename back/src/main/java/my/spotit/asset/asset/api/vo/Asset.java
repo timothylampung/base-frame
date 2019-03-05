@@ -1,8 +1,5 @@
 package my.spotit.asset.asset.api.vo;
 
-
-import my.spotit.asset.asset.domain.model.DexAssetCode;
-import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.core.api.MetaObject;
 
 public class Asset extends MetaObject {
@@ -10,8 +7,9 @@ public class Asset extends MetaObject {
     private String cost;
     private String quantity;
     private String description;
-    private DexLocation location;
-    private DexAssetCode assetCode;
+    private String category;
+    private Location location;
+    private AssetCode assetCode;
 
     public Asset() {
     }
@@ -48,23 +46,27 @@ public class Asset extends MetaObject {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+  public String getCategory() {
+        return category;
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-
-    public DexLocation getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(DexLocation location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
-    public DexAssetCode getAssetCode() {
+    public AssetCode getAssetCode() {
         return assetCode;
     }
 
-    public void setAssetCode(DexAssetCode assetCode) {
+    public void setAssetCode(AssetCode assetCode) {
         this.assetCode = assetCode;
     }
-
 }

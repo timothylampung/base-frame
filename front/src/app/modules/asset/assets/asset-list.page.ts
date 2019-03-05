@@ -51,6 +51,7 @@ export class AssetListPage implements OnInit {
         this.store.dispatch(new FindPagedAssetsAction({filter: '', page: 1}));
         this.assets$.subscribe(data=>{console.log(data)});
         console.log(this.searchForm)
+        console.log(this.assets$);
     }
 
     dialogClosed(result) {

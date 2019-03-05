@@ -33,13 +33,12 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
         return (DexAsset) query.getSingleResult();
     }
 
-    // todo: filter (added?)
-    // todo: metastate
     @Override
     public List<DexAsset> find(String filter, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexAsset s where " +
                 "(upper(s.code) like upper(:filter) " +
-                "or upper(s.description) like upper(:filter)) " +
+                "or upper(s.description) like upper(:filter)" +
+                ") " +
                 "and s.metadata.state = :state ");
         query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("state", DexMetaState.ACTIVE);
@@ -54,10 +53,23 @@ public class DexAssetDaoImpl extends GenericDaoSupport<Long, DexAsset> implement
         Query query = entityManager.createQuery("select e from DexAsset e where " +
                 "e.location =:location");
         query.setParameter("location", location);
+
+
         return query.getResultList();
     }
 
+
     // todo: metastate
+    @Override
+    public List<DexAsset> findByCategory(String category) {
+        Query query = entityManager.createQuery("select e from DexAsset e where " +
+                "e.category =:category");
+        query.setParameter("category", category);
+
+
+        return query.getResultList();
+    }
+
     @Override
     public Integer count(String filter) {
         Query query = entityManager.createQuery("select count(s) from DexAsset s where " +

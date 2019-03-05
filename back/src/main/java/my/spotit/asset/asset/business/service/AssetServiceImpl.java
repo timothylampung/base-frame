@@ -166,9 +166,16 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
+    public List<DexAsset> findAssetsByCategory(String category) {
+        return assetDao.findByCategory(category);
+    }
+
+
+    @Override
     public List<DexAsset> findAssetsByLocation(DexLocation location) {
         return assetDao.findByLocation(location);
     }
+
 
     @Override
     public List<DexAsset> findAssets(String filter, Integer offset, Integer limit) {

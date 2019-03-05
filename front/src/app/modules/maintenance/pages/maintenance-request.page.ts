@@ -8,6 +8,9 @@ import {BreadcrumbService} from "../../../breadcrumb.service";
 import {AppState} from "../../../core/core.state";
 import {MaintenanceRequestTaskSummary} from "../maintenance-request.model";
 import {tap} from "rxjs/internal/operators";
+import {Actor} from "../../identity/actors/actor.model";
+import {Location} from "../../asset/locations/location-model";
+import {Asset} from "../../asset/assets/asset-model";
 
 @Component({
     selector: 'dex-maintenance-request-page',
@@ -43,6 +46,14 @@ export class MaintenanceRequestPage {
             referenceNo: [''],
             sourceNo: [''],
             description: ['', Validators.required],
+            requester: [],
+            requestedDate : [],
+            delegator: [],
+            verifier: [],
+            location: [],
+            asset: [],
+            remark: [],
+            reporter: []
         });
 
         // todo: date workaround

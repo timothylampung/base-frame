@@ -81,10 +81,13 @@ public class AssetController {
         DexAsset asset = new DexAssetImpl();
         asset.setCode(vo.getCode());
         asset.setDescription(vo.getDescription());
-        asset.setAssetCode(vo.getAssetCode());
-        asset.setLocation(vo.getLocation());
+        DexAssetCode assetCode = assetService.findAssetCodeByCode(vo.getAssetCode().getCode());
+        asset.setAssetCode(assetCode);
+        DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
+        asset.setLocation(location);
         asset.setCost(vo.getCost());
         asset.setQuantity(vo.getQuantity());
+        asset.setCategory(vo.getCategory());
         assetService.saveAsset(asset);
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
