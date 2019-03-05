@@ -7,6 +7,7 @@ public class Asset extends MetaObject {
     private String cost;
     private String quantity;
     private String description;
+    private String category;
     private Location location;
     private AssetCode assetCode;
 
@@ -44,6 +45,13 @@ public class Asset extends MetaObject {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+  public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Location getLocation() {

@@ -54,8 +54,8 @@ public class MaintenanceRequestTransformer {
         vo.setRemark(e.getRemark());
 //        Asset asset = assetTransformer.toAssetVo(e.getAsset());
 //        vo.setAsset(asset);
-//        vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
-//        vo.setLocation(assetTransformer.toLocationVo(e.getLocation()));
+        vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
+        vo.setLocation(assetTransformer.toLocationVo(e.getLocation()));
         Actor delegator = identityTransformer.toActor(e.getDelegator());
         vo.setDelegator(delegator);
         Actor verifier = identityTransformer.toActor(e.getVerifier());

@@ -78,6 +78,37 @@ public class DexAssetDaoImplTest extends AbstractTest {
         LOG.debug("--------------------saved-------------------------- {} ",savedAsset.getDescription() );
 
     }
+
+    @Test
+    public void findByCode() {
+    }
+
+    @Test
+    public void find() {
+    }
+
+    @Test
+    public void findByLocation() {
+    }
+
+    @Test
+    public void  findByCategory() {
+        String category = "Electrical";
+
+        List<DexAsset> findByCategories = dexAssetDao.findByCategory(category);
+        for (DexAsset findByCategory : findByCategories) {
+            LOG.debug("TEST: " + findByCategory.getDescription());
+        }
+
+    }
+
+    @Test
+    public void count() {
+    }
+
+    @Test
+    public void count1() {
+    }
 //    @Test
 //    public void findByLocation() {
 //
