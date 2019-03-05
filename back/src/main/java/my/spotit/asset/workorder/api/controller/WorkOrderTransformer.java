@@ -73,6 +73,7 @@ public class WorkOrderTransformer {
         vo.setId(e.getId());
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
+        vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         return vo;
     }
 

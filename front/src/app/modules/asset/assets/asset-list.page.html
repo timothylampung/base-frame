@@ -50,7 +50,9 @@
                     <tr>
                         <th style="width: 7%" *ngIf="displayDelete == true">DELETE</th>
                         <th style="width: 10%">Code</th>
-                        <th style="width: 80%">Description</th>
+                        <th style="width: 35%">Description</th>
+                        <th style="width: 35%">Category</th>
+                        <th style="width: 10%">Cost</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
@@ -64,6 +66,12 @@
                         </td>
                         <td [pSelectableRow]="rowData" (click)="selectedRow = rowData; display = !display;">
                             {{rowData?.description}}
+                        </td>
+                        <td [pSelectableRow]="rowData" (click)="selectedRow = rowData; display = !display;">
+                            {{rowData?.category}}
+                        </td>
+                        <td [pSelectableRow]="rowData" (click)="selectedRow = rowData; display = !display;">
+                            {{rowData?.cost}}
                         </td>
                     </tr>
                 </ng-template>

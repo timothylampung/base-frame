@@ -1,6 +1,7 @@
 import {Meta} from "@angular/platform-browser";
 import {MetaObject} from "../../../models/meta-object.model";
 import {AssetCode} from "../asset-codes/asset-code-model";
+import {AssetCategory} from "./asset-category.enum";
 
 
 export  interface Asset extends MetaObject {
@@ -9,9 +10,9 @@ export  interface Asset extends MetaObject {
     description: string;
     assetCode:AssetCode;
     location: Location;
-    category: string;
     quantity:string;
     cost: string;
+    category: AssetCategory;
 
 }
 

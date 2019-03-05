@@ -76,6 +76,12 @@ public class AssetController {
                 assetService.findAssetsByLocation(location)), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/assets/{category}")
+    public ResponseEntity<List<Asset>> findAssetByCategory(@PathVariable String category) {
+        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
+                assetService.findAssetsByCategory(category)), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/assets")
     public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Asset vo) {
         DexAsset asset = new DexAssetImpl();

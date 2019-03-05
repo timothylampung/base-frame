@@ -77,6 +77,7 @@ public class AssetTransformer {
         vo.setId(e.getId());
         vo.setCode(e.getCode());
         vo.setCost(e.getCost());
+        vo.setCategory(e.getCategory());
         vo.setQuantity(e.getQuantity());
         vo.setCategory(e.getCategory());
         vo.setDescription(e.getDescription());

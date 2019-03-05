@@ -30,6 +30,9 @@ public class Asset extends MetaObject {
         this.description = description;
     }
 
+    public String getCategory() { return category; }
+
+    public void setCategory(String category) { this.category = category; }
 
     public String getCost() {
         return cost;
@@ -45,13 +48,6 @@ public class Asset extends MetaObject {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
-    }
-  public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Location getLocation() {

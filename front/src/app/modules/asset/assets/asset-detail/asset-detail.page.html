@@ -28,9 +28,20 @@
 
                 <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="astc" type="text" formControlName="assetCode" pInputText
+                    <dex-asset-category-dropdown
+                        [innerFormControl]="creatorForm.get('category')" id="cate">
+                    </dex-asset-category-dropdown>
+                        <!--<input [readOnly]="!edit" id="cate" type="text" formControlName="category" pInputText-->
+                               <!--(click)="overlayPanel=!overlayPanel">-->
+                        <label for="cate">Category</label>
+                    </span>
+                </div>
+
+                <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="cost" type="text" formControlName="cost" pInputText
                                (click)="overlayPanel=!overlayPanel">
-                        <label for="astc">Asset Code</label>
+                        <label for="cost">Cost</label>
                     </span>
                 </div>
 

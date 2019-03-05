@@ -15,6 +15,8 @@ import {LocationDetailPage} from "./locations/location-detail/location-detail.pa
 import {AssetCodeDetailPage} from "./asset-codes/asset-code-detail/asset-code-detail.page";
 import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
 import {NgxQRCodeModule} from "ngx-qrcode2";
+import {AssetCategory} from "./assets/asset-category.enum";
+import {AssetCategoryDropdown} from "./assets/asset-detail/asset-category.dropdown";
 
 @NgModule({
     imports: [
@@ -35,6 +37,7 @@ import {NgxQRCodeModule} from "ngx-qrcode2";
         AssetCodeDetailPage,
         LocationListPage,
         LocationDetailPage,
+        AssetCategoryDropdown,
     ],
     exports: [
 

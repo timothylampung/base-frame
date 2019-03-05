@@ -15,9 +15,6 @@ export class AssetDetailPage implements OnInit, OnChanges {
     private asset$: Asset;
     elementType : 'url' | 'canvas' | 'img' | 'text' = 'text';
     qrValue : string = '';
-
-
-
     creatorForm: FormGroup;
     value: boolean;
 
@@ -37,7 +34,8 @@ export class AssetDetailPage implements OnInit, OnChanges {
         this.creatorForm = this.fb.group({
             code: ['', Validators.required],
             description: ['', Validators.required],
-            assetCode: ['', Validators.required],
+            category: ['', Validators.required],
+            cost: ['', Validators.required],
             location: ['', Validators.required]})
     }
 
