@@ -23,7 +23,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
+                        <input disabled readonly type="text"
                                formControlName="description"
                                pInputText>
                     </span>
@@ -36,9 +36,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="date"
-                               formControlName="requestedDate"
-                               pInputText>
+                        <p-calendar disabled formControlName="requestedDate"></p-calendar>
                     </span>
                     </div>
                 </div>
@@ -49,9 +47,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="requester"
-                               pInputText>
+                      <dex-staff-autocomplete  label="Requester" [innerFormControl]="mainForm.get('requester')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -62,9 +58,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="asset"
-                               pInputText>
+                        <dex-asset-autocomplete  [hideFloatLabel]="true" [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -75,9 +69,29 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="location"
-                               pInputText>
+                       <dex-location-autocomplete   [innerFormControl]="mainForm.get('location')"></dex-location-autocomplete>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Assignee</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <dex-staff-autocomplete label="Assignee" [innerFormControl]="mainForm.get('delegator')"></dex-staff-autocomplete>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Supervisor</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <dex-staff-autocomplete label="Supervisor" [innerFormControl]="mainForm.get('verifier')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -99,22 +113,24 @@
                         <div class="ui-button-toolbar-mb">
                         </div>
 
-                        <p-table [columns]="cols"
-                                 [value]="maintenanceRequestTask?.maintenanceRequest | async "
-                                 dataKey="id">
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th style="width: 40%">Description</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-rowData>
-                                <tr>
-                                    <td>
-                                        {{rowData?.description}}
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
+                        {{maintenanceRequestTask.request.file |json}}
+
+                        <!--<p-table [columns]="cols"-->
+                                 <!--[value]="maintenanceRequestTask?.maintenanceRequest"-->
+                                 <!--dataKey="id">-->
+                            <!--<ng-template pTemplate="header" let-columns>-->
+                                <!--<tr>-->
+                                    <!--<th style="width: 40%">Description</th>-->
+                                <!--</tr>-->
+                            <!--</ng-template>-->
+                            <!--<ng-template pTemplate="body" let-rowData>-->
+                                <!--<tr>-->
+                                    <!--<td>-->
+                                        <!--{{rowData?.description}}-->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</ng-template>-->
+                        <!--</p-table>-->
                     </div>
                 </div>
             </p-tabPanel>

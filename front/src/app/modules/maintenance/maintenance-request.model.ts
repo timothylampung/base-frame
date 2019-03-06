@@ -32,7 +32,7 @@ export interface MaintenanceRequestRecordSummaryResult {
 }
 
 export interface MaintenanceRequestTaskSummary extends Task {
-    maintenanceRequest: MaintenanceRequest;
+    request: MaintenanceRequest;
 }
 
 export interface MaintenanceRequestTaskSummaryResult {
@@ -77,5 +77,5 @@ export const initStateMaintenanceRequestTaskSummary: MaintenanceRequestTaskSumma
     sourceNo: null,
     description: null,
     flowState: FlowState.NEW,
-    maintenanceRequest: initStateMaintenanceRequest,
+    request: initStateMaintenanceRequest,
 };

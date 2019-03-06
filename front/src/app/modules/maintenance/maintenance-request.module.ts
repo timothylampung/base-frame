@@ -19,12 +19,14 @@ import {MaintenanceRequestPage} from './pages/maintenance-request.page';
 import {MaintenanceRequestService} from "../../services/maintenance-request.service";
 import {MessageService} from "primeng/api";
 import {IdentityModule} from "../identity/identity.module";
+import {AssetModule} from "../asset/asset.module";
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
         IdentityModule,
+        AssetModule,
         StoreModule.forFeature(FEATURE_NAME, reducers),
         EffectsModule.forFeature([
             MaintenanceRequestEffects

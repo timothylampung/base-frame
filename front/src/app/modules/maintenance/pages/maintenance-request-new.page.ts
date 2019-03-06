@@ -52,7 +52,7 @@ export class MaintenanceRequestNewPage implements OnInit {
         });
         // date workaround
         // this.maintenanceRequestTask.maintenanceRequest.maintenanceRequestDate = new Date(this.maintenanceRequestTask.maintenanceRequest.maintenanceRequestDate);
-        this.mainForm.patchValue(this.maintenanceRequestTask.maintenanceRequest);
+        this.mainForm.patchValue(this.maintenanceRequestTask.request);
     }
 
     draft() {

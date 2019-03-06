@@ -58,7 +58,7 @@ export class MaintenanceRequestPage {
 
         // todo: date workaround
         // this.maintenanceRequestTask.maintenanceRequest.requestedDate = new Date(this.maintenanceRequestTask.maintenanceRequest.requestedDate);
-        this.mainForm.patchValue(this.maintenanceRequestTask.maintenanceRequest);
+        this.mainForm.patchValue(this.maintenanceRequestTask.request);
     }
 
     showDialog() {

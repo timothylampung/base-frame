@@ -1,16 +1,16 @@
 <span class="md-inputfield">
     <p-autoComplete #p
-                    id="asset"
+                    id="actor"
                     [formControl]="innerFormControl"
-                    [suggestions]="assets"
+                    [suggestions]="actors"
                     [forceSelection]="true"
                     [dropdown]="true"
                     [emptyMessage]="'Tiada Rekod'"
                     (completeMethod)="search($event)"
                     field="name">
         <ng-template let-value pTemplate="item">
-            <span>{{value?.code}} - {{value?.description}}</span>
+            <span>{{value?.name}} - {{value?.realName}}</span>
         </ng-template>
     </p-autoComplete>
-    <!--<label for="asset" [hidden]="hideFloatLabel">User</label>-->
+    <!--<label for="actor" [hidden]="hideFloatLabel">{{label}}</label>-->
 </span>
