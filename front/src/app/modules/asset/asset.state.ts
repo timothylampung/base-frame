@@ -14,16 +14,12 @@ export const selectAssetState = createFeatureSelector<State, AssetState>(
 );
 
 export const reducers: ActionReducerMap<AssetState> = {
-
     assetCodes: assetCodesReducer,
     assetCodeResult: assetCodeResultReducer,
     locations:locationsReducer,
     locationResult:locationResultReducer,
     assets:assetsReducer,
     assetResult:assetResultReducer,
-
-    
-    
 };
 
 export interface AssetState {
@@ -33,7 +29,6 @@ export interface AssetState {
     locationResult:LocationResult;
     assets:Asset[];
     assetResult:AssetResult;
-    
 }
 
 export interface State extends AppState {

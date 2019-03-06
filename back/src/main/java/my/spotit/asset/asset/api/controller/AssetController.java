@@ -25,197 +25,197 @@ import static my.spotit.asset.DexConstants.LIMIT;
 @RequestMapping("/api/asset")
 public class AssetController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AssetController.class);
+private static final Logger LOG = LoggerFactory.getLogger(AssetController.class);
 
-    private AssetService assetService;
-    private SystemService systemService;
-    private WorkflowService workflowService;
-    private AssetTransformer assetTransformer;
-    private AuthenticationManager authenticationManager;
+private AssetService assetService;
+private SystemService systemService;
+private WorkflowService workflowService;
+private AssetTransformer assetTransformer;
+private AuthenticationManager authenticationManager;
 
-    @Autowired
-    public AssetController(AssetService assetService, SystemService systemService,
-                           WorkflowService workflowService,
-                           AssetTransformer assetTransformer,
-                           AuthenticationManager authenticationManager) {
-        this.assetService = assetService;
-        this.systemService = systemService;
-        this.workflowService = workflowService;
-        this.assetTransformer = assetTransformer;
-        this.authenticationManager = authenticationManager;
-    }
+@Autowired
+public AssetController(AssetService assetService, SystemService systemService,
+   WorkflowService workflowService,
+   AssetTransformer assetTransformer,
+   AuthenticationManager authenticationManager) {
+this.assetService = assetService;
+this.systemService = systemService;
+this.workflowService = workflowService;
+this.assetTransformer = assetTransformer;
+this.authenticationManager = authenticationManager;
+}
 
-    //==============================================================================================
-    // ASSET
-    //==============================================================================================
+//==============================================================================================
+// ASSET
+//==============================================================================================
 
-    @GetMapping(value = "/assets", params = {"page","filter"})
-    public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page, @RequestParam(defaultValue = "%") String filter) {
-        LOG.debug("findPagedAssets: {}", page);
-        Integer count = assetService.countAsset(filter);
-        List<DexAsset> assets = assetService.findAssets(filter, ((page - 1) * LIMIT), LIMIT);
-        return new ResponseEntity<AssetResult>(new AssetResult(assetTransformer.toAssetVos(assets), count), HttpStatus.OK);
-    }
+@GetMapping(value = "/assets", params = {"page", "filter"})
+public ResponseEntity<AssetResult> findPagedAssets(@RequestParam Integer page, @RequestParam(defaultValue = "%") String filter) {
+LOG.debug("findPagedAssets: {}", page);
+Integer count = assetService.countAsset(filter);
+List<DexAsset> assets = assetService.findAssets(filter, ((page - 1) * LIMIT), LIMIT);
+return new ResponseEntity<AssetResult>(new AssetResult(assetTransformer.toAssetVos(assets), count), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/all-assets")
-    public ResponseEntity<List<Asset>> findAssets() {
-        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
-                assetService.findAssets("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
-    }
+@GetMapping(value = "/all-assets")
+public ResponseEntity<List<Asset>> findAssets() {
+return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
+assetService.findAssets("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/asset/{code}")
-    public ResponseEntity<Asset> findAssetByAssetCode(@PathVariable String code) {
-        return new ResponseEntity<Asset>(assetTransformer.toAssetVo(
-                assetService.findAssetByCode(code)), HttpStatus.OK);
-    }
+@GetMapping(value = "/asset/{code}")
+public ResponseEntity<Asset> findAssetByAssetCode(@PathVariable String code) {
+return new ResponseEntity<Asset>(assetTransformer.toAssetVo(
+assetService.findAssetByCode(code)), HttpStatus.OK);
+}
 
-    // todo: maybe /locations/{code}/assets?
-    @GetMapping(value = "/assets/{location}")
-    public ResponseEntity<List<Asset>> findAssetByLocation(@PathVariable DexLocation location) {
-        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
-                assetService.findAssetsByLocation(location)), HttpStatus.OK);
-    }
+// todo: maybe /locations/{code}/assets?
+@GetMapping(value = "/assets/{location}")
+public ResponseEntity<List<Asset>> findAssetByLocation(@PathVariable DexLocation location) {
+return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
+assetService.findAssetsByLocation(location)), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/assets/{category}")
-    public ResponseEntity<List<Asset>> findAssetByCategory(@PathVariable String category) {
-        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
-                assetService.findAssetsByCategory(category)), HttpStatus.OK);
-    }
+@GetMapping(value = "/assets/{category}")
+public ResponseEntity<List<Asset>> findAssetByCategory(@PathVariable String category) {
+return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(
+assetService.findAssetsByCategory(category)), HttpStatus.OK);
+}
 
-    @PostMapping(value = "/assets")
-    public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Asset vo) {
-        DexAsset asset = new DexAssetImpl();
-        asset.setCode(vo.getCode());
-        asset.setDescription(vo.getDescription());
-        DexAssetCode assetCode = assetService.findAssetCodeByCode(vo.getAssetCode().getCode());
-        asset.setAssetCode(assetCode);
-        DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
-        asset.setLocation(location);
-        asset.setCost(vo.getCost());
-        asset.setQuantity(vo.getQuantity());
-        asset.setCategory(vo.getCategory());
-        assetService.saveAsset(asset);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@PostMapping(value = "/assets")
+public ResponseEntity<ApplicationSuccess> saveAsset(@RequestBody Asset vo) {
+DexAsset asset = new DexAssetImpl();
+asset.setCode(vo.getCode());
+asset.setDescription(vo.getDescription());
+DexAssetCode assetCode = assetService.findAssetCodeByCode(vo.getAssetCode().getCode());
+asset.setAssetCode(assetCode);
+DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
+asset.setLocation(location);
+asset.setCost(vo.getCost());
+asset.setQuantity(vo.getQuantity());
+asset.setCategory(vo.getCategory());
+assetService.saveAsset(asset);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    @PutMapping(value = "/assets/{code}")
-    public ResponseEntity<ApplicationSuccess> updateAsset(@PathVariable String code, @RequestBody Asset vo) {
-        DexAsset asset = assetService.findAssetById(vo.getId());
-        asset.setDescription(vo.getDescription());
-        assetService.updateAsset(asset);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@PutMapping(value = "/assets/{code}")
+public ResponseEntity<ApplicationSuccess> updateAsset(@PathVariable String code, @RequestBody Asset vo) {
+DexAsset asset = assetService.findAssetById(vo.getId());
+asset.setDescription(vo.getDescription());
+assetService.updateAsset(asset);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    @DeleteMapping(value = "/assets/{code}")
-    public ResponseEntity<ApplicationSuccess> removeAsset(@PathVariable String code) {
-        DexAsset asset = assetService.findAssetByCode(code);
-        assetService.removeAsset(asset);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@DeleteMapping(value = "/assets/{code}")
+public ResponseEntity<ApplicationSuccess> removeAsset(@PathVariable String code) {
+DexAsset asset = assetService.findAssetByCode(code);
+assetService.removeAsset(asset);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    //==============================================================================================
-    // LOCATION
-    //==============================================================================================
+//==============================================================================================
+// LOCATION
+//==============================================================================================
 
-    @GetMapping(value = "/locations", params = {"page", "filter"})
-    public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page, @RequestParam String filter) {
-        LOG.debug("findPagedLocations: {}", page);
-        Integer count = assetService.countLocation(filter);
-        List<DexLocation> locations = assetService.findLocations(filter, ((page - 1) * LIMIT), LIMIT);
-        return new ResponseEntity<LocationResult>(new LocationResult(assetTransformer.toLocationVos(locations), count), HttpStatus.OK);
-    }
+@GetMapping(value = "/locations", params = {"page", "filter"})
+public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page, @RequestParam String filter) {
+LOG.debug("findPagedLocations: {}", page);
+Integer count = assetService.countLocation(filter);
+List<DexLocation> locations = assetService.findLocations(filter, ((page - 1) * LIMIT), LIMIT);
+return new ResponseEntity<LocationResult>(new LocationResult(assetTransformer.toLocationVos(locations), count), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/locations")
-    public ResponseEntity<List<Location>> findLocations() {
-        return new ResponseEntity<List<Location>>(assetTransformer.toLocationVos(
-                assetService.findLocations()), HttpStatus.OK);
-    }
+@GetMapping(value = "/locations")
+public ResponseEntity<List<Location>> findLocations() {
+return new ResponseEntity<List<Location>>(assetTransformer.toLocationVos(
+assetService.findLocations()), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/locations/{code}")
-    public ResponseEntity<Location> findLocationByCode(@PathVariable String code) {
-        return new ResponseEntity<Location>(assetTransformer.toLocationVo(
-                assetService.findLocationByCode(code)), HttpStatus.OK);
-    }
+@GetMapping(value = "/locations/{code}")
+public ResponseEntity<Location> findLocationByCode(@PathVariable String code) {
+return new ResponseEntity<Location>(assetTransformer.toLocationVo(
+assetService.findLocationByCode(code)), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/locations/{code}/assets")
-    public ResponseEntity<List<Asset>> findAssetsByLocation(@PathVariable String code) {
-        DexLocation location = assetService.findLocationByCode(code);
-        List<DexAsset> assets = assetService.findAssetsByLocation(location);
-        return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(assets), HttpStatus.OK);
-    }
+@GetMapping(value = "/locations/{code}/assets")
+public ResponseEntity<List<Asset>> findAssetsByLocation(@PathVariable String code) {
+DexLocation location = assetService.findLocationByCode(code);
+List<DexAsset> assets = assetService.findAssetsByLocation(location);
+return new ResponseEntity<List<Asset>>(assetTransformer.toAssetVos(assets), HttpStatus.OK);
+}
 
-    @PostMapping(value = "/locations")
-    public ResponseEntity<ApplicationSuccess> saveLocation(@RequestBody Location vo) {
-        DexLocation location = new DexLocationImpl();
-        location.setCode(vo.getCode());
-        location.setDescription(vo.getDescription());
-        location.setAddress(vo.getAddress());
-        location.setName(vo.getName());
-        assetService.saveLocation(location);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@PostMapping(value = "/locations")
+public ResponseEntity<ApplicationSuccess> saveLocation(@RequestBody Location vo) {
+DexLocation location = new DexLocationImpl();
+location.setCode(vo.getCode());
+location.setDescription(vo.getDescription());
+location.setAddress(vo.getAddress());
+location.setName(vo.getName());
+assetService.saveLocation(location);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    @PutMapping(value = "/locations/{code}")
-    public ResponseEntity<String> updateLocation(@PathVariable String code, @RequestBody Location vo) {
-        DexLocation location = assetService.findLocationById(vo.getId());
-        location.setDescription(vo.getDescription());
-        assetService.updateLocation(location);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
+@PutMapping(value = "/locations/{code}")
+public ResponseEntity<String> updateLocation(@PathVariable String code, @RequestBody Location vo) {
+DexLocation location = assetService.findLocationById(vo.getId());
+location.setDescription(vo.getDescription());
+assetService.updateLocation(location);
+return new ResponseEntity<String>("Success", HttpStatus.OK);
+}
 
-    @DeleteMapping(value = "/locations/{code}")
-    public ResponseEntity<ApplicationSuccess> removeLocation(@PathVariable String code) {
-        DexLocation location = assetService.findLocationByCode(code);
-        assetService.removeLocation(location);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@DeleteMapping(value = "/locations/{code}")
+public ResponseEntity<ApplicationSuccess> removeLocation(@PathVariable String code) {
+DexLocation location = assetService.findLocationByCode(code);
+assetService.removeLocation(location);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    //==============================================================================================
-    // ASSET-CODES
-    //==============================================================================================
+//==============================================================================================
+// ASSET-CODES
+//==============================================================================================
 
-    @GetMapping(value = "/asset-codes", params = {"page", "filter"})
-    public ResponseEntity<AssetCodeResult> findPagedAssetCodes(@RequestParam Integer page, @RequestParam String filter) {
-        LOG.debug("findPagedAssetCodes: {}", page);
-        Integer count = assetService.countAssetCode(filter);
-        List<DexAssetCode> assetCodes = assetService.findAssetCodes(filter, ((page - 1) * LIMIT), LIMIT);
-        return new ResponseEntity<AssetCodeResult>(new AssetCodeResult(assetTransformer.toAssetCodeVos(assetCodes), count), HttpStatus.OK);
-    }
+@GetMapping(value = "/asset-codes", params = {"page", "filter"})
+public ResponseEntity<AssetCodeResult> findPagedAssetCodes(@RequestParam Integer page, @RequestParam String filter) {
+LOG.debug("findPagedAssetCodes: {}", page);
+Integer count = assetService.countAssetCode(filter);
+List<DexAssetCode> assetCodes = assetService.findAssetCodes(filter, ((page - 1) * LIMIT), LIMIT);
+return new ResponseEntity<AssetCodeResult>(new AssetCodeResult(assetTransformer.toAssetCodeVos(assetCodes), count), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/asset-codes")
-    public ResponseEntity<List<AssetCode>> findAssetCodes() {
-        return new ResponseEntity<List<AssetCode>>(assetTransformer.toAssetCodeVos(
-                assetService.findAssetCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
-    }
+@GetMapping(value = "/asset-codes")
+public ResponseEntity<List<AssetCode>> findAssetCodes() {
+return new ResponseEntity<List<AssetCode>>(assetTransformer.toAssetCodeVos(
+assetService.findAssetCodes("%", 0, Integer.MAX_VALUE)), HttpStatus.OK);
+}
 
-    @GetMapping(value = "/asset-code/{code}")
-    public ResponseEntity<AssetCode> findAssetCodeByCode(@PathVariable String code) {
-        return new ResponseEntity<AssetCode>(assetTransformer.toAssetCodeVo(
-                assetService.findAssetCodeByCode(code)), HttpStatus.OK);
-    }
+@GetMapping(value = "/asset-code/{code}")
+public ResponseEntity<AssetCode> findAssetCodeByCode(@PathVariable String code) {
+return new ResponseEntity<AssetCode>(assetTransformer.toAssetCodeVo(
+assetService.findAssetCodeByCode(code)), HttpStatus.OK);
+}
 
 
-    @PostMapping(value = "/asset-codes")
-    public ResponseEntity<ApplicationSuccess> saveAssetCode(@RequestBody AssetCode vo) {
-        DexAssetCode assetCode = new DexAssetCodeImpl();
-        assetCode.setCode(vo.getCode());
-        assetCode.setDescription(vo.getDescription());
-        assetService.saveAssetCode(assetCode);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@PostMapping(value = "/asset-codes")
+public ResponseEntity<ApplicationSuccess> saveAssetCode(@RequestBody AssetCode vo) {
+DexAssetCode assetCode = new DexAssetCodeImpl();
+assetCode.setCode(vo.getCode());
+assetCode.setDescription(vo.getDescription());
+assetService.saveAssetCode(assetCode);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    @PutMapping(value = "/asset-codes/{code}")
-    public ResponseEntity<ApplicationSuccess> updateAssetCode(@PathVariable String code, @RequestBody AssetCode vo) {
-        DexAssetCode assetCode = assetService.findAssetCodeById(vo.getId());
-        assetCode.setDescription(vo.getDescription());
-        assetService.updateAssetCode(assetCode);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@PutMapping(value = "/asset-codes/{code}")
+public ResponseEntity<ApplicationSuccess> updateAssetCode(@PathVariable String code, @RequestBody AssetCode vo) {
+DexAssetCode assetCode = assetService.findAssetCodeById(vo.getId());
+assetCode.setDescription(vo.getDescription());
+assetService.updateAssetCode(assetCode);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 
-    @DeleteMapping(value = "/asset-codes/{code}")
-    public ResponseEntity<ApplicationSuccess> removeAssetCode(@PathVariable String code) {
-        DexAssetCode assetCode = assetService.findAssetCodeByCode(code);
-        assetService.removeAssetCode(assetCode);
-        return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
-    }
+@DeleteMapping(value = "/asset-codes/{code}")
+public ResponseEntity<ApplicationSuccess> removeAssetCode(@PathVariable String code) {
+DexAssetCode assetCode = assetService.findAssetCodeByCode(code);
+assetService.removeAssetCode(assetCode);
+return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
+}
 }

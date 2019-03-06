@@ -1,70 +1,79 @@
 <ng-container [formGroup]="creatorForm">
 
 
-<h1>Add Asset</h1>
-<p-panel>
-    <p-header>
-        Ref No.   {{selectedRow?.code}}
-    </p-header>
+    <h1>Add Asset</h1>
+    <p-panel>
+        <p-header>
+            Ref No.   {{selectedRow?.code}}
+        </p-header>
 
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12">
-            <div class="ui-g form-group">
-                <div class="ui-g-12 ui-md-12">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-g form-group">
+                    <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
                         <input [readOnly]="!edit" id="code" type="text" formControlName="code" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="code">Code</label>
                     </span>
-                </div>
+                    </div>
 
-                <div class="ui-g-12 ui-md-12">
+                    <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
                         <input [readOnly]="!edit" id="desc" type="text" formControlName="description" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="desc">Description</label>
                     </span>
-                </div>
+                    </div>
 
-                <div class="ui-g-12 ui-md-12">
-                    <span class="md-inputfield">
-                    <dex-asset-category-dropdown
-                        [innerFormControl]="creatorForm.get('category')" id="cate">
-                    </dex-asset-category-dropdown>
-                        <!--<input [readOnly]="!edit" id="cate" type="text" formControlName="category" pInputText-->
-                               <!--(click)="overlayPanel=!overlayPanel">-->
-                        <label for="cate">Category</label>
-                    </span>
-                </div>
+                    <div class="ui-g-12 ui-md-12">
+                        <dex-asset-category-dropdown
+                            [innerFormControl]="creatorForm.get('category')"
+                            [hideFloatLabel]="true"
+                            id="category">
+                        </dex-asset-category-dropdown>
+                        <label for="category">Category</label>
+                    </div>
 
-                <div class="ui-g-12 ui-md-12">
+                    <div class="ui-g-12 ui-md-12">
                     <span class="md-inputfield">
                         <input [readOnly]="!edit" id="cost" type="text" formControlName="cost" pInputText
                                (click)="overlayPanel=!overlayPanel">
                         <label for="cost">Cost</label>
                     </span>
-                </div>
+                    </div>
 
-                <div class="ui-g-12 ui-md-12">
-                    <span class="md-inputfield">
-                        <input [readOnly]="!edit" id="loca" type="text" formControlName="location" pInputText
-                               (click)="overlayPanel=!overlayPanel">
-                        <label for="loca">Location</label>
+                    <div class="ui-g-12 ui-md-12">
+                        <dex-location-autocomplete
+                            [innerFormControl]="creatorForm.get('location')"
+                            [hideFloatLabel]="true"
+                            id="location">
+                        </dex-location-autocomplete>
+                        <label for="location">Location</label>
+                    </div>
 
-                    </span>
+
+                    <div class="ui-g-12 ui-md-12">
+                        <dex-asset-code-autocomplete
+                            [innerFormControl]="creatorForm.get('assetCode')"
+                            [hideFloatLabel]="true"
+                            id="assetCode">
+                        </dex-asset-code-autocomplete>
+                        <label for="location">Asset Code</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "qrValue"></ngx-qrcode>
+        <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="qrValue"></ngx-qrcode>
 
 
-    <p-footer>
-        <button [disabled]="!creatorForm.valid" (click)="submit()" pButton type="button" label="Add" icon="pi pi-check" class="ui-button-success"></button>
-        <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
-    </p-footer>
-</p-panel>
+        <p-footer>
+            <button [disabled]="!creatorForm.valid" (click)="submit()" pButton type="button" label="Add"
+                    icon="pi pi-check" class="ui-button-success"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
+        </p-footer>
+    </p-panel>
 
 
 </ng-container>
