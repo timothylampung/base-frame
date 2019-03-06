@@ -1,0 +1,16 @@
+<span class="md-inputfield">
+    <p-autoComplete #p
+                    id="assetCode"
+                    [formControl]="innerFormControl"
+                    [suggestions]="assetCodes"
+                    [forceSelection]="true"
+                    [dropdown]="true"
+                    [emptyMessage]="'Tiada Rekod'"
+                    (completeMethod)="search($event)"
+                    field="name">
+        <ng-template let-value pTemplate="item">
+            <span>{{value?.description}}</span>
+        </ng-template>
+    </p-autoComplete>
+    <label for="assetCode" [hidden]="hideFloatLabel">User</label>
+</span>
