@@ -42,6 +42,7 @@ export class MaintenanceRequestWorkflowPage {
                     this.componentRef.destroy();
                 }
 
+
                 // todo: what's our states?
                 if (this.maintenanceRequestTask.flowState === FlowState.DRAFTED) {
                     componentFactory = this.cfr.resolveComponentFactory(MaintenanceRequestDraftPage);

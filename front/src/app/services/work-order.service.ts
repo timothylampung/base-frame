@@ -9,10 +9,10 @@ import {
     WorkOrderResult,
     WorkOrderTaskSummary,
     WorkOrderTaskSummaryResult
-} from '../modules/work-order/work-order.model';
-import {WorkOrderActivity} from "../modules/work-order/work-order-activity.model";
-import {WorkOrderComment} from "../modules/work-order/work-order-comment.model";
-import {WorkOrderLog} from "../modules/work-order/work-order-log.model";
+} from '../modules/work-order/mambahenol-hannah.model';
+import {WorkOrderActivity} from "../modules/work-order/mambahenol-hannah-activity.model";
+import {WorkOrderComment} from "../modules/work-order/mambahenol-hannah-comment.model";
+import {WorkOrderLog} from "../modules/work-order/mambahenol-hannah-log.model";
 import {ApplicationSuccess} from "../models/application-success.model";
 
 @Injectable()

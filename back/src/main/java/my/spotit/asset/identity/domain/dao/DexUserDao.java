@@ -26,4 +26,5 @@ public interface DexUserDao extends GenericDao<Long, DexUser> {
 
     boolean isExists(String username);
 
+    List<DexUser> findStaffMobile();
 }

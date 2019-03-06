@@ -2,6 +2,7 @@ package my.spotit.asset.maintenance.api.controller;
 
 import my.spotit.asset.asset.api.controller.AssetTransformer;
 import my.spotit.asset.asset.api.vo.Asset;
+import my.spotit.asset.common.api.controller.CommonTransformer;
 import my.spotit.asset.core.api.FlowState;
 import my.spotit.asset.core.api.MetaState;
 import my.spotit.asset.core.api.controller.CoreTransformer;
@@ -29,16 +30,18 @@ public class MaintenanceRequestTransformer {
 
     private IdentityTransformer identityTransformer;
     private CoreTransformer coreTransformer;
+    private CommonTransformer commonTransformer;
     private WorkflowService workflowService;
     private MaintenanceRequestService maintenanceRequestService;
     private AssetTransformer assetTransformer;
 
     @Autowired
     public MaintenanceRequestTransformer(IdentityTransformer identityTransformer,
-                                         CoreTransformer coreTransformer,AssetTransformer assetTransformer, WorkflowService workflowService,
+                                         CoreTransformer coreTransformer, CommonTransformer commonTransformer, AssetTransformer assetTransformer, WorkflowService workflowService,
                                          MaintenanceRequestService maintenanceRequestService) {
         this.identityTransformer = identityTransformer;
         this.coreTransformer = coreTransformer;
+        this.commonTransformer = commonTransformer;
         this.workflowService = workflowService;
         this.maintenanceRequestService = maintenanceRequestService;
         this.assetTransformer = assetTransformer;
@@ -52,8 +55,8 @@ public class MaintenanceRequestTransformer {
         vo.setId(e.getId());
         vo.setDescription(e.getDescription());
         vo.setRemark(e.getRemark());
-//        Asset asset = assetTransformer.toAssetVo(e.getAsset());
-//        vo.setAsset(asset);
+        Asset asset = assetTransformer.toAssetVo(e.getAsset());
+        vo.setAsset(asset);
         vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
         vo.setLocation(assetTransformer.toLocationVo(e.getLocation()));
         Actor delegator = identityTransformer.toActor(e.getDelegator());
@@ -63,8 +66,10 @@ public class MaintenanceRequestTransformer {
         Actor requester = identityTransformer.toActor(e.getRequester());
         vo.setRequester(requester);
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
-        coreTransformer.toMetadata(e, vo);
-
+        vo.setReferenceNo(e.getReferenceNo());
+        vo.setFile(commonTransformer.toFileVo(e.getFile()));
+        //TODO check props
+        coreTransformer.toFlowdata(e, vo);
         return vo;
     }
 

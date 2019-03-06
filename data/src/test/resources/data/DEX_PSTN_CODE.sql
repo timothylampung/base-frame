@@ -1,0 +1,3 @@
+INSERT INTO dex_pstn_code (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextval('sq_dex_pstn_code'), 'PC_0001', 'TECHNICIAN', '2019-03-06 09:54:25.049000', 1, null, null, null, null, 1);
+INSERT INTO dex_pstn_code (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextval('sq_dex_pstn_code'), 'PC_0002', 'SUPERVISOR', '2019-03-06 09:54:25.049000', 1, null, null, null, null, 1);
+INSERT INTO dex_pstn_code (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st) VALUES (nextval('sq_dex_pstn_code'), 'PC_0003', 'FACILITY MANAGER', '2019-03-06 09:54:25.049000', 1, null, null, null, null, 1);

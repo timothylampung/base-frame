@@ -2,6 +2,7 @@ package my.spotit.asset.maintenance.api.vo;
 
 import my.spotit.asset.asset.api.vo.Asset;
 import my.spotit.asset.asset.api.vo.Location;
+import my.spotit.asset.common.api.vo.File;
 import my.spotit.asset.core.api.Document;
 import my.spotit.asset.identity.api.vo.Actor;
 
@@ -17,6 +18,7 @@ public class MaintenanceRequest extends Document {
     private Actor verifier;
     private Location location;
     private Asset asset;
+    private File file;
 
     public MaintenanceRequest() {
     }
@@ -83,5 +85,13 @@ public class MaintenanceRequest extends Document {
 
     public void setAsset(Asset asset) {
         this.asset = asset;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }

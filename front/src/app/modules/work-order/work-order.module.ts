@@ -19,6 +19,7 @@ import {WorkOrderArchiveListPage} from './work-order-archive-list.page';
 import {WorkOrderArchiveDetailPage} from './work-order-archive-detail.page';
 import {WorkOrderPage} from './pages/work-order.page';
 import {MessageService} from "primeng/api";
+import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
 import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
 
 @NgModule({
@@ -34,6 +35,7 @@ import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
     declarations: [
         WorkOrderPage,
         WorkOrderNewPage,
+        WorkOrderDetailPage,
         WorkOrderPreparePage,
         WorkOrderVerifyPage,
         WorkOrderCheckPage,

@@ -48,12 +48,8 @@ export class MaintenanceRequestNewPage implements OnInit {
             requestedDate: ['', Validators.required],
             requester: ['', Validators.required],
             asset: [''],
-            location: [''],
-
-
-
+            location: ['']
         });
-
         // date workaround
         // this.maintenanceRequestTask.maintenanceRequest.maintenanceRequestDate = new Date(this.maintenanceRequestTask.maintenanceRequest.maintenanceRequestDate);
         this.mainForm.patchValue(this.maintenanceRequestTask.maintenanceRequest);

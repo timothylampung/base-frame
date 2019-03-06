@@ -159,6 +159,11 @@ public class IdentityServiceImpl implements IdentityService {
     }
 
     @Override
+    public List<DexUser> findStaffMobile() {
+        return userDao.findStaffMobile();
+    }
+
+    @Override
     public List<DexUser> findUsers(String filter, Integer offset, Integer limit) {
         return userDao.find(filter, offset, limit);
     }

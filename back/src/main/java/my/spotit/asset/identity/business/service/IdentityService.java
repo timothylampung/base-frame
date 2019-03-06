@@ -54,6 +54,8 @@ public interface IdentityService {
 
     List<DexUser> findUsers(Integer offset, Integer limit);
 
+    List<DexUser> findStaffMobile();
+
     List<DexUser> findUsers(String filter, Integer offset, Integer limit);
 
     Integer countUser();

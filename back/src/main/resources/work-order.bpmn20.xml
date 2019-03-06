@@ -3,6 +3,40 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              typeLanguage="http://www.w3.org/2001/XMLSchema"
              expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Fixed">
+    <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI">
+        <BPMNPlane>
+            <BPMNShape bpmnElement="workOrder_verify_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_complete_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_check_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_verify_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_check_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="start">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="-24.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_prepare_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="end">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="-24.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_approve_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="workOrder_prepare_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+        </BPMNPlane>
+    </BPMNDiagram>
     <process id="work_order_workflow" name="Work Order Workflow" isExecutable="true">
         <startEvent id="start"/>
         <sequenceFlow id="flow1.1" sourceRef="start" targetRef="workOrder_prepare_ST"/>

@@ -3,18 +3,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {AppState} from '../../../core/core.state';
-import {initStateWorkOrder, WorkOrder, WorkOrderTaskSummary} from '../work-order.model';
+import {WorkOrder, WorkOrderTaskSummary} from '../work-order.model';
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {StartWorkOrderTaskAction} from "../work-order.action";
 
 const INVOICE_BASE_URI = '/workOrder/workOrder-tasks';
 
 @Component({
-    selector: 'dex-work-order-new-page',
-    templateUrl: './work-order-new.page.html',
-    styleUrls: ['./work-order-new.page.css']
+    selector: 'dex-work-order-detail-page',
+    templateUrl: './work-order-detail.page.html',
+    styleUrls: ['./work-order-detail.page.css']
 })
-export class WorkOrderNewPage implements OnInit {
+export class WorkOrderDetailPage implements OnInit {
     @Input() workOrderTask: WorkOrderTaskSummary;
     mainForm: FormGroup;
     breadcrumbs = [
@@ -24,8 +23,8 @@ export class WorkOrderNewPage implements OnInit {
             routerLink: [INVOICE_BASE_URI + '/assigned']
         },
         {
-            label: 'Work Order Baru',
-            routerLink: [INVOICE_BASE_URI + '/new']
+            label: 'Work Order Detail',
+            routerLink: [INVOICE_BASE_URI + '/:taskId']
         }
     ];
 
@@ -49,24 +48,6 @@ export class WorkOrderNewPage implements OnInit {
         // date workaround
         // this.workOrderTask.workOrder.workOrderDate = new Date(this.workOrderTask.workOrder.workOrderDate);
         this.mainForm.patchValue(this.workOrderTask.workOrder);
-    }
-
-    draft() {
-        if (this.validateDocument()) {
-            this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
-                accept: () => {
-                    console.log(this.mainForm.value);
-                    let workOrder: WorkOrder = {
-                        ...initStateWorkOrder,
-                        ...this.mainForm.value,
-                    };
-                    this.store.dispatch(new StartWorkOrderTaskAction(workOrder));
-                }
-            });
-        }
     }
 
     validateDocument() {

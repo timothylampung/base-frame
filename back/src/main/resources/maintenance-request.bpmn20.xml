@@ -3,6 +3,25 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              typeLanguage="http://www.w3.org/2001/XMLSchema"
              expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Fixed">
+    <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI">
+        <BPMNPlane>
+            <BPMNShape bpmnElement="maintenanceRequest_complete_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="maintenanceRequest_draft_ST">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="start">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="-24.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="end">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="48.0" x="-24.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="maintenanceRequest_draft_UT">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+        </BPMNPlane>
+    </BPMNDiagram>
 
     <process id="maintenance_request_workflow" name="Maintenance Request Workflow" isExecutable="true">
         <startEvent id="start"/>

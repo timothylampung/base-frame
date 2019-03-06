@@ -1,10 +1,7 @@
 package my.spotit.asset.identity.domain.dao;
 
 import my.spotit.asset.core.domain.GenericDaoSupport;
-import my.spotit.asset.identity.domain.model.DexActor;
-import my.spotit.asset.identity.domain.model.DexUser;
-import my.spotit.asset.identity.domain.model.DexGroup;
-import my.spotit.asset.identity.domain.model.DexUserImpl;
+import my.spotit.asset.identity.domain.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -41,6 +38,15 @@ public class DexUserDaoImpl extends GenericDaoSupport<Long, DexUser> implements 
                 "upper(u.name) = upper(:username) ");
         query.setParameter("username", username);
         return 0 < ((Long) query.getSingleResult()).intValue();
+    }
+
+    @Override
+    public List<DexUser> findStaffMobile() {
+        Query query = entityManager.createQuery("select s from DexUser s " +
+                "where s.principalType =:type and " +
+                "s.actor is not null");
+        query.setParameter("type", DexPrincipalType.USER);
+        return (List<DexUser>) query.getResultList();
     }
 
     @Override
