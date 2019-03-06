@@ -1,6 +1,8 @@
+<p-panel>
+
 <div class="ui-g ui-fluid">
     <div class="ui-g-12">
-        <div class="ui-g-12 card card-w-title">
+
             <!--<h1>Work Order Refdfdsaf# {{ workOrderTask?.referenceNo}}</h1>-->
             <h1>Submit New Work Order</h1>
             <div class="ui-g-6 ui-g " [formGroup]="mainForm">
@@ -81,25 +83,30 @@
                         </span>
                     </div>
                 </div>
-
-                <p-footer>
-                    <button pButton type="button"
-                            label="Add"
-                            (click)="draft()"
-                            icon="pi pi-check"
-                            class="ui-button-success"></button>
-                    <button pButton type="button"
-                            (click)="goBack()"
-                            label="Cancel"
-                            icon="pi pi-times"
-                            class="ui-button-danger"></button>
-                </p-footer>
-
             </div>
+
+<div class="ui-g-12">
+    <div class="ui-g-3">
+        <button pButton type="button"
+                label="Add"
+                (click)="draft()"
+                icon="pi pi-check"
+                class="ui-button-success"></button>
+    </div>
+
+    <div class="ui-g-3">
+        <button pButton type="button"
+                (click)="goBack()"
+                label="Cancel"
+                icon="pi pi-times"
+                class="ui-button-danger"></button>
+    </div>
+</div>
+
             <div class="ui-g-6 ui-g " [formGroup]="mainForm">
                 <!--todo-->
             </div>
-        </div>
+
     </div>
 </div>
 
@@ -117,3 +124,5 @@
 </div>
 
 <p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+</p-panel>

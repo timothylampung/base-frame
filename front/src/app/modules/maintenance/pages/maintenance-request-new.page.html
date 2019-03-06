@@ -1,6 +1,7 @@
+<p-panel>
+
 <div class="ui-g ui-fluid">
     <div class="ui-g-12">
-        <div class="ui-g-12 card card-w-title">
             <!--<h1>Maintenance Request Ref# {{ maintenanceRequestTask?.referenceNo}}</h1>-->
             <h1>Submit New Maintenance Order Request</h1>
 
@@ -82,11 +83,22 @@
                     </span>
                     </div>
                 </div>
-                <p-footer>
-                    <button pButton type="button" label="Add" (click)="draft()" icon="pi pi-check"
-                            class="ui-button-success"></button>
-                    <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
-                </p-footer>
+
+        <div class="ui-g-12">
+            <div class="ui-g-3">
+                <button pButton type="button"
+                        label="Add"
+                        (click)="draft()"
+                        icon="pi pi-check"
+                        class="ui-button-success"></button>
+            </div>
+
+            <div class="ui-g-3">
+                <button pButton type="button"
+                        label="Cancel"
+                        icon="pi pi-times"
+                        class="ui-button-danger"></button>
+            </div>
 
                 <div class="ui-g-12">
                     <!--todo -->
@@ -121,3 +133,5 @@
 
 
 <p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+</p-panel>
