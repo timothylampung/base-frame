@@ -17,7 +17,7 @@ import {FacilityManagerListPage} from "./facilitymanager/facility-manager-list.p
 import {FacilityManagerEffects} from "./facilitymanager/facility-manager.effect";
 import {SupervisorEffects} from "./supervisors/supervisor.effect";
 import {ActorAutocompleteComponent} from "./actors/actor-autocomplete.component";
-import {StaffAutocompleteComponent} from "./staffs/staff-autocomplete.component";
+
 
 
 @NgModule({
@@ -35,7 +35,6 @@ import {StaffAutocompleteComponent} from "./staffs/staff-autocomplete.component"
     ],
     declarations: [
         ActorAutocompleteComponent,
-        StaffAutocompleteComponent,
         UserListPage,
         GroupListPage,
         StaffListPage,
@@ -45,7 +44,7 @@ import {StaffAutocompleteComponent} from "./staffs/staff-autocomplete.component"
         FacilityManagerListPage
     ],
     exports: [
-        ActorAutocompleteComponent, StaffAutocompleteComponent
+        ActorAutocompleteComponent,
     ],
     providers: [IdentityService]
 })

@@ -23,8 +23,12 @@ import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facili
 import {PartListPage} from "./modules/inventory/parts/part-list.page";
 import {ComponentListPage} from "./modules/inventory/components/component-list.page";
 import {PartCodeListPage} from "./modules/inventory/part-codes/part-code-list.page";
+import {MambahenolHannahTaskDetailPage} from "./modules/work-order/mambahenol-hannah-task-detail.page";
+import {MambahenolHannahArchiveDetailPage} from "./modules/work-order/mambahenol-hannah-archive-detail.page";
+import {MambahenolHannahArchiveListPage} from "./modules/work-order/mambahenol-hannah-archive-list.page";
 import {WorkOrderPooledTaskListPage} from "./modules/work-order/work-order-pooled-task-list.page";
 import {WorkOrderAssignedTaskListPage} from "./modules/work-order/work-order-assigned-task-list.page";
+import {MambahenolHannahTaskNewPage} from "./modules/work-order/mambahenol-hannah-task-new.page";
 import {MaintenanceRequestTaskNewPage} from "./modules/maintenance/maintenance-request-task-new.page";
 import {MaintenanceRequestAssignedTaskListPage} from "./modules/maintenance/maintenance-request-assigned-task-list.page";
 import {MaintenanceRequestPooledTaskListPage} from "./modules/maintenance/maintenance-request-pooled-task-list.page";
