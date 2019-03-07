@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, Sanitizer} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
@@ -11,6 +11,8 @@ import {MaintenanceRequestPage} from "./maintenance-request.page";
 import {BreadcrumbService} from "../../../breadcrumb.service";
 import {AppState} from "../../../core/core.state";
 import {About} from "../../../models";
+import {CommonService} from "../../../services";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'dex-maintenance-request-draft-page',
@@ -19,14 +21,17 @@ import {About} from "../../../models";
 })
 export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implements OnInit {
     selectedAbout: About;
+    imageToShow: any;
     cols = [
         {field: 'description', header: 'Description'},
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
+                public _sanitizer : DomSanitizer,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public commonService : CommonService,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
         super(breadcrumbService, messageService, confirmationService, fb, store, cdr);
@@ -34,6 +39,20 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     ngOnInit() {
         super.ngOnInit()
+        this.commonService.downloadFile("dex_Screenshot_1.png").subscribe(blob => {
+            this.createImageFromBlob(blob);
+        })
+    }
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.imageToShow = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
     approve() {

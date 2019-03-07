@@ -5,6 +5,7 @@ import my.spotit.asset.common.api.vo.GradeCode;
 import my.spotit.asset.common.api.vo.GradeCodeResult;
 import my.spotit.asset.common.api.vo.PositionCode;
 import my.spotit.asset.common.api.vo.PositionCodeResult;
+import my.spotit.asset.common.business.service.FileService;
 import my.spotit.asset.common.domain.model.DexGradeCode;
 import my.spotit.asset.common.domain.model.DexGradeCodeImpl;
 import my.spotit.asset.common.domain.model.DexPositionCode;
@@ -15,15 +16,23 @@ import my.spotit.asset.common.business.service.CommonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 /**
+ *
  */
 @Transactional
 @RestController
@@ -36,15 +45,18 @@ public class CommonController {
     private SystemService systemService;
     private CommonTransformer commonTransformer;
     private AuthenticationManager authenticationManager;
+    private FileService fileService;
+
 
     @Autowired
     public CommonController(CommonService commonService, SystemService systemService,
                             CommonTransformer commonTransformer,
-                            AuthenticationManager authenticationManager) {
+                            AuthenticationManager authenticationManager, FileService fileService) {
         this.commonService = commonService;
         this.systemService = systemService;
         this.commonTransformer = commonTransformer;
         this.authenticationManager = authenticationManager;
+        this.fileService = fileService;
     }
 
     //==============================================================================================
@@ -143,6 +155,20 @@ public class CommonController {
         DexGradeCode gradeCode = commonService.findGradeCodeByCode(code);
         commonService.removeGradeCode(gradeCode);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/download-file/{fileName:.+}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileService.loadFileAsResource(fileName);
+        byte[] bytes = null;
+        try {
+            bytes = Files.readAllBytes(resource.getFile().toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(bytes);
     }
 
     // =============================================================================================

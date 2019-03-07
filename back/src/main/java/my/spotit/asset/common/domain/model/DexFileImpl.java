@@ -13,8 +13,11 @@ public class DexFileImpl implements DexFile{
     @GeneratedValue(generator = "SQ_DEX_FILES")
     @SequenceGenerator(name = "SQ_DEX_FILES", sequenceName = "SQ_DEX_FILES", allocationSize = 1)
     private Long id;
+    @Column(name = "FILE_NAME")
     private String fileName;
+    @Column(name = "FILE_TYPE")
     private String fileType;
+    @Column(name = "FILE_LOCATION")
     private String fileLocation;
     @Embedded
     private DexMetadata metadata;

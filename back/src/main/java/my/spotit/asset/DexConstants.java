@@ -19,4 +19,5 @@ public interface DexConstants {
     public static final String REPORT_PATH = "/my/spotit/asset/report/jasper";
     public static final int LIMIT = 10;
     public static final int MAX_LIMIT = 999;
+    String CONFIG_UPLOAD_PATH = "upload.dir";
 }

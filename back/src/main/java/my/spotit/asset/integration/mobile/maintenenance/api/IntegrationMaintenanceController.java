@@ -76,7 +76,7 @@ public class IntegrationMaintenanceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(maintenanceRequestTransformer.toMaintenanceRequestVo(savedMaintenanceReq));
     }
 
-    @PostMapping(value = "/maintenance-requests/{referenceNo}/upload")
+        @PostMapping(value = "/maintenance-requests/{referenceNo}/upload")
     public ResponseEntity<DexFile> upload(@RequestParam("file") MultipartFile file, @PathVariable String referenceNo)  {
         DexMaintenanceRequest request = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
         DexFile dbFile = fileService.storeFile(file);
