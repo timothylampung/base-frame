@@ -2,18 +2,15 @@ import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {
-    WorkOrder,
-    WorkOrderRecordSummary,
-    WorkOrderRecordSummaryResult,
-    WorkOrderResult,
-    WorkOrderTaskSummary,
-    WorkOrderTaskSummaryResult
-} from '../modules/work-order/mambahenol-hannah.model';
-import {WorkOrderActivity} from "../modules/work-order/mambahenol-hannah-activity.model";
-import {WorkOrderComment} from "../modules/work-order/mambahenol-hannah-comment.model";
-import {WorkOrderLog} from "../modules/work-order/mambahenol-hannah-log.model";
 import {ApplicationSuccess} from "../models/application-success.model";
+import {
+    WorkOrder, WorkOrderRecordSummary,
+    WorkOrderRecordSummaryResult, WorkOrderResult, WorkOrderTaskSummary,
+    WorkOrderTaskSummaryResult
+} from "../modules/work-order/work-order.model";
+import {WorkOrderLog} from "../modules/work-order/work-order-log.model";
+import {WorkOrderComment} from "../modules/work-order/work-order-comment.model";
+import {WorkOrderActivity} from "../modules/work-order/work-order-activity.model";
 
 @Injectable()
 export class WorkOrderService {
