@@ -42,7 +42,7 @@ export class AssetEffects {
             map((action: SaveAssetAction) => action.payload),
             switchMap((asset) => this.assetService.saveAsset(asset)),
             map((message) => new SaveAssetSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedAssetsAction({filter: 'todo', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedAssetsAction({filter: '', page: 1})])),);
 
     @Effect() updateAsset$ = this.actions$
         .pipe(
@@ -51,7 +51,7 @@ export class AssetEffects {
             switchMap((asset) => this.assetService.updateAsset(asset)),
             map((asset) => new UpdateAssetSuccessAction({message: 'success'})),
             switchMap(() => this.assetService.findAssets()),
-            map((assets) => new FindPagedAssetsAction({filter: 'todo', page: 1})));
+            map((assets) => new FindPagedAssetsAction({filter: '', page: 1})));
 
     @Effect() removeAsset$ = this.actions$
         .pipe(
@@ -59,5 +59,5 @@ export class AssetEffects {
             map((action: RemoveAssetAction) => action.payload),
             switchMap(payload => this.assetService.removeAsset(payload)),
             map(message => new RemoveAssetSuccessAction({message: 'success'})),
-            mergeMap(action => from([action, new FindPagedAssetsAction({filter: 'todo', page: 1})])),);
+            mergeMap(action => from([action, new FindPagedAssetsAction({filter: '', page: 1})])),);
 }
