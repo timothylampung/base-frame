@@ -64,8 +64,11 @@ export class LocationDetailPage implements OnInit, OnChanges {
             icon: 'pi pi-info-circle',
             accept: () => {
                 this.msgs = [{severity:'info', summary:'Location Saved'}];
-                this.store.dispatch(new UpdateLocationAction(this.selectedRow));
+                // this.store.dispatch(new UpdateLocationAction(this.selectedRow));
+                this.store.dispatch(new SaveLocationAction(this.creatorForm.value));
                 console.log(this.selectedRow);
+                this.creatorForm.reset();
+
             },
             reject: () => {
                 this.msgs = [{severity:'info', summary:'Save Cancelled'}];

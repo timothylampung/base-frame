@@ -2,9 +2,7 @@ package my.spotit.asset.asset.business.service;
 
 import my.spotit.AbstractTest;
 
-import my.spotit.asset.asset.domain.model.DexAssetCode;
-import my.spotit.asset.asset.domain.model.DexLocation;
-import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.asset.domain.model.*;
 import my.spotit.asset.core.domain.DexMetaState;
 import my.spotit.asset.helper.IdentityServiceHelper;
 
@@ -113,7 +111,32 @@ public class AssetServiceImplTest extends AbstractTest {
     }
 
     @Test
+    @Rollback(false)
     public void saveAsset() {
+
+        DexAssetCode ast001 = assetService.findAssetCodeByCode("AC_001");
+        DexLocation lctn001 = assetService.findLocationByCode("SM_001");
+
+
+        identityServiceHelper.changeUser("fm1");
+        DexAsset asset = new DexAssetImpl();
+        asset.setCategory("Plumbing");
+        asset.setQuantity("20");
+        asset.setCost("30");
+        asset.setAssetCode(ast001);
+        asset.setDescription("Faucet");
+        asset.setCode("AST_009");
+        asset.setLocation(lctn001);
+        assetService.saveAsset(asset);
+        LOG.debug("----------------------prepared------------------------ {} ",asset.getDescription() );
+        assetService.saveAsset(asset);
+
+//        entityManager.flush();
+
+        DexAsset savedAsset = assetService.findAssetByCode("AST_009");
+        LOG.debug("--------------------saved-------------------------- {} ",savedAsset.getCategory() );
+
+
     }
 
     @Test

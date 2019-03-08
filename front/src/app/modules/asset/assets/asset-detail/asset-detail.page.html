@@ -44,6 +44,14 @@
                     </div>
 
                     <div class="ui-g-12 ui-md-12">
+                    <span class="md-inputfield">
+                        <input [readOnly]="!edit" id="quantity" type="text" formControlName="quantity" pInputText
+                               (click)="overlayPanel=!overlayPanel">
+                        <label for="cost">Quantity</label>
+                    </span>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-12">
                         <dex-location-autocomplete
                             [innerFormControl]="creatorForm.get('location')"
                             [hideFloatLabel]="true"
@@ -61,6 +69,8 @@
                         </dex-asset-code-autocomplete>
                         <label for="location">Asset Code</label>
                     </div>
+
+
                 </div>
             </div>
         </div>

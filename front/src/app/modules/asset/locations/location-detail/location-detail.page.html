@@ -62,7 +62,7 @@
         <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "qrValue"></ngx-qrcode>
 
         <p-footer>
-            <button [disabled]="!creatorForm.valid" (click)="submit(); updateLocation()" pButton type="button" label="Save" icon="pi pi-check" class="ui-button-success"></button>
+            <button [disabled]="!creatorForm.valid" (click)="updateLocation()" pButton type="button" label="Save" icon="pi pi-check" class="ui-button-success"></button>
             <button pButton type="button" label="Delete" icon="pi pi-times" class="ui-button-danger"></button>
         </p-footer>
     </p-panel>

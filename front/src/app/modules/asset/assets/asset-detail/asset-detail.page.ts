@@ -36,6 +36,7 @@ export class AssetDetailPage implements OnInit, OnChanges {
             description: ['', Validators.required],
             category: ['', Validators.required],
             cost: ['', Validators.required],
+            quantity: ['', Validators.required],
             location: ['', Validators.required],
             assetCode: ['', Validators.required],
 
