@@ -25,26 +25,26 @@ INNER JOIN dex_asst ast on ast.id = wo.asset_id]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="90" splitType="Stretch">
+		<band height="83" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="83" uuid="d5faba20-1eb3-43e8-b6cc-336fed6a3a16"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="164" y="20" width="227" height="30" uuid="e66e51fd-e7fc-4434-a079-5c23464be134"/>
+				<reportElement x="130" y="13" width="300" height="50" uuid="d6f52664-8e05-4f67-82cd-3a2459e96efd"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="false"/>
+					<font size="16"/>
 				</textElement>
 				<text><![CDATA[WORK ORDER
-By Assignee]]></text>
+]]></text>
 			</staticText>
-			<rectangle>
-				<reportElement mode="Transparent" x="60" y="0" width="441" height="71" uuid="5e5de66f-e791-48bb-8de7-5e32569ef740"/>
-			</rectangle>
 			<image>
-				<reportElement x="80" y="18" width="130" height="35" uuid="0ea237d1-2a5e-4faf-9c93-fc12c2511d55"/>
+				<reportElement x="10" y="16" width="132" height="47" uuid="6888ec61-44ae-47ff-9330-d82765e7f73e"/>
 				<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="10" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="30" splitType="Stretch">
@@ -59,7 +59,7 @@ By Assignee]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Assignee]]></text>
 			</staticText>
@@ -74,7 +74,7 @@ By Assignee]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Location]]></text>
 			</staticText>
@@ -89,7 +89,7 @@ By Assignee]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Asset]]></text>
 			</staticText>
