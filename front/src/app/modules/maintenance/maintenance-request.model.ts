@@ -5,6 +5,7 @@ import {FlowState} from '../../models/flow-state.enum';
 import {Actor} from "../identity/actors/actor.model";
 import {Location} from "../asset/locations/location-model";
 import {Asset} from "../asset/assets/asset-model";
+import {File} from "../common/file/file.model";
 
 export interface MaintenanceRequest extends Document {
     requestedDate: Date;
@@ -15,6 +16,7 @@ export interface MaintenanceRequest extends Document {
     asset: Asset;
     remark:String;
     reporter:Asset;
+    file? : File
 }
 
 export interface MaintenanceRequestResult {
@@ -32,7 +34,7 @@ export interface MaintenanceRequestRecordSummaryResult {
 }
 
 export interface MaintenanceRequestTaskSummary extends Task {
-    maintenanceRequest: MaintenanceRequest;
+    request: MaintenanceRequest;
 }
 
 export interface MaintenanceRequestTaskSummaryResult {
@@ -66,6 +68,7 @@ export const initStateMaintenanceRequest: MaintenanceRequest = {
     location: null,
     asset: null,
     remark:null,
+    file : null
 };
 
 export const initStateMaintenanceRequestTaskSummary: MaintenanceRequestTaskSummary = {
@@ -77,5 +80,5 @@ export const initStateMaintenanceRequestTaskSummary: MaintenanceRequestTaskSumma
     sourceNo: null,
     description: null,
     flowState: FlowState.NEW,
-    maintenanceRequest: initStateMaintenanceRequest,
+    request: initStateMaintenanceRequest,
 };

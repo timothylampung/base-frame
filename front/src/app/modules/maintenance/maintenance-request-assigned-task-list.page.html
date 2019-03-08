@@ -51,13 +51,17 @@
                      (onRowSelect)="viewTask($event.data.taskId)">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
+                        <th style="width: 4em"></th>
                         <th style="width: 20%">Reference No</th>
                         <th style="width: 50%">Description</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
-                    <tr [pSelectableRow]="rowData">
+                    <tr [pSelectableRow]="rowData" >
                         <td>
+                            <button type="button" pButton (click)="onHover(rowData); op.toggle($event)" icon="pi pi-search"></button>
+                        </td>
+                        <td >
                             {{rowData?.referenceNo}}
                         </td>
                         <td>
@@ -69,3 +73,7 @@
         </div>
     </div>
 </div>
+
+<p-overlayPanel #op>
+    <img [src]="imageToShow" height="400" alt="Place image title"/>
+</p-overlayPanel>

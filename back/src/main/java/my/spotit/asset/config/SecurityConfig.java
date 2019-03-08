@@ -69,6 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/api/registration/**")
+                .antMatchers("/spotit-stomp-endpoint/**")
+                .antMatchers("/spotit/**")
                 .antMatchers("/api/mobile/**") //Release here and let mobile integration security filter
                 .antMatchers("/api/common/download-file/**") //Release here and let mobile integration security filter
                 .antMatchers("/swagger-ui.html")

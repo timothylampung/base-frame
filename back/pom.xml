@@ -229,6 +229,15 @@
             <artifactId>jasper-font-extension</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

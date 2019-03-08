@@ -39,7 +39,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     ngOnInit() {
         super.ngOnInit()
-        this.commonService.downloadFile("dex_Screenshot_1.png").subscribe(blob => {
+        this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
             this.createImageFromBlob(blob);
         })
     }

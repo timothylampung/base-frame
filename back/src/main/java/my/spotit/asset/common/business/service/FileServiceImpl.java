@@ -55,9 +55,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public DexFile storeFile(MultipartFile multipartFile) {
-        String fileName = "/dex_" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        String fileName = "dex_" + StringUtils.cleanPath(multipartFile.getOriginalFilename());
         try {
-            File file = new File(systemService.findConfigurationByKey(DexConstants.CONFIG_UPLOAD_PATH).getValue() + fileName);
+            File file = new File(systemService.findConfigurationByKey(DexConstants.CONFIG_UPLOAD_PATH).getValue() + "/" + fileName);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(multipartFile.getBytes());
             fos.flush();
@@ -76,8 +76,6 @@ public class FileServiceImpl implements FileService {
             entityManager.flush();
             entityManager.refresh(dbFile);
             return dbFile;
-
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception ex) {
