@@ -3,7 +3,7 @@
 <div class="ui-g ui-fluid">
     <div class="ui-g-12">
             <!--<h1>Maintenance Request Ref# {{ maintenanceRequestTask?.referenceNo}}</h1>-->
-            <h1>Submit New Maintenance Order Request</h1>
+            <h1>New Maintenance Request</h1>
 
             <div class="ui-g-6 ui-g " [formGroup]="mainForm">
                 <div class="ui-g-12">
@@ -60,7 +60,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <dex-asset-autocomplete  [hideFloatLabel]="true" [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
+                        <dex-asset-autocomplete  [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -87,6 +87,7 @@
 
             <div class="ui-g-3">
                 <button pButton type="button"
+                        (click)="goBack()"
                         label="Cancel"
                         icon="pi pi-times"
                         class="ui-button-danger"></button>
@@ -108,7 +109,7 @@
     <div class="ui-g-1">
         <button
             type="button"
-            [label]="'Deraf'"
+            [label]="'Draft'"
             (click)="draft()"
             [disabled]="!mainForm.valid"
             icon="fa fa-save"
@@ -124,6 +125,6 @@
 
 
 
-<p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
 
 </p-panel>

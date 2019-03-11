@@ -32,7 +32,7 @@
                 </div>
                 <div class="ui-g-12 ui-g ">
                     <div class="ui-button-toolbar-mr">
-                        <button pButton type="button" label="Cari"
+                        <button pButton type="button" label="Search"
                                 icon="fa fa-search"
                                 (click)="search()"></button>
                     </div>
@@ -54,9 +54,27 @@
                      (onRowSelect)="view($event)">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width: 20%">Reference No</th>
-                        <th style="width: 45%">Description</th>
-                        <th style="width: 10%">Status</th>
+                        <th style="width: 20%" [pSortableColumn]="'referenceNo'"> Reference No
+                            <p-sortIcon [field]="'referenceNo'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                        <th style="width: 45%" [pSortableColumn]="'description'"> Description
+                            <p-sortIcon [field]="'description'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                        <th style="width: 10%" [pSortableColumn]="'flowState'"> Status
+                            <p-sortIcon [field]="'flowState'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>

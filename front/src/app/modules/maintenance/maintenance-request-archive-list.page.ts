@@ -25,6 +25,7 @@ export class MaintenanceRequestArchiveListPage implements OnInit {
     cols = [
         {field: 'referenceNo', header: 'Reference No'},
         {field: 'description', header: 'Description'},
+        {field: 'status', header: 'Status'},
     ];
     breadcrumbs = [
         {label: 'Maintenance Request'},
