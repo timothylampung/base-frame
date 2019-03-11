@@ -161,6 +161,10 @@ public class DexMaintenanceRequestImpl implements DexMaintenanceRequest {
         this.cancelComment = cancelComment;
     }
 
+    public Boolean getDelegated() {
+        return delegated;
+    }
+
     public Boolean isDelegated() {
         return delegated;
     }

@@ -17,6 +17,7 @@ export interface MaintenanceRequest extends Document {
     remark:String;
     reporter:Asset;
     file? : File
+    delegated: boolean;
 }
 
 export interface MaintenanceRequestResult {
@@ -68,7 +69,8 @@ export const initStateMaintenanceRequest: MaintenanceRequest = {
     location: null,
     asset: null,
     remark:null,
-    file : null
+    file : null,
+    delegated:null,
 };
 
 export const initStateMaintenanceRequestTaskSummary: MaintenanceRequestTaskSummary = {
