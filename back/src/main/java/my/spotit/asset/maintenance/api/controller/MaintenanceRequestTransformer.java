@@ -68,6 +68,7 @@ public class MaintenanceRequestTransformer {
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
         vo.setReferenceNo(e.getReferenceNo());
         vo.setFile(commonTransformer.toFileVo(e.getFile()));
+        vo.setDelegated(e.getDelegated());
         //TODO check props
         coreTransformer.toFlowdata(e, vo);
         return vo;

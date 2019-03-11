@@ -22,16 +22,17 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implements OnInit {
     selectedAbout: About;
     imageToShow: any;
+
     cols = [
         {field: 'description', header: 'Description'},
     ];
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
-                public _sanitizer : DomSanitizer,
+                public _sanitizer: DomSanitizer,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
-                public commonService : CommonService,
+                public commonService: CommonService,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
         super(breadcrumbService, messageService, confirmationService, fb, store, cdr);
@@ -39,6 +40,9 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     ngOnInit() {
         super.ngOnInit()
+        console.log(this.maintenanceRequestTask);
+        console.log(this.mainForm.value);
+
         this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
             this.createImageFromBlob(blob);
         })
@@ -62,12 +66,24 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                 acceptLabel: 'Ya',
                 rejectLabel: 'Tidak',
                 accept: () => {
+
+                    if (this.maintenanceRequestTask.assignee != null) {
+                        this.maintenanceRequestTask.request.delegated = true;
+                        this.mainForm.value.delegated = true;
+                    } else
+                        return null;
                     this.store.dispatch(new CompleteMaintenanceRequestTaskAction({taskId: this.maintenanceRequestTask.taskId}));
                     this.store.dispatch(new UpdateMaintenanceRequestAction({
                             ...this.maintenanceRequestTask,
                             ...this.mainForm.value
+
                         })
                     );
+                    console.log(this.maintenanceRequestTask);
+                    this.mainForm.patchValue(this.maintenanceRequestTask);
+                    console.log(this.mainForm.value);
+
+
                 }
             });
         }
@@ -92,6 +108,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
             acceptLabel: 'Ya',
             rejectLabel: 'Tidak',
             accept: () => {
+
                 this.store.dispatch(
                     new UpdateMaintenanceRequestAction({
                         ...this.maintenanceRequestTask,

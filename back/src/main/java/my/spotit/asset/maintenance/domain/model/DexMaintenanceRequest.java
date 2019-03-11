@@ -20,6 +20,8 @@ public interface DexMaintenanceRequest extends DexDocument {
 
     Boolean isDelegated();
 
+    Boolean getDelegated();
+
     void setDelegated(Boolean delegated);
 
     DexActor getDelegator();

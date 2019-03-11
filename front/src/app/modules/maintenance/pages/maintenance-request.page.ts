@@ -53,7 +53,8 @@ export class MaintenanceRequestPage {
             location: [],
             asset: [],
             remark: [],
-            reporter: []
+            reporter: [],
+            delegated:[],
         });
 
         // todo: date workaround
