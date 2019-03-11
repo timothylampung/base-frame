@@ -2,6 +2,8 @@ package my.spotit.asset.asset.domain.model;
 
 import my.spotit.asset.core.domain.DexMetaObject;
 
+import java.util.List;
+
 public interface DexAsset  extends  DexMetaObject  {
 
     String getCode();
@@ -23,6 +25,10 @@ public interface DexAsset  extends  DexMetaObject  {
     String getCategory();
 
     void setCategory(String category);
+
+    List<DexAssetCategory> getAssetCategory();
+
+    void setAssetCategory(List<DexAssetCategory> assetCategory);
 
     DexAssetCode getAssetCode();
 

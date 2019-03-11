@@ -4,6 +4,7 @@ import my.spotit.asset.core.domain.DexMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity(name = "DexAsset")
 @Table(name = "DEX_ASST")
@@ -32,9 +33,11 @@ public class DexAssetImpl implements DexAsset {
     private String quantity;
 
 
-    @Column(name = "Category")
+    @Column(name = "CATEGORY")
     private String category;
 
+    @OneToMany(targetEntity = DexAssetCategoryImpl.class, mappedBy = "asset", fetch = FetchType.LAZY)
+    private List<DexAssetCategory> assetCategory;
 
     @OneToOne(targetEntity = DexAssetCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_CODE_ID")
@@ -105,6 +108,16 @@ public class DexAssetImpl implements DexAsset {
     @Override
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public List<DexAssetCategory> getAssetCategory() {
+        return assetCategory;
+    }
+
+    @Override
+    public void setAssetCategory(List<DexAssetCategory> assetCategory) {
+        this.assetCategory = assetCategory;
     }
 
     @Override

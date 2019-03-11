@@ -37,7 +37,6 @@ import {WorkOrderArchiveListPage} from "./modules/work-order/work-order-archive-
 import {WorkOrderTaskNewPage} from "./modules/work-order/work-order-task-new.page";
 import {WorkOrderTaskDetailPage} from "./modules/work-order/work-order-task-detail.page";
 import {WorkOrderArchiveDetailPage} from "./modules/work-order/work-order-archive-detail.page";
-import {WorkOrderPooledTaskListPage} from "./modules/work-order/work-order-pooled-task-list.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},
