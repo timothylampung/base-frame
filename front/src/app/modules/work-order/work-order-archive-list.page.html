@@ -54,9 +54,27 @@
                      (onRowSelect)="view($event)">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width: 20%">Reference No</th>
-                        <th style="width: 45%">Description</th>
-                        <th style="width: 10%">Status</th>
+                        <th style="width: 20%" [pSortableColumn]="'referenceNo'"> Reference No
+                            <p-sortIcon [field]="'referenceNo'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                        <th style="width: 70%" [pSortableColumn]="'description'"> Description
+                            <p-sortIcon [field]="'description'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                        <th style="width: 10%" [pSortableColumn]="'status'"> Status
+                            <p-sortIcon [field]="'status'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>
