@@ -76,8 +76,8 @@ public class WorkOrderServiceImplTest extends AbstractTest {
             DexLocation lctn001 = assetService.findLocationByCode("SM_002");
 
             DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
-            request.setRemark("Leaking AirCond");
-            request.setDescription("Change Filters");
+            request.setRemark("Broken");
+            request.setDescription("Please Fix");
             request.setRequestedDate(new Date());
             request.setRequester(staff1);
             request.setAsset(ast001);
