@@ -44,6 +44,10 @@ export class WorkOrderNewPage implements OnInit {
             workOrderNo: [null, Validators.required],
             sourceNo: [''],
             description: ['', Validators.required],
+            requestedDate: [''],
+            requester: ['', Validators.required],
+            asset: ['', Validators.required],
+            location: ['', Validators.required],
         });
 
         // date workaround
