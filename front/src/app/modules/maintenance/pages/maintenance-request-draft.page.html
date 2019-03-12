@@ -47,7 +47,8 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                      <dex-staff-autocomplete  label="Requester" [innerFormControl]="mainForm.get('requester')"></dex-staff-autocomplete>
+                      <dex-staff-autocomplete label="Requester"
+                                              [innerFormControl]="mainForm.get('requester')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -58,7 +59,8 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <dex-asset-autocomplete  [hideFloatLabel]="true" [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
+                        <dex-asset-autocomplete [hideFloatLabel]="true"
+                                                [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -69,7 +71,8 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                       <dex-location-autocomplete   [innerFormControl]="mainForm.get('location')"></dex-location-autocomplete>
+                       <dex-location-autocomplete
+                           [innerFormControl]="mainForm.get('location')"></dex-location-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -80,7 +83,8 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <dex-staff-autocomplete label="Assignee" [innerFormControl]="mainForm.get('delegator')"></dex-staff-autocomplete>
+                        <dex-staff-autocomplete label="Assignee"
+                                                [innerFormControl]="mainForm.get('delegator')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -91,7 +95,8 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <dex-staff-autocomplete label="Supervisor" [innerFormControl]="mainForm.get('verifier')"></dex-staff-autocomplete>
+                        <dex-staff-autocomplete label="Supervisor"
+                                                [innerFormControl]="mainForm.get('verifier')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -116,22 +121,22 @@
                         <div class="ui-button-toolbar-mb">
                         </div>
 
-                        {{maintenanceRequestTask.request.file   |json}}
+                        <pre>{{maintenanceRequestTask.request.file   |json}}</pre>
                         <!--<p-table [columns]="cols"-->
-                                 <!--[value]="maintenanceRequestTask?.maintenanceRequest"-->
-                                 <!--dataKey="id">-->
-                            <!--<ng-template pTemplate="header" let-columns>-->
-                                <!--<tr>-->
-                                    <!--<th style="width: 40%">Description</th>-->
-                                <!--</tr>-->
-                            <!--</ng-template>-->
-                            <!--<ng-template pTemplate="body" let-rowData>-->
-                                <!--<tr>-->
-                                    <!--<td>-->
-                                        <!--{{rowData?.description}}-->
-                                    <!--</td>-->
-                                <!--</tr>-->
-                            <!--</ng-template>-->
+                        <!--[value]="maintenanceRequestTask?.maintenanceRequest"-->
+                        <!--dataKey="id">-->
+                        <!--<ng-template pTemplate="header" let-columns>-->
+                        <!--<tr>-->
+                        <!--<th style="width: 40%">Description</th>-->
+                        <!--</tr>-->
+                        <!--</ng-template>-->
+                        <!--<ng-template pTemplate="body" let-rowData>-->
+                        <!--<tr>-->
+                        <!--<td>-->
+                        <!--{{rowData?.description}}-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--</ng-template>-->
                         <!--</p-table>-->
                     </div>
                 </div>
@@ -180,8 +185,6 @@
 
 <p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle"
                  width="425"></p-confirmDialog>
-
-
 
 
 <!--<cng-about-dialog-->

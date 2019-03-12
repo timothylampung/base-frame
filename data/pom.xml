@@ -300,6 +300,7 @@
                                 <!--IDENTITY-->
                                 <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_ACTR.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PSTN_CODE.sql</srcFile>
 
                                 <!--<srcFile>src/test/resources/data/DEX_COMP.sql</srcFile>-->
                                 <!--<srcFile>src/test/resources/data/DEX_PART.sql</srcFile>-->

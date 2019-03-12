@@ -1,11 +1,16 @@
 package my.spotit.asset.integration.mobile.identity.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import my.spotit.asset.identity.api.controller.IdentityTransformer;
 import my.spotit.asset.identity.api.vo.User;
 import my.spotit.asset.identity.business.service.ActorService;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.integration.mobile.identity.api.vo.MobileStaff;
+import my.spotit.asset.integration.mobile.inventory.api.IntegrationInventoryController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +24,12 @@ import java.util.List;
 @RequestMapping("/api/mobile/identity")
 public class IntegrationIdentityController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(IntegrationIdentityController.class);
     private ActorService actorService;
     private IdentityTransformer identityTransformer;
     private IdentityService identityService;
+    public Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+
 
     public IntegrationIdentityController(ActorService actorService,
                                          IdentityTransformer identityTransformer, IdentityService identityService) {
@@ -33,6 +41,8 @@ public class IntegrationIdentityController {
     @GetMapping(value = "/users")
     public ResponseEntity<List<MobileStaff>> findAllStaffs() {
         List<DexUser> users = identityService.findStaffMobile();
-        return ResponseEntity.ok(identityTransformer.toMobileUserVos(users));
+        List<MobileStaff> body = identityTransformer.toMobileUserVos(users);
+        LOG.debug("USERS {}", gson.toJson(body));
+        return ResponseEntity.ok(body);
     }
 }

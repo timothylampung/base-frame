@@ -95,6 +95,7 @@ public class IdentityTransformer {
         vo.setEmail(e.getEmail());
         vo.setPassword(e.getPassword());
         vo.setPrincipalType(PrincipalType.get(e.getPrincipalType().ordinal()));
+
         if (e.getActor() instanceof DexStaff) {
             DexStaff actor = (DexStaff) e.getActor();
             if (actor != null) {
@@ -110,7 +111,6 @@ public class IdentityTransformer {
                 vo.setPositionCode(commonTransformer.toPositionCodeVo(actor.getPositionCode()));
             }
         }
-
         coreTransformer.toMetadata(e, vo);
         return vo;
     }

@@ -1,10 +1,13 @@
 package my.spotit.asset.integration.mobile.inventory.api;
 
+import my.spotit.asset.integration.mobile.maintenenance.api.IntegrationMaintenanceController;
 import my.spotit.asset.integration.mobile.security.MobileSecurityService;
 import my.spotit.asset.inventory.api.controller.InventoryTransformer;
 import my.spotit.asset.inventory.api.vo.Part;
 import my.spotit.asset.inventory.api.vo.PartCode;
 import my.spotit.asset.inventory.business.service.InventoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api/mobile/inventory")
 public class IntegrationInventoryController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(IntegrationInventoryController.class);
     private InventoryService inventoryService;
     private InventoryTransformer inventoryTransformer;
 

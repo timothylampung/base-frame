@@ -1,5 +1,5 @@
 export const environment = {
-    appName: 'Sapiei CLIC System',
+    appName: 'SPOT IT',
     production: true,
-    endpoint: 'http://159.65.3.103:8080/spotit',
+    endpoint: 'http://159.65.3.103:5000/spotit',
 };

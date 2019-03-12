@@ -6,8 +6,6 @@ import my.spotit.asset.identity.api.vo.User;
 
 public class MobileStaff extends User {
 
-    private PositionCode positionCode;
-
     private String identityNo;
     private String code;
     private String phone;
@@ -17,6 +15,7 @@ public class MobileStaff extends User {
     private String address2;
     private String address3;
     private ActorType actorType;
+    private PositionCode positionCode;
 
     public PositionCode getPositionCode() {
         return positionCode;

@@ -1,1 +1,0 @@
--- INSERT INTO dex_staf (staff_code, id) VALUES (null, 4);
