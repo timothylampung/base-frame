@@ -210,8 +210,8 @@ public class IntegrationMaintenanceController {
         maintenanceRequest.setRequestedDate(vo.getRequestedDate());
         maintenanceRequest.setLocation(assetService.findLocationById(vo.getLocation().getId()));
         maintenanceRequest.setRequester(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequest.setDelegator(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequest.setVerifier(identityService.findActorById(vo.getRequester().getId()));
+        maintenanceRequest.setDelegator(identityService.findActorById(vo.getDelegator().getId()));
+        maintenanceRequest.setVerifier(identityService.findActorById(vo.getVerifier().getId()));
         maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest);
         return ResponseEntity.ok().build();
     }

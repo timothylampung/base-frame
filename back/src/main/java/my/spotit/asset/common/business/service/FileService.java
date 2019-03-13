@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public interface FileService {
     DexFile storeFile(MultipartFile file) ;
@@ -13,4 +14,6 @@ public interface FileService {
     DexFile getFile(Long fileId);
 
     Resource loadFileAsResource(String fileName);
+
+    List<DexFile> findFiles(String filter, int offset, int maxValue);
 }

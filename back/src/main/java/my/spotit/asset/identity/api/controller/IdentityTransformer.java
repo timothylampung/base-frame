@@ -99,6 +99,7 @@ public class IdentityTransformer {
         if (e.getActor() instanceof DexStaff) {
             DexStaff actor = (DexStaff) e.getActor();
             if (actor != null) {
+                vo.setActorId(actor.getId());
                 vo.setActorType(ActorType.get(actor.getActorType().ordinal()));
                 vo.setAddress1(actor.getAddress1());
                 vo.setAddress2(actor.getAddress2());
