@@ -13,4 +13,4 @@ VALUES (nextval('SQ_DEX_COMP'), 'CO_006', 'SIXTH COMPONENT', '2019-02-07 02:05:1
 INSERT INTO DEX_COMP (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, asset_id, part_code_id) 
 VALUES (nextval('SQ_DEX_COMP'), 'CO_007', 'SEVENTH COMPONENT', '2019-02-07 02:05:18.082000', 1, null, null, null, null, 1, 1, 2);
 INSERT INTO DEX_COMP (id, code, description, c_ts, c_id, d_ts, d_id, m_ts, m_id, m_st, asset_id, part_code_id) 
-VALUES (nextval('SQ_DEX_COMP'), 'CO_008', 'EIGhTH COMPONENT', '2019-02-07 02:05:18.082000', 1, null, null, null, null, 1, 1, 2);
+VALUES (nextval('SQ_DEX_COMP'), 'CO_008', 'EIGHTH COMPONENT', '2019-02-07 02:05:18.082000', 1, null, null, null, null, 1, 1, 2);

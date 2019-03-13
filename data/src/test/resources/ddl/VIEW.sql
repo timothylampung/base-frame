@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW DEX_WORK_ORDR_WEEK_PRJN AS
   WITH weeks AS (
     SELECT
       greatest(date_trunc('week', dates.d), date_trunc('month', dates.d))         weekstart,
-      least(date_trunc('week', dates.d) + INTERVAL '6 day',
+      least(date_trunc('week', dates.d) + INTERVAL '7 day',
             date_trunc('month', dates.d) + INTERVAL '1 month' - INTERVAL '1 day') weekend
     FROM generate_series(date_trunc('month', current_date),
                          date_trunc('month', now()) + INTERVAL '1 month' - INTERVAL '1 day', '1 day') AS dates(d)
@@ -22,7 +22,7 @@ CREATE OR REPLACE VIEW DEX_WORK_ORDR_WEEK_TIME_SPNT_PRJN AS
   WITH weeks AS (
     SELECT
       greatest(date_trunc('week', dates.d), date_trunc('month', dates.d))         weekstart,
-      least(date_trunc('week', dates.d) + INTERVAL '6 day',
+      least(date_trunc('week', dates.d) + INTERVAL '7 day',
             date_trunc('month', dates.d) + INTERVAL '1 month' - INTERVAL '1 day') weekend
     FROM generate_series(date_trunc('month', current_date),
                          date_trunc('month', now()) + INTERVAL '1 month' - INTERVAL '1 day', '1 day') AS dates(d)

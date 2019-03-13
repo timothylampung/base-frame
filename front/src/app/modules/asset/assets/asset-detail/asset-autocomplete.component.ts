@@ -10,12 +10,12 @@ import {FindPagedAssetsAction} from "../asset-action";
 @Component({
     selector: 'dex-asset-autocomplete',
     templateUrl: './asset-autocomplete.component.html',
-    styleUrls: ['./asset-autocomplete.component.css']
 })
 export class AssetAutocompleteComponent implements OnInit {
 
     @Input() hideFloatLabel: boolean = false;
     @Input() innerFormControl: FormControl;
+    @Input() label : string;
     asset: Asset;
     assets: Asset[];
     @ViewChild('p') autoComplete: AutoComplete;
