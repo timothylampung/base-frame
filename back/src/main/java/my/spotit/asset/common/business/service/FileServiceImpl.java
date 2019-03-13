@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 @Transactional
@@ -102,5 +103,10 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
         }
         return resource;
+    }
+
+    @Override
+    public List<DexFile> findFiles(String filter, int offset, int maxValue) {
+        return fileDao.find();
     }
 }

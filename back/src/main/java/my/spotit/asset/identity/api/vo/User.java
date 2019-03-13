@@ -7,7 +7,6 @@ public class User extends Principal {
 
     private String realName;
     private String email;
-    private String password;
 
     public String getRealName() {
         return realName;
@@ -25,11 +24,4 @@ public class User extends Principal {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
