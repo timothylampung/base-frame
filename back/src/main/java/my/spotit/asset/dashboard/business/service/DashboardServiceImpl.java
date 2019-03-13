@@ -41,4 +41,22 @@ public class DashboardServiceImpl implements DashboardService {
         Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyTimeSpentProjection a group by a.week, a.total");
         return query.getResultList();
     }
+
+    @Override
+    public Integer countWorkOrder() {
+        Query query = entityManager.createQuery("select count(w) from DexWorkOrder w");
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    @Override
+    public Integer countStaff() {
+        Query query = entityManager.createQuery("select count(w) from DexStaff w");
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    @Override
+    public Integer countMaintenanceRequest() {
+        Query query = entityManager.createQuery("select count(w) from DexMaintenanceRequest w");
+        return ((Long) query.getSingleResult()).intValue();
+    }
 }

@@ -13,6 +13,8 @@ export class DashboardPage implements OnInit {
     DASHBOARD_API: string = environment.endpoint + '/api/dashboard';
     currentUser$: Observable<any>;
 
+    countWorkOrder: number= 1;
+    countMaintenanceRequest: number = 2;
     lineData: any;
     barData: any;
     timeData: any;
@@ -182,5 +184,12 @@ export class DashboardPage implements OnInit {
                 };
                 this.timeData = Object.assign({}, this.changedTimeData);
             });
+
+        this.http.get<number>(this.DASHBOARD_API + '/work-order-count')
+            .subscribe(count => this.countWorkOrder = count);
+
+        this.http.get<number>(this.DASHBOARD_API + '/maintenance-request-count')
+            .subscribe(count => this.countMaintenanceRequest = count);
+
     }
 }

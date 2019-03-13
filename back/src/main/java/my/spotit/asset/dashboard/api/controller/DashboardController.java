@@ -46,4 +46,19 @@ public class DashboardController {
         List<DexWorkOrderWeeklyTimeSpentProjection> projections = dashboardService.findWorkOrderWeeklyTimeSpentProjections();
         return ResponseEntity.ok(dashboardTransformer.toWorkOrderWeeklyTimeSpentProjectionVos(projections));
     }
+
+    @GetMapping("/maintenance-request-count")
+    public ResponseEntity<Integer> countMaintenanceRequest() {
+        return ResponseEntity.ok(dashboardService.countMaintenanceRequest());
+    }
+
+    @GetMapping("/work-order-count")
+    public ResponseEntity<Integer> countWorkOrder() {
+        return ResponseEntity.ok(dashboardService.countWorkOrder());
+    }
+
+    @GetMapping("/staff-count")
+    public ResponseEntity<Integer> countStaff() {
+        return ResponseEntity.ok(dashboardService.countStaff());
+    }
 }
