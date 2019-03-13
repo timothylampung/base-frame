@@ -21,13 +21,13 @@
                 </div>
                 <div class="ui-g-12 ui-g ">
                     <div class="ui-button-toolbar-mr">
-                        <button pButton type="button" label="Cari"
+                        <button pButton type="button" label="Search"
                                 icon="fa fa-search"
                                 (click)="search()"></button>
                     </div>
                     <div class="ui-button-toolbar-mr">
                         <button pButton type="button" label="Reset"
-                                icon="fa fa-search"
+                                icon="fa fa-undo"
                                 (click)="resetSearchForm()"></button>
                     </div>
                 </div>
@@ -51,6 +51,7 @@
                      (onRowSelect)="viewTask($event.data.taskId)">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
+                        <th style="width: 4em"></th>
                         <th style="width: 20%" [pSortableColumn]="'referenceNo'"> Reference No
                             <p-sortIcon [field]="'referenceNo'"
                                         ariaLabel="Activate to sort"
@@ -58,7 +59,7 @@
                                         ariaLabelAsc="Activate to sort in ascending order">
                             </p-sortIcon>
                         </th>
-                        <th style="width: 70%" [pSortableColumn]="'description'"> Description
+                        <th style="width: 60%" [pSortableColumn]="'description'"> Description
                             <p-sortIcon [field]="'description'"
                                         ariaLabel="Activate to sort"
                                         ariaLabelDesc="Activate to sort in descending order"
@@ -77,6 +78,9 @@
                 <ng-template pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData">
                         <td>
+                            <button type="button" pButton (click)="onHover(rowData); op.toggle($event)" icon="pi pi-search"></button>
+                        </td>
+                        <td>
                             {{rowData?.referenceNo}}
                         </td>
                         <td>
@@ -91,3 +95,7 @@
         </div>
     </div>
 </div>
+
+<p-overlayPanel #op>
+    <img [src]="imageToShow" height="400" alt="Place image title"/>
+</p-overlayPanel>

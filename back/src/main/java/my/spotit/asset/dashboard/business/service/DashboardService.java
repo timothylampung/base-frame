@@ -17,4 +17,6 @@ public interface DashboardService {
     Integer countWorkOrder();
 
     Integer countStaff();
+
+    Integer countAsset();
 }

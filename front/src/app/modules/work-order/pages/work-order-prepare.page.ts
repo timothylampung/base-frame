@@ -15,6 +15,7 @@ import {About} from "../../../models";
 import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {WorkOrderComment} from "../work-order-comment.model";
+import {CommonService} from "../../../services";
 
 @Component({
     selector: 'dex-work-order-prepare-page',
@@ -23,11 +24,13 @@ import {WorkOrderComment} from "../work-order-comment.model";
 })
 export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
     selectedAbout: About;
+    imageToShow: any;
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public commonService: CommonService,
                 public location: Location,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
@@ -36,6 +39,21 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     ngOnInit() {
         super.ngOnInit()
+
+        this.commonService.downloadFile(this.workOrderTask.workOrder.file.fileName).subscribe(blob => {
+            this.createImageFromBlob(blob);
+        })
+    }
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.imageToShow = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
     check() {

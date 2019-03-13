@@ -61,4 +61,9 @@ public class DashboardController {
     public ResponseEntity<Integer> countStaff() {
         return ResponseEntity.ok(dashboardService.countStaff());
     }
+
+    @GetMapping("/asset-count")
+    public ResponseEntity<Integer> countAsset() {
+        return ResponseEntity.ok(dashboardService.countAsset());
+    }
 }

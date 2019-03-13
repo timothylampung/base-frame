@@ -16,6 +16,7 @@ import {ActivatedRoute} from "@angular/router";
 import {takeUntil} from "rxjs/internal/operators";
 import {Actor} from "../identity/actors/actor.model";
 import {User} from "../identity/principals/user/user.model";
+import {CommonService} from "../../services";
 
 @Component({
     selector: 'dex-maintenance-request-archive-detail-page',
@@ -46,6 +47,7 @@ export class MaintenanceRequestArchiveDetailPage implements OnInit {
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public commonService: CommonService,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef,
                 public route: ActivatedRoute) {

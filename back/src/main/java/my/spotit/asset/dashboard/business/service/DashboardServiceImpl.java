@@ -59,4 +59,10 @@ public class DashboardServiceImpl implements DashboardService {
         Query query = entityManager.createQuery("select count(w) from DexMaintenanceRequest w");
         return ((Long) query.getSingleResult()).intValue();
     }
+
+    @Override
+    public Integer countAsset() {
+        Query query = entityManager.createQuery("select count(w) from DexAsset w");
+        return ((Long) query.getSingleResult()).intValue();
+    }
 }

@@ -15,6 +15,8 @@ export class DashboardPage implements OnInit {
 
     countWorkOrder: number= 1;
     countMaintenanceRequest: number = 2;
+    countStaff: number = 3;
+    countAsset: number = 4;
     lineData: any;
     barData: any;
     timeData: any;
@@ -190,6 +192,12 @@ export class DashboardPage implements OnInit {
 
         this.http.get<number>(this.DASHBOARD_API + '/maintenance-request-count')
             .subscribe(count => this.countMaintenanceRequest = count);
+
+        this.http.get<number>(this.DASHBOARD_API + '/staff-count')
+            .subscribe(count => this.countStaff = count);
+
+        this.http.get<number>(this.DASHBOARD_API + '/asset-count')
+            .subscribe(count => this.countAsset = count);
 
     }
 }

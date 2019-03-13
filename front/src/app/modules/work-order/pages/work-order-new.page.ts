@@ -44,6 +44,7 @@ export class WorkOrderNewPage implements OnInit {
             workOrderNo: [null, Validators.required],
             sourceNo: [''],
             description: ['', Validators.required],
+            remarks: ['', Validators.required],
             requestedDate: [''],
             requester: ['', Validators.required],
             asset: ['', Validators.required],
@@ -58,9 +59,9 @@ export class WorkOrderNewPage implements OnInit {
     draft() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
+                message: 'Submit New Work Order?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
                 accept: () => {
                     console.log(this.mainForm.value);
                     let workOrder: WorkOrder = {
@@ -70,6 +71,19 @@ export class WorkOrderNewPage implements OnInit {
                     this.store.dispatch(new StartWorkOrderTaskAction(workOrder));
                 }
             });
+        }
+    }
+
+    goBack() {
+        if (this.validateDocument()) {
+            this.confirmationService.confirm({
+                message: 'Cancel submission?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
+                accept: () => {
+                    window.history.back();
+                }
+            })
         }
     }
 

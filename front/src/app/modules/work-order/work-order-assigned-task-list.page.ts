@@ -13,6 +13,7 @@ import {
     FindAssignedWorkOrdersAction,
     ReleaseWorkOrderTaskAction
 } from './work-order.action';
+import {CommonService} from "../../services";
 
 @Component({
     selector: 'dex-work-order-assigned-task-list-page',
@@ -21,6 +22,7 @@ import {
 })
 export class WorkOrderAssignedTaskListPage implements OnInit {
 
+    imageToShow: any;
     workOrderTasks$: Observable<WorkOrderTaskSummary[]>;
     searchForm: FormGroup;
     title = 'My Tasks (WorkOrder)';
@@ -36,6 +38,7 @@ export class WorkOrderAssignedTaskListPage implements OnInit {
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,
                 public store: Store<WorkOrderState>,
+                public commonService : CommonService,
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
@@ -56,6 +59,24 @@ export class WorkOrderAssignedTaskListPage implements OnInit {
             .subscribe(v => {
             });
 
+    }
+
+    onHover(workOrder : WorkOrderTaskSummary){
+        console.log(workOrder)
+        this.commonService.downloadFile(workOrder.workOrder.file.fileName).subscribe(blob => {
+            this.createImageFromBlob(blob);
+        })
+    }
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.imageToShow = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
     createTask() {

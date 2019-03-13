@@ -1,3 +1,4 @@
+/*
 package my.spotit.asset.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -23,4 +24,4 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
                 .withSockJS();
     }
 
-}
+}*/

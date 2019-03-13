@@ -4,12 +4,12 @@
     <div class="ui-g-12">
         <div class="ui-g-12 card card-w-title">
             <h1>Maintenance Request Ref# {{ maintenanceRequest.referenceNo}}</h1>
-            <div class="ui-g-6 ui-g" [formGroup]="mainForm">
+            <div class="ui-g-12 ui-md-6 ui-lg-6" [formGroup]="mainForm">
                 <div class="ui-g-12">
-                    <div class="ui-g-4">
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
                         <label>Description</label>
                     </div>
-                    <div class="ui-g-8">
+                    <div class="ui-g-12 ui-md-6 ui-lg-6">
                         <span>{{maintenanceRequest.description}}</span>
                     </div>
                 </div>
@@ -70,11 +70,12 @@
                         <span>{{maintenanceRequest.location?.name}}</span>
                     </div>
                 </div>
-
-
-
-
             </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <img [src]="imageToShow" height="400" alt="Place image title"/>
+            </div>
+
         </div>
     </div>
 </div>
