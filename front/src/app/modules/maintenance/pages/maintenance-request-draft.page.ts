@@ -75,9 +75,12 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                     this.store.dispatch(new CompleteMaintenanceRequestTaskAction({taskId: this.maintenanceRequestTask.taskId}));
                     this.store.dispatch(new UpdateMaintenanceRequestAction({
                             ...this.maintenanceRequestTask,
-                            ...this.mainForm.value
+                            ...this.mainForm.value,
+
+
 
                         })
+
                     );
                     console.log(this.maintenanceRequestTask);
                     this.mainForm.patchValue(this.maintenanceRequestTask);
