@@ -1,4 +1,6 @@
 <div class="ui-g ui-fluid">
+
+
     <div class="ui-g-6 ui-lg-6">
         <div class="card">
             <h1 class="centerText">Work Order Count</h1>
@@ -21,7 +23,7 @@
     <div class="ui-g-6 ui-lg-6">
         <div class="card">
             <h1 class="centerText">Time Spent</h1>
-            <p-chart type="bar" [data]="timeData"></p-chart>
+            <p-chart [responsive]="true" [options]="chartOptions"  type="bar" [data]="timeData"></p-chart>
         </div>
         <!--<div class="card">-->
             <!--<h1 class="centerText">Bar Chart</h1>-->

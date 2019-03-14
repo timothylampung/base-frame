@@ -33,7 +33,7 @@ public class DashboardTransformer {
     public WorkOrderWeeklyProjection toWorkOrderWeeklyProjectionVo(DexWorkOrderWeeklyProjection p) {
         WorkOrderWeeklyProjection vo = new WorkOrderWeeklyProjection();
         vo.setWeek(p.getWeek());
-        vo.setCount(p.getCount());
+        vo.setTotal(p.getTotal());
         return vo;
     }
 

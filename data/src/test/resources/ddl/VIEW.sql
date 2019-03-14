@@ -12,7 +12,7 @@ CREATE OR REPLACE VIEW DEX_WORK_ORDR_WEEK_PRJN AS
       w.weekstart                                            weekstart,
       w.weekend                                              weekend,
       ((date_part('day', w.weekend) :: INTEGER - 1) / 6) + 1 week,
-      count(coalesce(o.id, 0))                         total
+      count(o)                         total
     FROM weeks w LEFT JOIN dex_work_ordr o ON o.c_ts BETWEEN w.weekstart AND w.weekend
                  LEFT JOIN dex_work_ordr_log l on l.work_order_id = o.id
 
@@ -37,6 +37,7 @@ CREATE OR REPLACE VIEW DEX_WORK_ORDR_WEEK_TIME_SPNT_PRJN AS
       ((date_part('day', w.weekend) :: INTEGER - 1) / 6) + 1 week,
       coalesce(EXTRACT(EPOCH FROM sum(l.stop_time - l.start_time))/3600, 0)  total
     FROM weeks w LEFT JOIN dex_work_ordr o ON o.c_ts BETWEEN w.weekstart AND w.weekend
+                 JOIN dex_work_ordr_log l ON l.work_order_id = o.id
     GROUP BY w.weekstart, w.weekend
     ORDER BY w.weekend;
 

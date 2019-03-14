@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class WorkOrderWeeklyProjection {
     private Integer week;
-    private Integer count;
+    private Integer total;
 
     public Integer getWeek() {
         return week;
@@ -14,11 +14,11 @@ public class WorkOrderWeeklyProjection {
         this.week = week;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 }
