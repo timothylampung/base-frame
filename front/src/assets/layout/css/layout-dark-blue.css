@@ -942,7 +942,8 @@ body {
     background-size: 202px 60px; }
   .layout-container .topbar .topbar-left {
     box-sizing: border-box;
-    padding: 20px;
+    padding-top: 7.5px;
+    padding-left: 17px;
     height: 75px;
     width: 250px;
     background-color: #2b3135;
