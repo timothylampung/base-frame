@@ -6,6 +6,8 @@ import {Actor} from "../identity/actors/actor.model";
 import {Location} from "../asset/locations/location-model";
 import {Asset} from "../asset/assets/asset-model";
 import {MaintenanceRequest} from "../maintenance/maintenance-request.model";
+import {File} from "../common/file/file.model";
+
 
 export interface WorkOrder extends Document {
     reporter: Actor;
@@ -13,7 +15,8 @@ export interface WorkOrder extends Document {
     verifier: Actor;
     location: Location
     asset: Asset
-    maintenanceRequest:MaintenanceRequest;
+    maintenanceRequest: MaintenanceRequest;
+    // file?: File;
 }
 
 export interface WorkOrderResult {
@@ -62,7 +65,8 @@ export const initStateWorkOrder: WorkOrder = {
     verifier: null,
     location: null,
     asset: null,
-    maintenanceRequest:null,
+    maintenanceRequest: null,
+    // file: null,
 };
 
 export const initStateWorkOrderTaskSummary: WorkOrderTaskSummary = {

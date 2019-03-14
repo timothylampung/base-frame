@@ -14,9 +14,9 @@ export interface MaintenanceRequest extends Document {
     verifier: Actor;
     location: Location;
     asset: Asset;
-    remark:String;
-    reporter:Asset;
-    file? : File
+    remark: String;
+    reporter: Asset;
+    file?: File
     delegated: boolean;
 }
 
@@ -61,16 +61,16 @@ export const initStateMaintenanceRequest: MaintenanceRequest = {
     description: null,
     flowState: FlowState.NEW,
     sourceNo: null,
-    requestedDate:null,
+    requestedDate: null,
     requester: null,
-    reporter:null,
+    reporter: null,
     delegator: null,
     verifier: null,
     location: null,
     asset: null,
-    remark:null,
-    file : null,
-    delegated:null,
+    remark: null,
+    file: null,
+    delegated: null,
 };
 
 export const initStateMaintenanceRequestTaskSummary: MaintenanceRequestTaskSummary = {
