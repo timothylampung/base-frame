@@ -39,10 +39,10 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     ngOnInit() {
         super.ngOnInit()
-
-        this.commonService.downloadFile(this.workOrderTask.workOrder.file.fileName).subscribe(blob => {
-            this.createImageFromBlob(blob);
-        })
+        //
+        // this.commonService.downloadFile(this.workOrderTask.workOrder.file.fileName).subscribe(blob => {
+        //     this.createImageFromBlob(blob);
+        // })
     }
 
     createImageFromBlob(image: Blob) {
