@@ -6,13 +6,21 @@ import my.spotit.asset.core.api.MetaObject;
 import my.spotit.asset.identity.api.vo.User;
 
 /**
- *
  * @author canang technologies
  */
-public class WorkOrderComment extends MetaObject
-{
+public class WorkOrderComment extends MetaObject {
     private String body;
     private User poster;
+    private Long workOrderId;
+
+    public Long getWorkOrderId() {
+        return workOrderId;
+    }
+
+    public void setWorkOrderId(Long workOrderId) {
+        this.workOrderId = workOrderId;
+    }
+
 
     public String getBody() {
         return body;

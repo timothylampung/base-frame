@@ -216,6 +216,12 @@ public class IntegrationWorkOrderController {
         return new ResponseEntity<List<WorkOrderLog>>(workOrderLogs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/work-orders/work-order-logs")
+    public ResponseEntity<List<WorkOrderLog>> findWorkOrderLogs() {
+        List<WorkOrderLog> workOrderLogs = workOrderTransformer.toWorkOrderLogVos(workOrderService.findWorkOrderLogs()); // todo: page
+        return new ResponseEntity<List<WorkOrderLog>>(workOrderLogs, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/work-orders/{referenceNo}/start-work-order-log")
     public ResponseEntity<ApplicationSuccess> startLog(@PathVariable String referenceNo) {
         DexWorkOrder order = workOrderService.findWorkOrderByReferenceNo(referenceNo);
@@ -239,6 +245,7 @@ public class IntegrationWorkOrderController {
         List<WorkOrderComment> workOrderComments = workOrderTransformer.toWorkOrderCommentVos(workOrderService.findWorkOrderComments("%", order, 0, 9999));
         return new ResponseEntity<List<WorkOrderComment>>(workOrderComments, HttpStatus.OK);
     }
+
 
     @PostMapping(value = "/work-orders/{referenceNo}/work-order-comments")
     public ResponseEntity<ApplicationSuccess> addComment(@PathVariable String referenceNo, @RequestBody WorkOrderComment vo) {

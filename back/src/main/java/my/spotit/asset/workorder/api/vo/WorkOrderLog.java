@@ -7,17 +7,25 @@ import my.spotit.asset.identity.api.vo.User;
 
 /**
  * {
- *     "startTime": 12313123,
- *     "stopTime": 12313123,
+ * "startTime": 12313123,
+ * "stopTime": 12313123,
  * }
  *
  * @author canang technologies
  */
-public class WorkOrderLog extends MetaObject
-{
+public class WorkOrderLog extends MetaObject {
     private Timestamp startTime;
     private Timestamp stopTime;
     private User logger;
+    private Long workOrderId;
+
+    public Long getWorkOrderId() {
+        return workOrderId;
+    }
+
+    public void setWorkOrderId(Long workOrderId) {
+        this.workOrderId = workOrderId;
+    }
 
     public Timestamp getStartTime() {
         return startTime;

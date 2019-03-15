@@ -10,6 +10,15 @@ public class WorkOrderRecordSummary extends Record {
     private String referenceNo;
     private String sourceNo;
     private String description;
+    private WorkOrder workOrder;
+
+    public WorkOrder getWorkOrder() {
+        return workOrder;
+    }
+
+    public void setWorkOrder(WorkOrder workOrder) {
+        this.workOrder = workOrder;
+    }
 
     public String getReferenceNo() {
         return referenceNo;

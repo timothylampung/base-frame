@@ -100,6 +100,7 @@ public class WorkOrderTransformer {
         vo.setId(e.getId());
         vo.setStartTime(e.getStartTime());
         vo.setStopTime(e.getStopTime());
+        vo.setWorkOrderId(e.getWorkOrder().getId());
         vo.setLogger(identityTransformer.toUserVo(e.getLogger()));
         return vo;
     }
@@ -109,12 +110,14 @@ public class WorkOrderTransformer {
         WorkOrderComment vo = new WorkOrderComment();
         vo.setId(e.getId());
         vo.setBody(e.getBody());
+        vo.setWorkOrderId(e.getWorkOrder().getId());
         vo.setPoster(identityTransformer.toUserVo(e.getPoster()));
         return vo;
     }
 
     public WorkOrderRecordSummary toWorkOrderRecordSummaryVo(DexWorkOrder m) {
         WorkOrderRecordSummary vo = new WorkOrderRecordSummary();
+        vo.setWorkOrder(toWorkOrderVo(m));
         vo.setReferenceNo(m.getReferenceNo());
         vo.setSourceNo(m.getSourceNo());
         vo.setDescription(m.getDescription());

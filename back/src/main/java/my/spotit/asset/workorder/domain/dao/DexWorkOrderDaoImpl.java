@@ -127,6 +127,14 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
+    public List<DexWorkOrderLog> findLogs() {
+        Query query = entityManager.createQuery("select s from DexWorkOrderLog s where " +
+                "s.metadata.state = :state ");
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return (List<DexWorkOrderLog>) query.getResultList();
+    }
+
+    @Override
     public List<DexWorkOrderComment> findComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexWorkOrderComment s where " +
                 " s.workOrder = :order " +
