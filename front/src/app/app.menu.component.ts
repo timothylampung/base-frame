@@ -60,8 +60,8 @@ export class AppMenuComponent implements OnInit {
                 label: 'Asset', icon: 'dashboard', routerLink: ['.'],
                 items: [
                     {label: 'Asset Codes', routerLink: ['/asset/asset-codes/list']},
-                    {label: 'Asset', routerLink: ['/asset/assets/list']},
-                    {label: 'Location', routerLink: ['/asset/locations/list']},
+                    {label: 'Assets', routerLink: ['/asset/assets/list']},
+                    {label: 'Locations', routerLink: ['/asset/locations/list']},
                 ]
             },
 
