@@ -26,7 +26,7 @@ export class AssetCodeListPage implements OnInit {
     displayDelete: boolean = false;
     msgs: Message[] = [];
 
-    title = 'Senarai Kod Asset';
+    title = 'Asset Codes';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
@@ -70,11 +70,11 @@ export class AssetCodeListPage implements OnInit {
 
     confirmDelete(rowData : AssetCode) {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete this?',
+            message: 'Delete asset code?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Asset Code Deleted'}];
+                this.msgs = [{severity:'info', summary:'Asset code deleted'}];
                 this.store.dispatch(new RemoveAssetCodeAction(rowData));
                 console.log(rowData);
             },

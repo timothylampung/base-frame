@@ -113,6 +113,7 @@
                     <div class="ui-g-12">
                         <div class="ui-button-toolbar-mb">
                             <button pButton
+                                    style="margin-right: 10px"
                                     type="button"
                                     [label]="'Start Log'"
                                     icon="fa fa-plus"
@@ -181,17 +182,17 @@
     </div>
 </div>
 
-<div class="ui-g-12 ui-fluid page-action">
-    <div class="ui-g-1">
+<div class="ui-g-12">
+    <div class="ui-g-12 ui-md-3 ui-lg-2">
         <button
             type="button"
-            [label]="'Checked'"
+            [label]="'Check'"
             (click)="check()"
             [disabled]="!mainForm.valid"
             icon="fa fa-save"
             pButton></button>
     </div>
-    <div class="ui-g-1">
+    <div class="ui-g-12 ui-md-3 ui-lg-2">
         <button
             type="button"
             [label]="'Update'"
@@ -200,7 +201,7 @@
             icon="fa fa-edit"
             pButton></button>
     </div>
-    <div class="ui-g-1">
+    <div class="ui-g-12 ui-md-3 ui-lg-2">
         <button
             type="button"
             label="Delete"

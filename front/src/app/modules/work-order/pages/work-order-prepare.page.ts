@@ -74,7 +74,7 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
     check() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Are you sure?',
+                message: 'Check work order?',
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {
@@ -91,9 +91,9 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     remove() {
         this.confirmationService.confirm({
-            message: 'Anda pasti untuk menghapuskan work order ini?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
+            message: 'Delete work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
                 this.store.dispatch(
                     new RemoveWorkOrderTaskAction({taskId: this.workOrderTask.taskId})
@@ -104,9 +104,9 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     updateWorkOrder() {
         this.confirmationService.confirm({
-            message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
+            message: 'Update work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
                 this.store.dispatch(
                     new UpdateWorkOrderAction({

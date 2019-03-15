@@ -23,7 +23,7 @@ export class PartCodeListPage implements OnInit {
     selectedRow : PartCode = null;
 
 
-    title = 'PartCodes';
+    title = 'Part Codes';
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
