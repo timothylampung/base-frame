@@ -1,12 +1,12 @@
 #!/bin/bash
-figlet "MPSP TASK"
+figlet "SPOT IT"
 
 cd /root/projects/spotit-web/front
 git pull
 echo "DELETING DIST FOLDER"
 rm -rf dist/
 echo "BUILDING TASK FRONTEND"
-ng build -c dev --base-href  /spotit-web/ --deploy-url /spotit-web/
+ng build -c --base-href  /spotit-web/ --deploy-url /spotit-web/
 echo "TASK FRONTEND COMPLETED!"
 
 cd /root/projects/spotit-web/back
