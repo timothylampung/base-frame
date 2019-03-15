@@ -210,7 +210,7 @@ export class MaintenanceRequestEffects {
         switchMap(payload => this.maintenanceRequestService.completeMaintenanceRequestTask(payload.taskId)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                    this.router.navigate(['maintenanceRequest/maintenance-request-tasks/assigned']);
                     return new CompleteMaintenanceRequestTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
