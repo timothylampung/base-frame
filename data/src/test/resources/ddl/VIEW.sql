@@ -12,7 +12,7 @@ CREATE OR REPLACE VIEW DEX_WORK_ORDR_WEEK_PRJN AS
       w.weekstart                                            weekstart,
       w.weekend                                              weekend,
       ((date_part('day', w.weekend) :: INTEGER - 1) / 6) + 1 week,
-      count(o)                         total
+      count( DISTINCT  o.id)                         total
     FROM weeks w LEFT JOIN dex_work_ordr o ON o.c_ts BETWEEN w.weekstart AND w.weekend
                  LEFT JOIN dex_work_ordr_log l on l.work_order_id = o.id
 
