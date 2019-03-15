@@ -29,10 +29,10 @@ export class AppMenuComponent implements OnInit {
                         label: 'My Tasks',
                         routerLink: ['/maintenance/maintenance-request-tasks/assigned']
                     },
-                    {
-                        label: 'Open Tasks',
-                        routerLink: ['/maintenance/maintenance-request-tasks/pooled']
-                    },
+                    // {
+                    //     label: 'Open Tasks',
+                    //     routerLink: ['/maintenance/maintenance-request-tasks/pooled']
+                    // },
                     {
                         label: 'Search',
                         routerLink: ['/maintenance/maintenance-request-records/history']
@@ -46,10 +46,10 @@ export class AppMenuComponent implements OnInit {
                         label: 'My Tasks',
                         routerLink: ['/work-order/work-order-tasks/assigned']
                     },
-                    {
-                        label: 'Open Tasks',
-                        routerLink: ['/work-order/work-order-tasks/pooled']
-                    },
+                    // {
+                    //     label: 'Open Tasks',
+                    //     routerLink: ['/work-order/work-order-tasks/pooled']
+                    // },
                     {
                         label: 'Search',
                         routerLink: ['/work-order/work-order-records/history']
@@ -65,23 +65,23 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
 
-            {
-                label: 'Parts & Inventory', icon: 'dashboard', routerLink: ['.'],
-                items: [
-                    {label: 'Parts', routerLink: ['/inventory/parts/list']},
-                    {label: 'Part Codes', routerLink: ['/inventory/part-codes/list']},
-                    {label: 'Components', routerLink: ['/inventory/components/list']},
-                ]
-            },
+            // {
+            //     label: 'Parts & Inventory', icon: 'dashboard', routerLink: ['.'],
+            //     items: [
+            //         {label: 'Parts', routerLink: ['/inventory/parts/list']},
+            //         {label: 'Part Codes', routerLink: ['/inventory/part-codes/list']},
+            //         {label: 'Components', routerLink: ['/inventory/components/list']},
+            //     ]
+            // },
             {
                 label: 'People & Team', icon: 'dashboard', routerLink: ['.'],
                 items: [
-                    {label: 'Teams', routerLink: ['/']},
+                    // {label: 'Teams', routerLink: ['/']},
                     {label: 'Staffs', routerLink: ['/administration/staffs/list']},
-                    {label: 'Technicians', routerLink: ['/administration/technicians/list']},
-                    {label: 'Facility Managers', routerLink: ['/administration/facility-managers/list']},
-                    {label: 'Supervisors', routerLink: ['/administration/supervisors/list']},
-                    {label: 'Users', routerLink: ['/administration/users/list']},
+                    // {label: 'Technicians', routerLink: ['/administration/technicians/list']},
+                    // {label: 'Facility Managers', routerLink: ['/administration/facility-managers/list']},
+                    // {label: 'Supervisors', routerLink: ['/administration/supervisors/list']},
+                    // {label: 'Users', routerLink: ['/administration/users/list']},
                  ]
             },
             {

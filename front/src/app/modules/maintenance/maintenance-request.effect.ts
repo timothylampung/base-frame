@@ -196,7 +196,7 @@ export class MaintenanceRequestEffects {
         switchMap(maintenanceRequest => this.maintenanceRequestService.startMaintenanceRequestTask(maintenanceRequest)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                    this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                     return new StartMaintenanceRequestTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
@@ -210,7 +210,7 @@ export class MaintenanceRequestEffects {
         switchMap(payload => this.maintenanceRequestService.completeMaintenanceRequestTask(payload.taskId)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['maintenanceRequest/maintenance-request-tasks/assigned']);
+                    this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                     return new CompleteMaintenanceRequestTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
@@ -226,7 +226,7 @@ export class MaintenanceRequestEffects {
             this.maintenanceRequestService.claimMaintenanceRequestTask(payload.taskIds)
                 .pipe(
                     map(_ => {
-                        this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                        this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                         return new ClaimMaintenanceRequestTaskSuccessAction({message: ''});
                     }),
                     catchError(err => of(new LoadError(err)))
@@ -242,7 +242,7 @@ export class MaintenanceRequestEffects {
             this.maintenanceRequestService.completeMaintenanceRequestTask(payload.taskId)
                 .pipe(
                     map(_ => {
-                        this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                        this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                         return new ReleaseMaintenanceRequestTaskSuccessAction({message: ''});
                     }),
                     catchError(err => of(new LoadError(err)))
