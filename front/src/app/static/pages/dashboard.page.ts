@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from 'rxjs/index';
 import {BreadcrumbService} from "../../breadcrumb.service";
 import {environment} from "../../../environments/environment";
+import {WorkOrderWeeklyProjection, WorkOrderWeeklyTimeSpentProjection} from "./dashboard.model";
 
 @Component({
     selector: 'cng-dashboard',
@@ -13,7 +14,7 @@ export class DashboardPage implements OnInit {
     DASHBOARD_API: string = environment.endpoint + '/api/dashboard';
     currentUser$: Observable<any>;
 
-    countWorkOrder: number= 1;
+    countWorkOrder: number = 1;
     countMaintenanceRequest: number = 2;
     countStaff: number = 3;
     countAsset: number = 4;
@@ -25,6 +26,16 @@ export class DashboardPage implements OnInit {
     pieData: any;
     polarData: any;
     radarData: any;
+    chartOptions : any = {
+        scales: {
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        }
+    };
 
     breadcrumbs: any [] = [
         {label: 'Dashboard'},
@@ -147,40 +158,46 @@ export class DashboardPage implements OnInit {
     }
 
     changeData() {
-        let data = [];
-        this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
-            .subscribe((projection: any[]) => {
+        let wProData = [];
+        let wProLabel = [];
+        this.http.get<WorkOrderWeeklyProjection[]>(this.DASHBOARD_API + '/work-order-weekly-projections')
+            .subscribe((projection: WorkOrderWeeklyProjection[]) => {
+                console.log(`%c`, 'background:pink', projection)
                 projection.forEach(p => {
-                    data.push(p.count);
+                    wProData.push(p.total);
+                    wProLabel.push("week "+p.week)
                 });
 
                 this.changedBarData = {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                    labels: wProLabel,
                     datasets: [{
                         label: 'Weekly Work Order',
                         backgroundColor: '#2162b0',
                         borderColor: '#2162b0',
-                        data: data
+                        data: wProData
                     }
                     ]
+
                 };
                 this.barData = Object.assign({}, this.changedBarData);
             });
 
-        let tdata = [];
-        this.http.get(this.DASHBOARD_API + '/work-order-weekly-time-spent-projections')
-            .subscribe((projection: any[]) => {
+        let tProData = [];
+        let tProLabel = [];
+        this.http.get<WorkOrderWeeklyTimeSpentProjection[]>(this.DASHBOARD_API + '/work-order-weekly-time-spent-projections')
+            .subscribe((projection: WorkOrderWeeklyTimeSpentProjection[]) => {
                 projection.forEach(p => {
-                    tdata.push(p.total);
+                    tProData.push(p.total);
+                    tProLabel.push("Week "+p.week);
                 });
 
                 this.changedTimeData = {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                    labels: tProLabel,
                     datasets: [{
                         label: 'Time Spent Weekly',
                         backgroundColor: '#2162b0',
                         borderColor: '#2162b0',
-                        data: tdata
+                        data: tProData
                     }
                     ]
                 };

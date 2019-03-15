@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {WorkOrderActivity} from '../work-order-activity.model';
 import {
     AddWorkOrderCommentAction,
-    CompleteWorkOrderTaskAction,
+    CompleteWorkOrderTaskAction, FindWorkOrderByReferenceNoAction,
     RemoveWorkOrderTaskAction, StartWorkOrderLogAction, StopWorkOrderLogAction,
     UpdateWorkOrderAction,
 } from '../work-order.action';
@@ -16,6 +16,9 @@ import {About} from "../../../models";
 import {Observable} from "rxjs";
 import {Location} from "@angular/common";
 import {WorkOrderComment} from "../work-order-comment.model";
+import {WorkOrder} from "../work-order.model";
+import {selectWorkOrder} from "../work-order.selector";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'dex-work-order-check-page',
@@ -24,11 +27,14 @@ import {WorkOrderComment} from "../work-order-comment.model";
 })
 export class WorkOrderCheckPage extends WorkOrderPage implements OnInit {
     selectedAbout: About;
+    workOrder: WorkOrder;
+
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public route: ActivatedRoute,
                 public location: Location,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
@@ -37,6 +43,15 @@ export class WorkOrderCheckPage extends WorkOrderPage implements OnInit {
 
     ngOnInit() {
         super.ngOnInit()
+        this.route.params.subscribe((params: { referenceNo: string }) => {
+            this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
+        });
+
+        this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
+            this.workOrder = workOrder;
+        });
+
+        console.log(this.workOrder);
     }
 
     verify() {

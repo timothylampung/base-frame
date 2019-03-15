@@ -43,9 +43,9 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
         console.log(this.maintenanceRequestTask);
         console.log(this.mainForm.value);
 
-        this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
-            this.createImageFromBlob(blob);
-        })
+        // this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
+        //     this.createImageFromBlob(blob);
+        // })
     }
 
     createImageFromBlob(image: Blob) {

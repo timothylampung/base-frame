@@ -311,6 +311,7 @@
         </repository>
     </repositories>
     <build>
+        <finalName>spot-it</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -360,7 +361,7 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>my.com.canang.training.Application</argument>
+                        <argument>my.spotit.asset</argument>
                     </arguments>
                 </configuration>
             </plugin>

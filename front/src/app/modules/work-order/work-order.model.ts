@@ -8,15 +8,15 @@ import {Asset} from "../asset/assets/asset-model";
 import {MaintenanceRequest} from "../maintenance/maintenance-request.model";
 import {File} from "../common/file/file.model";
 
+
 export interface WorkOrder extends Document {
     reporter: Actor;
     assignee: Actor;
     verifier: Actor;
     location: Location
     asset: Asset
-    maintenanceRequest:MaintenanceRequest;
-    file : File;
-
+    maintenanceRequest: MaintenanceRequest;
+    // file?: File;
 }
 
 export interface WorkOrderResult {
@@ -65,8 +65,8 @@ export const initStateWorkOrder: WorkOrder = {
     verifier: null,
     location: null,
     asset: null,
-    maintenanceRequest:null,
-    file : null
+    maintenanceRequest: null,
+    // file: null,
 };
 
 export const initStateWorkOrderTaskSummary: WorkOrderTaskSummary = {

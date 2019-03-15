@@ -20,9 +20,7 @@ import my.spotit.asset.dashboard.domain.model.DexWorkOrderWeeklyTimeSpentProject
 @Transactional
 @Service("dashboardService")
 public class DashboardServiceImpl implements DashboardService {
-
     private static final Logger LOG = LoggerFactory.getLogger(DashboardServiceImpl.class);
-
     private EntityManager entityManager;
 
     @Autowired
@@ -32,14 +30,14 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<DexWorkOrderWeeklyProjection> findWorkOrderWeeklyProjections() {
-        Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyProjection a group by a.week");
-        return query.getResultList();
+        Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyProjection a ");
+        return (List<DexWorkOrderWeeklyProjection>) query.getResultList();
     }
 
     @Override
     public List<DexWorkOrderWeeklyTimeSpentProjection> findWorkOrderWeeklyTimeSpentProjections() {
-        Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyTimeSpentProjection a group by a.week, a.total");
-        return query.getResultList();
+        Query query = entityManager.createQuery("select a from DexWorkOrderWeeklyTimeSpentProjection a ");
+        return (List<DexWorkOrderWeeklyTimeSpentProjection>) query.getResultList();
     }
 
     @Override

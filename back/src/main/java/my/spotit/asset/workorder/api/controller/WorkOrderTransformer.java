@@ -1,5 +1,6 @@
 package my.spotit.asset.workorder.api.controller;
 
+import my.spotit.asset.asset.api.controller.AssetTransformer;
 import org.flowable.engine.TaskService;
 import org.flowable.task.api.Task;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class WorkOrderTransformer {
 
     private TaskService taskService;
     private AssetService assetService;
+    private AssetTransformer assetTransformer;
     private WorkOrderService workOrderService;
     private CommonService commonService;
     private WorkflowService workflowService;
@@ -48,11 +50,13 @@ public class WorkOrderTransformer {
     private CoreTransformer coreTransformer;
 
     @Autowired
-    public WorkOrderTransformer(AssetService assetService, CommonService commonService,
+    public WorkOrderTransformer(AssetService assetService,AssetTransformer assetTransformer,
+                                CommonService commonService,
                                 TaskService taskService, WorkflowService workflowService,
                                 WorkOrderService workOrderService,
                                 IdentityTransformer identityTransformer,
                                 CommonTransformer commonTransformer, CoreTransformer coreTransformer) {
+        this.assetTransformer = assetTransformer;
         this.assetService = assetService;
         this.commonService = commonService;
         this.workOrderService = workOrderService;
@@ -71,9 +75,14 @@ public class WorkOrderTransformer {
         if (null == e) return null;
         WorkOrder vo = new WorkOrder();
         vo.setId(e.getId());
+        vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
+        vo.setLocation(assetTransformer.toLocationVo(e.getLocation()));
+        vo.setReporter(identityTransformer.toActor(e.getReporter()));
+        vo.setAssignee(identityTransformer.toActor(e.getAssignee()));
         vo.setReferenceNo(e.getReferenceNo());
         vo.setDescription(e.getDescription());
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));
+        vo.setFile(commonTransformer.toFileVo(e.getFile()));
         return vo;
     }
 

@@ -63,7 +63,7 @@ export class WorkOrderAssignedTaskListPage implements OnInit {
 
     // onHover(workOrder : WorkOrderTaskSummary){
     //     console.log(workOrder)
-    //     this.commonService.downloadFile(workOrder.workOrder.file.fileName).subscribe(blob => {
+    //     this.commonService.downloadFile(workOrder.workOrder.file.name).subscribe(blob => {
     //         this.createImageFromBlob(blob);
     //     })
     // }
