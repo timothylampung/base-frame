@@ -59,6 +59,8 @@ export class WorkOrderArchiveDetailPage implements OnInit {
 
         this.activities$ = this.store.pipe(select(selectWorkOrderActivities));
 
+
+
         this.route.params.subscribe((params: { referenceNo: string }) => {
             this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
         });

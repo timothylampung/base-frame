@@ -13,6 +13,7 @@ import {AppState} from "../../../core/core.state";
 import {About} from "../../../models";
 import {CommonService} from "../../../services";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'dex-maintenance-request-draft-page',
@@ -33,6 +34,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
                 public commonService: CommonService,
+                public router: Router,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
         super(breadcrumbService, messageService, confirmationService, fb, store, cdr);
@@ -85,6 +87,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                     console.log(this.maintenanceRequestTask);
                     this.mainForm.patchValue(this.maintenanceRequestTask);
                     console.log(this.mainForm.value);
+
 
 
                 }
