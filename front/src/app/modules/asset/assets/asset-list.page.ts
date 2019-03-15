@@ -69,11 +69,11 @@ export class AssetListPage implements OnInit {
 
     confirmDelete(rowData : Asset) {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete this?',
+            message: 'Delete asset?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Asset Deleted'}];
+                this.msgs = [{severity:'info', summary:'Asset deleted'}];
                 this.store.dispatch(new RemoveAssetAction(rowData));
                 console.log(rowData);
             },

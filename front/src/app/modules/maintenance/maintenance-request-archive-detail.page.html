@@ -6,10 +6,10 @@
             <h1>Maintenance Request Ref# {{ maintenanceRequest.referenceNo}}</h1>
             <div class="ui-g-12 ui-md-6 ui-lg-6" [formGroup]="mainForm">
                 <div class="ui-g-12">
-                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                    <div class="ui-g-4">
                         <label>Description</label>
                     </div>
-                    <div class="ui-g-12 ui-md-6 ui-lg-6">
+                    <div class="ui-g-8">
                         <span>{{maintenanceRequest.description}}</span>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
 
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label>Remark</label>
+                        <label>Remarks</label>
                     </div>
                     <div class="ui-g-8">
                         <span>{{maintenanceRequest.remark}}</span>
@@ -82,17 +82,6 @@
 
 <div class="ui-g">
     <div class="ui-g-12">
-    </div>
-</div>
-
-<div class="ui-g-12 ui-fluid page-action">
-    <div class="ui-g-1">
-        <button
-            type="button"
-            label="Perihal"
-            (click)="showAboutDialog()"
-            icon="fa fa-flag"
-            pButton></button>
     </div>
 </div>
 

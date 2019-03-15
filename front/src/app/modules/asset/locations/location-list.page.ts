@@ -67,11 +67,11 @@ export class LocationListPage implements OnInit {
 
     confirmDelete(rowData : Location) {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete this?',
+            message: 'Delete location?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Location Deleted'}];
+                this.msgs = [{severity:'info', summary:'Location deleted'}];
                 this.store.dispatch(new RemoveLocationAction(rowData));
                 console.log(rowData);
             },
