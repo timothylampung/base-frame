@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {
     AddWorkOrderCommentAction,
-    CompleteWorkOrderTaskAction,
+    CompleteWorkOrderTaskAction, FindWorkOrderByReferenceNoAction,
     RemoveWorkOrderTaskAction, StartWorkOrderLogAction, StopWorkOrderLogAction,
     UpdateWorkOrderAction,
 } from '../work-order.action';
@@ -16,6 +16,9 @@ import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {WorkOrderComment} from "../work-order-comment.model";
 import {CommonService} from "../../../services";
+import {WorkOrder} from "../work-order.model";
+import {selectWorkOrder} from "../work-order.selector";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'dex-work-order-prepare-page',
@@ -23,6 +26,7 @@ import {CommonService} from "../../../services";
     styleUrls: ['./work-order-prepare.page.css']
 })
 export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
+    workOrder: WorkOrder;
     selectedAbout: About;
     imageToShow: any;
 
@@ -30,6 +34,7 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public route: ActivatedRoute,
                 public commonService: CommonService,
                 public location: Location,
                 public store: Store<AppState>,
@@ -37,13 +42,23 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
         super(breadcrumbService, messageService, confirmationService, fb, store, cdr);
     }
 
-    // ngOnInit() {
-    //     super.ngOnInit()
+    ngOnInit() {
+        super.ngOnInit()
     //
     //     this.commonService.downloadFile(this.workOrderTask.workOrder.file.name).subscribe(blob => {
     //         this.createImageFromBlob(blob);
     //     })
-    // }
+
+        this.route.params.subscribe((params: { referenceNo: string }) => {
+            this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
+        });
+
+        this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
+            this.workOrder = workOrder;
+        });
+
+        console.log(this.workOrder);
+    }
 
     createImageFromBlob(image: Blob) {
         let reader = new FileReader();
