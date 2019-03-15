@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/index';
 import {BreadcrumbService} from "../../breadcrumb.service";
 import {environment} from "../../../environments/environment";
 import {WorkOrderWeeklyProjection, WorkOrderWeeklyTimeSpentProjection} from "./dashboard.model";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'cng-dashboard',
@@ -42,7 +43,8 @@ export class DashboardPage implements OnInit {
     ];
 
     constructor(public http: HttpClient,
-                public breadcrumbService: BreadcrumbService) {
+                public breadcrumbService: BreadcrumbService,
+                public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
 
         this.barData = {
@@ -216,5 +218,17 @@ export class DashboardPage implements OnInit {
         this.http.get<number>(this.DASHBOARD_API + '/asset-count')
             .subscribe(count => this.countAsset = count);
 
+    }
+
+    viewWorkOrder(evt) {
+        this.router.navigate(['/work-order/work-order-tasks/assigned']);
+    }
+
+    viewStaff(evt) {
+        this.router.navigate(['/administration/staffs/list']);
+    }
+
+    viewAsset(evt) {
+        this.router.navigate(['/asset/assets/list']);
     }
 }
