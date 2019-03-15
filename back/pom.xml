@@ -311,7 +311,7 @@
         </repository>
     </repositories>
     <build>
-        <finalName>spot-it</finalName>
+        <finalName>spotit-web</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
