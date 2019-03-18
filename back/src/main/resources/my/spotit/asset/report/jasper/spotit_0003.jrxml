@@ -48,7 +48,7 @@ Total Work Time by Work Order]]></text>
 			</staticText>
 			<image>
 				<reportElement x="10" y="16" width="132" height="47" uuid="42eaeb00-16ae-4405-be04-6e59acdb067b"/>
-				<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>
+				<!--<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>-->
 			</image>
 		</band>
 	</title>

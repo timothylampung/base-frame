@@ -48,7 +48,7 @@ Cost Per Work Order by Location]]></text>
 			</staticText>
 			<image>
 				<reportElement x="10" y="16" width="132" height="47" uuid="866b8faf-749b-43eb-9fc1-6818236da645"/>
-				<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>
+				<!--<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>-->
 			</image>
 		</band>
 	</title>

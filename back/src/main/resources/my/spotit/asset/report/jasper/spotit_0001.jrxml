@@ -39,7 +39,7 @@ INNER JOIN dex_asst ast on ast.id = wo.asset_id]]>
 			</staticText>
 			<image>
 				<reportElement x="10" y="16" width="132" height="47" uuid="6888ec61-44ae-47ff-9330-d82765e7f73e"/>
-				<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>
+				<!--<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>-->
 			</image>
 		</band>
 	</title>
