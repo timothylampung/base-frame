@@ -64,9 +64,9 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     approve() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
+                message: 'Approve work order?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
                 accept: () => {
 
                     if (this.maintenanceRequestTask.assignee != null) {
@@ -97,9 +97,9 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     remove() {
         this.confirmationService.confirm({
-            message: 'Anda pasti untuk menghapuskan work order ini?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
+            message: 'Delete work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
                 this.store.dispatch(
                     new RemoveMaintenanceRequestTaskAction({taskId: this.maintenanceRequestTask.taskId})
@@ -110,9 +110,9 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     updateMaintenanceRequest() {
         this.confirmationService.confirm({
-            message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
+            message: 'Update work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
 
                 this.store.dispatch(
