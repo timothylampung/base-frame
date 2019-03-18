@@ -1,20 +1,20 @@
 import {
-    COUNT_ASSIGNED_WORK_ORDERS_SUCCESS,
-    COUNT_POOLED_WORK_ORDERS_SUCCESS,
+    COUNT_ASSIGNED_MAINTENANCE_REQUESTS_SUCCESS,
+    COUNT_POOLED_MAINTENANCE_REQUESTS_SUCCESS,
     CountAssignedMaintenanceRequestsSuccessAction,
     CountPooledMaintenanceRequestsSuccessAction,
-    FIND_ARCHIVED_WORK_ORDERS_SUCCESS,
-    FIND_ASSIGNED_WORK_ORDERS_SUCCESS,
-    FIND_WORK_ORDER_BY_REFERENCE_NO_SUCCESS,
-    FIND_WORK_ORDER_TASK_BY_TASK_ID_SUCCESS,
-    FIND_PAGED_WORK_ORDERS_SUCCESS,
-    FIND_POOLED_WORK_ORDERS_SUCCESS,
+    FIND_ARCHIVED_MAINTENANCE_REQUESTS_SUCCESS,
+    FIND_ASSIGNED_MAINTENANCE_REQUESTS_SUCCESS,
+    FIND_MAINTENANCE_REQUEST_BY_REFERENCE_NO_SUCCESS,
+    FIND_MAINTENANCE_REQUEST_TASK_BY_TASK_ID_SUCCESS,
+    FIND_PAGED_MAINTENANCE_REQUESTS_SUCCESS,
+    FIND_POOLED_MAINTENANCE_REQUESTS_SUCCESS,
     FindArchivedMaintenanceRequestsSuccessAction,
     FindAssignedMaintenanceRequestsSuccessAction,
     FindPagedMaintenanceRequestsSuccessAction,
     FindPooledMaintenanceRequestsSuccessAction,
-    NEW_WORK_ORDER_TASK,
-    SELECT_WORK_ORDER
+    NEW_MAINTENANCE_REQUEST_TASK,
+    SELECT_MAINTENANCE_REQUEST
 } from "./maintenance-request.action";
 import {
     initStateMaintenanceRequest,
@@ -32,7 +32,7 @@ import {
 export function maintenanceRequestResultReducer(state = initStateMaintenanceRequestResult,
                                      action: FindPagedMaintenanceRequestsSuccessAction): MaintenanceRequestResult {
     switch (action.type) {
-        case FIND_PAGED_WORK_ORDERS_SUCCESS:
+        case FIND_PAGED_MAINTENANCE_REQUESTS_SUCCESS:
             return {
                 data: [...action.payload.data],
                 totalSize: action.payload.totalSize
@@ -46,12 +46,12 @@ export function maintenanceRequestResultReducer(state = initStateMaintenanceRequ
 export function maintenanceRequestTaskResultReducer(state = initStateMaintenanceRequestTaskResult,
                                          action: FindAssignedMaintenanceRequestsSuccessAction | FindPooledMaintenanceRequestsSuccessAction): MaintenanceRequestTaskSummaryResult {
     switch (action.type) {
-        case FIND_ASSIGNED_WORK_ORDERS_SUCCESS:
+        case FIND_ASSIGNED_MAINTENANCE_REQUESTS_SUCCESS:
             return {
                 data: [...action.payload.data],
                 totalSize: action.payload.totalSize
             };
-        case FIND_POOLED_WORK_ORDERS_SUCCESS:
+        case FIND_POOLED_MAINTENANCE_REQUESTS_SUCCESS:
             return {
                 data: [...action.payload.data],
                 totalSize: action.payload.totalSize
@@ -65,9 +65,9 @@ export function maintenanceRequestTaskResultReducer(state = initStateMaintenance
 export function maintenanceRequestCountTaskReducer(state = {},
                                         action: CountAssignedMaintenanceRequestsSuccessAction | CountPooledMaintenanceRequestsSuccessAction) {
     switch (action.type) {
-        case COUNT_ASSIGNED_WORK_ORDERS_SUCCESS:
+        case COUNT_ASSIGNED_MAINTENANCE_REQUESTS_SUCCESS:
             return {...state, ...action.payload};
-        case COUNT_POOLED_WORK_ORDERS_SUCCESS:
+        case COUNT_POOLED_MAINTENANCE_REQUESTS_SUCCESS:
             return {...state, ...action.payload};
         default: {
             return state;
@@ -78,12 +78,12 @@ export function maintenanceRequestCountTaskReducer(state = {},
 export function maintenanceRequestTaskReducer(state = initStateMaintenanceRequestTaskSummary,
                                    action): MaintenanceRequestTaskSummary {
     switch (action.type) {
-        case FIND_WORK_ORDER_TASK_BY_TASK_ID_SUCCESS:
+        case FIND_MAINTENANCE_REQUEST_TASK_BY_TASK_ID_SUCCESS:
             return {
                 ...state,
                 ...action.payload
             };
-        case NEW_WORK_ORDER_TASK:
+        case NEW_MAINTENANCE_REQUEST_TASK:
             return initStateMaintenanceRequestTaskSummary;
         default: {
             return state;
@@ -94,7 +94,7 @@ export function maintenanceRequestTaskReducer(state = initStateMaintenanceReques
 export function maintenanceRequestRecordResultReducer(state = initStateMaintenanceRequestRecordResult,
                                            action: FindArchivedMaintenanceRequestsSuccessAction): MaintenanceRequestRecordSummaryResult {
     switch (action.type) {
-        case FIND_ARCHIVED_WORK_ORDERS_SUCCESS:
+        case FIND_ARCHIVED_MAINTENANCE_REQUESTS_SUCCESS:
             return {
                 data: [...action.payload.data],
                 totalSize: action.payload.totalSize
@@ -107,12 +107,12 @@ export function maintenanceRequestRecordResultReducer(state = initStateMaintenan
 
 export function maintenanceRequestReducer(state = initStateMaintenanceRequest, action): MaintenanceRequest {
     switch (action.type) {
-        case FIND_WORK_ORDER_BY_REFERENCE_NO_SUCCESS:
+        case FIND_MAINTENANCE_REQUEST_BY_REFERENCE_NO_SUCCESS:
             return {
                 ...state,
                 ...action.payload
             };
-        case SELECT_WORK_ORDER:
+        case SELECT_MAINTENANCE_REQUEST:
             return {
                 ...state,
                 ...action.payload

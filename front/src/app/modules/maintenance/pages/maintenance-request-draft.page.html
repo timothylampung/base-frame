@@ -23,7 +23,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input disabled readonly type="text"
+                        <input type="text"
                                formControlName="description"
                                pInputText>
                     </span>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <p-calendar disabled formControlName="requestedDate"></p-calendar>
+                        <p-calendar formControlName="requestedDate"></p-calendar>
                     </span>
                     </div>
                 </div>
@@ -47,8 +47,9 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                      <dex-staff-autocomplete label="Requester"
-                                              [innerFormControl]="mainForm.get('requester')"></dex-staff-autocomplete>
+                      <dex-staff-autocomplete
+                          label="Requester"
+                          [innerFormControl]="mainForm.get('requester')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -59,8 +60,9 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <dex-asset-autocomplete label="Asset"
-                                                [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
+                        <dex-asset-autocomplete
+                            label="Asset"
+                            [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -106,7 +108,7 @@
                 </div>
             </div>
             <div class="ui-g-6 ui-g ">
-                <img [src]="imageToShow" height="400" alt="Place image title"/>
+                <!--<img [src]="imageToShow" height="400" alt="Place image title"/>-->
             </div>
         </div>
     </div>
@@ -121,7 +123,7 @@
                         <div class="ui-button-toolbar-mb">
                         </div>
 
-                        <pre>{{maintenanceRequestTask.request.file   |json}}</pre>
+                        <!--<pre>{{maintenanceRequestTask.request.file |json}}</pre>-->
                         <!--<p-table [columns]="cols"-->
                         <!--[value]="maintenanceRequestTask?.maintenanceRequest"-->
                         <!--dataKey="id">-->
@@ -160,7 +162,6 @@
             type="button"
             [label]="'Update'"
             (click)="updateMaintenanceRequest()"
-            [disabled]="!mainForm.valid"
             icon="fa fa-edit"
             pButton></button>
     </div>

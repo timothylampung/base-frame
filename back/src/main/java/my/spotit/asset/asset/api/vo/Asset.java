@@ -11,6 +11,9 @@ public class Asset extends MetaObject {
     private Location location;
     private AssetCode assetCode;
 
+    // transient
+    private String summary;
+
     public Asset() {
     }
 
@@ -64,5 +67,13 @@ public class Asset extends MetaObject {
 
     public void setAssetCode(AssetCode assetCode) {
         this.assetCode = assetCode;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

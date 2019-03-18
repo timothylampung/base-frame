@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, Sanitizer} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {
@@ -45,6 +45,23 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
         console.log(this.maintenanceRequestTask);
         console.log(this.mainForm.value);
 
+        this.mainForm = this.fb.group({
+            referenceNo: [''],
+            sourceNo: [''],
+            description: [{value: '', disabled: true}, Validators.required],
+            requester: [],
+            requestedDate: [],
+            delegator: [],
+            verifier: [],
+            location: [],
+            asset: [],
+            remark: [],
+            reporter: [],
+            delegated: [],
+        });
+
+        this.mainForm.patchValue(this.maintenanceRequestTask.request);
+
         // this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
         //     this.createImageFromBlob(blob);
         // })
@@ -80,14 +97,11 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                             ...this.mainForm.value,
 
 
-
                         })
-
                     );
                     console.log(this.maintenanceRequestTask);
                     this.mainForm.patchValue(this.maintenanceRequestTask);
                     console.log(this.mainForm.value);
-
 
 
                 }
@@ -109,20 +123,22 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     updateMaintenanceRequest() {
-        this.confirmationService.confirm({
-            message: 'Update work order?',
-            acceptLabel: 'Yes',
-            rejectLabel: 'No',
-            accept: () => {
+        console.log('this is a test');
 
-                this.store.dispatch(
-                    new UpdateMaintenanceRequestAction({
-                        ...this.maintenanceRequestTask,
-                        ...this.mainForm.value
-                    })
-                );
-            }
-        });
+        this.store.dispatch(
+            new UpdateMaintenanceRequestAction({
+                ...this.maintenanceRequestTask,
+                ...this.mainForm.value
+            })
+        );
+
+        // this.confirmationService.confirm({
+        //     message: 'Update work order?',
+        //     acceptLabel: 'Yes',
+        //     rejectLabel: 'No',
+        //     accept: () => {
+        //     }
+        // });
     }
 
     addActivity() {

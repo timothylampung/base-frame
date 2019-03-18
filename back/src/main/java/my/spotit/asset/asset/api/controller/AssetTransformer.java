@@ -84,6 +84,9 @@ public class AssetTransformer {
         vo.setAssetCode(toAssetCodeVo(e.getAssetCode()));
         vo.setLocation(toLocationVo(e.getLocation()));
         coreTransformer.toMetadata(e, vo);
+
+        // transient
+        vo.setSummary(e.getCode() + " - " + e.getDescription());
         return vo;
     }
 

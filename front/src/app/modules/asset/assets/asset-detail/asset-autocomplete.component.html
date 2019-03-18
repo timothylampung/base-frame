@@ -7,10 +7,9 @@
                     [dropdown]="true"
                     [emptyMessage]="'Tiada Rekod'"
                     (completeMethod)="search($event)"
-                    field="name">
+                    field="summary">
         <ng-template let-value pTemplate="item">
             <span>{{value?.code}} - {{value?.description}}</span>
         </ng-template>
     </p-autoComplete>
-    <!--<label for="actor" [hidden]="hideFloatLabel">{{label}}</label>-->
 </span>
