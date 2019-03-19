@@ -14,6 +14,7 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.persistence.EntityManager;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class AssetServiceImplTest extends AbstractTest {
@@ -117,12 +118,14 @@ public class AssetServiceImplTest extends AbstractTest {
         DexAssetCode ast001 = assetService.findAssetCodeByCode("AC_001");
         DexLocation lctn001 = assetService.findLocationByCode("SM_001");
 
+        BigDecimal Cost = new BigDecimal(10);
+
 
         identityServiceHelper.changeUser("fm1");
         DexAsset asset = new DexAssetImpl();
         asset.setCategory("Plumbing");
-        asset.setQuantity("20");
-        asset.setCost("30");
+        asset.setQuantity(20L);
+        asset.setCost(Cost);
         asset.setAssetCode(ast001);
         asset.setDescription("Faucet");
         asset.setCode("AST_009");
