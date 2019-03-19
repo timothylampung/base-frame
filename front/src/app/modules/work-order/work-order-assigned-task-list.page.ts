@@ -25,7 +25,7 @@ export class WorkOrderAssignedTaskListPage implements OnInit {
     imageToShow: any;
     workOrderTasks$: Observable<WorkOrderTaskSummary[]>;
     searchForm: FormGroup;
-    title = 'My Tasks (WorkOrder)';
+    title = 'My Tasks (Work Order)';
     cols = [
         {field: 'referenceNo', header: 'Reference No'},
         {field: 'description', header: 'Description'},

@@ -1,9 +1,8 @@
 import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Action, select, Store} from '@ngrx/store';
-import {forkJoin, Observable, of} from 'rxjs';
-import * as _ from 'lodash';
+import {Action, Store} from '@ngrx/store';
+import {Observable, of} from 'rxjs';
 import {
     CLAIM_MAINTENANCE_REQUEST_TASK,
     ClaimMaintenanceRequestTaskAction,
@@ -52,12 +51,12 @@ import {
     UpdateMaintenanceRequestSuccessAction,
 } from './maintenance-request.action';
 import {Router} from '@angular/router';
-import {selectMaintenanceRequest, selectMaintenanceRequestTask} from './maintenance-request.selector';
 import {AppState} from '../../core/core.state';
 import {concatMap} from "rxjs/internal/operators";
 import {LoadError} from "../../static/app.action";
 import {MaintenanceRequestService} from "../../services/maintenance-request.service";
 import {MaintenanceRequest} from "./maintenance-request.model";
+import {selectMaintenanceRequest} from "./maintenance-request.selector";
 
 @Injectable()
 export class MaintenanceRequestEffects {
@@ -272,7 +271,6 @@ export class MaintenanceRequestEffects {
                 catchError(err => of(new LoadError(err)))
             )),
     );
-
 
     @Effect()
     public reloadMaintenanceRequestPage$: Observable<Action> = this.actions$.pipe(

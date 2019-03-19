@@ -147,26 +147,27 @@
     </div>
 </div>
 
-<div class="ui-g-12">
-    <div class="ui-g-12 ui-md-3 ui-lg-2">
+<div class="ui-g-12 ui-fluid page-action">
+    <div class="ui-g-1">
         <button
             type="button"
             [label]="'Approve'"
             (click)="approve()"
+            [disabled]="!mainForm.valid"
             icon="fa fa-save"
             pButton></button>
-            <!--[disabled]="!mainForm.valid"-->
-
     </div>
-    <div class="ui-g-12 ui-md-3 ui-lg-2">
+    <div class="ui-g-1">
         <button
             type="button"
             [label]="'Update'"
             (click)="updateMaintenanceRequest()"
+            [disabled]="!mainForm.valid"
             icon="fa fa-edit"
             pButton></button>
     </div>
-    <div class="ui-g-12 ui-md-3 ui-lg-2">
+
+    <div class="ui-g-1">
         <button
             type="button"
             label="Delete"
@@ -177,7 +178,7 @@
     </div>
 </div>
 
-<p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle"
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"
                  width="425"></p-confirmDialog>
 
 

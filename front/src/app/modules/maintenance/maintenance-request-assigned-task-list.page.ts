@@ -24,7 +24,7 @@ export class MaintenanceRequestAssignedTaskListPage implements OnInit {
     imageToShow: any;
     maintenanceRequestTasks$: Observable<MaintenanceRequestTaskSummary[]>;
     searchForm: FormGroup;
-    title = 'My Tasks (MaintenanceRequest)';
+    title = 'My Tasks (Maintenance Request)';
     cols = [
         {field: 'referenceNo', header: 'Reference No'},
         {field: 'description', header: 'Description'},

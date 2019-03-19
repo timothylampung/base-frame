@@ -81,7 +81,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     approve() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Approve MaintenanceRequest?',
+                message: 'Approve maintenance request?',
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {
@@ -111,7 +111,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     remove() {
         this.confirmationService.confirm({
-            message: 'Delete work order?',
+            message: 'Delete maintenance request?',
             acceptLabel: 'Yes',
             rejectLabel: 'No',
             accept: () => {
@@ -133,7 +133,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
         );
 
         // this.confirmationService.confirm({
-        //     message: 'Update work order?',
+        //     message: 'Update maintenance request?',
         //     acceptLabel: 'Yes',
         //     rejectLabel: 'No',
         //     accept: () => {

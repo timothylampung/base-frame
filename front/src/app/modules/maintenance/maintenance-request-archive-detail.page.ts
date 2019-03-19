@@ -10,7 +10,7 @@ import {MaintenanceRequest} from './maintenance-request.model';
 import {
     selectMaintenanceRequest,
     selectMaintenanceRequestRecordResult,
-    selectMaintenanceRequestRecords, selectMaintenanceRequestResult
+    selectMaintenanceRequestRecords
 } from './maintenance-request.selector';
 import {ActivatedRoute} from "@angular/router";
 import {takeUntil} from "rxjs/internal/operators";

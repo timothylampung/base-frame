@@ -124,20 +124,20 @@ public class MaintenanceRequestController {
 
     @PostMapping(value = "/maintenance-requests/start-task")
     public ResponseEntity<?> startMaintenanceRequestTask(@RequestBody MaintenanceRequest vo) throws Exception {
-        DexMaintenanceRequest maintenanceRequest = new DexMaintenanceRequestImpl();
         DexAsset asset = assetService.findAssetByCode(vo.getAsset().getCode());
         DexActor requester = securityService.getCurrentUser().getActor();
         DexLocation location = assetService.findLocationByCode(vo.getLocation().getCode());
 
-        maintenanceRequest.setLocation(location);
-        maintenanceRequest.setRequestedDate(new Date());
-        maintenanceRequest.setRequester(requester);
-        maintenanceRequest.setAsset(asset);
-        maintenanceRequest.setDescription(vo.getDescription());
-        maintenanceRequest.setRemark(vo.getRemark());
-        maintenanceRequestService.startMaintenanceRequestTask(maintenanceRequest);
+        DexMaintenanceRequest request = new DexMaintenanceRequestImpl();
+        request.setLocation(location);
+        request.setRequestedDate(new Date());
+        request.setRequester(requester);
+        request.setAsset(asset);
+        request.setDescription(vo.getDescription());
+        request.setRemark(vo.getRemark());
+        maintenanceRequestService.startMaintenanceRequestTask(request);
         LOG.debug("end task");
-        return ResponseEntity.status(HttpStatus.CREATED).body(maintenanceRequestTransformer.toMaintenanceRequestVo(maintenanceRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(maintenanceRequestTransformer.toMaintenanceRequestVo(request));
     }
 
     @GetMapping(value = "/maintenance-requests/view-task/{taskId}")
@@ -193,17 +193,17 @@ public class MaintenanceRequestController {
 
     @PutMapping(value = "/maintenance-requests/{referenceNo}")
     public ResponseEntity<ApplicationSuccess> updateMaintenanceRequest(@PathVariable String referenceNo, @RequestBody MaintenanceRequest vo) {
-        DexMaintenanceRequest maintenanceRequest = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
-        maintenanceRequest.setSourceNo(vo.getSourceNo());
-        maintenanceRequest.setDescription(vo.getDescription());
-        maintenanceRequest.setDelegated(vo.getDelegated());
-        maintenanceRequest.setRemark(vo.getRemark());
-        maintenanceRequest.setRequestedDate(vo.getRequestedDate());
-        maintenanceRequest.setLocation(assetService.findLocationById(vo.getLocation().getId()));
-        maintenanceRequest.setRequester(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequest.setDelegator(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequest.setVerifier(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest);
+        DexMaintenanceRequest request = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
+        request.setSourceNo(vo.getSourceNo());
+        request.setDescription(vo.getDescription());
+        request.setDelegated(vo.getDelegated());
+        request.setRemark(vo.getRemark());
+        request.setRequestedDate(vo.getRequestedDate());
+        request.setLocation(assetService.findLocationById(vo.getLocation().getId()));
+        request.setRequester(identityService.findActorById(vo.getRequester().getId()));
+        request.setDelegator(identityService.findActorById(vo.getRequester().getId()));
+        request.setVerifier(identityService.findActorById(vo.getVerifier().getId()));
+        maintenanceRequestService.updateMaintenanceRequest(request);
         return ResponseEntity.ok().build();
     }
 

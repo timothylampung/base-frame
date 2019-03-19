@@ -42,7 +42,7 @@ export class WorkOrderCheckPage extends WorkOrderPage implements OnInit {
     }
 
     ngOnInit() {
-        super.ngOnInit()
+        super.ngOnInit();
         this.route.params.subscribe((params: { referenceNo: string }) => {
             this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
         });
@@ -50,8 +50,6 @@ export class WorkOrderCheckPage extends WorkOrderPage implements OnInit {
         this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
             this.workOrder = workOrder;
         });
-
-        console.log(this.workOrder);
     }
 
     verify() {
