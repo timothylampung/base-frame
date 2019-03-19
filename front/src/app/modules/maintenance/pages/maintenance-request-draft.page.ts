@@ -81,7 +81,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     approve() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Approve work order?',
+                message: 'Approve MaintenanceRequest?',
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {

@@ -8,8 +8,8 @@ export  interface Asset extends MetaObject {
     description: string;
     assetCode:AssetCode;
     location: Location;
-    quantity:string;
-    cost: string;
+    quantity: number;
+    cost: number;
     category: AssetCategory;
 
     // transient

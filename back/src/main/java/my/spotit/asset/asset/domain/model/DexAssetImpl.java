@@ -4,6 +4,7 @@ import my.spotit.asset.core.domain.DexMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity(name = "DexAsset")
@@ -26,11 +27,11 @@ public class DexAssetImpl implements DexAsset {
 
     @NotNull
     @Column(name = "COST")
-    private String cost;
+    private BigDecimal cost;
 
     @NotNull
     @Column(name = "QUANTITY")
-    private String quantity;
+    private Long quantity;
 
 
     @Column(name = "CATEGORY")
@@ -81,22 +82,22 @@ public class DexAssetImpl implements DexAsset {
 
 
     @Override
-    public String getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
     @Override
-    public void setCost(String cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
     @Override
-    public String getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
     @Override
-    public void setQuantity(String quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
