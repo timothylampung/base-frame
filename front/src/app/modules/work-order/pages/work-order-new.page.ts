@@ -24,7 +24,7 @@ export class WorkOrderNewPage implements OnInit {
             routerLink: [INVOICE_BASE_URI + '/assigned']
         },
         {
-            label: 'Work Order Baru',
+            label: 'New Work Order',
             routerLink: [INVOICE_BASE_URI + '/new']
         }
     ];

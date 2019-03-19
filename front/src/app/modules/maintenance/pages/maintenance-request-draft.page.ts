@@ -14,7 +14,6 @@ import {About} from "../../../models";
 import {CommonService} from "../../../services";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
-import {UpdateWorkOrderAction} from "../../work-order/work-order.action";
 
 @Component({
     selector: 'dex-maintenance-request-draft-page',
@@ -31,6 +30,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
+                public _sanitizer: DomSanitizer,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
                 public commonService: CommonService,
@@ -41,9 +41,9 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     ngOnInit() {
-        super.ngOnInit();
-        // console.log(this.maintenanceRequestTask);
-        // console.log(this.mainForm.value);
+        super.ngOnInit()
+        console.log(this.maintenanceRequestTask);
+        console.log(this.mainForm.value);
 
         this.mainForm = this.fb.group({
             referenceNo: [''],
@@ -81,7 +81,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     approve() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Approve work order?',
+                message: 'Approve maintenance request?',
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {
@@ -111,7 +111,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     remove() {
         this.confirmationService.confirm({
-            message: 'Delete work order?',
+            message: 'Delete maintenance request?',
             acceptLabel: 'Yes',
             rejectLabel: 'No',
             accept: () => {
@@ -123,19 +123,22 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     updateMaintenanceRequest() {
-        this.confirmationService.confirm({
-            message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
-            accept: () => {
-                this.store.dispatch(
-                    new UpdateMaintenanceRequestAction({
-                        ...this.maintenanceRequestTask,
-                        ...this.mainForm.value
-                    })
-                );
-            }
-        });
+        console.log('this is a test');
+
+        this.store.dispatch(
+            new UpdateMaintenanceRequestAction({
+                ...this.maintenanceRequestTask,
+                ...this.mainForm.value
+            })
+        );
+
+        // this.confirmationService.confirm({
+        //     message: 'Update maintenance request?',
+        //     acceptLabel: 'Yes',
+        //     rejectLabel: 'No',
+        //     accept: () => {
+        //     }
+        // });
     }
 
     addActivity() {
@@ -146,4 +149,5 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
         this.selectedAbout = null;
         // this.showAboutDialog();
     }
+
 }
