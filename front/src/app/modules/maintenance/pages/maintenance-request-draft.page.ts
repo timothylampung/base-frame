@@ -109,8 +109,6 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     updateMaintenanceRequest() {
         console.log('this is a test');
-
-
         this.confirmationService.confirm({
             message: 'Update work order?',
             acceptLabel: 'Yes',
