@@ -12,6 +12,7 @@ import my.spotit.asset.notification.domain.model.DexNotification;
 import my.spotit.asset.notification.domain.model.DexNotificationContext;
 import my.spotit.asset.notification.domain.model.DexNotificationImpl;
 import my.spotit.asset.workorder.business.service.WorkOrderService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -37,8 +38,8 @@ public class NotificationController {
         this.notificationTransformer = notificationTransformer;
     }
 
-    @MessageMapping("/send")
-    @SendTo("/topic")
+    @MessageMapping("/notification")
+    @SendTo("/topic/notify")
     public Notification notify(Notification notification) {
         DexDocument document = null;
         if (notification.getContext() == NotificationContext.MAINTENANCE_REQUEST) {

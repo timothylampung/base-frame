@@ -12,7 +12,6 @@ const initialState: ActorResult = {
 };
 
 export function actorResultReducer(state = initialState, action: FindPagedActorsSuccessAction): ActorResult {
-    // console.log(action.payload)
     switch (action.type) {
         case FIND_PAGED_ACTORS_SUCCESS:
             return {
