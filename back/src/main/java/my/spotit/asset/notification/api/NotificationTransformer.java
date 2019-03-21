@@ -1,4 +1,4 @@
-package my.spotit.asset.integration.mobile.asset.api;
+package my.spotit.asset.notification.api;
 
 import my.spotit.asset.common.api.controller.CommonTransformer;
 import my.spotit.asset.core.api.Document;
