@@ -20,6 +20,20 @@
     </properties>
 
     <dependencies>
+
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.3</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -70,6 +84,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -224,6 +242,15 @@
             <artifactId>jasper-font-extension</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>4.3.12.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -283,6 +310,7 @@
         </repository>
     </repositories>
     <build>
+        <finalName>spotit</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -332,7 +360,7 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>my.com.canang.training.Application</argument>
+                        <argument>my.spotit.asset</argument>
                     </arguments>
                 </configuration>
             </plugin>

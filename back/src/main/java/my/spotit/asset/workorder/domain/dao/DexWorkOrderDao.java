@@ -31,6 +31,8 @@ public interface DexWorkOrderDao extends GenericDao<Long, DexWorkOrder> {
 
     List<DexWorkOrderLog> findLogs(DexWorkOrder order);
 
+    List<DexWorkOrderLog> findLogs();
+
     List<DexWorkOrderComment> findComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
 
     List<DexWorkOrderComment> findComments(DexWorkOrder order);

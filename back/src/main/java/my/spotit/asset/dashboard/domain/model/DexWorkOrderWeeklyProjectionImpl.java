@@ -1,13 +1,9 @@
 package my.spotit.asset.dashboard.domain.model;
 
 import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Subselect;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Immutable
 @Entity(name = "DexWorkOrderWeeklyProjection")
@@ -15,33 +11,60 @@ import javax.persistence.Table;
 public class DexWorkOrderWeeklyProjectionImpl implements DexWorkOrderWeeklyProjection {
 
     @Id
+    @Column(name = "week")
     private Integer week;
+    @Column(name = "total")
+    private Integer total;
+    @Column(name = "weekstart")
+    private Timestamp weekstart;
+    @Column(name = "weekend")
+    private Timestamp weekend;
 
-    private Integer count;
-
+    @Override
     public Integer getWeek() {
         return week;
     }
 
+    @Override
     public void setWeek(Integer week) {
         this.week = week;
     }
 
     @Override
-    public Integer getCount() {
-        return count;
+    public Integer getTotal() {
+        return total;
     }
 
     @Override
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    @Override
+    public Timestamp getWeekstart() {
+        return weekstart;
+    }
+
+    @Override
+    public void setWeekstart(Timestamp weekstart) {
+        this.weekstart = weekstart;
+    }
+
+    @Override
+    public Timestamp getWeekend() {
+        return weekend;
+    }
+
+    @Override
+    public void setWeekend(Timestamp weekend) {
+        this.weekend = weekend;
     }
 
     @Override
     public String toString() {
         return "DexWorkOrderWeeklyProjectionImpl{" +
                 "week='" + week + '\'' +
-                ", count=" + count +
+                ", total=" + total +
                 '}';
     }
 }

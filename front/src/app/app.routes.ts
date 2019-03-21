@@ -23,12 +23,8 @@ import {FacilityManagerListPage} from "./modules/identity/facilitymanager/facili
 import {PartListPage} from "./modules/inventory/parts/part-list.page";
 import {ComponentListPage} from "./modules/inventory/components/component-list.page";
 import {PartCodeListPage} from "./modules/inventory/part-codes/part-code-list.page";
-import {WorkOrderTaskDetailPage} from "./modules/work-order/work-order-task-detail.page";
-import {WorkOrderArchiveDetailPage} from "./modules/work-order/work-order-archive-detail.page";
-import {WorkOrderArchiveListPage} from "./modules/work-order/work-order-archive-list.page";
 import {WorkOrderPooledTaskListPage} from "./modules/work-order/work-order-pooled-task-list.page";
 import {WorkOrderAssignedTaskListPage} from "./modules/work-order/work-order-assigned-task-list.page";
-import {WorkOrderTaskNewPage} from "./modules/work-order/work-order-task-new.page";
 import {MaintenanceRequestTaskNewPage} from "./modules/maintenance/maintenance-request-task-new.page";
 import {MaintenanceRequestAssignedTaskListPage} from "./modules/maintenance/maintenance-request-assigned-task-list.page";
 import {MaintenanceRequestPooledTaskListPage} from "./modules/maintenance/maintenance-request-pooled-task-list.page";
@@ -37,6 +33,10 @@ import {MaintenanceRequestArchiveListPage} from "./modules/maintenance/maintenan
 import {MaintenanceRequestArchiveDetailPage} from "./modules/maintenance/maintenance-request-archive-detail.page";
 import {DashboardPage} from "./static/pages/dashboard.page";
 import {ReportListPage} from "./modules/report/report-list.page";
+import {WorkOrderArchiveListPage} from "./modules/work-order/work-order-archive-list.page";
+import {WorkOrderTaskNewPage} from "./modules/work-order/work-order-task-new.page";
+import {WorkOrderTaskDetailPage} from "./modules/work-order/work-order-task-detail.page";
+import {WorkOrderArchiveDetailPage} from "./modules/work-order/work-order-archive-detail.page";
 
 export const routes: Routes = [
     {path: 'login', component: LoginPage},

@@ -12,6 +12,10 @@ export interface PeriodResult {
     data: Period[];
 }
 
+export interface File {
+
+}
+
 export const initialStatePeriodResult: PeriodResult = {
     data: [], totalSize: 0
 };

@@ -68,7 +68,6 @@ public class MaintenanceRequestServiceImpl implements MaintenanceRequestService 
             // generate reference no
             String referenceNo = systemService.generateSequenceGenerator(MAINTENANCE_REQUEST_REFERENCE_NO);
             request.setReferenceNo(referenceNo);
-
             // save invoice
             maintenanceRequestDao.save(request, securityService.getCurrentUser());
             entityManager.flush();

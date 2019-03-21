@@ -3,6 +3,7 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              typeLanguage="http://www.w3.org/2001/XMLSchema"
              expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Fixed">
+
     <process id="work_order_workflow" name="Work Order Workflow" isExecutable="true">
         <startEvent id="start"/>
         <sequenceFlow id="flow1.1" sourceRef="start" targetRef="workOrder_prepare_ST"/>

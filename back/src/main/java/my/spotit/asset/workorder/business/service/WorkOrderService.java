@@ -55,6 +55,8 @@ public interface WorkOrderService {
 
     List<DexWorkOrderLog> findWorkOrderLogs(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
 
+    List<DexWorkOrderLog> findWorkOrderLogs();
+
     List<DexWorkOrderComment> findWorkOrderComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit);
 
     Integer countWorkOrder();

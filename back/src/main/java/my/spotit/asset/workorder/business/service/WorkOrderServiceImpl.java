@@ -199,6 +199,11 @@ public class WorkOrderServiceImpl implements WorkOrderService {
     }
 
     @Override
+    public List<DexWorkOrderLog> findWorkOrderLogs() {
+        return workOrderDao.findLogs();
+    }
+
+    @Override
     public List<DexWorkOrderComment> findWorkOrderComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
         return workOrderDao.findComments(filter, workOrder, offset, limit);
     }

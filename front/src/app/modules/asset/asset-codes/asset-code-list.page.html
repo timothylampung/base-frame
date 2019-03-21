@@ -20,7 +20,7 @@
                 </div>
                 <div class="ui-g-12 ui-button-toolbar-mr">
                     <button pButton type="button"
-                            label="Cari"
+                            label="Search"
                             icon="fa fa-search"
                             (click)="search()"></button>
                 </div>
@@ -63,8 +63,20 @@
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th style="width: 7%" *ngIf="displayDelete == true">DELETE</th>
-                        <th style="width: 10%">Product</th>
-                        <th style="width: 80%">Manufacturer</th>
+                        <th style="width: 10%" [pSortableColumn]="'code'"> Code
+                            <p-sortIcon [field]="'code'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                        <th style="width: 80%" [pSortableColumn]="'description'"> Description
+                            <p-sortIcon [field]="'description'"
+                                        ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData>

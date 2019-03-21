@@ -296,6 +296,7 @@
                                 <srcFile>src/test/resources/data/DEX_LCTN.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_ASST_CODE.sql</srcFile>
                                 <srcFile>src/test/resources/data/DEX_ASST.sql</srcFile>
+                                <srcFile>src/test/resources/data/DEX_PSTN_CODE.sql</srcFile>
 
                                 <!--IDENTITY-->
                                 <srcFile>src/test/resources/data/DEX_PCPL.sql</srcFile>

@@ -28,7 +28,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/*.js","/*.map","/actuator/**", "/api-docs/**", "/swagger-ui.html","/login").permitAll()
+                .antMatchers("/*.js","/*.map","/actuator/**","/spotit-stomp-endpoint/**","/spotit/**", "/api-docs/**", "/swagger-ui.html","/login").permitAll()
                 .antMatchers("/api/**").authenticated();
     }
 

@@ -98,15 +98,15 @@ export class AssetService {
     }
 
     saveAsset(asset: Asset) {
-        return this.http.post(this.ASSET_API + '/assets/' + asset.code , JSON.stringify(asset));
+        return this.http.post(this.ASSET_API + '/assets'  , JSON.stringify(asset));
     }
 
-    updateAsset(code: Asset) {
-        return this.http.put(this.ASSET_API + '/assets/' + code.code, JSON.stringify(code));
+    updateAsset(asset: Asset) {
+        return this.http.put(this.ASSET_API + '/assets/' + asset.code, JSON.stringify(asset));
     }
 
-    removeAsset(code: Asset) {
-        return this.http.delete(this.ASSET_API + '/assets/' + code.code);
+    removeAsset(asset: Asset) {
+        return this.http.delete(this.ASSET_API + '/assets/' + asset.code);
     }
 
 }

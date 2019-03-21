@@ -51,7 +51,6 @@ export class WorkOrderArchiveListPage implements OnInit {
 
     view(evt) {
         this.router.navigate(['/work-order/work-order-records/detail', evt.data.referenceNo]);
-
     }
 
     search() {

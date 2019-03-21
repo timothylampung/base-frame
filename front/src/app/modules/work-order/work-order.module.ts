@@ -19,12 +19,17 @@ import {WorkOrderArchiveListPage} from './work-order-archive-list.page';
 import {WorkOrderArchiveDetailPage} from './work-order-archive-detail.page';
 import {WorkOrderPage} from './pages/work-order.page';
 import {MessageService} from "primeng/api";
+import {WorkOrderDetailPage} from "./pages/work-order-detail.page";
 import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
+import {AssetModule} from "../asset/asset.module";
+import {IdentityModule} from "../identity/identity.module";
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
+        AssetModule,
+        IdentityModule,
         StoreModule.forFeature(FEATURE_NAME, reducers),
         EffectsModule.forFeature([
             WorkOrderEffects
@@ -34,6 +39,7 @@ import {WorkOrderCommentEditorDialog} from "./work-order-comment-editor.dialog";
     declarations: [
         WorkOrderPage,
         WorkOrderNewPage,
+        WorkOrderDetailPage,
         WorkOrderPreparePage,
         WorkOrderVerifyPage,
         WorkOrderCheckPage,

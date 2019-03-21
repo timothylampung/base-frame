@@ -1,8 +1,9 @@
+<p-panel>
+
 <div class="ui-g ui-fluid">
     <div class="ui-g-12">
-        <div class="ui-g-12 card card-w-title">
             <!--<h1>Maintenance Request Ref# {{ maintenanceRequestTask?.referenceNo}}</h1>-->
-            <h1>Submit New Maintenance Order Request</h1>
+            <h1>New Maintenance Request</h1>
 
             <div class="ui-g-6 ui-g " [formGroup]="mainForm">
                 <div class="ui-g-12">
@@ -37,9 +38,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="date"
-                               formControlName="requestedDate"
-                               pInputText>
+                        <p-calendar disabled formControlName="requestedDate"></p-calendar>
                     </span>
                     </div>
                 </div>
@@ -50,9 +49,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="requester"
-                               pInputText>
+                        <dex-staff-autocomplete  label="Requester" [innerFormControl]="mainForm.get('requester')"></dex-staff-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -63,9 +60,7 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="asset"
-                               pInputText>
+                        <dex-asset-autocomplete  [innerFormControl]="mainForm.get('asset')"></dex-asset-autocomplete>
                     </span>
                     </div>
                 </div>
@@ -76,17 +71,27 @@
                     </div>
                     <div class="ui-g-8">
                     <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="location"
-                               pInputText>
+                        <dex-location-autocomplete   [innerFormControl]="mainForm.get('location')"></dex-location-autocomplete>
                     </span>
                     </div>
                 </div>
-                <p-footer>
-                    <button pButton type="button" label="Add" (click)="draft()" icon="pi pi-check"
-                            class="ui-button-success"></button>
-                    <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-danger"></button>
-                </p-footer>
+
+        <div class="ui-g-12">
+            <div class="ui-g-3">
+                <button pButton type="button"
+                        label="Add"
+                        (click)="draft()"
+                        icon="pi pi-check"
+                        class="ui-button-success"></button>
+            </div>
+
+            <div class="ui-g-3">
+                <button pButton type="button"
+                        (click)="goBack()"
+                        label="Cancel"
+                        icon="pi pi-times"
+                        class="ui-button-danger"></button>
+            </div>
 
                 <div class="ui-g-12">
                     <!--todo -->
@@ -100,17 +105,17 @@
 </div>
 
 
-<div class="ui-g-12 ui-fluid page-action">
+<!--<div class="ui-g-12 ui-fluid page-action">
     <div class="ui-g-1">
         <button
             type="button"
-            [label]="'Deraf'"
+            [label]="'Draft'"
             (click)="draft()"
             [disabled]="!mainForm.valid"
             icon="fa fa-save"
             pButton></button>
     </div>
-</div>
+</div>-->
 
 <!--<p-footer>-->
     <!--<button pButton type="button"  [disabled]="!creatorForm.valid" (click)="submit()" label="Add" icon="pi pi-check"-->
@@ -120,4 +125,6 @@
 
 
 
-<p-confirmDialog header="Pengesahan" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+</p-panel>

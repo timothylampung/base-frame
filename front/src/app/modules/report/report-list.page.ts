@@ -3,6 +3,8 @@ import {
 } from '@angular/core';
 import {Store} from "@ngrx/store";
 import {FlowState} from "../../models";
+import {ReportState} from "./report.state";
+import {DownloadReportAction} from "./report.action";
 
 @Component({
     selector: 'dex-report-list-page',
@@ -10,6 +12,10 @@ import {FlowState} from "../../models";
 })
 export class ReportListPage {
 
-    public downloadReport(): void {
+    constructor(private store: Store<ReportState>) {
+    }
+
+    public downloadReport(reportFile: string): void {
+        this.store.dispatch(new DownloadReportAction({reportName: reportFile, params: []}))
     }
 }

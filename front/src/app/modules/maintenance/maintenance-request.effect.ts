@@ -1,27 +1,26 @@
 import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Action, select, Store} from '@ngrx/store';
-import {forkJoin, Observable, of} from 'rxjs';
-import * as _ from 'lodash';
+import {Action, Store} from '@ngrx/store';
+import {Observable, of} from 'rxjs';
 import {
-    CLAIM_WORK_ORDER_TASK,
+    CLAIM_MAINTENANCE_REQUEST_TASK,
     ClaimMaintenanceRequestTaskAction,
     ClaimMaintenanceRequestTaskSuccessAction,
-    COMPLETE_WORK_ORDER_TASK,
+    COMPLETE_MAINTENANCE_REQUEST_TASK,
     CompleteMaintenanceRequestTaskAction,
     CompleteMaintenanceRequestTaskSuccessAction,
-    COUNT_ASSIGNED_WORK_ORDERS,
-    COUNT_POOLED_WORK_ORDERS,
+    COUNT_ASSIGNED_MAINTENANCE_REQUESTS,
+    COUNT_POOLED_MAINTENANCE_REQUESTS,
     CountAssignedMaintenanceRequestsSuccessAction,
     CountPooledMaintenanceRequestsSuccessAction,
-    FIND_ARCHIVED_WORK_ORDERS,
-    FIND_ASSIGNED_WORK_ORDERS,
-    FIND_WORK_ORDER_BY_REFERENCE_NO,
-    FIND_WORK_ORDER_RECORD_BY_RECORD_ID,
-    FIND_WORK_ORDER_TASK_BY_TASK_ID,
-    FIND_PAGED_WORK_ORDERS,
-    FIND_POOLED_WORK_ORDERS,
+    FIND_ARCHIVED_MAINTENANCE_REQUESTS,
+    FIND_ASSIGNED_MAINTENANCE_REQUESTS,
+    FIND_MAINTENANCE_REQUEST_BY_REFERENCE_NO,
+    FIND_MAINTENANCE_REQUEST_RECORD_BY_RECORD_ID,
+    FIND_MAINTENANCE_REQUEST_TASK_BY_TASK_ID,
+    FIND_PAGED_MAINTENANCE_REQUESTS,
+    FIND_POOLED_MAINTENANCE_REQUESTS,
     FindArchivedMaintenanceRequestsAction,
     FindArchivedMaintenanceRequestsSuccessAction,
     FindAssignedMaintenanceRequestsAction,
@@ -36,28 +35,28 @@ import {
     FindPagedMaintenanceRequestsSuccessAction,
     FindPooledMaintenanceRequestsAction,
     FindPooledMaintenanceRequestsSuccessAction,
-    RELEASE_WORK_ORDER_TASK,
+    RELEASE_MAINTENANCE_REQUEST_TASK,
     ReleaseMaintenanceRequestTaskAction,
     ReleaseMaintenanceRequestTaskSuccessAction,
-    RELOAD_WORK_ORDER_PAGE,
+    RELOAD_MAINTENANCE_REQUEST_PAGE,
     ReloadMaintenanceRequestPageAction,
-    REMOVE_WORK_ORDER_TASK,
+    REMOVE_MAINTENANCE_REQUEST_TASK,
     RemoveMaintenanceRequestTaskAction,
     RemoveMaintenanceRequestTaskSuccessAction,
-    START_WORK_ORDER_TASK,
+    START_MAINTENANCE_REQUEST_TASK,
     StartMaintenanceRequestTaskAction,
     StartMaintenanceRequestTaskSuccessAction,
-    UPDATE_WORK_ORDER,
+    UPDATE_MAINTENANCE_REQUEST,
     UpdateMaintenanceRequestAction,
     UpdateMaintenanceRequestSuccessAction,
 } from './maintenance-request.action';
 import {Router} from '@angular/router';
-import {selectMaintenanceRequest, selectMaintenanceRequestTask} from './maintenance-request.selector';
 import {AppState} from '../../core/core.state';
 import {concatMap} from "rxjs/internal/operators";
 import {LoadError} from "../../static/app.action";
 import {MaintenanceRequestService} from "../../services/maintenance-request.service";
 import {MaintenanceRequest} from "./maintenance-request.model";
+import {selectMaintenanceRequest} from "./maintenance-request.selector";
 
 @Injectable()
 export class MaintenanceRequestEffects {
@@ -69,7 +68,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public findMaintenanceRequestByReferenceNo$: Observable<Action> = this.actions$.pipe(
-        ofType(FIND_WORK_ORDER_BY_REFERENCE_NO),
+        ofType(FIND_MAINTENANCE_REQUEST_BY_REFERENCE_NO),
         map((action: FindMaintenanceRequestByReferenceNoAction) => action.referenceNo),
         switchMap(referenceNo => {
             return this.maintenanceRequestService
@@ -87,7 +86,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public findAssignedMaintenanceRequests$: Observable<Action> = this.actions$.pipe(
-        ofType(FIND_ASSIGNED_WORK_ORDERS),
+        ofType(FIND_ASSIGNED_MAINTENANCE_REQUESTS),
         map((action: FindAssignedMaintenanceRequestsAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService
@@ -101,7 +100,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public findPooledMaintenanceRequests$: Observable<Action> = this.actions$.pipe(
-        ofType(FIND_POOLED_WORK_ORDERS),
+        ofType(FIND_POOLED_MAINTENANCE_REQUESTS),
         map((action: FindPooledMaintenanceRequestsAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.findPooledMaintenanceRequests(payload.filter, payload.page)
@@ -114,7 +113,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public findArchivedMaintenanceRequests$: Observable<Action> = this.actions$.pipe(
-        ofType(FIND_ARCHIVED_WORK_ORDERS),
+        ofType(FIND_ARCHIVED_MAINTENANCE_REQUESTS),
         map((action: FindArchivedMaintenanceRequestsAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.findArchivedMaintenanceRequests(
@@ -129,7 +128,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     findMaintenanceRequestTaskByTaskId = this.actions$.pipe(
-        ofType(FIND_WORK_ORDER_TASK_BY_TASK_ID),
+        ofType(FIND_MAINTENANCE_REQUEST_TASK_BY_TASK_ID),
         map((action: FindMaintenanceRequestTaskByTaskIdAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.findMaintenanceRequestTaskByTaskId(payload.taskId)
@@ -142,7 +141,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     findMaintenanceRequestRecordByRecordId = this.actions$.pipe(
-        ofType(FIND_WORK_ORDER_RECORD_BY_RECORD_ID),
+        ofType(FIND_MAINTENANCE_REQUEST_RECORD_BY_RECORD_ID),
         map((action: FindMaintenanceRequestRecordByRecordIdAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.findMaintenanceRequestRecordByRecordId(payload.recordId)
@@ -155,7 +154,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public findPagedMaintenanceRequests$: Observable<Action> = this.actions$.pipe(
-        ofType(FIND_PAGED_WORK_ORDERS),
+        ofType(FIND_PAGED_MAINTENANCE_REQUESTS),
         map((action: FindPagedMaintenanceRequestsAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.findPagedMaintenanceRequests(payload.filter, payload.page)
@@ -168,7 +167,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public countAssignedMaintenanceRequests$: Observable<Action> = this.actions$.pipe(
-        ofType(COUNT_ASSIGNED_WORK_ORDERS),
+        ofType(COUNT_ASSIGNED_MAINTENANCE_REQUESTS),
         switchMap(payload => this.maintenanceRequestService.countAssignedMaintenanceRequests()
             .pipe(
                 map(count => new CountAssignedMaintenanceRequestsSuccessAction(count)),
@@ -179,7 +178,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     public countPooledMaintenanceRequests$: Observable<Action> = this.actions$.pipe(
-        ofType(COUNT_POOLED_WORK_ORDERS),
+        ofType(COUNT_POOLED_MAINTENANCE_REQUESTS),
         switchMap(payload => this.maintenanceRequestService.countPooledMaintenanceRequests()
             .pipe(
                 map(count => new CountPooledMaintenanceRequestsSuccessAction(count)),
@@ -191,12 +190,12 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     startMaintenanceRequestTask$: Observable<Action> = this.actions$.pipe(
-        ofType(START_WORK_ORDER_TASK),
+        ofType(START_MAINTENANCE_REQUEST_TASK),
         map((action: StartMaintenanceRequestTaskAction) => action.payload),
         switchMap(maintenanceRequest => this.maintenanceRequestService.startMaintenanceRequestTask(maintenanceRequest)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                    this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                     return new StartMaintenanceRequestTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
@@ -205,12 +204,12 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     completeMaintenanceRequestTask$: Observable<Action> = this.actions$.pipe(
-        ofType(COMPLETE_WORK_ORDER_TASK),
+        ofType(COMPLETE_MAINTENANCE_REQUEST_TASK),
         map((action: CompleteMaintenanceRequestTaskAction) => action.payload),
         switchMap(payload => this.maintenanceRequestService.completeMaintenanceRequestTask(payload.taskId)
             .pipe(
                 map(_ => {
-                    this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                    this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                     return new CompleteMaintenanceRequestTaskSuccessAction({message: ''});
                 }),
                 catchError(err => of(new LoadError(err)))
@@ -220,13 +219,13 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     claimMaintenanceRequestTask$: Observable<Action> = this.actions$.pipe(
-        ofType(CLAIM_WORK_ORDER_TASK),
+        ofType(CLAIM_MAINTENANCE_REQUEST_TASK),
         map((action: ClaimMaintenanceRequestTaskAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.claimMaintenanceRequestTask(payload.taskIds)
                 .pipe(
                     map(_ => {
-                        this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                        this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                         return new ClaimMaintenanceRequestTaskSuccessAction({message: ''});
                     }),
                     catchError(err => of(new LoadError(err)))
@@ -236,13 +235,13 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     releaseMaintenanceRequestTask$: Observable<Action> = this.actions$.pipe(
-        ofType(RELEASE_WORK_ORDER_TASK),
+        ofType(RELEASE_MAINTENANCE_REQUEST_TASK),
         map((action: ReleaseMaintenanceRequestTaskAction) => action.payload),
         switchMap(payload =>
             this.maintenanceRequestService.completeMaintenanceRequestTask(payload.taskId)
                 .pipe(
                     map(_ => {
-                        this.router.navigate(['maintenanceRequest/maintenanceRequest-tasks/assigned']);
+                        this.router.navigate(['maintenance/maintenance-request-tasks/assigned']);
                         return new ReleaseMaintenanceRequestTaskSuccessAction({message: ''});
                     }),
                     catchError(err => of(new LoadError(err)))
@@ -252,7 +251,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     removeMaintenanceRequestTask$: Observable<Action> = this.actions$.pipe(
-        ofType(REMOVE_WORK_ORDER_TASK),
+        ofType(REMOVE_MAINTENANCE_REQUEST_TASK),
         map((action: RemoveMaintenanceRequestTaskAction) => action.payload),
         switchMap(payload => this.maintenanceRequestService.removeMaintenanceRequestTask(payload.taskId)
             .pipe(
@@ -263,7 +262,7 @@ export class MaintenanceRequestEffects {
 
     @Effect()
     updateMaintenanceRequest$ = this.actions$.pipe(
-        ofType(UPDATE_WORK_ORDER),
+        ofType(UPDATE_MAINTENANCE_REQUEST),
         map((action: UpdateMaintenanceRequestAction) => action.payload),
         switchMap(maintenanceRequest => this.maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest)
             .pipe(
@@ -273,10 +272,9 @@ export class MaintenanceRequestEffects {
             )),
     );
 
-
     @Effect()
     public reloadMaintenanceRequestPage$: Observable<Action> = this.actions$.pipe(
-        ofType(RELOAD_WORK_ORDER_PAGE),
+        ofType(RELOAD_MAINTENANCE_REQUEST_PAGE),
         withLatestFrom(this.store.select(selectMaintenanceRequest)),
         concatMap(([action, maintenanceRequest]: [Action, MaintenanceRequest]) => []),
     );

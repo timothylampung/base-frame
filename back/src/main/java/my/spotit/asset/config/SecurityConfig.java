@@ -70,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/api/registration/**")
                 .antMatchers("/api/mobile/**") //Release here and let mobile integration security filter
+                .antMatchers("/api/common/download-file/**") //Release here and let mobile integration security filter
                 .antMatchers("/swagger-ui.html")
                 .antMatchers("/servlet/**")
                 .antMatchers(HttpMethod.GET, "/index.html")

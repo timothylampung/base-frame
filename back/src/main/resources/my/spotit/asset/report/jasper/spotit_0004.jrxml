@@ -2,13 +2,13 @@
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_0004" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0dc6261e-b35b-4a87-bc39-1683e169e909">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="spotit-web"/>
 	<queryString language="SQL">
-		<![CDATA[select dl.address, da.name, dl.description, d.description, reference_no, coalesce(EXTRACT(EPOCH FROM sum(dwol.stop_time - dwol.start_time)/3600*12), 0)  FROM dex_work_ordr
-                                                                                                           left join dex_work_ordr_log dwol on dex_work_ordr.id = dwol.work_order_id
-                                                                                                           inner join dex_lctn dl on dex_work_ordr.location_id = dl.id
-                                                                                                           inner join dex_actr da on dex_work_ordr.assignee_id = da.id
-                                                                                                           inner join dex_asst d on dex_work_ordr.asset_id = d.id
+		<![CDATA[select dl.address, da.name, dl.description lctn, d.description asset, reference_no, coalesce(EXTRACT(EPOCH FROM sum(dwol.stop_time - dwol.start_time)/3600*12), 0) total_cost  FROM dex_work_ordr
+			 left join dex_work_ordr_log dwol on dex_work_ordr.id = dwol.work_order_id
+			inner join dex_lctn dl on dex_work_ordr.location_id = dl.id
+			 inner join dex_actr da on dex_work_ordr.assignee_id = da.id
+			inner join dex_asst d on dex_work_ordr.asset_id = d.id
 group by reference_no, da.name, dl.description, d.description, dl.address
 order by coalesce(EXTRACT(EPOCH FROM sum(dwol.stop_time - dwol.start_time)/3600*12), 0) desc]]>
 	</queryString>
@@ -18,23 +18,23 @@ order by coalesce(EXTRACT(EPOCH FROM sum(dwol.stop_time - dwol.start_time)/3600*
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>
 	</field>
-	<field name="description" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="description"/>
+	<field name="lctn" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="lctn"/>
 	</field>
-	<field name="COLUMN_4" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="description"/>
+	<field name="asset" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="asset"/>
 	</field>
 	<field name="reference_no" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="reference_no"/>
 	</field>
-	<field name="coalesce" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="coalesce"/>
+	<field name="total_cost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_cost"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="94" splitType="Stretch">
+		<band height="83" splitType="Stretch">
 			<rectangle>
 				<reportElement mode="Transparent" x="0" y="0" width="555" height="83" uuid="4409ac22-f315-4bff-88a3-4ba03dc85fe0"/>
 			</rectangle>
@@ -48,12 +48,12 @@ Cost Per Work Order by Location]]></text>
 			</staticText>
 			<image>
 				<reportElement x="10" y="16" width="132" height="47" uuid="866b8faf-749b-43eb-9fc1-6818236da645"/>
-				<imageExpression><![CDATA["C:/Users/razif/project/spotit-web/front/src/assets/layout/images/logo2x.png"]]></imageExpression>
+				<!--<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>-->
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="12" splitType="Stretch"/>
+		<band height="10" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="30" splitType="Stretch">
@@ -67,6 +67,9 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Location]]></text>
 			</staticText>
 			<staticText>
@@ -79,6 +82,9 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Assignee ]]></text>
 			</staticText>
 			<staticText>
@@ -91,6 +97,9 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Asset]]></text>
 			</staticText>
 			<staticText>
@@ -103,6 +112,9 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Reference No.]]></text>
 			</staticText>
 			<staticText>
@@ -115,6 +127,9 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Total (RM)]]></text>
 			</staticText>
 			<staticText>
@@ -125,6 +140,9 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[No.]]></text>
 			</staticText>
 		</band>
@@ -165,7 +183,7 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{COLUMN_4}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{asset}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="371" y="0" width="92" height="30" uuid="f84efb08-e761-416d-8735-47b5f3e10ae6">
@@ -189,7 +207,7 @@ Cost Per Work Order by Location]]></text>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{coalesce}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{total_cost}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="30" height="30" uuid="f13e82a1-47bc-4b3a-8749-14f20c6718f4"/>

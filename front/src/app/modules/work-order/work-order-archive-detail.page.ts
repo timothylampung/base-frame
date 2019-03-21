@@ -35,7 +35,7 @@ export class WorkOrderArchiveDetailPage implements OnInit {
             routerLink: ['/work-order/work-order-records/detail/:referenceNo']
         },
         {
-            label: 'Work Order Detail'
+            label: 'Butiran Work Order'
         }
     ];
 
@@ -55,20 +55,21 @@ export class WorkOrderArchiveDetailPage implements OnInit {
             workOrderNo: [null],
             sourceNo: [''],
             description: [''],
-            createdDate: [''],
         });
 
         this.activities$ = this.store.pipe(select(selectWorkOrderActivities));
+
+
 
         this.route.params.subscribe((params: { referenceNo: string }) => {
             this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
         });
 
         this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
-                this.workOrder = workOrder;
-                console.log( this.workOrder);
-
+            this.workOrder = workOrder;
         });
+
+        console.log(this.workOrder);
     }
 
     private showAboutDialog() {

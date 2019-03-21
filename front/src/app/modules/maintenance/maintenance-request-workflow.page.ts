@@ -37,12 +37,10 @@ export class MaintenanceRequestWorkflowPage {
             if (this.maintenanceRequestTask && this.maintenanceRequestTask.flowState !== null) {
                 console.log('task flowState: ' + this.maintenanceRequestTask.flowState);
 
-                // resetN
                 if (this.componentRef) {
                     this.componentRef.destroy();
                 }
 
-                // todo: what's our states?
                 if (this.maintenanceRequestTask.flowState === FlowState.DRAFTED) {
                     componentFactory = this.cfr.resolveComponentFactory(MaintenanceRequestDraftPage);
                 } else if (this.maintenanceRequestTask.flowState === FlowState.CHECKED) {
@@ -54,7 +52,7 @@ export class MaintenanceRequestWorkflowPage {
                 this.componentRef = this.taskPanel.createComponent(componentFactory);
                 this.componentRef.instance.maintenanceRequestTask = this.maintenanceRequestTask;
 
-                this.store.dispatch(new SelectMaintenanceRequestAction(this.maintenanceRequestTask.maintenanceRequest))
+                this.store.dispatch(new SelectMaintenanceRequestAction(this.maintenanceRequestTask.request))
             }
         }
     }

@@ -4,7 +4,7 @@
     <div class="ui-g-12">
         <div class="ui-g-12 card card-w-title">
             <h1>Maintenance Request Ref# {{ maintenanceRequest.referenceNo}}</h1>
-            <div class="ui-g-6 ui-g" [formGroup]="mainForm">
+            <div class="ui-g-12 ui-md-6 ui-lg-6" [formGroup]="mainForm">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
                         <label>Description</label>
@@ -18,7 +18,7 @@
 
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label>Remark</label>
+                        <label>Remarks</label>
                     </div>
                     <div class="ui-g-8">
                         <span>{{maintenanceRequest.remark}}</span>
@@ -46,32 +46,42 @@
 
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label>Delegator</label>
+                        <label>Requester</label>
                     </div>
                     <div class="ui-g-8">
                         <span>{{maintenanceRequest.requester?.name}}</span>
                     </div>
                 </div>
 
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Asset Name</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{maintenanceRequest.asset?.description}}</span>
+                    </div>
+                </div>
 
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Location Name</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{maintenanceRequest.location?.name}}</span>
+                    </div>
+                </div>
             </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <img [src]="imageToShow" height="400" alt="Place image title"/>
+            </div>
+
         </div>
     </div>
 </div>
 
 <div class="ui-g">
     <div class="ui-g-12">
-    </div>
-</div>
-
-<div class="ui-g-12 ui-fluid page-action">
-    <div class="ui-g-1">
-        <button
-            type="button"
-            label="Perihal"
-            (click)="showAboutDialog()"
-            icon="fa fa-flag"
-            pButton></button>
     </div>
 </div>
 

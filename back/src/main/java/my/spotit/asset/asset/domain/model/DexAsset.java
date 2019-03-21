@@ -2,6 +2,9 @@ package my.spotit.asset.asset.domain.model;
 
 import my.spotit.asset.core.domain.DexMetaObject;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public interface DexAsset  extends  DexMetaObject  {
 
     String getCode();
@@ -12,17 +15,21 @@ public interface DexAsset  extends  DexMetaObject  {
 
     void setDescription(String description);
 
-    String getCost();
+    BigDecimal getCost();
 
-    void setCost(String cost);
+    void setCost(BigDecimal cost);
 
-    String getQuantity();
+    Long getQuantity();
 
-    void setQuantity(String quantity);
+    void setQuantity(Long quantity);
 
     String getCategory();
 
     void setCategory(String category);
+
+    List<DexAssetCategory> getAssetCategory();
+
+    void setAssetCategory(List<DexAssetCategory> assetCategory);
 
     DexAssetCode getAssetCode();
 

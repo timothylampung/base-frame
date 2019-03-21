@@ -73,6 +73,7 @@ import {ActorTypePipe} from "../pipes/actor-type.pipe";
 import {PrincipalTypePipe} from "../pipes/principal-type.pipe";
 import {DisableControlDirective} from "../directives/disable-control.directive";
 import {SidebarModule} from "primeng/primeng";
+import {AssetCategoryPipe} from "../pipes/asset-category.pipe";
 
 const PRIMENG_MODULES = [
     AccordionModule,
@@ -152,6 +153,7 @@ const CUSTOM_PIPES: Pipe[] = [
     PrincipalTypePipe,
     ActorTypePipe,
     FlowStatePipe,
+    AssetCategoryPipe,
 ];
 
 @NgModule({

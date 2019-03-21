@@ -2,26 +2,73 @@
     <div class="ui-g-12">
         <div class="ui-g-12 card card-w-title">
             <h1>Work Order Ref# {{ workOrderTask?.referenceNo}}</h1>
-            <div class="ui-g-6 ui-g" [formGroup]="mainForm">
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label>Description</label>
+                </div>
+                <div class="ui-g-8">
+                    <span>{{workOrder?.description}}</span>
+                </div>
+            </div>
+
+
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label>Description</label>
+                        <label>Asset</label>
                     </div>
                     <div class="ui-g-8">
-                    <span class="md-inputfield">
-                        <input type="text"
-                               formControlName="description"
-                               pInputText>
-                    </span>
+                        <span>{{workOrder.asset?.description}}</span>
                     </div>
                 </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Location</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{workOrder.location?.name}}</span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Assignee</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{workOrder.assignee?.name}}</span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Reporter</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{workOrder.reporter?.name}}</span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Status</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <span>{{workOrder.flowState | flowStatePipe}}</span>
+                    </div>
+                </div>
+
+
+
             </div>
             <div class="ui-g-6 ui-g" [formGroup]="mainForm">
                 <!--todo-->
             </div>
+            <!--<div class="ui-g-6 ui-g ">-->
+                <!--<img [src]="imageToShow" height="400" alt="Place image title"/>-->
+            <!--</div>-->
         </div>
     </div>
-</div>
 
 <div class="ui-g">
     <div class="ui-g-12">
@@ -66,6 +113,7 @@
                     <div class="ui-g-12">
                         <div class="ui-button-toolbar-mb">
                             <button pButton
+                                    style="margin-right: 10px"
                                     type="button"
                                     [label]="'Start Log'"
                                     icon="fa fa-plus"
@@ -134,29 +182,29 @@
     </div>
 </div>
 
-<div class="ui-g-12 ui-fluid page-action">
-    <div class="ui-g-1">
+<div class="ui-g-12">
+    <div class="ui-g-12 ui-md-3 ui-lg-2">
         <button
             type="button"
-            [label]="'Lulus'"
+            [label]="'Check'"
             (click)="check()"
             [disabled]="!mainForm.valid"
             icon="fa fa-save"
             pButton></button>
     </div>
-    <div class="ui-g-1">
+    <div class="ui-g-12 ui-md-3 ui-lg-2">
         <button
             type="button"
-            [label]="'Kemaskini'"
+            [label]="'Update'"
             (click)="updateWorkOrder()"
             [disabled]="!mainForm.valid"
             icon="fa fa-edit"
             pButton></button>
     </div>
-    <div class="ui-g-1">
+    <div class="ui-g-12 ui-md-3 ui-lg-2">
         <button
             type="button"
-            label="Hapus"
+            label="Delete"
             class="ui-button-danger"
             (click)="remove()"
             icon="fa fa-trash"

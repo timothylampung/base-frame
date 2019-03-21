@@ -35,40 +35,25 @@ group by reference_no, da.name, d.description, dl.address, dwo.description]]>
 	</background>
 	<title>
 		<band height="83" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="83" uuid="e5544f5e-d796-49fe-87c7-3ce13c65fe49"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="155" y="10" width="245" height="30" uuid="23bd051e-f7ee-45fd-bb3e-c5d3b966cbda"/>
-				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
+				<reportElement x="130" y="13" width="300" height="50" uuid="0b482b1a-efa9-4117-aea7-af889601ef0a"/>
 				<textElement textAlignment="Center">
 					<font size="16"/>
 				</textElement>
-				<text><![CDATA[WORK ORDER]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="155" y="40" width="245" height="30" uuid="359b1fa8-0732-4bff-a31e-92e253bf6501"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font size="16"/>
-				</textElement>
-				<text><![CDATA[Total Time by Work Order]]></text>
+				<text><![CDATA[WORK ORDER
+Total Work Time by Work Order]]></text>
 			</staticText>
 			<image>
-				<reportElement x="20" y="21" width="110" height="40" uuid="3dcb298c-32d7-4d9f-a8bd-4dd41f68f7c7"/>
-				<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>
+				<reportElement x="10" y="16" width="132" height="47" uuid="42eaeb00-16ae-4405-be04-6e59acdb067b"/>
+				<!--<imageExpression><![CDATA["front/src/assets/layout/images/logo2x.png"]]></imageExpression>-->
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="54" splitType="Stretch"/>
+		<band height="10" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="30" splitType="Stretch">

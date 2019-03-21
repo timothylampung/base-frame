@@ -4,6 +4,8 @@ import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetImpl;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.common.domain.model.DexFile;
+import my.spotit.asset.common.domain.model.DexFileImpl;
 import my.spotit.asset.core.domain.DexFlowdata;
 import my.spotit.asset.core.domain.DexMetadata;
 import my.spotit.asset.identity.domain.model.DexActor;
@@ -62,6 +64,10 @@ public class DexWorkOrderImpl implements DexWorkOrder {
     @OneToOne(targetEntity = DexAssetImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_ID", nullable = true)
     private DexAsset asset;
+
+    @ManyToOne(targetEntity = DexFileImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "FILE_ID")
+    private DexFile file;
 
     @Embedded
     private DexMetadata metadata;
@@ -177,6 +183,21 @@ public class DexWorkOrderImpl implements DexWorkOrder {
     @Override
     public void setAsset(DexAsset asset) {
         this.asset = asset;
+    }
+
+    @Override
+    public void setReporter(DexActor reporter) {
+        this.reporter = reporter;
+    }
+
+    @Override
+    public DexFile getFile() {
+        return file;
+    }
+
+    @Override
+    public void setFile(DexFile file) {
+        this.file = file;
     }
 
     @Override

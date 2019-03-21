@@ -1,6 +1,7 @@
 export const environment = {
-    appName: 'Sapiei CLIC System',
+    appName: 'SPOT IT',
     production: false,
-    // endpoint: 'http://209.97.162.230:8080/mpsp-personnel',
-    endpoint: 'http://localhost:8080',
+    endpoint: 'http://159.65.3.103:8080/spotit',
+    // endpoint: 'http://localhost:8080',
+    wsEndpoint: 'ws://localhost:8080/spotit',
 };

@@ -2,6 +2,7 @@ package my.spotit.asset.maintenance.domain.model;
 
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexLocation;
+import my.spotit.asset.common.domain.model.DexFile;
 import my.spotit.asset.core.domain.DexDocument;
 import my.spotit.asset.identity.domain.model.DexActor;
 
@@ -18,6 +19,8 @@ public interface DexMaintenanceRequest extends DexDocument {
     void setRequestedDate(Date requestedDate);
 
     Boolean isDelegated();
+
+    Boolean getDelegated();
 
     void setDelegated(Boolean delegated);
 
@@ -40,4 +43,8 @@ public interface DexMaintenanceRequest extends DexDocument {
     DexAsset getAsset();
 
     void setAsset(DexAsset asset);
+
+    DexFile getFile();
+
+    void setFile(DexFile file);
 }

@@ -6,7 +6,8 @@ import {FEATURE_NAME, reducers} from './asset.state';
 import {SharedModule} from '../../shared/shared.module';
 import {AssetService} from '../../services/asset.service';
 import {SystemService} from "../../services";
-import {AssetCodeEffects} from "./asset-codes/asset-code.effect";import {AssetCodeListPage} from "./asset-codes/asset-code-list.page";
+import {AssetCodeEffects} from "./asset-codes/asset-code.effect";
+import {AssetCodeListPage} from "./asset-codes/asset-code-list.page";
 import {LocationListPage} from "./locations/location-list.page";
 import {LocationEffects} from "./locations/location-effect";
 import {AssetListPage} from "./assets/asset-list.page";
@@ -15,6 +16,11 @@ import {LocationDetailPage} from "./locations/location-detail/location-detail.pa
 import {AssetCodeDetailPage} from "./asset-codes/asset-code-detail/asset-code-detail.page";
 import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
 import {NgxQRCodeModule} from "ngx-qrcode2";
+import {AssetCategory} from "./assets/asset-category.enum";
+import {AssetCategoryDropdown} from "./assets/asset-detail/asset-category.dropdown";
+import {LocationAutocompleteComponent} from "./locations/location-autocomplete.component";
+import {AssetAutocompleteComponent} from "./assets/asset-detail/asset-autocomplete.component";
+import {AssetCodeAutocompleteComponent} from "./asset-codes/asset-code-detail/asset-code-autocomplete.component";
 
 @NgModule({
     imports: [
@@ -35,9 +41,15 @@ import {NgxQRCodeModule} from "ngx-qrcode2";
         AssetCodeDetailPage,
         LocationListPage,
         LocationDetailPage,
+        AssetCategoryDropdown,
+        LocationAutocompleteComponent,
+        AssetAutocompleteComponent,
+        AssetCodeAutocompleteComponent,
     ],
     exports: [
-
+        LocationAutocompleteComponent,
+        AssetAutocompleteComponent,
+        AssetCodeAutocompleteComponent,
     ],
     providers: [
         AssetService,

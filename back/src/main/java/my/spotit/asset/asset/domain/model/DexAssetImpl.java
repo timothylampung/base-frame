@@ -4,6 +4,8 @@ import my.spotit.asset.core.domain.DexMetadata;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Entity(name = "DexAsset")
 @Table(name = "DEX_ASST")
@@ -25,16 +27,18 @@ public class DexAssetImpl implements DexAsset {
 
     @NotNull
     @Column(name = "COST")
-    private String cost;
+    private BigDecimal cost;
 
     @NotNull
     @Column(name = "QUANTITY")
-    private String quantity;
+    private Long quantity;
 
 
-    @Column(name = "Category")
+    @Column(name = "CATEGORY")
     private String category;
 
+    @OneToMany(targetEntity = DexAssetCategoryImpl.class, mappedBy = "asset", fetch = FetchType.LAZY)
+    private List<DexAssetCategory> assetCategory;
 
     @OneToOne(targetEntity = DexAssetCodeImpl.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSET_CODE_ID")
@@ -78,22 +82,22 @@ public class DexAssetImpl implements DexAsset {
 
 
     @Override
-    public String getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
     @Override
-    public void setCost(String cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
     @Override
-    public String getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
     @Override
-    public void setQuantity(String quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
@@ -105,6 +109,16 @@ public class DexAssetImpl implements DexAsset {
     @Override
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public List<DexAssetCategory> getAssetCategory() {
+        return assetCategory;
+    }
+
+    @Override
+    public void setAssetCategory(List<DexAssetCategory> assetCategory) {
+        this.assetCategory = assetCategory;
     }
 
     @Override

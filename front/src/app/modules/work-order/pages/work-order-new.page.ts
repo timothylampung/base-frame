@@ -24,7 +24,7 @@ export class WorkOrderNewPage implements OnInit {
             routerLink: [INVOICE_BASE_URI + '/assigned']
         },
         {
-            label: 'Work Order Baru',
+            label: 'New Work Order',
             routerLink: [INVOICE_BASE_URI + '/new']
         }
     ];
@@ -44,10 +44,11 @@ export class WorkOrderNewPage implements OnInit {
             workOrderNo: [null, Validators.required],
             sourceNo: [''],
             description: ['', Validators.required],
-            requestedDate: ['', Validators.required],
+            remarks: ['', Validators.required],
+            requestedDate: [''],
             requester: ['', Validators.required],
-            asset: [''],
-            location: ['']
+            asset: ['', Validators.required],
+            location: ['', Validators.required],
         });
 
         // date workaround
@@ -58,7 +59,7 @@ export class WorkOrderNewPage implements OnInit {
     draft() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Confirm information',
+                message: 'Submit New Work Order?',
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {
@@ -74,10 +75,19 @@ export class WorkOrderNewPage implements OnInit {
     }
 
     goBack() {
-        window.history.back();
+        if (this.validateDocument()) {
+            this.confirmationService.confirm({
+                message: 'Cancel submission?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
+                accept: () => {
+                    window.history.back();
+                }
+            })
+        }
     }
 
-    validateDocument(){
+    validateDocument() {
         return true;
     }
 }

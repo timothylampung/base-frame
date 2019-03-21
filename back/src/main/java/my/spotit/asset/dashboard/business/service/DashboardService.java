@@ -12,4 +12,11 @@ public interface DashboardService {
 
     List<DexWorkOrderWeeklyTimeSpentProjection> findWorkOrderWeeklyTimeSpentProjections();
 
+    Integer countMaintenanceRequest();
+
+    Integer countWorkOrder();
+
+    Integer countStaff();
+
+    Integer countAsset();
 }

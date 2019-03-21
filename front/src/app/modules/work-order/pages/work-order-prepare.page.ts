@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {
     AddWorkOrderCommentAction,
-    CompleteWorkOrderTaskAction,
+    CompleteWorkOrderTaskAction, FindWorkOrderByReferenceNoAction,
     RemoveWorkOrderTaskAction, StartWorkOrderLogAction, StopWorkOrderLogAction,
     UpdateWorkOrderAction,
 } from '../work-order.action';
@@ -15,6 +15,10 @@ import {About} from "../../../models";
 import {Location} from "@angular/common";
 import {Observable} from "rxjs";
 import {WorkOrderComment} from "../work-order-comment.model";
+import {CommonService} from "../../../services";
+import {WorkOrder} from "../work-order.model";
+import {selectWorkOrder} from "../work-order.selector";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'dex-work-order-prepare-page',
@@ -22,12 +26,16 @@ import {WorkOrderComment} from "../work-order-comment.model";
     styleUrls: ['./work-order-prepare.page.css']
 })
 export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
+    workOrder: WorkOrder;
     selectedAbout: About;
+    imageToShow: any;
 
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
+                public route: ActivatedRoute,
+                public commonService: CommonService,
                 public location: Location,
                 public store: Store<AppState>,
                 public cdr: ChangeDetectorRef) {
@@ -36,12 +44,37 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     ngOnInit() {
         super.ngOnInit()
+    //
+    //     this.commonService.downloadFile(this.workOrderTask.workOrder.file.name).subscribe(blob => {
+    //         this.createImageFromBlob(blob);
+    //     })
+
+        this.route.params.subscribe((params: { referenceNo: string }) => {
+            this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
+        });
+
+        this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
+            this.workOrder = workOrder;
+        });
+
+        console.log(this.workOrder);
+    }
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.imageToShow = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
     check() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Are you sure?',
+                message: 'Check work order?',
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {
@@ -58,9 +91,9 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     remove() {
         this.confirmationService.confirm({
-            message: 'Anda pasti untuk menghapuskan work order ini?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
+            message: 'Delete work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
                 this.store.dispatch(
                     new RemoveWorkOrderTaskAction({taskId: this.workOrderTask.taskId})
@@ -71,9 +104,9 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     updateWorkOrder() {
         this.confirmationService.confirm({
-            message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-            acceptLabel: 'Ya',
-            rejectLabel: 'Tidak',
+            message: 'Update work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
             accept: () => {
                 this.store.dispatch(
                     new UpdateWorkOrderAction({

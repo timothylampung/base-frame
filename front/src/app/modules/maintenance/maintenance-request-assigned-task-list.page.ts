@@ -13,6 +13,7 @@ import {
     FindAssignedMaintenanceRequestsAction,
     ReleaseMaintenanceRequestTaskAction
 } from './maintenance-request.action';
+import {CommonService} from "../../services";
 
 @Component({
     selector: 'dex-maintenance-request-assigned-task-list-page',
@@ -20,10 +21,10 @@ import {
     styleUrls: ['./maintenance-request-assigned-task-list.page.css']
 })
 export class MaintenanceRequestAssignedTaskListPage implements OnInit {
-
+    imageToShow: any;
     maintenanceRequestTasks$: Observable<MaintenanceRequestTaskSummary[]>;
     searchForm: FormGroup;
-    title = 'My Tasks (MaintenanceRequest)';
+    title = 'My Tasks (Maintenance Request)';
     cols = [
         {field: 'referenceNo', header: 'Reference No'},
         {field: 'description', header: 'Description'},
@@ -36,6 +37,7 @@ export class MaintenanceRequestAssignedTaskListPage implements OnInit {
     constructor(public breadcrumbService: BreadcrumbService,
                 public fb: FormBuilder,
                 public store: Store<MaintenanceRequestState>,
+                public commonService : CommonService,
                 public route: ActivatedRoute,
                 public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
@@ -56,6 +58,24 @@ export class MaintenanceRequestAssignedTaskListPage implements OnInit {
             .subscribe(v => {
             });
 
+    }
+
+    onHover(task : MaintenanceRequestTaskSummary){
+        console.log(task)
+        this.commonService.downloadFile(task.request.file.fileName).subscribe(blob => {
+            this.createImageFromBlob(blob);
+        })
+    }
+
+    createImageFromBlob(image: Blob) {
+        let reader = new FileReader();
+        reader.addEventListener("load", () => {
+            this.imageToShow = reader.result;
+        }, false);
+
+        if (image) {
+            reader.readAsDataURL(image);
+        }
     }
 
     createTask() {

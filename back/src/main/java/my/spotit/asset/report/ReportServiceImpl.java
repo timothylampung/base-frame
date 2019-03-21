@@ -49,7 +49,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     private File loadReport(String reportName) {
-        return searchReportSource(reportName);
+        return loadReportSource(reportName);
     }
 
     private JasperReport compileOrLoad(File file) throws Exception {
@@ -63,6 +63,7 @@ public class ReportServiceImpl implements ReportService {
 
     private File searchReportSource(String reportName) {
         try {
+            log.debug("report name: " + reportName);
             File file = findFileInPath(REPORT_PATH, reportName);
             if (null != file) return file;
         } catch (Exception e) {
@@ -71,8 +72,24 @@ public class ReportServiceImpl implements ReportService {
         return null;
     }
 
+
+    private static File loadReportSource(final String reportName) {
+        String path = REPORT_PATH + File.separator + reportName;
+        try {
+            ClassPathResource resource = new ClassPathResource(path);
+            if (resource.exists())
+                return resource.getFile();
+            else
+                return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private File findFileInPath(String path, String name) {
         String reportClassPath = getReportClassPath(path);
+        log.debug("report name: " + reportClassPath);
         for (String extension : getSourceExtension()) {
             File file = findFileInPath(reportClassPath, name, extension);
             if (null != file) return file;

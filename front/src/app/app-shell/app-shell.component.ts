@@ -1,5 +1,7 @@
 import {Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {ScrollPanel} from 'primeng/primeng';
+import {environment} from "../../environments/environment.dev";
+import {Notification, NotificationContext} from "../modules/notification/notification.model";
 
 enum MenuOrientation {
     STATIC,
@@ -178,7 +180,7 @@ export class AppShellComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.layoutContainer = <HTMLDivElement> this.layourContainerViewChild.nativeElement;
+        this.layoutContainer = <HTMLDivElement>this.layourContainerViewChild.nativeElement;
         setTimeout(() => {
             this.layoutMenuScrollerViewChild.moveBar();
         }, 100);

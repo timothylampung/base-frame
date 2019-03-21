@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from 'rxjs/index';
 import {BreadcrumbService} from "../../breadcrumb.service";
 import {environment} from "../../../environments/environment";
+import {WorkOrderWeeklyProjection, WorkOrderWeeklyTimeSpentProjection} from "./dashboard.model";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'cng-dashboard',
@@ -13,6 +15,10 @@ export class DashboardPage implements OnInit {
     DASHBOARD_API: string = environment.endpoint + '/api/dashboard';
     currentUser$: Observable<any>;
 
+    countWorkOrder: number = 1;
+    countMaintenanceRequest: number = 2;
+    countStaff: number = 3;
+    countAsset: number = 4;
     lineData: any;
     barData: any;
     timeData: any;
@@ -21,13 +27,24 @@ export class DashboardPage implements OnInit {
     pieData: any;
     polarData: any;
     radarData: any;
+    chartOptions : any = {
+        scales: {
+            xAxes: [{
+                stacked: true
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        }
+    };
 
     breadcrumbs: any [] = [
         {label: 'Dashboard'},
     ];
 
     constructor(public http: HttpClient,
-                public breadcrumbService: BreadcrumbService) {
+                public breadcrumbService: BreadcrumbService,
+                public router: Router) {
         this.breadcrumbService.setItems(this.breadcrumbs);
 
         this.barData = {
@@ -143,44 +160,75 @@ export class DashboardPage implements OnInit {
     }
 
     changeData() {
-        let data = [];
-        this.http.get(this.DASHBOARD_API + '/work-order-weekly-projections')
-            .subscribe((projection: any[]) => {
+        let wProData = [];
+        let wProLabel = [];
+        this.http.get<WorkOrderWeeklyProjection[]>(this.DASHBOARD_API + '/work-order-weekly-projections')
+            .subscribe((projection: WorkOrderWeeklyProjection[]) => {
+                console.log(`%c`, 'background:pink', projection)
                 projection.forEach(p => {
-                    data.push(p.count);
+                    wProData.push(p.total);
+                    wProLabel.push("week "+p.week)
                 });
 
                 this.changedBarData = {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                    labels: wProLabel,
                     datasets: [{
                         label: 'Weekly Work Order',
                         backgroundColor: '#2162b0',
                         borderColor: '#2162b0',
-                        data: data
+                        data: wProData
                     }
                     ]
+
                 };
                 this.barData = Object.assign({}, this.changedBarData);
             });
 
-        let tdata = [];
-        this.http.get(this.DASHBOARD_API + '/work-order-weekly-time-spent-projections')
-            .subscribe((projection: any[]) => {
+        let tProData = [];
+        let tProLabel = [];
+        this.http.get<WorkOrderWeeklyTimeSpentProjection[]>(this.DASHBOARD_API + '/work-order-weekly-time-spent-projections')
+            .subscribe((projection: WorkOrderWeeklyTimeSpentProjection[]) => {
                 projection.forEach(p => {
-                    tdata.push(p.total);
+                    tProData.push(p.total);
+                    tProLabel.push("Week "+p.week);
                 });
 
                 this.changedTimeData = {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                    labels: tProLabel,
                     datasets: [{
                         label: 'Time Spent Weekly',
                         backgroundColor: '#2162b0',
                         borderColor: '#2162b0',
-                        data: tdata
+                        data: tProData
                     }
                     ]
                 };
                 this.timeData = Object.assign({}, this.changedTimeData);
             });
+
+        this.http.get<number>(this.DASHBOARD_API + '/work-order-count')
+            .subscribe(count => this.countWorkOrder = count);
+
+        this.http.get<number>(this.DASHBOARD_API + '/maintenance-request-count')
+            .subscribe(count => this.countMaintenanceRequest = count);
+
+        this.http.get<number>(this.DASHBOARD_API + '/staff-count')
+            .subscribe(count => this.countStaff = count);
+
+        this.http.get<number>(this.DASHBOARD_API + '/asset-count')
+            .subscribe(count => this.countAsset = count);
+
+    }
+
+    viewWorkOrder(evt) {
+        this.router.navigate(['/work-order/work-order-tasks/assigned']);
+    }
+
+    viewStaff(evt) {
+        this.router.navigate(['/administration/staffs/list']);
+    }
+
+    viewAsset(evt) {
+        this.router.navigate(['/asset/assets/list']);
     }
 }

@@ -127,6 +127,14 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     }
 
     @Override
+    public List<DexWorkOrderLog> findLogs() {
+        Query query = entityManager.createQuery("select s from DexWorkOrderLog s where " +
+                "s.metadata.state = :state ");
+        query.setParameter("state", DexMetaState.ACTIVE);
+        return (List<DexWorkOrderLog>) query.getResultList();
+    }
+
+    @Override
     public List<DexWorkOrderComment> findComments(String filter, DexWorkOrder workOrder, Integer offset, Integer limit) {
         Query query = entityManager.createQuery("select s from DexWorkOrderComment s where " +
                 " s.workOrder = :order " +
@@ -159,7 +167,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
 
     @Override
     public Integer countActivity(String filter, DexWorkOrder order) {
-        Query query = entityManager.createQuery("select count(s) from DexActivity s where " +
+        Query query = entityManager.createQuery("select count(s) from DexWorkOrderActivity s where " +
                 "upper(s.description) like upper(:filter) " +
                 "and s.workOrder = :order " +
                 "and s.metadata.state = :state ");
@@ -171,7 +179,7 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
 
     @Override
     public Integer countActivity(DexWorkOrder order) {
-        Query query = entityManager.createQuery("select count(s) from DexActivity s where " +
+        Query query = entityManager.createQuery("select count(s) from DexWorkOrderActivity s where " +
                 "s.workOrder = :order " +
                 "and s.metadata.state = :state ");
         query.setParameter("order", order);
@@ -182,10 +190,8 @@ public class DexWorkOrderDaoImpl extends GenericDaoSupport<Long, DexWorkOrder> i
     @Override
     public Integer countLog(String filter, DexWorkOrder order) {
         Query query = entityManager.createQuery("select count(s) from DexWorkOrderLog s where " +
-                "upper(s.description) like upper(:filter) " +
-                "and s.workOrder = :order " +
+                "s.workOrder = :order " +
                 "and s.metadata.state = :state ");
-        query.setParameter("filter", WILDCARD + filter + WILDCARD);
         query.setParameter("order", order);
         query.setParameter("state", DexMetaState.ACTIVE);
         return ((Long) query.getSingleResult()).intValue();

@@ -197,4 +197,9 @@ export class CommonService {
         return this.http.delete(this.COMMON_API + '/position-codes/' + code.code);
     }
 
+
+    downloadFile(filename: String) : Observable<Blob>{
+        return this.http.get(this.COMMON_API + '/download-file/' + filename, {responseType: 'blob'});
+    }
+
 }

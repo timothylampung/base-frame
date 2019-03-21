@@ -6,7 +6,9 @@ import my.spotit.asset.DexConstants;
 import my.spotit.asset.asset.business.service.AssetService;
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexLocation;
+import my.spotit.asset.common.domain.model.DexFile;
 import my.spotit.asset.core.api.ApplicationSuccess;
+import my.spotit.asset.common.business.service.FileService;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.identity.domain.model.DexActor;
 import my.spotit.asset.identity.domain.model.DexUser;
@@ -25,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +35,7 @@ import java.util.Map;
 
 @Transactional
 @RestController
-@RequestMapping("/api/mobile/maintenance-request")
+    @RequestMapping("/api/mobile/maintenance-request")
 public class IntegrationMaintenanceController {
     private static final Logger LOG = LoggerFactory.getLogger(IntegrationMaintenanceController.class);
     private MaintenanceRequestService maintenanceRequestService;
@@ -41,20 +44,23 @@ public class IntegrationMaintenanceController {
     private WorkflowService workflowService;
     private IdentityService identityService;
     private MobileSecurityService mobileSecurityService;
+    private FileService fileService;
+
 
     @Autowired
     public IntegrationMaintenanceController(MaintenanceRequestService maintenanceRequestService, MobileSecurityService mobileSecurityService,
-                                            AssetService assetService, MaintenanceRequestTransformer maintenanceRequestTransformer, WorkflowService workflowService, IdentityService identityService) {
+                                            AssetService assetService, MaintenanceRequestTransformer maintenanceRequestTransformer, WorkflowService workflowService, IdentityService identityService, FileService fileService) {
         this.maintenanceRequestService = maintenanceRequestService;
         this.mobileSecurityService = mobileSecurityService;
         this.assetService = assetService;
         this.maintenanceRequestTransformer = maintenanceRequestTransformer;
         this.workflowService = workflowService;
         this.identityService = identityService;
+        this.fileService = fileService;
     }
 
     @PostMapping(value = "/maintenance-requests/start-task")
-    public ResponseEntity<?> startMaintenanceRequestTask(@RequestBody MaintenanceRequest vo) throws Exception {
+    public ResponseEntity<MaintenanceRequest> startMaintenanceRequestTask(@RequestBody MaintenanceRequest vo) throws Exception {
         DexUser currentUser = mobileSecurityService.getCurrentUser();
         DexMaintenanceRequest maintenanceRequest = new DexMaintenanceRequestImpl();
         DexAsset asset = assetService.findAssetByCode(vo.getAsset().getCode());
@@ -66,9 +72,17 @@ public class IntegrationMaintenanceController {
         maintenanceRequest.setRemark(vo.getRemark());
         maintenanceRequest.setLocation(location);
         maintenanceRequest.setRequestedDate(new Date());
-        maintenanceRequestService.startMaintenanceRequestTask(maintenanceRequest);
-        LOG.debug("end task");
-        return ResponseEntity.status(HttpStatus.CREATED).body(maintenanceRequestTransformer.toMaintenanceRequestVo(maintenanceRequest));
+        DexMaintenanceRequest savedMaintenanceReq = maintenanceRequestService.findMaintenanceRequestByReferenceNo(maintenanceRequestService.startMaintenanceRequestTask(maintenanceRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(maintenanceRequestTransformer.toMaintenanceRequestVo(savedMaintenanceReq));
+    }
+
+        @PostMapping(value = "/maintenance-requests/{referenceNo}/upload")
+    public ResponseEntity<DexFile> upload(@RequestParam("file") MultipartFile file, @PathVariable String referenceNo)  {
+        DexMaintenanceRequest request = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
+        DexFile dbFile = fileService.storeFile(file);
+        request.setFile(dbFile);
+        maintenanceRequestService.updateMaintenanceRequest(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dbFile);
     }
 
     @GetMapping(value = "/maintenance-requests/count-assigned-task")
@@ -196,8 +210,8 @@ public class IntegrationMaintenanceController {
         maintenanceRequest.setRequestedDate(vo.getRequestedDate());
         maintenanceRequest.setLocation(assetService.findLocationById(vo.getLocation().getId()));
         maintenanceRequest.setRequester(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequest.setDelegator(identityService.findActorById(vo.getRequester().getId()));
-        maintenanceRequest.setVerifier(identityService.findActorById(vo.getRequester().getId()));
+        maintenanceRequest.setDelegator(identityService.findActorById(vo.getDelegator().getId()));
+        maintenanceRequest.setVerifier(identityService.findActorById(vo.getVerifier().getId()));
         maintenanceRequestService.updateMaintenanceRequest(maintenanceRequest);
         return ResponseEntity.ok().build();
     }

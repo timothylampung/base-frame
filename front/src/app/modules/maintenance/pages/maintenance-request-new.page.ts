@@ -24,7 +24,7 @@ export class MaintenanceRequestNewPage implements OnInit {
             routerLink: [MAINTENANCE_REQUEST_BASE_URI + '/assigned']
         },
         {
-            label: 'Maintenance Request Baru',
+            label: 'New Maintenance Request',
             routerLink: [MAINTENANCE_REQUEST_BASE_URI + '/new']
         }
     ];
@@ -48,23 +48,19 @@ export class MaintenanceRequestNewPage implements OnInit {
             requestedDate: ['', Validators.required],
             requester: ['', Validators.required],
             asset: [''],
-            location: [''],
-
-
-
+            location: ['']
         });
-
         // date workaround
         // this.maintenanceRequestTask.maintenanceRequest.maintenanceRequestDate = new Date(this.maintenanceRequestTask.maintenanceRequest.maintenanceRequestDate);
-        this.mainForm.patchValue(this.maintenanceRequestTask.maintenanceRequest);
+        this.mainForm.patchValue(this.maintenanceRequestTask.request);
     }
 
     draft() {
         if (this.validateDocument()) {
             this.confirmationService.confirm({
-                message: 'Anda pasti semua maklumat yang dimasukkan adalah tepat?',
-                acceptLabel: 'Ya',
-                rejectLabel: 'Tidak',
+                message: 'Submit new maintenance request?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
                 accept: () => {
                     console.log(this.mainForm.value);
                     let maintenanceRequest: MaintenanceRequest = {
@@ -74,6 +70,19 @@ export class MaintenanceRequestNewPage implements OnInit {
                     this.store.dispatch(new StartMaintenanceRequestTaskAction(maintenanceRequest));
                 }
             });
+        }
+    }
+
+    goBack() {
+        if (this.validateDocument()) {
+            this.confirmationService.confirm({
+                message: 'Cancel submission?',
+                acceptLabel: 'Yes',
+                rejectLabel: 'No',
+                accept: () => {
+                    window.history.back();
+                }
+            })
         }
     }
 

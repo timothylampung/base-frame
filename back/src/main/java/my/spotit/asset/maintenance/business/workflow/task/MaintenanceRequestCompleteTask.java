@@ -31,7 +31,7 @@ public class MaintenanceRequestCompleteTask extends MaintenanceRequestTaskSuppor
 
 
         // serialize to work orders
-        if (request.isDelegated())
+        if (request.getDelegated())
             workOrderService.serializeToWorkOrder(request);
         else {
             // do something else
