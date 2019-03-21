@@ -17,20 +17,20 @@ public class DexLocationImpl implements DexLocation{
     private Long id;
 
     @NotNull
-    @Column(name = "ADDRESS")
-    private String address;
-
-    @NotNull
     @Column(name = "CODE")
     private String code;
 
     @NotNull
-    @Column(name = "DESCRIPTION")
-    private String description;
-
-    @NotNull
     @Column(name = "NAME")
     private String name;
+
+    @NotNull
+    @Column(name = "ADDRESS")
+    private String address;
+
+    @NotNull
+    @Column(name = "DESCRIPTION")
+    private String description;
 
 
     @ManyToOne(targetEntity = DexLocationImpl.class, fetch = FetchType.LAZY)

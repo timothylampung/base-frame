@@ -18,6 +18,10 @@ export const REMOVE_LOCATION = '[Location] Remove Location';
 export const REMOVE_LOCATION_SUCCESS = '[Location] Remove Location Success';
 export const REMOVE_LOCATION_ERROR = '[Location] Remove Location Error';
 
+export const UPLOAD_LOCATION = '[Location] Upload Location';
+export const UPLOAD_LOCATION_SUCCESS = '[Location] Upload Location success';
+export const UPLOAD_LOCATION_ERROR = '[Location] Upload Location error';
+
 export class FindAllLocationsAction implements Action {
     readonly type: string = FIND_ALL_LOCATIONS;
 
@@ -123,3 +127,25 @@ export class RemoveLocationErrorAction implements Action {
     constructor(public payload: ApplicationError) {
     }
 }
+
+export class UploadLocationAction implements Action {
+    readonly type: string = UPLOAD_LOCATION;
+
+    constructor(public payload: { file: File }) {
+    }
+}
+
+export class UploadLocationSuccessAction implements Action {
+    readonly type: string = UPLOAD_LOCATION_SUCCESS;
+
+    constructor(public payload: { message: string }) {
+    }
+}
+
+export class UploadLocationErrorAction implements Action {
+    readonly type: string = UPLOAD_LOCATION_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+

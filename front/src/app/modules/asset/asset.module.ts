@@ -21,6 +21,7 @@ import {AssetCategoryDropdown} from "./assets/asset-detail/asset-category.dropdo
 import {LocationAutocompleteComponent} from "./locations/location-autocomplete.component";
 import {AssetAutocompleteComponent} from "./assets/asset-detail/asset-autocomplete.component";
 import {AssetCodeAutocompleteComponent} from "./asset-codes/asset-code-detail/asset-code-autocomplete.component";
+import {LocationUploaderDialog} from "./locations/location-uploader.dialog";
 
 @NgModule({
     imports: [
@@ -43,11 +44,13 @@ import {AssetCodeAutocompleteComponent} from "./asset-codes/asset-code-detail/as
         LocationDetailPage,
         AssetCategoryDropdown,
         LocationAutocompleteComponent,
+        LocationUploaderDialog,
         AssetAutocompleteComponent,
         AssetCodeAutocompleteComponent,
     ],
     exports: [
         LocationAutocompleteComponent,
+        LocationUploaderDialog,
         AssetAutocompleteComponent,
         AssetCodeAutocompleteComponent,
     ],

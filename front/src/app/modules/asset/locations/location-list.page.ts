@@ -21,6 +21,7 @@ export class LocationListPage implements OnInit {
     searchQuery : string = '';
     selectedRow : Location = null;
     display : boolean = false;
+    displayUpload : boolean = false;
     displayDelete: boolean = false;
     msgs: Message[] = [];
 
@@ -85,11 +86,13 @@ export class LocationListPage implements OnInit {
         this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: 1}));
     }
 
+    upload() {
+        this.displayUpload = true;
+    }
+
     page(event) {
         // console.log(event)
         this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: event.page + 1}));
     }
-
-
 }
 

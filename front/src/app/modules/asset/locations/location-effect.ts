@@ -1,17 +1,27 @@
 import {Injectable} from "@angular/core";
 import {
-    FIND_ALL_LOCATIONS, FIND_PAGED_LOCATIONS,
-    FindAllLocationsSuccessAction, FindPagedLocationsAction,
-    FindPagedLocationsSuccessAction, REMOVE_LOCATION, RemoveLocationAction, RemoveLocationSuccessAction,
+    FIND_ALL_LOCATIONS,
+    FIND_PAGED_LOCATIONS,
+    FindAllLocationsSuccessAction,
+    FindPagedLocationsAction,
+    FindPagedLocationsSuccessAction,
+    REMOVE_LOCATION,
+    RemoveLocationAction,
+    RemoveLocationSuccessAction,
     SAVE_LOCATION,
-    SaveLocationAction, SaveLocationSuccessAction, UPDATE_LOCATION,
-    UpdateLocationAction, UpdateLocationSuccessAction
+    SaveLocationAction,
+    SaveLocationSuccessAction,
+    UPDATE_LOCATION,
+    UpdateLocationAction,
+    UpdateLocationSuccessAction,
+    UPLOAD_LOCATION, UploadLocationAction, UploadLocationErrorAction, UploadLocationSuccessAction
 } from "./location-action";
 import {Actions, Effect, ofType} from "@ngrx/effects";
-import {map, mergeMap, switchMap} from "rxjs/operators";
+import {catchError, map, mergeMap, switchMap} from "rxjs/operators";
 import {from, Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 import {AssetService} from "../../../services/asset.service";
+import {LoadError} from "../../../static/app.action";
 
 
 @Injectable()
@@ -42,7 +52,10 @@ export class LocationEffects {
             map((action: SaveLocationAction) => action.payload),
             switchMap((location) => this.assetService.saveLocation(location)),
             map((message) => new SaveLocationSuccessAction({message: 'success'})),
-            mergeMap((action) => from([action, new FindPagedLocationsAction({filter: '%', page: 1})])),);
+            mergeMap((action) => from([action, new FindPagedLocationsAction({
+                filter: '%',
+                page: 1
+            })])),);
 
     @Effect() updateLocation$ = this.actions$
         .pipe(
@@ -59,5 +72,23 @@ export class LocationEffects {
             map((action: RemoveLocationAction) => action.payload),
             switchMap(payload => this.assetService.removeLocation(payload)),
             map(message => new RemoveLocationSuccessAction({message: 'success'})),
-            mergeMap(action => from([action, new FindPagedLocationsAction({filter: '%', page: 1})])),);
+            mergeMap(action => from([action, new FindPagedLocationsAction({
+                filter: '%',
+                page: 1
+            })])),);
+
+    @Effect()
+    public uploadLocation$ = this.actions$.pipe(
+        ofType(UPLOAD_LOCATION),
+        map((action: UploadLocationAction) => action.payload.file),
+        switchMap(file => this.assetService.uploadLocation(file)
+            .pipe(
+                switchMap(() => [
+                    new UploadLocationSuccessAction({message: ''}),
+                    new FindPagedLocationsAction({filter: '%', page: 1})
+                ]),
+                catchError(err => [new LoadError(err), new UploadLocationErrorAction(err)])
+            )
+        ));
+
 }

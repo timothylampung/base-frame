@@ -7,10 +7,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import my.spotit.asset.asset.business.parser.LocationParserRegistry;
 import my.spotit.asset.asset.domain.dao.DexAssetCodeDao;
 import my.spotit.asset.asset.domain.dao.DexAssetDao;
 import my.spotit.asset.asset.domain.dao.DexLocationDao;
@@ -35,11 +37,13 @@ public class AssetServiceImpl implements AssetService {
     private DexAssetCodeDao assetCodeDao;
     private DexAssetDao assetDao;
     private DexLocationDao locationDao;
+    private LocationParserRegistry parserRegistry;
 
     @Autowired
     public AssetServiceImpl(EntityManager entityManager, ApplicationContext applicationContext,
                             SecurityService securityService,
                             SystemService systemService, WorkflowService workflowService,
+                            LocationParserRegistry parserRegistry,
                             DexAssetCodeDao assetCodeDao, DexAssetDao assetDao,
                             DexLocationDao locationDao) {
         this.entityManager = entityManager;
@@ -47,6 +51,7 @@ public class AssetServiceImpl implements AssetService {
         this.securityService = securityService;
         this.workflowService = workflowService;
         this.systemService = systemService;
+        this.parserRegistry = parserRegistry;
         this.assetCodeDao = assetCodeDao;
         this.assetDao = assetDao;
         this.locationDao = locationDao;
@@ -148,6 +153,15 @@ public class AssetServiceImpl implements AssetService {
     public void removeLocation(DexLocation location) {
         locationDao.delete(location, securityService.getCurrentUser());
         entityManager.flush();
+    }
+
+    @Override
+    public void parseTextFile(File file) throws Exception {
+        try {
+            parserRegistry.process(file);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
     //==============================================================================================

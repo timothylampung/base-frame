@@ -60,7 +60,8 @@ export class DashboardPage implements OnInit {
 
         this.timeData = {
             labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
-            datasets: [{
+            datasets: [
+                {
                 label: 'Work Order Time Spent',
                 backgroundColor: '#2162b0',
                 borderColor: '#2162b0',
@@ -189,7 +190,7 @@ export class DashboardPage implements OnInit {
         this.http.get<WorkOrderWeeklyTimeSpentProjection[]>(this.DASHBOARD_API + '/work-order-weekly-time-spent-projections')
             .subscribe((projection: WorkOrderWeeklyTimeSpentProjection[]) => {
                 projection.forEach(p => {
-                    tProData.push(p.total);
+                    tProData.push(p.total); // update data
                     tProLabel.push("Week "+p.week);
                 });
 
@@ -199,7 +200,7 @@ export class DashboardPage implements OnInit {
                         label: 'Time Spent Weekly',
                         backgroundColor: '#2162b0',
                         borderColor: '#2162b0',
-                        data: tProData
+                        data: tProData  // new data
                     }
                     ]
                 };

@@ -82,6 +82,13 @@ export class AssetService {
         return this.http.delete(this.ASSET_API + '/locations/' + code.code);
     }
 
+    uploadLocation(file: File) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const url = `${this.ASSET_API}/locations/upload`;
+        return this.http.post(url, formData);
+    }
+
 
     // ===================================================================================================================
     // Asset
