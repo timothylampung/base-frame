@@ -1,6 +1,6 @@
 import {Meta} from "@angular/platform-browser";
 import {MetaObject} from "../../../models/meta-object.model";
-import {Asset} from "../../asset/assets/asset-model";
+import {Asset} from "../../asset/assets/asset.model";
 import {PartCode} from "../part-codes/part-code-model";
 
 

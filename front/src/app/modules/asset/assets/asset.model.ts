@@ -3,10 +3,10 @@ import {MetaObject} from "../../../models";
 import {AssetCode} from "../asset-codes/asset-code-model";
 import {AssetCategory} from "./asset-category.enum";
 
-export  interface Asset extends MetaObject {
+export interface Asset extends MetaObject {
     code: string;
     description: string;
-    assetCode:AssetCode;
+    assetCode: AssetCode;
     location: Location;
     quantity: number;
     cost: number;
@@ -19,4 +19,10 @@ export  interface Asset extends MetaObject {
 export interface AssetResult {
     totalSize: number;
     data: Asset[];
+}
+
+export interface AssetUploadStatus {
+    isError: boolean,
+    errorMsg: string
+    uploaded: boolean;
 }

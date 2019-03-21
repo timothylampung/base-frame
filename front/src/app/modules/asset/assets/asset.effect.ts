@@ -17,7 +17,7 @@ import {
     UPLOAD_ASSET,
     UploadAssetAction, UploadAssetErrorAction,
     UploadAssetSuccessAction
-} from "./asset-action";
+} from "./asset.action";
 import {Actions, Effect, ofType} from "@ngrx/effects";
 import {catchError, map, mergeMap, switchMap} from "rxjs/operators";
 import {from, Observable} from "rxjs";

@@ -9,8 +9,12 @@ export  interface Location extends MetaObject {
 }
 
 export interface LocationResult {
-
     totalSize: number;
     data: Location[];
+}
 
+export interface LocationUploadStatus {
+    isError: boolean,
+    errorMsg: string
+    uploaded: boolean;
 }

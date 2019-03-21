@@ -4,10 +4,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectAssetResultState} from "./asset-selector";
+import {selectAssetResultState} from "./asset.selector";
 import {Observable} from "rxjs";
-import {FindPagedAssetsAction, RemoveAssetAction} from "./asset-action";
-import {Asset, AssetResult} from "./asset-model";
+import {FindPagedAssetsAction, RemoveAssetAction} from "./asset.action";
+import {Asset, AssetResult} from "./asset.model";
 import {ConfirmationService, Message} from "primeng/api";
 
 @Component({
@@ -89,8 +89,12 @@ export class AssetListPage implements OnInit {
         this.store.dispatch(new FindPagedAssetsAction({filter: this.searchQuery, page: 1}));
     }
 
-    upload() {
+    showDialog() {
         this.displayUpload = true;
+    }
+
+    closeDialog(){
+        this.displayUpload = false;
     }
 
     page(event) {

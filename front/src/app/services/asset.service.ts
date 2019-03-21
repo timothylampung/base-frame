@@ -3,9 +3,9 @@ import {Injectable} from "@angular/core";
 import {AssetCode, AssetCodeResult} from "../modules/asset/asset-codes/asset-code-model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {LocationResult} from "../modules/asset/locations/location-model";
-import {Location} from "../modules/asset/locations/location-model";
-import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
+import {LocationResult} from "../modules/asset/locations/location.model";
+import {Location} from "../modules/asset/locations/location.model";
+import {Asset, AssetResult} from "../modules/asset/assets/asset.model";
 
 
 

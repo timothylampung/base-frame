@@ -1,8 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from "primeng/api";
-import {Store} from "@ngrx/store";
-import {UploadAssetAction} from "./asset-action";
+import {select, Store} from "@ngrx/store";
+import {UploadAssetAction} from "./asset.action";
+import {selectLocationUploadStatus} from "../locations/location.selector";
+import {LocationUploadStatus} from "../locations/location.model";
+import {selectAssetUploadStatus} from "./asset.selector";
+import {AssetUploadStatus} from "./asset.model";
 
 @Component({
     selector: 'dex-asset-uploader-dialog',
@@ -11,13 +15,12 @@ import {UploadAssetAction} from "./asset-action";
 
 export class AssetUploaderDialog implements OnInit {
 
-    isEdit: boolean = false;
-    editorForm: FormGroup;
     showErrorMsg: boolean = false;
     errorMsg: string = '';
 
     @Input() showDialog: boolean;
     @Output() onUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() onUploaded: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(public fb: FormBuilder,
@@ -27,26 +30,14 @@ export class AssetUploaderDialog implements OnInit {
     }
 
     ngOnInit() {
-        this.editorForm = this.fb.group({
-            id: [null],
-            body: [null, Validators.required],
-        });
     }
 
     save() {
         this.onUpload.emit(true);
-        this.editorForm.reset();
-    }
-
-    onShow() {
     }
 
     onHide() {
         this.onClose.emit(false);
-    }
-
-    get ctrl() {
-        return this.editorForm.controls;
     }
 
     onSelectFile() {
@@ -55,6 +46,12 @@ export class AssetUploaderDialog implements OnInit {
 
     handleUpload(event: any) {
         this.store.dispatch(new UploadAssetAction({file: event.files[0]}));
+        this.store.pipe(
+            select(selectAssetUploadStatus))
+            .subscribe((state: AssetUploadStatus) => {
+                if (!state.uploaded)
+                    this.onUploaded.emit(false);
+            });
     }
 
     ngDestroy() {

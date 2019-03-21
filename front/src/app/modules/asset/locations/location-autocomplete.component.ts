@@ -3,7 +3,7 @@ import {select, Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {AutoComplete} from 'primeng/primeng';
 import {AssetState} from "../asset.state";
-import {selectLocations} from "./location-selector";
+import {selectLocations} from "./location.selector";
 import {FindPagedLocationsAction} from "./location-action";
 
 @Component({

@@ -3,8 +3,8 @@ import {Task} from '../../models/task.model';
 import {Record} from '../../models/record.model';
 import {FlowState} from '../../models/flow-state.enum';
 import {Actor} from "../identity/actors/actor.model";
-import {Location} from "../asset/locations/location-model";
-import {Asset} from "../asset/assets/asset-model";
+import {Location} from "../asset/locations/location.model";
+import {Asset} from "../asset/assets/asset.model";
 import {MaintenanceRequest} from "../maintenance/maintenance-request.model";
 import {File} from "../common/file/file.model";
 

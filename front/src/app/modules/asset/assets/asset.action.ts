@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {ApplicationError} from "../../../models/application-error.model";
-import {Asset, AssetResult} from "./asset-model";
+import {Asset, AssetResult} from "./asset.model";
 import {
     UPLOAD_LOCATION,
     UPLOAD_LOCATION_ERROR,

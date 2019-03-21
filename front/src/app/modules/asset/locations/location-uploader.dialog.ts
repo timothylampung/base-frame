@@ -1,8 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from "primeng/api";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
 import {UploadLocationAction} from "./location-action";
+import {LocationUploadStatus} from "./location.model";
+import {Observable} from "rxjs";
+import {selectLocationUploadStatus} from "./location.selector";
 
 @Component({
     selector: 'dex-location-uploader-dialog',
@@ -11,13 +14,13 @@ import {UploadLocationAction} from "./location-action";
 
 export class LocationUploaderDialog implements OnInit {
 
-    isEdit: boolean = false;
-    editorForm: FormGroup;
     showErrorMsg: boolean = false;
     errorMsg: string = '';
+    locationUploadStatus$: Observable<LocationUploadStatus>;
 
     @Input() showDialog: boolean;
     @Output() onUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() onUploaded: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(public fb: FormBuilder,
@@ -27,15 +30,6 @@ export class LocationUploaderDialog implements OnInit {
     }
 
     ngOnInit() {
-        this.editorForm = this.fb.group({
-            id: [null],
-            body: [null, Validators.required],
-        });
-    }
-
-    save() {
-        this.onUpload.emit(true);
-        this.editorForm.reset();
     }
 
     onShow() {
@@ -45,16 +39,18 @@ export class LocationUploaderDialog implements OnInit {
         this.onClose.emit(false);
     }
 
-    get ctrl() {
-        return this.editorForm.controls;
-    }
-
     onSelectFile() {
         this.showErrorMsg = false;
     }
 
     handleUpload(event: any) {
         this.store.dispatch(new UploadLocationAction({file: event.files[0]}));
+        this.store.pipe(
+            select(selectLocationUploadStatus))
+            .subscribe((state: LocationUploadStatus) => {
+                if (!state.uploaded)
+                    this.onUploaded.emit(false);
+            });
     }
 
     ngDestroy() {

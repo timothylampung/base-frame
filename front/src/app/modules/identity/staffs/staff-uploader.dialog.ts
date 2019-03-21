@@ -1,8 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessageService} from "primeng/api";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
 import {UploadStaffAction} from "./staff.action";
+import {selectAssetUploadStatus} from "../../asset/assets/asset.selector";
+import {AssetUploadStatus} from "../../asset/assets/asset.model";
+import {StaffUploadStatus} from "./staff.model";
+import {selectStaffUploadStatus} from "./staff.selector";
 
 @Component({
     selector: 'dex-staff-uploader-dialog',
@@ -11,13 +15,12 @@ import {UploadStaffAction} from "./staff.action";
 
 export class StaffUploaderDialog implements OnInit {
 
-    isEdit: boolean = false;
-    editorForm: FormGroup;
     showErrorMsg: boolean = false;
     errorMsg: string = '';
 
     @Input() showDialog: boolean;
     @Output() onUpload: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() onUploaded: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(public fb: FormBuilder,
@@ -27,26 +30,10 @@ export class StaffUploaderDialog implements OnInit {
     }
 
     ngOnInit() {
-        this.editorForm = this.fb.group({
-            id: [null],
-            body: [null, Validators.required],
-        });
-    }
-
-    save() {
-        this.onUpload.emit(true);
-        this.editorForm.reset();
-    }
-
-    onShow() {
     }
 
     onHide() {
         this.onClose.emit(false);
-    }
-
-    get ctrl() {
-        return this.editorForm.controls;
     }
 
     onSelectFile() {
@@ -55,6 +42,12 @@ export class StaffUploaderDialog implements OnInit {
 
     handleUpload(event: any) {
         this.store.dispatch(new UploadStaffAction({file: event.files[0]}));
+        this.store.pipe(
+            select(selectStaffUploadStatus))
+            .subscribe((state: StaffUploadStatus) => {
+                if (!state.uploaded)
+                    this.onUploaded.emit(false);
+            });
     }
 
     ngDestroy() {

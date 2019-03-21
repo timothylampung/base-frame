@@ -2,10 +2,10 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FormControl} from '@angular/forms';
 import {AutoComplete} from 'primeng/primeng';
-import {Asset} from "../asset-model";
-import {AssetState} from "../../asset.state";
-import {selectAssets} from "../asset-selector";
-import {FindPagedAssetsAction} from "../asset-action";
+import {Asset} from "./asset.model";
+import {AssetState} from "../asset.state";
+import {selectAssets} from "./asset.selector";
+import {FindPagedAssetsAction} from "./asset.action";
 
 @Component({
     selector: 'dex-asset-autocomplete',

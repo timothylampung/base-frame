@@ -2,10 +2,10 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AssetState} from "../../asset.state";
-import {Location} from "../location-model";
-import {InventoryService} from "../../../../services/inventory.service";
-import {RemoveLocationAction, SaveLocationAction, UpdateLocationAction} from "../location-action";
+import {AssetState} from "../asset.state";
+import {Location} from "./location.model";
+import {InventoryService} from "../../../services/inventory.service";
+import {RemoveLocationAction, SaveLocationAction, UpdateLocationAction} from "./location-action";
 import {ConfirmationService, Message} from "primeng/api";
 
 @Component({

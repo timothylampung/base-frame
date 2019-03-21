@@ -121,12 +121,16 @@
     </div>
 </div>
 
-<p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
+<p-sidebar styleClass="ui-sidebar-lg"
+           [(visible)]="display"
+           [fullScreen]="false"
+           position="right">
     <dex-location-detail-page [selectedRow]="selectedRow"
                               (onSubmit)="dialogClosed($event)"></dex-location-detail-page>
 </p-sidebar>
 
 <dex-location-uploader-dialog
+    (onUploaded)="closeDialog()"
     [showDialog]="displayUpload">
 </dex-location-uploader-dialog>
 

@@ -2,9 +2,9 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AssetState} from "../../asset.state";
-import {Asset} from "../asset-model";
-import {SaveAssetAction} from "../asset-action";
+import {AssetState} from "../asset.state";
+import {Asset} from "./asset.model";
+import {SaveAssetAction} from "./asset.action";
 
 @Component({
     selector: 'dex-asset-detail-page',

@@ -5,12 +5,19 @@ import {UserResult} from "./principals/user/user-result.model";
 import {User} from "./principals/user/user.model";
 import {groupResultReducer} from './principals/groups/group.reducer';
 import {GroupResult} from './principals/group-result.model';
-import {staffResultReducer, staffsReducer} from "./staffs/staff.reducer";
-import {Staff, StaffResult} from "./staffs/staff.model";
+import {
+    staffResultReducer,
+    staffsReducer,
+    staffUploadedStatusReducer
+} from "./staffs/staff.reducer";
+import {Staff, StaffResult, StaffUploadStatus} from "./staffs/staff.model";
 import {Technician, TechnicianResult} from "./technicians/technician.model";
 import {technicianResultReducer, techniciansReducer} from "./technicians/technician.reducer";
 import {FacilityManager, FacilityManagerResult} from "./facilitymanager/facility-manager.model";
-import {facilityManagerResultReducer, facilityManagersReducer} from "./facilitymanager/facility-manager.reducer";
+import {
+    facilityManagerResultReducer,
+    facilityManagersReducer
+} from "./facilitymanager/facility-manager.reducer";
 import {supervisorResultReducer, supervisorsReducer} from "./supervisors/supervisor.reducer";
 import {Supervisor, SupervisorResult} from "./supervisors/supervisor.model";
 import {actorResultReducer, actorsReducer} from "./actors/actor.reducer";
@@ -31,6 +38,7 @@ export const reducers: ActionReducerMap<IdentityState> = {
     groupResult: groupResultReducer,
     staffResult: staffResultReducer,
     staffs: staffsReducer,
+    staffUploadStatus: staffUploadedStatusReducer,
     technicianResult: technicianResultReducer,
     technicians: techniciansReducer,
     facilityManagerResult: facilityManagerResultReducer,
@@ -47,10 +55,11 @@ export interface IdentityState {
     groupResult: GroupResult;
     staffResult: StaffResult;
     staffs: Staff[];
+    staffUploadStatus: StaffUploadStatus;
     supervisorResult: SupervisorResult;
     supervisors: Supervisor[];
     technicianResult: TechnicianResult,
-    technicians: Technician[],   
+    technicians: Technician[],
     facilityManagerResult: FacilityManagerResult,
     facilityManagers: FacilityManager[],
 }

@@ -4,10 +4,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import {BreadcrumbService} from "../../../breadcrumb.service";
-import {selectLocationResultState} from "./location-selector";
+import {selectLocationResultState} from "./location.selector";
 import {Observable} from "rxjs";
 import {FindPagedLocationsAction, RemoveLocationAction} from "./location-action";
-import {Location, LocationResult} from "./location-model";
+import {Location, LocationResult} from "./location.model";
 import {ConfirmationService, Message} from "primeng/api";
 
 @Component({
@@ -18,7 +18,7 @@ export class LocationListPage implements OnInit {
 
     locations$: Observable<LocationResult>;
     searchForm: FormGroup;
-    searchQuery : string = '';
+    searchQuery : string = '%';
     selectedRow : Location = null;
     display : boolean = false;
     displayUpload : boolean = false;
@@ -90,8 +90,11 @@ export class LocationListPage implements OnInit {
         this.displayUpload = true;
     }
 
+    closeDialog(){
+        this.displayUpload = false;
+    }
+
     page(event) {
-        // console.log(event)
         this.store.dispatch(new FindPagedLocationsAction({filter: this.searchQuery, page: event.page + 1}));
     }
 }

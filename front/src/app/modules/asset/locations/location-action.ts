@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {ApplicationError} from "../../../models/application-error.model";
-import {Location, LocationResult} from "./location-model";
+import {Location, LocationResult} from "./location.model";
 
 export const FIND_ALL_LOCATIONS = '[Location] Find All Locations';
 export const FIND_ALL_LOCATIONS_SUCCESS = '[Location] Find All Locations Success';
