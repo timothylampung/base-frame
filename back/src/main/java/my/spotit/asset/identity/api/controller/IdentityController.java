@@ -2,6 +2,7 @@ package my.spotit.asset.identity.api.controller;
 
 import my.spotit.asset.common.business.service.CommonService;
 
+import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.identity.api.vo.Actor;
 import my.spotit.asset.identity.api.vo.FacilityManagerResult;
 import my.spotit.asset.identity.api.vo.Group;
@@ -17,13 +18,17 @@ import my.spotit.asset.identity.business.service.ActorService;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
 import my.spotit.asset.security.business.service.SecurityService;
+
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 import my.spotit.asset.identity.api.vo.FacilityManager;
@@ -290,6 +295,15 @@ public class IdentityController {
 //        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
         identityService.saveStaff(staff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = "/staffs/upload")
+    public ResponseEntity<?> uploadAssets(@RequestParam("file") MultipartFile file) throws Exception {
+        File tempFile = File.createTempFile("tmp_", null);
+        FileUtils.writeByteArrayToFile(tempFile, file.getBytes());
+        identityService.parseStaff(tempFile);
+        return ResponseEntity.ok(new ApplicationSuccess("success", "Attachment added"));
     }
 
     @PutMapping(value = "/staff/{code}")

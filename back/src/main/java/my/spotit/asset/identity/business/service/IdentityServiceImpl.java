@@ -1,5 +1,6 @@
 package my.spotit.asset.identity.business.service;
 
+import my.spotit.asset.identity.business.parser.StaffParserRegistry;
 import my.spotit.asset.identity.domain.dao.DexActorDao;
 import my.spotit.asset.identity.domain.dao.DexFacilityManagerDao;
 import my.spotit.asset.identity.domain.dao.DexGroupDao;
@@ -23,6 +24,7 @@ import my.spotit.asset.identity.domain.model.DexSupervisor;
 import my.spotit.asset.identity.domain.model.DexTechnician;
 import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.security.business.service.SecurityService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,15 +58,18 @@ public class IdentityServiceImpl implements IdentityService {
     private DexFacilityManagerDao facilityManagerDao;
     private DexSupervisorDao supervisorDao;
     private DexTechnicianDao technicianDao;
+    private StaffParserRegistry staffParserRegistry;
 
     @Autowired
     public IdentityServiceImpl(EntityManager entityManager, SecurityService securityService,
+                               StaffParserRegistry staffParserRegistry,
                                DexPrincipalDao principalDao, DexUserDao userDao,
                                DexGroupDao groupDao, DexStaffDao staffDao,
                                DexActorDao actorDao, DexFacilityManagerDao facilityManagerDao,
                                DexSupervisorDao supervisorDao, DexTechnicianDao technicianDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
+        this.staffParserRegistry = staffParserRegistry;
         this.principalDao = principalDao;
         this.userDao = userDao;
         this.groupDao = groupDao;
@@ -72,7 +79,6 @@ public class IdentityServiceImpl implements IdentityService {
         this.supervisorDao = supervisorDao;
         this.technicianDao = technicianDao;
     }
-
 
     //==============================================================================================
     // PRINCIPAL
@@ -449,6 +455,15 @@ public class IdentityServiceImpl implements IdentityService {
     public void removeStaff(DexStaff staff) {
         staffDao.remove(staff, securityService.getCurrentUser());
         entityManager.flush();
+    }
+
+    @Override
+    public void parseStaff(File file) throws Exception {
+        try {
+            staffParserRegistry.process(file);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
     //==============================================================================================

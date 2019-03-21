@@ -2,6 +2,7 @@ package my.spotit.asset.identity.business.service;
 
 import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -158,6 +159,8 @@ public interface IdentityService {
     void updateStaff(DexStaff staff);
 
     void removeStaff(DexStaff staff);
+
+    void parseStaff(File file) throws Exception;
 
     // =============================================================================================
     // FACILITY MANAGER
