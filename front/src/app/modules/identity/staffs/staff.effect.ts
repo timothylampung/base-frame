@@ -1,4 +1,4 @@
-import {map, mergeMap, switchMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {
     FIND_ALL_STAFFS,
@@ -14,12 +14,17 @@ import {
     SaveStaffSuccessAction,
     UPDATE_STAFF,
     UpdateStaffAction,
-    UpdateStaffSuccessAction
+    UpdateStaffSuccessAction,
+    UPLOAD_STAFF,
+    UploadStaffAction,
+    UploadStaffErrorAction,
+    UploadStaffSuccessAction
 } from './staff.action';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
 import {from, Observable} from 'rxjs';
 import {IdentityService} from "../../../services/identity.service";
+import {LoadError} from "../../../static/app.action";
 
 @Injectable()
 export class StaffEffects {
@@ -67,4 +72,18 @@ export class StaffEffects {
             switchMap(payload => this.identityService.removeStaff(payload)),
             map(message => new RemoveStaffSuccessAction({message: 'success'})),
             mergeMap(action => from([action, new FindPagedStaffsAction({filter: 'todo', page: 1})])),);
+
+    @Effect()
+    public uploadStaff$ = this.actions$.pipe(
+        ofType(UPLOAD_STAFF),
+        map((action: UploadStaffAction) => action.payload.file),
+        switchMap(file => this.identityService.uploadStaff(file)
+            .pipe(
+                switchMap(() => [
+                    new UploadStaffSuccessAction({message: ''}),
+                    new FindPagedStaffsAction({filter: '%', page: 1})
+                ]),
+                catchError(err => [new LoadError(err), new UploadStaffErrorAction(err)])
+            )
+        ));
 }

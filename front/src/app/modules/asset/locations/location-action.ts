@@ -17,7 +17,6 @@ export const UPDATE_LOCATION_ERROR = '[Location] Update Location Error';
 export const REMOVE_LOCATION = '[Location] Remove Location';
 export const REMOVE_LOCATION_SUCCESS = '[Location] Remove Location Success';
 export const REMOVE_LOCATION_ERROR = '[Location] Remove Location Error';
-
 export const UPLOAD_LOCATION = '[Location] Upload Location';
 export const UPLOAD_LOCATION_SUCCESS = '[Location] Upload Location success';
 export const UPLOAD_LOCATION_ERROR = '[Location] Upload Location error';

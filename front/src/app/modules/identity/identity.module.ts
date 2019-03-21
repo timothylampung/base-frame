@@ -18,7 +18,7 @@ import {FacilityManagerEffects} from "./facilitymanager/facility-manager.effect"
 import {SupervisorEffects} from "./supervisors/supervisor.effect";
 import {ActorAutocompleteComponent} from "./actors/actor-autocomplete.component";
 import {StaffAutocompleteComponent} from "./staffs/staff-autocomplete.component";
-
+import {StaffUploaderDialog} from "./staffs/staff-uploader.dialog";
 
 @NgModule({
     imports: [
@@ -39,13 +39,18 @@ import {StaffAutocompleteComponent} from "./staffs/staff-autocomplete.component"
         UserListPage,
         GroupListPage,
         StaffListPage,
+        StaffUploaderDialog,
         GroupListPage,
         SupervisorListPage,
         TechnicianListPage,
-        FacilityManagerListPage
+        FacilityManagerListPage,
+    ],
+    entryComponents: [
+        StaffUploaderDialog,
     ],
     exports: [
-        ActorAutocompleteComponent, StaffAutocompleteComponent
+        ActorAutocompleteComponent,
+        StaffAutocompleteComponent
     ],
     providers: [IdentityService]
 })

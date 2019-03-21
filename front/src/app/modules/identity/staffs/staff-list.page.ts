@@ -17,6 +17,7 @@ import {MenuItem} from "primeng/api";
 export class StaffListPage implements OnInit {
 
     staffs$: Observable<Staff[]>;
+    displayUpload : boolean = false;
     searchForm: FormGroup;
     searchQuery :string ='';
     title = 'Staffs';
@@ -38,6 +39,10 @@ export class StaffListPage implements OnInit {
             'keyword': [''],
         });
         this.search();
+    }
+
+    upload(){
+        this.displayUpload = true;
     }
 
     search() {

@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {Staff, StaffResult} from './staff.model';
-import {ApplicationError} from "../../../models/application-error.model";
+import {ApplicationError} from '../../../models';
 
 export const FIND_ALL_STAFFS = '[Staff] Find All Staffs';
 export const FIND_ALL_STAFFS_SUCCESS = '[Staff] Find All Staffs Success';
@@ -17,6 +17,9 @@ export const UPDATE_STAFF_ERROR = '[Staff] Update Staff Error';
 export const REMOVE_STAFF = '[Staff] Remove Staff';
 export const REMOVE_STAFF_SUCCESS = '[Staff] Remove Staff Success';
 export const REMOVE_STAFF_ERROR = '[Staff] Remove Staff Error';
+export const UPLOAD_STAFF = '[Staff] Upload Staff';
+export const UPLOAD_STAFF_SUCCESS = '[Staff] Upload Staff success';
+export const UPLOAD_STAFF_ERROR = '[Staff] Upload Staff error';
 
 export class FindAllStaffsAction implements Action {
     readonly type: string = FIND_ALL_STAFFS;
@@ -126,13 +129,24 @@ export class RemoveStaffErrorAction implements Action {
     }
 }
 
-export type StaffActions
-    = SaveStaffAction
-    | SaveStaffSuccessAction
-    | SaveStaffErrorAction
-    | UpdateStaffAction
-    | UpdateStaffSuccessAction
-    | UpdateStaffErrorAction
-    | RemoveStaffAction
-    | RemoveStaffSuccessAction
-    | RemoveStaffErrorAction;
+
+export class UploadStaffAction implements Action {
+    readonly type: string = UPLOAD_STAFF;
+
+    constructor(public payload: { file: File }) {
+    }
+}
+
+export class UploadStaffSuccessAction implements Action {
+    readonly type: string = UPLOAD_STAFF_SUCCESS;
+
+    constructor(public payload: { message: string }) {
+    }
+}
+
+export class UploadStaffErrorAction implements Action {
+    readonly type: string = UPLOAD_STAFF_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
