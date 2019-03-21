@@ -201,7 +201,7 @@ public class MaintenanceRequestController {
         request.setRequestedDate(vo.getRequestedDate());
         request.setLocation(assetService.findLocationById(vo.getLocation().getId()));
         request.setRequester(identityService.findActorById(vo.getRequester().getId()));
-        request.setDelegator(identityService.findActorById(vo.getRequester().getId()));
+        request.setDelegator(identityService.findActorById(vo.getDelegator().getId()));
         request.setVerifier(identityService.findActorById(vo.getVerifier().getId()));
         maintenanceRequestService.updateMaintenanceRequest(request);
         return ResponseEntity.ok().build();

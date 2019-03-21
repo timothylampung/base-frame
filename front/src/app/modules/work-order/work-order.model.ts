@@ -15,7 +15,7 @@ export interface WorkOrder extends Document {
     verifier: Actor;
     location: Location
     asset: Asset
-    maintenanceRequest: MaintenanceRequest;
+    maintenanceRequest?: MaintenanceRequest;
     // file?: File;
 }
 

@@ -45,22 +45,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
         console.log(this.maintenanceRequestTask);
         console.log(this.mainForm.value);
 
-        this.mainForm = this.fb.group({
-            referenceNo: [''],
-            sourceNo: [''],
-            description: [{value: '', disabled: true}, Validators.required],
-            requester: [],
-            requestedDate: [],
-            delegator: [],
-            verifier: [],
-            location: [],
-            asset: [],
-            remark: [],
-            reporter: [],
-            delegated: [],
-        });
 
-        this.mainForm.patchValue(this.maintenanceRequestTask.request);
 
         // this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
         //     this.createImageFromBlob(blob);
@@ -100,7 +85,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                         })
                     );
                     console.log(this.maintenanceRequestTask);
-                    this.mainForm.patchValue(this.maintenanceRequestTask);
+                     // this.mainForm.patchValue(this.maintenanceRequestTask);
                     console.log(this.mainForm.value);
 
 
@@ -125,20 +110,22 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     updateMaintenanceRequest() {
         console.log('this is a test');
 
-        this.store.dispatch(
-            new UpdateMaintenanceRequestAction({
-                ...this.maintenanceRequestTask,
-                ...this.mainForm.value
-            })
-        );
 
-        // this.confirmationService.confirm({
-        //     message: 'Update maintenance request?',
-        //     acceptLabel: 'Yes',
-        //     rejectLabel: 'No',
-        //     accept: () => {
-        //     }
-        // });
+        this.confirmationService.confirm({
+            message: 'Update work order?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
+            accept: () => {
+
+                this.store.dispatch(
+                    new UpdateMaintenanceRequestAction({
+                        ...this.maintenanceRequestTask,
+                        ...this.mainForm.value
+                    })
+                );
+
+            }
+        });
     }
 
     addActivity() {
