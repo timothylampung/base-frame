@@ -56,6 +56,17 @@
 
                 <div class="ui-g-12">
                     <div class="ui-g-4">
+                        <label>Location</label>
+                    </div>
+                    <div class="ui-g-8">
+                    <span class="md-inputfield">
+                        <dex-location-autocomplete   [innerFormControl]="mainForm.get('location')"></dex-location-autocomplete>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
                         <label>Asset</label>
                     </div>
                     <div class="ui-g-8">
@@ -66,17 +77,6 @@
                 </div>
 
                 <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label>Location</label>
-                    </div>
-                    <div class="ui-g-8">
-                    <span class="md-inputfield">
-                        <dex-location-autocomplete   [innerFormControl]="mainForm.get('location')"></dex-location-autocomplete>
-                    </span>
-                    </div>
-                </div>
-
-        <div class="ui-g-12">
             <div class="ui-g-3">
                 <button pButton type="button"
                         label="Add"

@@ -56,7 +56,7 @@ export class MaintenanceRequestCheckPage extends MaintenanceRequestPage implemen
 
     remove() {
         this.confirmationService.confirm({
-            message: 'Anda pasti untuk menghapuskan work order ini?',
+            message: 'Anda pasti untuk menghapuskan maintenance request ini?',
             acceptLabel: 'Ya',
             rejectLabel: 'Tidak',
             accept: () => {

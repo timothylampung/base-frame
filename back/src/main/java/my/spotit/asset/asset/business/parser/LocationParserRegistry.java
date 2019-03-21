@@ -28,7 +28,6 @@ public class LocationParserRegistry {
     @PostConstruct
     public void initParsers() {
         for (LocationParser parser : parsers) {
-            LOG.info("Initiating utility bill parser : {}", parser.getParserName());
             handlers.put(parser.getParserName(), parser);
         }
     }

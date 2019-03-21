@@ -1,8 +1,8 @@
 package my.spotit.asset.asset.domain.model;
 
 import my.spotit.asset.core.domain.DexMetadata;
-import my.spotit.asset.identity.domain.model.DexTeam;
-import my.spotit.asset.identity.domain.model.DexTeamImpl;
+//import my.spotit.asset.identity.domain.model.DexTeam;
+//import my.spotit.asset.identity.domain.model.DexTeamImpl;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -27,8 +27,8 @@ public class DexAssetCategoryImpl implements DexAssetCategory {
     @JoinColumn(name = "ASSET_ID")
     private DexAsset asset;
 
-    @ManyToMany(mappedBy = "expertise", targetEntity = DexTeamImpl.class)
-    private Set<DexTeam> teams;
+//    @ManyToMany(mappedBy = "expertise", targetEntity = DexTeamImpl.class)
+//    private Set<DexTeam> teams;
 
     @Embedded
     private DexMetadata metadata;
@@ -71,15 +71,15 @@ public class DexAssetCategoryImpl implements DexAssetCategory {
         this.asset = asset;
     }
 
-    @Override
-    public Set<DexTeam> getTeams() {
-        return teams;
-    }
-
-    @Override
-    public void setTeams(Set<DexTeam> teams) {
-        this.teams = teams;
-    }
+//    @Override
+//    public Set<DexTeam> getTeams() {
+//        return teams;
+//    }
+//
+//    @Override
+//    public void setTeams(Set<DexTeam> teams) {
+//        this.teams = teams;
+//    }
 
     @Override
     public DexMetadata getMetadata() {

@@ -10,8 +10,6 @@ import my.spotit.asset.identity.domain.model.DexPrincipalRole;
 import my.spotit.asset.identity.domain.model.DexPrincipalRoleImpl;
 import my.spotit.asset.identity.domain.model.DexPrincipalType;
 import my.spotit.asset.identity.domain.model.DexRoleType;
-import my.spotit.asset.identity.domain.model.DexTechnician;
-import my.spotit.asset.identity.domain.model.DexTechnicianImpl;
 import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.identity.domain.model.DexUserImpl;
 
@@ -84,35 +82,6 @@ public class IdentityServiceImplTest extends AbstractTest {
 
 //      Create technician Actor
         String code = "TECH_" + System.currentTimeMillis();
-        DexTechnician technician = new DexTechnicianImpl();
-        technician.setName(account.getRealname());
-        technician.setAddress1(generateString(10));
-        technician.setAddress2(generateString(10));
-        technician.setAddress3(generateString(10));
-        technician.setCode(code);
-        technician.setEmail(account.getEmail());
-        technician.setFax(generateString(5));
-        technician.setMobile(generateString(12));
-        technician.setIdentityNo(account.getIdNo());
-        technician.setPostcode(generateString(5));
-        technician.setPhone(getRandomId());
-        LOG.debug("technician --- {}", technician);
-        identityService.saveTechnician(technician);
-
-//        Check technician actor exist
-        DexTechnician savedTechnician = identityService.findTechnicianByCode(code);
-        Assert.assertNotNull(savedTechnician);
-
-        savedUser.setActor(savedTechnician);
-        identityService.updateUser(savedUser);
-
-//        Check technician is assigned to user account
-        DexUser updatedUser = identityService.findUserByUsername(account.getName());
-        Assert.assertNotNull(updatedUser.getActor());
-
-        addToUserGroup(updatedUser);
-
-
     }
 
     private void addToUserGroup(DexPrincipal principal) {

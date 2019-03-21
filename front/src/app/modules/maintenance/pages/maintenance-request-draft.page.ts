@@ -41,11 +41,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     ngOnInit() {
-        super.ngOnInit()
-        console.log(this.maintenanceRequestTask);
-        console.log(this.mainForm.value);
-
-
+        super.ngOnInit();
 
         // this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
         //     this.createImageFromBlob(blob);
@@ -80,15 +76,11 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                     this.store.dispatch(new UpdateMaintenanceRequestAction({
                             ...this.maintenanceRequestTask,
                             ...this.mainForm.value,
-
-
                         })
                     );
                     console.log(this.maintenanceRequestTask);
-                     // this.mainForm.patchValue(this.maintenanceRequestTask);
+                    // this.mainForm.patchValue(this.maintenanceRequestTask);
                     console.log(this.mainForm.value);
-
-
                 }
             });
         }
@@ -108,9 +100,8 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     updateMaintenanceRequest() {
-        console.log('this is a test');
         this.confirmationService.confirm({
-            message: 'Update work order?',
+            message: 'Update maintenance request?',
             acceptLabel: 'Yes',
             rejectLabel: 'No',
             accept: () => {
@@ -121,7 +112,6 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                         ...this.mainForm.value
                     })
                 );
-
             }
         });
     }
@@ -132,7 +122,6 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     viewAbout() {
         this.selectedAbout = null;
-        // this.showAboutDialog();
     }
 
 }

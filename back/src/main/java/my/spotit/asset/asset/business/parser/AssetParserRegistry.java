@@ -28,7 +28,6 @@ public class AssetParserRegistry {
     @PostConstruct
     public void initParsers() {
         for (AssetParser parser : parsers) {
-            LOG.info("Initiating utility bill parser : {}", parser.getParserName());
             handlers.put(parser.getParserName(), parser);
         }
     }

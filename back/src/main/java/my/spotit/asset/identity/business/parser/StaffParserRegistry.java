@@ -28,7 +28,6 @@ public class StaffParserRegistry {
     @PostConstruct
     public void initParsers() {
         for (StaffParser parser : parsers) {
-            LOG.info("Initiating utility bill parser : {}", parser.getParserName());
             handlers.put(parser.getParserName(), parser);
         }
     }

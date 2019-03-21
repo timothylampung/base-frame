@@ -32,9 +32,6 @@ export class LocationUploaderDialog implements OnInit {
     ngOnInit() {
     }
 
-    onShow() {
-    }
-
     onHide() {
         this.onClose.emit(false);
     }
