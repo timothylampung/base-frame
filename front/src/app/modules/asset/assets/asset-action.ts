@@ -1,6 +1,11 @@
 import {Action} from '@ngrx/store';
 import {ApplicationError} from "../../../models/application-error.model";
 import {Asset, AssetResult} from "./asset-model";
+import {
+    UPLOAD_LOCATION,
+    UPLOAD_LOCATION_ERROR,
+    UPLOAD_LOCATION_SUCCESS
+} from "../locations/location-action";
 
 export const FIND_ALL_ASSETS = '[Asset] Find All Assets';
 export const FIND_ALL_ASSETS_SUCCESS = '[Asset] Find All Assets Success';
@@ -17,6 +22,11 @@ export const UPDATE_ASSET_ERROR = '[Asset] Update Asset Error';
 export const REMOVE_ASSET = '[Asset] Remove Asset';
 export const REMOVE_ASSET_SUCCESS = '[Asset] Remove Asset Success';
 export const REMOVE_ASSET_ERROR = '[Asset] Remove Asset Error';
+
+export const UPLOAD_ASSET = '[Asset] Upload Asset';
+export const UPLOAD_ASSET_SUCCESS = '[Asset] Upload Asset success';
+export const UPLOAD_ASSET_ERROR = '[Asset] Upload Asset error';
+
 
 export class FindAllAssetsAction implements Action {
     readonly type: string = FIND_ALL_ASSETS;
@@ -122,3 +132,25 @@ export class RemoveAssetErrorAction implements Action {
     constructor(public payload: ApplicationError) {
     }
 }
+
+export class UploadAssetAction implements Action {
+    readonly type: string = UPLOAD_ASSET;
+
+    constructor(public payload: { file: File }) {
+    }
+}
+
+export class UploadAssetSuccessAction implements Action {
+    readonly type: string = UPLOAD_ASSET_SUCCESS;
+
+    constructor(public payload: { message: string }) {
+    }
+}
+
+export class UploadAssetErrorAction implements Action {
+    readonly type: string = UPLOAD_ASSET_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+

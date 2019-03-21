@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import my.spotit.asset.asset.business.parser.AssetParserRegistry;
 import my.spotit.asset.asset.business.parser.LocationParserRegistry;
 import my.spotit.asset.asset.domain.dao.DexAssetCodeDao;
 import my.spotit.asset.asset.domain.dao.DexAssetDao;
@@ -37,13 +38,15 @@ public class AssetServiceImpl implements AssetService {
     private DexAssetCodeDao assetCodeDao;
     private DexAssetDao assetDao;
     private DexLocationDao locationDao;
-    private LocationParserRegistry parserRegistry;
+    private LocationParserRegistry locationParserRegistry;
+    private AssetParserRegistry assetParserRegistry;
 
     @Autowired
     public AssetServiceImpl(EntityManager entityManager, ApplicationContext applicationContext,
                             SecurityService securityService,
                             SystemService systemService, WorkflowService workflowService,
-                            LocationParserRegistry parserRegistry,
+                            LocationParserRegistry locationParserStrategy,
+                            AssetParserRegistry assetParserRegistry,
                             DexAssetCodeDao assetCodeDao, DexAssetDao assetDao,
                             DexLocationDao locationDao) {
         this.entityManager = entityManager;
@@ -51,7 +54,8 @@ public class AssetServiceImpl implements AssetService {
         this.securityService = securityService;
         this.workflowService = workflowService;
         this.systemService = systemService;
-        this.parserRegistry = parserRegistry;
+        this.locationParserRegistry = locationParserStrategy;
+        this.assetParserRegistry = assetParserRegistry;
         this.assetCodeDao = assetCodeDao;
         this.assetDao = assetDao;
         this.locationDao = locationDao;
@@ -156,9 +160,9 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public void parseTextFile(File file) throws Exception {
+    public void parseLocation(File file) throws Exception {
         try {
-            parserRegistry.process(file);
+            locationParserRegistry.process(file);
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -223,6 +227,15 @@ public class AssetServiceImpl implements AssetService {
     public void removeAsset(DexAsset asset) {
         assetDao.remove(asset, securityService.getCurrentUser());
         entityManager.flush();
+    }
+
+    @Override
+    public void parseAsset(File file) throws Exception {
+        try {
+            assetParserRegistry.process(file);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
     // =============================================================================================

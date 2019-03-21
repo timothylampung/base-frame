@@ -50,7 +50,7 @@ public interface AssetService {
 
     void removeLocation(DexLocation location);
 
-    void parseTextFile(File file) throws Exception;
+    void parseLocation(File file) throws Exception;
 
     //==============================================================================================
     // ASSET
@@ -76,5 +76,7 @@ public interface AssetService {
     void updateAsset(DexAsset asset);
 
     void removeAsset(DexAsset asset);
+
+    void parseAsset(File file) throws Exception;
 
 }

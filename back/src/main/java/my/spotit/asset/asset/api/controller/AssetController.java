@@ -101,6 +101,14 @@ public class AssetController {
         return new ResponseEntity<ApplicationSuccess>(new ApplicationSuccess("Success", ""), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/assets/upload")
+    public ResponseEntity<?> uploadAssets(@RequestParam("file") MultipartFile file) throws Exception {
+        File tempFile = File.createTempFile("tmp_", null);
+        FileUtils.writeByteArrayToFile(tempFile, file.getBytes());
+        assetService.parseAsset(tempFile);
+        return ResponseEntity.ok(new ApplicationSuccess("success", "Attachment added"));
+    }
+
     @PutMapping(value = "/assets/{code}")
     public ResponseEntity<ApplicationSuccess> updateAsset(@PathVariable String code, @RequestBody Asset vo) {
         DexAsset asset = assetService.findAssetById(vo.getId());
@@ -162,7 +170,7 @@ public class AssetController {
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         File tempFile = File.createTempFile("tmp_", null);
         FileUtils.writeByteArrayToFile(tempFile, file.getBytes());
-        assetService.parseTextFile(tempFile);
+        assetService.parseLocation(tempFile);
         return ResponseEntity.ok(new ApplicationSuccess("success", "Attachment added"));
     }
 

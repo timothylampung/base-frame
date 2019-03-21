@@ -1,17 +1,35 @@
 import {Injectable} from "@angular/core";
 import {
-    FIND_ALL_ASSETS, FIND_PAGED_ASSETS,
-    FindAllAssetsSuccessAction, FindPagedAssetsAction,
-    FindPagedAssetsSuccessAction, REMOVE_ASSET, RemoveAssetAction, RemoveAssetSuccessAction,
+    FIND_ALL_ASSETS,
+    FIND_PAGED_ASSETS,
+    FindAllAssetsSuccessAction,
+    FindPagedAssetsAction,
+    FindPagedAssetsSuccessAction,
+    REMOVE_ASSET,
+    RemoveAssetAction,
+    RemoveAssetSuccessAction,
     SAVE_ASSET,
-    SaveAssetAction, SaveAssetSuccessAction, UPDATE_ASSET,
-    UpdateAssetAction, UpdateAssetSuccessAction
+    SaveAssetAction,
+    SaveAssetSuccessAction,
+    UPDATE_ASSET,
+    UpdateAssetAction,
+    UpdateAssetSuccessAction,
+    UPLOAD_ASSET,
+    UploadAssetAction, UploadAssetErrorAction,
+    UploadAssetSuccessAction
 } from "./asset-action";
 import {Actions, Effect, ofType} from "@ngrx/effects";
-import {map, mergeMap, switchMap} from "rxjs/operators";
+import {catchError, map, mergeMap, switchMap} from "rxjs/operators";
 import {from, Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 import {AssetService} from "../../../services/asset.service";
+import {
+    FindPagedLocationsAction,
+    UPLOAD_LOCATION,
+    UploadLocationAction, UploadLocationErrorAction,
+    UploadLocationSuccessAction
+} from "../locations/location-action";
+import {LoadError} from "../../../static/app.action";
 
 
 @Injectable()
@@ -60,4 +78,19 @@ export class AssetEffects {
             switchMap(payload => this.assetService.removeAsset(payload)),
             map(message => new RemoveAssetSuccessAction({message: 'success'})),
             mergeMap(action => from([action, new FindPagedAssetsAction({filter: '', page: 1})])),);
+
+    @Effect()
+    public uploadAsset$ = this.actions$.pipe(
+        ofType(UPLOAD_ASSET),
+        map((action: UploadAssetAction) => action.payload.file),
+        switchMap(file => this.assetService.uploadAsset(file)
+            .pipe(
+                switchMap(() => [
+                    new UploadAssetSuccessAction({message: ''}),
+                    new FindPagedAssetsAction({filter: '%', page: 1})
+                ]),
+                catchError(err => [new LoadError(err), new UploadAssetErrorAction(err)])
+            )
+        ));
+
 }

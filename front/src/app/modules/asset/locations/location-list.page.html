@@ -38,7 +38,7 @@
                     <button pButton class="ui-button-danger"
                             (click)="displayDelete = !displayDelete;" type="button"
                             icon="pi pi-trash"></button>
-                    <button (click)="upload()" pButton type="button" icon="pi pi-upload"></button>
+                    <button pButton class="ui-button-info "(click)="upload()" type="button" icon="pi pi-upload"></button>
                 </div>
             </div>
         </p-toolbar>
@@ -128,6 +128,5 @@
 
 <dex-location-uploader-dialog
     [showDialog]="displayUpload">
-
 </dex-location-uploader-dialog>
 

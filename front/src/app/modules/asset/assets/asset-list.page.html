@@ -1,6 +1,3 @@
-<p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
-    <dex-asset-detail-page [selectedRow]="selectedRow" (onSubmit)="dialogClosed($event)"></dex-asset-detail-page>
-</p-sidebar>
 
 <div class="ui-g">
     <div class="ui-g-12">
@@ -36,6 +33,7 @@
                         <button (click)="search()" pButton type="button" icon="pi pi-search"></button>
                         <button pButton class="ui-button-success" (click)="display = !display; selectedRow = undefined;" type="button" icon="pi pi-plus"></button>
                         <button pButton class="ui-button-danger" (click)="displayDelete = !displayDelete;" type="button" icon="pi pi-trash"></button>
+                        <button pButton class="ui-button-info "(click)="upload()" type="button" icon="pi pi-upload"></button>
                     </div>
                 </div>
 
@@ -113,3 +111,11 @@
         <p-paginator (onPageChange)="page($event)" [rows]="10" [totalRecords]="(assets$| async).totalSize"></p-paginator>
     </div>
 </div>
+
+<p-sidebar styleClass="ui-sidebar-lg" [(visible)]="display" [fullScreen]="false" position="right">
+    <dex-asset-detail-page [selectedRow]="selectedRow" (onSubmit)="dialogClosed($event)"></dex-asset-detail-page>
+</p-sidebar>
+
+<dex-asset-uploader-dialog
+    [showDialog]="displayUpload">
+</dex-asset-uploader-dialog>

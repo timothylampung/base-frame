@@ -21,6 +21,7 @@ export class AssetListPage implements OnInit {
     searchQuery : string = '';
     selectedRow: Asset = null;
     display : boolean = false;
+    displayUpload : boolean = false;
     displayDelete: boolean = false;
     msgs: Message[] = [];
 
@@ -86,6 +87,10 @@ export class AssetListPage implements OnInit {
     search() {
         console.log(this.searchQuery);
         this.store.dispatch(new FindPagedAssetsAction({filter: this.searchQuery, page: 1}));
+    }
+
+    upload() {
+        this.displayUpload = true;
     }
 
     page(event) {

@@ -22,6 +22,7 @@ import {LocationAutocompleteComponent} from "./locations/location-autocomplete.c
 import {AssetAutocompleteComponent} from "./assets/asset-detail/asset-autocomplete.component";
 import {AssetCodeAutocompleteComponent} from "./asset-codes/asset-code-detail/asset-code-autocomplete.component";
 import {LocationUploaderDialog} from "./locations/location-uploader.dialog";
+import {AssetUploaderDialog} from "./assets/asset-uploader.dialog";
 
 @NgModule({
     imports: [
@@ -47,12 +48,14 @@ import {LocationUploaderDialog} from "./locations/location-uploader.dialog";
         LocationUploaderDialog,
         AssetAutocompleteComponent,
         AssetCodeAutocompleteComponent,
+        AssetUploaderDialog,
     ],
     exports: [
         LocationAutocompleteComponent,
         LocationUploaderDialog,
         AssetAutocompleteComponent,
         AssetCodeAutocompleteComponent,
+        AssetUploaderDialog,
     ],
     providers: [
         AssetService,
