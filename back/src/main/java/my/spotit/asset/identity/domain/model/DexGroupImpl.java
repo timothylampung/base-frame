@@ -26,7 +26,6 @@ public class DexGroupImpl extends DexPrincipalImpl implements DexGroup {
     }
 
     public void setMembers(Set<DexPrincipal> members) {
-
         this.members = members;
     }
 

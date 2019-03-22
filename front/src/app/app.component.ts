@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {WebsocketService} from "./services/websocket.service";
 import {NotificationContext} from "./modules/notification/notification.model";
 
@@ -7,7 +7,7 @@ import {NotificationContext} from "./modules/notification/notification.model";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
 
     constructor(private websocketService: WebsocketService) {
     }
@@ -16,14 +16,19 @@ export class AppComponent implements OnInit {
         this.websocketService.connect();
     }
 
-    send(){
+
+    send() {
         this.websocketService.sendNotification({
             context: NotificationContext.MAINTENANCE_REQUEST,
-            message : 'You Have New Maintenance Request',
+            message: 'You Have New Maintenance Request',
             id: 0,
             recieverEmail: 'tech1@spotit.my',
-            senderEmail : 'fm2@spotit.my'
+            senderEmail: 'fm2@spotit.my'
         })
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes)
     }
 
 }

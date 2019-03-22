@@ -498,9 +498,9 @@
         top: 4px; }
 
 .login-body {
-  background: url("../images/login/login.png") top left no-repeat #f7f7f7;
+  background: url("../images/login/background.jpg") top left no-repeat #f7f7f7;
   background-size: 100% auto;
-  height: auto; }
+  height:  100%; }
 
 .login-panel {
   text-align: center;
