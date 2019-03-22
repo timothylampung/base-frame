@@ -7,22 +7,14 @@ export class JwtHttpInterceptor implements HttpInterceptor {
     constructor() {
     }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let clone: HttpRequest<any>;
-        let ignore =
-            typeof req.body === "undefined"
-            || req.body === null
-            || req.body.toString() === "[object FormData]" // <-- This solves your problem
-            || req.headers.has("Content-Type");
-
-        if (ignore) {
-            return next.handle(req);
-        }
-
-        const cloned = req.clone({
-            headers: req.headers.set("Content-Type", 'application/json')
-                .append("Authorization", `Bearer ${localStorage.getItem('access_token')}`)
+        clone = request.clone({
+            setHeaders: {
+                'Content-Type': `application/json`,
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
         });
-        return next.handle(cloned);
+        return next.handle(clone);
     }
 }
