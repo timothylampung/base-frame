@@ -6,7 +6,8 @@ export interface Notification extends MetaObject {
     recieverEmail: string;
     message?: string;
     context? : NotificationContext;
-    document? : Document
+    document? : Document,
+    senderEmail : string;
 }
 
 export enum NotificationContext {

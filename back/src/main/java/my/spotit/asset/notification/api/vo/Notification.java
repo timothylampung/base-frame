@@ -9,6 +9,15 @@ public class Notification extends MetaObject {
     private String message;
     private NotificationContext context;
     private Document document;
+    private String senderEmail;
+
+    public String getSenderEmail() {
+        return senderEmail;
+    }
+
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
+    }
 
     public String getRecieverEmail() {
         return recieverEmail;

@@ -2,7 +2,8 @@ package my.spotit.asset.notification.api;
 
 
 import my.spotit.asset.core.domain.DexDocument;
-import my.spotit.asset.integration.mobile.asset.api.NotificationTransformer;
+import my.spotit.asset.identity.business.service.IdentityService;
+import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.maintenance.business.service.MaintenanceRequestService;
 import my.spotit.asset.notification.api.vo.Notification;
 import my.spotit.asset.notification.api.vo.NotificationContext;
@@ -17,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,26 +34,43 @@ public class NotificationController {
     private MaintenanceRequestService maintenanceRequestService;
     private NotificationService notificationService;
     private NotificationTransformer notificationTransformer;
+    private AuthenticationManager authenticationManager;
+    private IdentityService identityService;
+
 
     @Autowired
-    public NotificationController(WorkOrderService workOrderService, MaintenanceRequestService maintenanceRequestService, NotificationService notificationService, NotificationTransformer notificationTransformer) {
+    public NotificationController(WorkOrderService workOrderService, MaintenanceRequestService maintenanceRequestService, NotificationService notificationService, NotificationTransformer notificationTransformer, AuthenticationManager credentialManager, IdentityService identityService) {
         this.workOrderService = workOrderService;
         this.maintenanceRequestService = maintenanceRequestService;
         this.notificationService = notificationService;
         this.notificationTransformer = notificationTransformer;
+        this.authenticationManager = credentialManager;
+        this.identityService = identityService;
     }
 
     @MessageMapping("/notification")
     @SendTo("/topic/notify")
     public Notification notify(Notification notification) {
+
+        String email = notification.getSenderEmail();
+        DexUser userByEmail = identityService.findUserByEmail(email);
+        autoLogin(userByEmail.getUsername(), userByEmail.getPassword());
+
         DexDocument document = null;
-        if (notification.getContext() == NotificationContext.MAINTENANCE_REQUEST) {
-            document = maintenanceRequestService.findMaintenanceRequestByReferenceNo(notification.getDocument().getReferenceNo());
-            notification.setMessage("You have new request");
-        } else {
-            document = workOrderService.findWorkOrderByReferenceNo(notification.getDocument().getReferenceNo());
-            notification.setMessage("You have new workorder");
+        String referenceNo = null;
+
+        if (notification.getDocument() != null) {
+            referenceNo = notification.getDocument().getReferenceNo();
         }
+
+        if (referenceNo != null) {
+            if (notification.getContext() == NotificationContext.MAINTENANCE_REQUEST) {
+                document = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
+            } else {
+                document = workOrderService.findWorkOrderByReferenceNo(referenceNo);
+            }
+        }
+
         DexNotification nn = new DexNotificationImpl();
         nn.setContext(DexNotificationContext.get(notification.getContext().ordinal()));
         nn.setDocument(document);
@@ -56,6 +78,12 @@ public class NotificationController {
         nn.setRecieverEmail(notification.getMessage());
         notificationService.broadCastNotificatification(nn);
         return notification;
+    }
+
+    private void autoLogin(String principal, String credentials) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, credentials);
+        Authentication authed = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authed);
     }
 
 

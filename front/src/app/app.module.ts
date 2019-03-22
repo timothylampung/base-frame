@@ -33,6 +33,7 @@ import {InventoryModule} from "./modules/inventory/inventory.module";
 import {WorkOrderModule} from "./modules/work-order/work-order.module";
 import {DashboardPage} from "./static/pages/dashboard.page";
 import {ReportModule} from "./modules/report/report.module";
+import {WebsocketService} from "./services/websocket.service";
 
 @NgModule({
     imports: [
@@ -70,6 +71,7 @@ import {ReportModule} from "./modules/report/report.module";
     providers: [
         BreadcrumbService,
         LoaderService,
+        WebsocketService,
         IdentityService,
         {provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},

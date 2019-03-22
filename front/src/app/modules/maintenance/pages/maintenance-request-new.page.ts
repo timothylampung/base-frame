@@ -6,6 +6,8 @@ import {AppState} from '../../../core/core.state';
 import {initStateMaintenanceRequest, MaintenanceRequest, MaintenanceRequestTaskSummary} from '../maintenance-request.model';
 import {BreadcrumbService} from "../../../breadcrumb.service";
 import {StartMaintenanceRequestTaskAction} from "../maintenance-request.action";
+import {WebsocketService} from "../../../services/websocket.service";
+import {NotificationContext} from "../../notification/notification.model";
 
 const MAINTENANCE_REQUEST_BASE_URI = '/maintenanceRequest/maintenanceRequest-tasks';
 
@@ -34,6 +36,7 @@ export class MaintenanceRequestNewPage implements OnInit {
                 public confirmationService: ConfirmationService,
                 public fb: FormBuilder,
                 public store: Store<AppState>,
+                public websocketService : WebsocketService,
                 public cdr: ChangeDetectorRef) {
         this.breadcrumbService.setItems(this.breadcrumbs);
     }
@@ -68,6 +71,12 @@ export class MaintenanceRequestNewPage implements OnInit {
                         ...this.mainForm.value,
                     };
                     this.store.dispatch(new StartMaintenanceRequestTaskAction(maintenanceRequest));
+                    this.websocketService.sendNotification({
+                        context: NotificationContext.MAINTENANCE_REQUEST,
+                        message : 'You Have New Maintenance Request',
+                        id: 0,
+                        recieverEmail: 'tech1@spotit.my',
+                    })
                 }
             });
         }

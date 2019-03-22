@@ -19,6 +19,8 @@ import {CommonService} from "../../../services";
 import {WorkOrder} from "../work-order.model";
 import {selectWorkOrder} from "../work-order.selector";
 import {ActivatedRoute} from "@angular/router";
+import {WebsocketService} from "../../../services/websocket.service";
+import {Notification, NotificationContext} from "../../notification/notification.model";
 
 @Component({
     selector: 'dex-work-order-prepare-page',
@@ -33,6 +35,7 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
     constructor(public breadcrumbService: BreadcrumbService,
                 public messageService: MessageService,
                 public confirmationService: ConfirmationService,
+                private webSocketService: WebsocketService,
                 public fb: FormBuilder,
                 public route: ActivatedRoute,
                 public commonService: CommonService,
@@ -44,10 +47,10 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
 
     ngOnInit() {
         super.ngOnInit()
-    //
-    //     this.commonService.downloadFile(this.workOrderTask.workOrder.file.name).subscribe(blob => {
-    //         this.createImageFromBlob(blob);
-    //     })
+        //
+        //     this.commonService.downloadFile(this.workOrderTask.workOrder.file.name).subscribe(blob => {
+        //         this.createImageFromBlob(blob);
+        //     })
 
         this.route.params.subscribe((params: { referenceNo: string }) => {
             this.store.dispatch(new FindWorkOrderByReferenceNoAction(params.referenceNo));
@@ -78,6 +81,13 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
                 acceptLabel: 'Yes',
                 rejectLabel: 'No',
                 accept: () => {
+                    this.webSocketService.sendNotification({
+                        context: NotificationContext.MAINTENANCE_REQUEST,
+                        id: 0,
+                        recieverEmail: 'tech1@spotit.my',
+                        document : this.workOrderTask.workOrder,
+                    })
+
                     this.store.dispatch(new CompleteWorkOrderTaskAction({taskId: this.workOrderTask.taskId}));
                     // this.store.dispatch(new UpdateWorkOrderAction({
                     //         ...this.workOrderTask,
