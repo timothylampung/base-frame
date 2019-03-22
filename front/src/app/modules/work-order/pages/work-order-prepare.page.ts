@@ -86,6 +86,7 @@ export class WorkOrderPreparePage extends WorkOrderPage implements OnInit {
                         id: 0,
                         recieverEmail: 'tech1@spotit.my',
                         document : this.workOrderTask.workOrder,
+                        senderEmail : 'tech1@spotit.my'
                     })
 
                     this.store.dispatch(new CompleteWorkOrderTaskAction({taskId: this.workOrderTask.taskId}));
