@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -15,13 +16,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.persistence.EntityManager;
+
+import my.spotit.asset.DexConstants;
+import my.spotit.asset.identity.domain.dao.DexStaffDao;
 import my.spotit.asset.identity.domain.model.DexStaff;
 import my.spotit.asset.identity.domain.model.DexStaffImpl;
+import my.spotit.asset.security.business.service.SecurityService;
+import my.spotit.asset.system.business.service.SystemService;
 
 @Component
 public class StandardStaffParserImpl extends StaffParser {
     private static final Logger LOG = LoggerFactory.getLogger(StandardStaffParserImpl.class);
     private static final int START_ROW_INDEX = 1;
+
+//    @Autowired
+//    SystemService systemService;
+//
+    @Autowired
+    DexStaffDao staffDao;
+
+    @Autowired
+    SecurityService securityService;
+
+    @Autowired
+    EntityManager entityManager;
 
     @Override
     public void parse(File file) throws IOException {
@@ -35,12 +54,13 @@ public class StandardStaffParserImpl extends StaffParser {
             if (row.getRowNum() < START_ROW_INDEX) continue;
 
             // todo
+//            String code = systemService.generateSequenceGenerator(DexConstants.LOCATION_CODE);
             String username = row.getCell(ColIndex.USERNAME).getStringCellValue();
             String email = row.getCell(ColIndex.EMAIL).getStringCellValue();
             String name = row.getCell(ColIndex.NAME).getStringCellValue();
 
             DexStaff staff = new DexStaffImpl();
-            staff.setCode("AST-" + System.currentTimeMillis());
+//            staff.setCode(code);
             staffDao.save(staff, securityService.getCurrentUser());
         }
     }

@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,13 +18,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.persistence.EntityManager;
+
+import my.spotit.asset.DexConstants;
+import my.spotit.asset.asset.domain.dao.DexLocationDao;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.security.business.service.SecurityService;
+import my.spotit.asset.system.business.service.SystemService;
 
 @Component
 public class StandardLocationParserImpl extends LocationParser {
     private static final Logger LOG = LoggerFactory.getLogger(StandardLocationParserImpl.class);
     private static final int START_ROW_INDEX = 1;
+
+//    @Autowired
+//    SystemService systemService;
+
+    @Autowired
+    DexLocationDao locationDao;
+
+    @Autowired
+    SecurityService securityService;
+
+    @Autowired
+    EntityManager entityManager;
+
 
     @Override
     public void parse(File file) throws IOException {
@@ -45,6 +65,7 @@ public class StandardLocationParserImpl extends LocationParser {
                             address
                     });
 
+//            String code = systemService.generateSequenceGenerator(DexConstants.LOCATION_CODE);
             DexLocation location = new DexLocationImpl();
             location.setCode("LCTN-" + System.currentTimeMillis());
             location.setName(name);

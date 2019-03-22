@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -16,15 +17,41 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.persistence.EntityManager;
+
+import my.spotit.asset.DexConstants;
+import my.spotit.asset.asset.domain.dao.DexAssetCodeDao;
+import my.spotit.asset.asset.domain.dao.DexAssetDao;
+import my.spotit.asset.asset.domain.dao.DexLocationDao;
 import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetImpl;
 import my.spotit.asset.asset.domain.model.DexLocation;
 import my.spotit.asset.asset.domain.model.DexLocationImpl;
+import my.spotit.asset.security.business.service.SecurityService;
+import my.spotit.asset.system.business.service.SystemService;
 
 @Component
 public class StandardAssetParserImpl extends AssetParser {
     private static final Logger LOG = LoggerFactory.getLogger(StandardAssetParserImpl.class);
     private static final int START_ROW_INDEX = 1;
+
+    @Autowired
+    SystemService systemService;
+
+    @Autowired
+    DexAssetDao assetDao;
+
+    @Autowired
+    DexAssetCodeDao assetCodeDao;
+
+    @Autowired
+    DexLocationDao locationDao;
+
+    @Autowired
+    SecurityService securityService;
+
+    @Autowired
+    EntityManager entityManager;
 
     @Override
     public void parse(File file) throws IOException {
@@ -44,6 +71,7 @@ public class StandardAssetParserImpl extends AssetParser {
             double quantity = row.getCell(ColIndex.QUANTITY).getNumericCellValue();
             double cost = row.getCell(ColIndex.COST).getNumericCellValue();
 
+//            String code = systemService.generateSequenceGenerator(DexConstants.LOCATION_CODE);
             DexAsset asset = new DexAssetImpl();
             asset.setCode("AST-" + System.currentTimeMillis());
             asset.setDescription(description);

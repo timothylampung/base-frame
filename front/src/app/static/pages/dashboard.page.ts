@@ -19,14 +19,12 @@ export class DashboardPage implements OnInit {
     countMaintenanceRequest: number = 2;
     countStaff: number = 3;
     countAsset: number = 4;
+    countLocation: number = 4;
     lineData: any;
     barData: any;
     timeData: any;
     changedBarData: any;
     changedTimeData: any;
-    pieData: any;
-    polarData: any;
-    radarData: any;
     chartOptions : any = {
         scales: {
             xAxes: [{
@@ -89,74 +87,6 @@ export class DashboardPage implements OnInit {
                 }
             ]
         };
-
-
-        this.pieData = {
-            labels: ['A', 'B', 'C'],
-            datasets: [
-                {
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        '#2162b0',
-                        '#e02365',
-                        '#eeb210'
-                    ]
-                }]
-        };
-
-        this.polarData = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    '#2162b0',
-                    '#e02365',
-                    '#eeb210',
-                    '#17AFC2',
-                    '#AB44BC'
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                'Red',
-                'Green',
-                'Yellow',
-                'Grey',
-                'Blue'
-            ]
-        };
-
-        this.radarData = {
-            labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    backgroundColor: 'rgba(179,181,198,0.2)',
-                    borderColor: 'rgba(179,181,198,1)',
-                    pointBackgroundColor: 'rgba(179,181,198,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(179,181,198,1)',
-                    data: [65, 59, 90, 81, 56, 55, 40]
-                },
-                {
-                    label: 'My Second dataset',
-                    backgroundColor: 'rgba(255,99,132,0.2)',
-                    borderColor: 'rgba(255,99,132,1)',
-                    pointBackgroundColor: 'rgba(255,99,132,1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(255,99,132,1)',
-                    data: [28, 48, 40, 19, 96, 27, 100]
-                }
-            ]
-        };
-
         this.changeData();
     }
 
@@ -219,6 +149,9 @@ export class DashboardPage implements OnInit {
         this.http.get<number>(this.DASHBOARD_API + '/asset-count')
             .subscribe(count => this.countAsset = count);
 
+        this.http.get<number>(this.DASHBOARD_API + '/location-count')
+            .subscribe(count => this.countLocation = count);
+
     }
 
     viewWorkOrder(evt) {
@@ -231,5 +164,9 @@ export class DashboardPage implements OnInit {
 
     viewAsset(evt) {
         this.router.navigate(['/asset/assets/list']);
+    }
+
+    viewLocation(evt) {
+        this.router.navigate(['/asset/locations/list']);
     }
 }
