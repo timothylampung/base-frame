@@ -11,16 +11,18 @@ import {AssetCodeListPage} from "./asset-codes/asset-code-list.page";
 import {LocationListPage} from "./locations/location-list.page";
 import {LocationEffects} from "./locations/location-effect";
 import {AssetListPage} from "./assets/asset-list.page";
-import {AssetEffects} from "./assets/asset-effect";
-import {LocationDetailPage} from "./locations/location-detail/location-detail.page";
+import {AssetEffects} from "./assets/asset.effect";
+import {LocationDetailPage} from "./locations/location-detail.page";
 import {AssetCodeDetailPage} from "./asset-codes/asset-code-detail/asset-code-detail.page";
-import {AssetDetailPage} from "./assets/asset-detail/asset-detail.page";
+import {AssetDetailPage} from "./assets/asset-detail.page";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 import {AssetCategory} from "./assets/asset-category.enum";
-import {AssetCategoryDropdown} from "./assets/asset-detail/asset-category.dropdown";
+import {AssetCategoryDropdown} from "./assets/asset-category.dropdown";
 import {LocationAutocompleteComponent} from "./locations/location-autocomplete.component";
-import {AssetAutocompleteComponent} from "./assets/asset-detail/asset-autocomplete.component";
+import {AssetAutocompleteComponent} from "./assets/asset-autocomplete.component";
 import {AssetCodeAutocompleteComponent} from "./asset-codes/asset-code-detail/asset-code-autocomplete.component";
+import {LocationUploaderDialog} from "./locations/location-uploader.dialog";
+import {AssetUploaderDialog} from "./assets/asset-uploader.dialog";
 
 @NgModule({
     imports: [
@@ -43,13 +45,17 @@ import {AssetCodeAutocompleteComponent} from "./asset-codes/asset-code-detail/as
         LocationDetailPage,
         AssetCategoryDropdown,
         LocationAutocompleteComponent,
+        LocationUploaderDialog,
         AssetAutocompleteComponent,
         AssetCodeAutocompleteComponent,
+        AssetUploaderDialog,
     ],
     exports: [
         LocationAutocompleteComponent,
+        LocationUploaderDialog,
         AssetAutocompleteComponent,
         AssetCodeAutocompleteComponent,
+        AssetUploaderDialog,
     ],
     providers: [
         AssetService,

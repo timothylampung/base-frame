@@ -1,0 +1,15 @@
+<span class="md-inputfield">
+    <p-autoComplete #p
+                    id="asset"
+                    [formControl]="innerFormControl"
+                    [suggestions]="assets"
+                    [forceSelection]="true"
+                    [dropdown]="true"
+                    [emptyMessage]="'No Record'"
+                    (completeMethod)="search($event)"
+                    field="description">
+        <ng-template let-value pTemplate="item">
+            <span>{{value?.code}} - {{value?.description}}</span>
+        </ng-template>
+    </p-autoComplete>
+</span>

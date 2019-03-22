@@ -41,26 +41,7 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     ngOnInit() {
-        super.ngOnInit()
-        console.log(this.maintenanceRequestTask);
-        console.log(this.mainForm.value);
-
-        this.mainForm = this.fb.group({
-            referenceNo: [''],
-            sourceNo: [''],
-            description: [{value: '', disabled: true}, Validators.required],
-            requester: [],
-            requestedDate: [],
-            delegator: [],
-            verifier: [],
-            location: [],
-            asset: [],
-            remark: [],
-            reporter: [],
-            delegated: [],
-        });
-
-        this.mainForm.patchValue(this.maintenanceRequestTask.request);
+        super.ngOnInit();
 
         // this.commonService.downloadFile(this.maintenanceRequestTask.request.file.fileName).subscribe(blob => {
         //     this.createImageFromBlob(blob);
@@ -95,15 +76,11 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
                     this.store.dispatch(new UpdateMaintenanceRequestAction({
                             ...this.maintenanceRequestTask,
                             ...this.mainForm.value,
-
-
                         })
                     );
                     console.log(this.maintenanceRequestTask);
-                    this.mainForm.patchValue(this.maintenanceRequestTask);
+                    // this.mainForm.patchValue(this.maintenanceRequestTask);
                     console.log(this.mainForm.value);
-
-
                 }
             });
         }
@@ -123,22 +100,20 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
     }
 
     updateMaintenanceRequest() {
-        console.log('this is a test');
+        this.confirmationService.confirm({
+            message: 'Update maintenance request?',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
+            accept: () => {
 
-        this.store.dispatch(
-            new UpdateMaintenanceRequestAction({
-                ...this.maintenanceRequestTask,
-                ...this.mainForm.value
-            })
-        );
-
-        // this.confirmationService.confirm({
-        //     message: 'Update maintenance request?',
-        //     acceptLabel: 'Yes',
-        //     rejectLabel: 'No',
-        //     accept: () => {
-        //     }
-        // });
+                this.store.dispatch(
+                    new UpdateMaintenanceRequestAction({
+                        ...this.maintenanceRequestTask,
+                        ...this.mainForm.value
+                    })
+                );
+            }
+        });
     }
 
     addActivity() {
@@ -147,7 +122,6 @@ export class MaintenanceRequestDraftPage extends MaintenanceRequestPage implemen
 
     viewAbout() {
         this.selectedAbout = null;
-        // this.showAboutDialog();
     }
 
 }

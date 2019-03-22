@@ -31,7 +31,7 @@ export class MaintenanceRequestWorkflowPage {
                 public store: Store<MaintenanceRequestState>) {
     }
 
-    ngOnChanges(changes: { [ propName: string]: SimpleChange }) {
+    ngOnChanges(changes: { [propName: string]: SimpleChange }) {
         let componentFactory;
         if (changes['maintenanceRequestTask']) {
             if (this.maintenanceRequestTask && this.maintenanceRequestTask.flowState !== null) {
@@ -39,6 +39,11 @@ export class MaintenanceRequestWorkflowPage {
 
                 if (this.componentRef) {
                     this.componentRef.destroy();
+                }
+
+                // note: workaround
+                if (this.maintenanceRequestTask.request) {
+                    this.maintenanceRequestTask.request.requestedDate = new Date(this.maintenanceRequestTask.request.requestedDate);
                 }
 
                 if (this.maintenanceRequestTask.flowState === FlowState.DRAFTED) {

@@ -10,3 +10,10 @@ export interface StaffResult {
     data: Staff[];
 }
 
+export interface StaffUploadStatus {
+    isError: boolean,
+    errorMsg: string
+    uploaded: boolean;
+}
+
+

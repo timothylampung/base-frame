@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
 import {ApplicationError} from "../../../models/application-error.model";
-import {Location, LocationResult} from "./location-model";
+import {Location, LocationResult} from "./location.model";
 
 export const FIND_ALL_LOCATIONS = '[Location] Find All Locations';
 export const FIND_ALL_LOCATIONS_SUCCESS = '[Location] Find All Locations Success';
@@ -17,6 +17,9 @@ export const UPDATE_LOCATION_ERROR = '[Location] Update Location Error';
 export const REMOVE_LOCATION = '[Location] Remove Location';
 export const REMOVE_LOCATION_SUCCESS = '[Location] Remove Location Success';
 export const REMOVE_LOCATION_ERROR = '[Location] Remove Location Error';
+export const UPLOAD_LOCATION = '[Location] Upload Location';
+export const UPLOAD_LOCATION_SUCCESS = '[Location] Upload Location success';
+export const UPLOAD_LOCATION_ERROR = '[Location] Upload Location error';
 
 export class FindAllLocationsAction implements Action {
     readonly type: string = FIND_ALL_LOCATIONS;
@@ -123,3 +126,25 @@ export class RemoveLocationErrorAction implements Action {
     constructor(public payload: ApplicationError) {
     }
 }
+
+export class UploadLocationAction implements Action {
+    readonly type: string = UPLOAD_LOCATION;
+
+    constructor(public payload: { file: File }) {
+    }
+}
+
+export class UploadLocationSuccessAction implements Action {
+    readonly type: string = UPLOAD_LOCATION_SUCCESS;
+
+    constructor(public payload: { message: string }) {
+    }
+}
+
+export class UploadLocationErrorAction implements Action {
+    readonly type: string = UPLOAD_LOCATION_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+

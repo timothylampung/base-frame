@@ -4,6 +4,7 @@ import my.spotit.asset.asset.domain.model.DexAsset;
 import my.spotit.asset.asset.domain.model.DexAssetCode;
 import my.spotit.asset.asset.domain.model.DexLocation;
 
+import java.io.File;
 import java.util.List;
 
 public interface AssetService {
@@ -49,6 +50,8 @@ public interface AssetService {
 
     void removeLocation(DexLocation location);
 
+    void parseLocation(File file) throws Exception;
+
     //==============================================================================================
     // ASSET
     //==============================================================================================
@@ -73,5 +76,7 @@ public interface AssetService {
     void updateAsset(DexAsset asset);
 
     void removeAsset(DexAsset asset);
+
+    void parseAsset(File file) throws Exception;
 
 }

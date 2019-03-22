@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 import {FindPagedPartCodesAction} from "./part-code-action";
 import {PartCode, PartCodeResult} from "./part-code-model";
 import {InventoryState} from "../inventory.state";
-import {Location} from "../../asset/locations/location-model";
+import {Location} from "../../asset/locations/location.model";
 import {FindPagedUsersAction} from "../../identity/principals/user/user.action";
 
 @Component({

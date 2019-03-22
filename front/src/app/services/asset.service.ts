@@ -3,9 +3,9 @@ import {Injectable} from "@angular/core";
 import {AssetCode, AssetCodeResult} from "../modules/asset/asset-codes/asset-code-model";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {LocationResult} from "../modules/asset/locations/location-model";
-import {Location} from "../modules/asset/locations/location-model";
-import {Asset, AssetResult} from "../modules/asset/assets/asset-model";
+import {LocationResult} from "../modules/asset/locations/location.model";
+import {Location} from "../modules/asset/locations/location.model";
+import {Asset, AssetResult} from "../modules/asset/assets/asset.model";
 
 
 
@@ -16,7 +16,6 @@ export class AssetService {
 
     constructor(public http: HttpClient) {
     }
-
 
     // ===================================================================================================================
     // ASSET CODES
@@ -82,18 +81,24 @@ export class AssetService {
         return this.http.delete(this.ASSET_API + '/locations/' + code.code);
     }
 
+    uploadLocation(file: File) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const url = `${this.ASSET_API}/locations/upload`;
+        return this.http.post(url, formData);
+    }
 
     // ===================================================================================================================
-    // Asset
+    // ASSET
     // ===================================================================================================================
 
     findPagedAssets(filter: string, page: number): Observable<AssetResult> {
-        console.log(filter + " " + page)
+        console.log(filter + " " + page);
         return this.http.get<AssetResult>(this.ASSET_API + '/assets?filter='+filter+"&page="+page);
     }
 
     findAssets(): Observable<Asset[]> {
-        console.log("AssetService.findAssets()")
+        console.log("AssetService.findAssets()");
         return this.http.get<Asset[]>(this.ASSET_API + '/assets');
     }
 
@@ -109,5 +114,11 @@ export class AssetService {
         return this.http.delete(this.ASSET_API + '/assets/' + asset.code);
     }
 
+    uploadAsset(file: File) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const url = `${this.ASSET_API}/assets/upload`;
+        return this.http.post(url, formData);
+    }
 }
 

@@ -1,12 +1,12 @@
 package my.spotit.asset.maintenance.api.vo;
 
+import java.util.Date;
+
 import my.spotit.asset.asset.api.vo.Asset;
 import my.spotit.asset.asset.api.vo.Location;
 import my.spotit.asset.common.api.vo.File;
 import my.spotit.asset.core.api.Document;
 import my.spotit.asset.identity.api.vo.Actor;
-
-import java.sql.Date;
 
 public class MaintenanceRequest extends Document {
 

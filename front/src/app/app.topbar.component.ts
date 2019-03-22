@@ -4,6 +4,9 @@ import {AppShellComponent} from "./app-shell/app-shell.component";
 @Component({
     selector: 'app-topbar',
     template: `
+        <dex-loader></dex-loader>
+        <p-toast [position]="'top-center'"></p-toast>
+ 
         <div class="topbar clearfix">
             <div class="topbar-left">
                 <div class="logo"></div>
@@ -165,14 +168,14 @@ import {AppShellComponent} from "./app-shell/app-shell.component";
                             </li>
                         </ul>
                     </li>
-                    <li #search class="search-item" [ngClass]="{'active-top-menu':app.activeTopbarItem === search}"
-                        (click)="app.onTopbarItemClick($event,search)">
-                        <span class="md-inputfield">
-                            <input type="text" pInputText>
-                            <label>Search</label>
-                            <i class="topbar-icon material-icons">search</i>
-                        </span>
-                    </li>
+                    <!--<li #search class="search-item" [ngClass]="{'active-top-menu':app.activeTopbarItem === search}"-->
+                        <!--(click)="app.onTopbarItemClick($event,search)">-->
+                        <!--<span class="md-inputfield">-->
+                            <!--<input type="text" pInputText>-->
+                            <!--<label>Search</label>-->
+                            <!--<i class="topbar-icon material-icons">search</i>-->
+                        <!--</span>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </div>

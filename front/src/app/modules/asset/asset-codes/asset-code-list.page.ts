@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 import {FindPagedAssetCodesAction, RemoveAssetCodeAction} from "./asset-code.action";
 import {AssetCode, AssetCodeResult} from "./asset-code-model";
 import {ConfirmationService, Message} from "primeng/api";
-import {Location} from "../locations/location-model";
+import {Location} from "../locations/location.model";
 import {RemoveLocationAction} from "../locations/location-action";
 
 @Component({

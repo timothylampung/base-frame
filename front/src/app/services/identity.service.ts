@@ -19,7 +19,10 @@ import {GroupMember} from "../modules/identity/principals/group-member.model";
 import {Actor} from "../modules/identity/actors/actor.model";
 import {Staff, StaffResult} from "../modules/identity/staffs/staff.model";
 import {Technician, TechnicianResult} from "../modules/identity/technicians/technician.model";
-import {FacilityManager, FacilityManagerResult} from "../modules/identity/facilitymanager/facility-manager.model";
+import {
+    FacilityManager,
+    FacilityManagerResult
+} from "../modules/identity/facilitymanager/facility-manager.model";
 import {Supervisor, SupervisorResult} from "../modules/identity/supervisors/supervisor.model";
 import {ActorResult} from "../modules/identity/actors/actor-result.model";
 
@@ -64,7 +67,7 @@ export class IdentityService {
 
     findPagedUsers(filter: string, page: number): Observable<UserResult> {
         console.log('findPagedUsers');
-        return this.http.get<UserResult>(this.IDENTITY_API + '/users?page=' + page +'&filter='+filter);
+        return this.http.get<UserResult>(this.IDENTITY_API + '/users?page=' + page + '&filter=' + filter);
     }
 
     findUsers(): Observable<User[]> {
@@ -196,6 +199,14 @@ export class IdentityService {
         return this.http.delete(this.IDENTITY_API + '/staffs/' + staff.code,
             {observe: 'body', responseType: 'text'});
     }
+
+    uploadStaff(file: File) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const url = `${this.IDENTITY_API}/staffs/upload`;
+        return this.http.post(url, formData);
+    }
+
 
     // ===================================================================================================================
     // TECHNICIAN

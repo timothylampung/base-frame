@@ -55,14 +55,19 @@ public class MaintenanceRequestTransformer {
         vo.setId(e.getId());
         vo.setDescription(e.getDescription());
         vo.setRemark(e.getRemark());
+        vo.setRequestedDate(e.getRequestedDate());
+
         Asset asset = assetTransformer.toAssetVo(e.getAsset());
         vo.setAsset(asset);
         vo.setAsset(assetTransformer.toAssetVo(e.getAsset()));
         vo.setLocation(assetTransformer.toLocationVo(e.getLocation()));
+
         Actor delegator = identityTransformer.toActor(e.getDelegator());
         vo.setDelegator(delegator);
+
         Actor verifier = identityTransformer.toActor(e.getVerifier());
         vo.setVerifier(verifier);
+
         Actor requester = identityTransformer.toActor(e.getRequester());
         vo.setRequester(requester);
         vo.setFlowState(FlowState.get(e.getFlowdata().getState().ordinal()));

@@ -66,7 +66,7 @@ export class WorkOrderArchiveDetailPage implements OnInit {
         });
 
         this.store.pipe(select(selectWorkOrder)).subscribe(workOrder => {
-                this.workOrder = workOrder;
+            this.workOrder = workOrder;
         });
 
         console.log(this.workOrder);

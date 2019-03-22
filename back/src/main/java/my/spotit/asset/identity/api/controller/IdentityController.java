@@ -1,48 +1,45 @@
 package my.spotit.asset.identity.api.controller;
 
-import my.spotit.asset.common.business.service.CommonService;
-
-import my.spotit.asset.identity.api.vo.Actor;
-import my.spotit.asset.identity.api.vo.FacilityManagerResult;
-import my.spotit.asset.identity.api.vo.Group;
-import my.spotit.asset.identity.api.vo.GroupResult;
-import my.spotit.asset.identity.api.vo.Principal;
-import my.spotit.asset.identity.api.vo.StaffResult;
-import my.spotit.asset.identity.api.vo.Supervisor;
-import my.spotit.asset.identity.api.vo.SupervisorResult;
-import my.spotit.asset.identity.api.vo.TechnicianResult;
-import my.spotit.asset.identity.api.vo.User;
-import my.spotit.asset.identity.api.vo.UserResult;
-import my.spotit.asset.identity.business.service.ActorService;
-import my.spotit.asset.identity.business.service.IdentityService;
-import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
-import my.spotit.asset.security.business.service.SecurityService;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
-import my.spotit.asset.identity.api.vo.FacilityManager;
+import my.spotit.asset.common.business.service.CommonService;
+import my.spotit.asset.core.api.ApplicationSuccess;
+import my.spotit.asset.identity.api.vo.Group;
 import my.spotit.asset.identity.api.vo.GroupMember;
+import my.spotit.asset.identity.api.vo.GroupResult;
+import my.spotit.asset.identity.api.vo.Principal;
 import my.spotit.asset.identity.api.vo.Staff;
-import my.spotit.asset.identity.api.vo.Technician;
-import my.spotit.asset.identity.domain.model.DexFacilityManager;
-import my.spotit.asset.identity.domain.model.DexFacilityManagerImpl;
+import my.spotit.asset.identity.api.vo.StaffResult;
+import my.spotit.asset.identity.api.vo.User;
+import my.spotit.asset.identity.api.vo.UserResult;
+import my.spotit.asset.identity.business.service.IdentityService;
+import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
 import my.spotit.asset.identity.domain.model.DexGroup;
 import my.spotit.asset.identity.domain.model.DexGroupImpl;
 import my.spotit.asset.identity.domain.model.DexPrincipal;
 import my.spotit.asset.identity.domain.model.DexStaff;
 import my.spotit.asset.identity.domain.model.DexStaffImpl;
-import my.spotit.asset.identity.domain.model.DexSupervisor;
-import my.spotit.asset.identity.domain.model.DexSupervisorImpl;
-import my.spotit.asset.identity.domain.model.DexTechnician;
-import my.spotit.asset.identity.domain.model.DexTechnicianImpl;
 import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.identity.domain.model.DexUserImpl;
+import my.spotit.asset.security.business.service.SecurityService;
 
 import static my.spotit.asset.DexConstants.LIMIT;
 
@@ -56,17 +53,14 @@ public class IdentityController {
     private static final Logger LOG = LoggerFactory.getLogger(IdentityController.class);
 
     private IdentityService identityService;
-    private ActorService actorService;
     private SecurityService securityService;
     private IdentityTransformer identityTransformer;
     private CommonService commonService;
 
     @Autowired
-    public IdentityController(IdentityService identityService,
-                              ActorService actorService, SecurityService securityService,
+    public IdentityController(IdentityService identityService, SecurityService securityService,
                               IdentityTransformer identityTransformer, CommonService commonService) {
         this.identityService = identityService;
-        this.actorService = actorService;
         this.securityService = securityService;
         this.identityTransformer = identityTransformer;
         this.commonService = commonService;
@@ -263,12 +257,6 @@ public class IdentityController {
                 identityService.findStaffs(0, Integer.MAX_VALUE)), HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/staff/{identityNo}")
-//    public ResponseEntity<Staff> findStaffByIdentityNo(@PathVariable String identityNo) {
-//        return new ResponseEntity<Staff>(identityTransformer.toStaffVo(
-//                identityService.findStaffByIdentityNo(identityNo)), HttpStatus.OK);
-//    }
-
     @GetMapping(value = "/staff/{code}")
     public ResponseEntity<Staff> findStaffByCode(@PathVariable String code) {
         return new ResponseEntity<Staff>(identityTransformer.toStaffVo(
@@ -292,6 +280,15 @@ public class IdentityController {
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
+
+    @PostMapping(value = "/staffs/upload")
+    public ResponseEntity<?> uploadAssets(@RequestParam("file") MultipartFile file) throws Exception {
+        File tempFile = File.createTempFile("tmp_", null);
+        FileUtils.writeByteArrayToFile(tempFile, file.getBytes());
+        identityService.parseStaff(tempFile);
+        return ResponseEntity.ok(new ApplicationSuccess("success", "Attachment added"));
+    }
+
     @PutMapping(value = "/staff/{code}")
     public ResponseEntity<String> updateStaff(@PathVariable String code, @RequestBody Staff vo) {
         DexStaff staff = identityService.findStaffByCode(code);
@@ -312,221 +309,4 @@ public class IdentityController {
         identityService.removeStaff(staff);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
-
-    @GetMapping(value = "/actors")
-    public ResponseEntity<List<Actor>> findActors() {
-        return ResponseEntity.ok(identityTransformer.toActors(actorService.findAllActors()));
-    }
-
-    // =============================================================================================
-    // FACILITY MANAGER
-    // =============================================================================================
-
-    @GetMapping(value = "/facility-managers", params = {"page", "filter"})
-    public ResponseEntity<FacilityManagerResult> findPagedFacilityManagers(@RequestParam Integer page, @RequestParam String filter) {
-        Integer count = identityService.count(filter);
-        List<DexFacilityManager> facilityManagers = identityService.findFacilityManagers(filter, (page - 1) * LIMIT, LIMIT);
-        return new ResponseEntity<FacilityManagerResult>(
-                new FacilityManagerResult(
-                        identityTransformer.toFacilityManagersVos(facilityManagers),
-                        count
-                ), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/facility-managers")
-    public ResponseEntity<List<FacilityManager>> findFacilityManagers() {
-        return new ResponseEntity<List<FacilityManager>>(identityTransformer.toFacilityManagersVos(
-                identityService.findFacilityManagers()), HttpStatus.OK);
-    }
-
-//    @GetMapping(value = "/facility-manager/{identityNo}")
-//    public ResponseEntity<FacilityManager> findFacilityManagerByIdentityNo(@PathVariable String identityNo) {
-//        return new ResponseEntity<FacilityManager>(identityTransformer.toFacilityManagerVo(
-//                identityService.findFacilityManagerByIdentityNo(identityNo)), HttpStatus.OK);
-//    }
-
-    @GetMapping(value = "/facility-manager/{code}")
-    public ResponseEntity<FacilityManager> findFacilityManagerByCode(@PathVariable String code) {
-        return new ResponseEntity<FacilityManager>(identityTransformer.toFacilityManagerVo(
-                identityService.findFacilityManagerByCode(code)), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/facility-manager")
-    public ResponseEntity<String> saveFacilityManager(@RequestBody FacilityManager vo) {
-        DexFacilityManager facilityManager = new DexFacilityManagerImpl();
-        facilityManager.setIdentityNo(vo.getIdentityNo());
-        facilityManager.setCode(vo.getCode());
-        facilityManager.setName(vo.getName());
-        facilityManager.setAddress1(vo.getAddress1());
-        facilityManager.setAddress2(vo.getAddress2());
-        facilityManager.setEmail(vo.getEmail());
-        facilityManager.setMobile(vo.getMobile());
-        facilityManager.setFax(vo.getFax());
-        facilityManager.setPhone(vo.getPhone());
-//        staff.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
-        identityService.saveFacilityManager(facilityManager);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/facility-manager/{code}")
-    public ResponseEntity<String> updateFacilityManager(@PathVariable String code, @RequestBody FacilityManager vo) {
-        DexFacilityManager facilityManager = identityService.findFacilityManagerByCode(code);
-        facilityManager.setIdentityNo(vo.getIdentityNo());
-        facilityManager.setCode(vo.getCode());
-        facilityManager.setName(vo.getName());
-        facilityManager.setEmail(vo.getEmail());
-        facilityManager.setMobile(vo.getMobile());
-        facilityManager.setPhone(vo.getPhone());
-//        facilityManager.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
-        identityService.updateFacilityManager(facilityManager);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/facility-manager/{code}")
-    public ResponseEntity<String> removeFacilityManager(@PathVariable String code) {
-        DexFacilityManager facilityManager = identityService.findFacilityManagerByCode(code);
-        identityService.removeFacilityManager(facilityManager);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    // =============================================================================================
-    // SUPERVISOR
-    // =============================================================================================
-
-    @GetMapping(value = "/supervisors", params = {"page", "filter"})
-    public ResponseEntity<SupervisorResult> findPagedSupervisors(@RequestParam Integer page, @RequestParam String filter) {
-        Integer count = identityService.countSupervisor(filter);
-        List<DexSupervisor> supervisors = identityService.findSupervisors(filter, (page - 1) * LIMIT, LIMIT);
-        return new ResponseEntity<SupervisorResult>(
-                new SupervisorResult(
-                        identityTransformer.toSupervisorsVos(supervisors),
-                        count
-                ), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/supervisors")
-    public ResponseEntity<List<Supervisor>> findSupervisors() {
-        return new ResponseEntity<List<Supervisor>>(identityTransformer.toSupervisorsVos(
-                identityService.findSupervisors(0, Integer.MAX_VALUE)), HttpStatus.OK);
-    }
-
-//    @GetMapping(value = "/supervisor/{identityNo}")
-//    public ResponseEntity<Supervisor> findSupervisorByIdentityNo(@PathVariable String identityNo) {
-//        return new ResponseEntity<Supervisor>(identityTransformer.toSupervisorVo(
-//                identityService.findSupervisorByIdentityNo(identityNo)), HttpStatus.OK);
-//    }
-
-    @GetMapping(value = "/supervisor/{code}")
-    public ResponseEntity<Supervisor> findSupervisorByCode(@PathVariable String code) {
-        return new ResponseEntity<Supervisor>(identityTransformer.toSupervisorVo(
-                identityService.findSupervisorByCode(code)), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/supervisor")
-    public ResponseEntity<String> saveSupervisor(@RequestBody Supervisor vo) {
-        DexSupervisor supervisor = new DexSupervisorImpl();
-        supervisor.setIdentityNo(vo.getIdentityNo());
-        supervisor.setCode(vo.getCode());
-        supervisor.setName(vo.getName());
-        supervisor.setAddress1(vo.getAddress1());
-        supervisor.setAddress2(vo.getAddress2());
-        supervisor.setEmail(vo.getEmail());
-        supervisor.setMobile(vo.getMobile());
-        supervisor.setFax(vo.getFax());
-        supervisor.setPhone(vo.getPhone());
-//        supervisor.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
-        identityService.saveSupervisor(supervisor);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/supervisor/{code}")
-    public ResponseEntity<String> updateSupervisor(@PathVariable String code, @RequestBody Supervisor vo) {
-        DexSupervisor supervisor = identityService.findSupervisorByCode(code);
-        supervisor.setIdentityNo(vo.getIdentityNo());
-        supervisor.setCode(vo.getCode());
-        supervisor.setName(vo.getName());
-        supervisor.setEmail(vo.getEmail());
-        supervisor.setMobile(vo.getMobile());
-        supervisor.setPhone(vo.getPhone());
-//        supervisor.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
-        identityService.updateSupervisor(supervisor);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/supervisor/{code}")
-    public ResponseEntity<String> removeSupervisor(@PathVariable String code) {
-        DexSupervisor supervisor = identityService.findSupervisorByCode(code);
-        identityService.removeSupervisor(supervisor);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-
-    // =============================================================================================
-    // TECHNICIAN
-    // =============================================================================================
-
-    @GetMapping(value = "/technicians", params = {"page", "filter"})
-    public ResponseEntity<TechnicianResult> findPagedTechnicians(@RequestParam Integer page, @RequestParam String filter) {
-        Integer count = identityService.countTechnician(filter);
-        List<DexTechnician> technicians = identityService.findTechnicians(filter, (page - 1) * LIMIT, LIMIT);
-        return new ResponseEntity<TechnicianResult>(
-                new TechnicianResult(identityTransformer.toTechniciansVos(technicians), count), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/technicians")
-    public ResponseEntity<List<Technician>> findTechnicians() {
-        return new ResponseEntity<List<Technician>>(identityTransformer.toTechniciansVos(
-                identityService.findTechnicians(0, Integer.MAX_VALUE)), HttpStatus.OK);
-    }
-
-//    @GetMapping(value = "/technician/{identityNo}")
-//    public ResponseEntity<Technician> findTechnicianByIdentityNo(@PathVariable String identityNo) {
-//        return new ResponseEntity<Technician>(identityTransformer.toTechnicianVo(
-//                identityService.findTechnicianByIdentityNo(identityNo)), HttpStatus.OK);
-//    }
-
-    @GetMapping(value = "/technician/{code}")
-    public ResponseEntity<Technician> findTechnicianByCode(@PathVariable String code) {
-        return new ResponseEntity<Technician>(identityTransformer.toTechnicianVo(
-                identityService.findTechnicianByCode(code)), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/technician")
-    public ResponseEntity<String> saveTechnician(@RequestBody Technician vo) {
-        DexTechnician technician = new DexTechnicianImpl();
-        technician.setIdentityNo(vo.getIdentityNo());
-        technician.setCode(vo.getCode());
-        technician.setName(vo.getName());
-        technician.setAddress1(vo.getAddress1());
-        technician.setAddress2(vo.getAddress2());
-        technician.setEmail(vo.getEmail());
-        technician.setMobile(vo.getMobile());
-        technician.setFax(vo.getFax());
-        technician.setPhone(vo.getPhone());
-//        technician.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
-        identityService.saveTechnician(technician);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/technician/{code}")
-    public ResponseEntity<String> updateTechnician(@PathVariable String code, @RequestBody Technician vo) {
-        DexTechnician technician = identityService.findTechnicianByCode(code);
-        technician.setIdentityNo(vo.getIdentityNo());
-        technician.setCode(vo.getCode());
-        technician.setName(vo.getName());
-        technician.setEmail(vo.getEmail());
-        technician.setMobile(vo.getMobile());
-        technician.setPhone(vo.getPhone());
-//        technician.setPositionCode(commonService.findPositionCodeById(vo.getPositionCode().getId()));
-        identityService.updateTechnician(technician);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/technician/{code}")
-    public ResponseEntity<String> removeTechnician(@PathVariable String code) {
-        DexTechnician technician = identityService.findTechnicianByCode(code);
-        identityService.removeTechnician(technician);
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
-
 }

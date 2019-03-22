@@ -1,16 +1,26 @@
 package my.spotit.asset.identity.business.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+
+import my.spotit.asset.identity.business.parser.StaffParserRegistry;
 import my.spotit.asset.identity.domain.dao.DexActorDao;
-import my.spotit.asset.identity.domain.dao.DexFacilityManagerDao;
 import my.spotit.asset.identity.domain.dao.DexGroupDao;
 import my.spotit.asset.identity.domain.dao.DexPrincipalDao;
 import my.spotit.asset.identity.domain.dao.DexStaffDao;
-import my.spotit.asset.identity.domain.dao.DexSupervisorDao;
-import my.spotit.asset.identity.domain.dao.DexTechnicianDao;
 import my.spotit.asset.identity.domain.dao.DexUserDao;
 import my.spotit.asset.identity.domain.dao.RecursiveGroupException;
 import my.spotit.asset.identity.domain.model.DexActor;
-import my.spotit.asset.identity.domain.model.DexFacilityManager;
 import my.spotit.asset.identity.domain.model.DexGroup;
 import my.spotit.asset.identity.domain.model.DexGroupImpl;
 import my.spotit.asset.identity.domain.model.DexGroupMember;
@@ -19,20 +29,8 @@ import my.spotit.asset.identity.domain.model.DexPrincipalRole;
 import my.spotit.asset.identity.domain.model.DexPrincipalRoleImpl;
 import my.spotit.asset.identity.domain.model.DexRoleType;
 import my.spotit.asset.identity.domain.model.DexStaff;
-import my.spotit.asset.identity.domain.model.DexSupervisor;
-import my.spotit.asset.identity.domain.model.DexTechnician;
 import my.spotit.asset.identity.domain.model.DexUser;
 import my.spotit.asset.security.business.service.SecurityService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author canang technologies
@@ -51,28 +49,23 @@ public class IdentityServiceImpl implements IdentityService {
     private DexGroupDao groupDao;
     private DexStaffDao staffDao;
     private DexActorDao actorDao;
-    private DexFacilityManagerDao facilityManagerDao;
-    private DexSupervisorDao supervisorDao;
-    private DexTechnicianDao technicianDao;
+    private StaffParserRegistry staffParserRegistry;
 
     @Autowired
     public IdentityServiceImpl(EntityManager entityManager, SecurityService securityService,
+                               StaffParserRegistry staffParserRegistry,
                                DexPrincipalDao principalDao, DexUserDao userDao,
                                DexGroupDao groupDao, DexStaffDao staffDao,
-                               DexActorDao actorDao, DexFacilityManagerDao facilityManagerDao,
-                               DexSupervisorDao supervisorDao, DexTechnicianDao technicianDao) {
+                               DexActorDao actorDao) {
         this.entityManager = entityManager;
         this.securityService = securityService;
+        this.staffParserRegistry = staffParserRegistry;
         this.principalDao = principalDao;
         this.userDao = userDao;
         this.groupDao = groupDao;
         this.actorDao = actorDao;
         this.staffDao = staffDao;
-        this.facilityManagerDao = facilityManagerDao;
-        this.supervisorDao = supervisorDao;
-        this.technicianDao = technicianDao;
     }
-
 
     //==============================================================================================
     // PRINCIPAL
@@ -451,161 +444,12 @@ public class IdentityServiceImpl implements IdentityService {
         entityManager.flush();
     }
 
-    //==============================================================================================
-    // FACILITY MANAGER
-    //==============================================================================================
-
     @Override
-    public DexFacilityManager findFacilityManagerByIdentityNo(String identityNo) {
-        return facilityManagerDao.findFacilityManagerByIdentityNo(identityNo);
+    public void parseStaff(File file) throws Exception {
+        try {
+            staffParserRegistry.process(file);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
-
-    @Override
-    public DexFacilityManager findFacilityManagerByCode(String code) {
-        return facilityManagerDao.findFacilityManagerByCode(code);
-    }
-
-    @Override
-    public List<DexFacilityManager> findFacilityManagers() {
-        return facilityManagerDao.find();
-    }
-
-    @Override
-    public List<DexFacilityManager> findFacilityManagers(String filter, Integer offset, Integer limit) {
-        return facilityManagerDao.find(filter, offset, limit);
-    }
-
-    @Override
-    public Integer count() {
-        return facilityManagerDao.count();
-    }
-
-    @Override
-    public Integer count(String filter) {
-        return facilityManagerDao.count(filter);
-    }
-
-    @Override
-    public void saveFacilityManager(DexFacilityManager facilityManager) {
-        facilityManagerDao.save(facilityManager, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void updateFacilityManager(DexFacilityManager facilityManager) {
-        facilityManagerDao.update(facilityManager, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void removeFacilityManager(DexFacilityManager facilityManager) {
-        facilityManagerDao.remove(facilityManager, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    //==============================================================================================
-    // SUPERVISOR
-    //==============================================================================================
-
-    @Override
-    public DexSupervisor findSupervisorByIdentityNo(String identityNo) {
-        return supervisorDao.findSupervisorByIdentityNo(identityNo);
-    }
-
-    @Override
-    public DexSupervisor findSupervisorByCode(String code) {
-        return supervisorDao.findSupervisorByCode(code);
-    }
-
-    @Override
-    public List<DexSupervisor> findSupervisors(Integer offset, Integer limit) {
-        return supervisorDao.find(offset, limit);
-    }
-
-    @Override
-    public List<DexSupervisor> findSupervisors(String filter, Integer offset, Integer limit) {
-        return supervisorDao.find(filter, offset, limit);
-    }
-
-    @Override
-    public Integer countSupervisor() {
-        return supervisorDao.count();
-    }
-
-    @Override
-    public Integer countSupervisor(String filter) {
-        return supervisorDao.count(filter);
-    }
-
-    @Override
-    public void saveSupervisor(DexSupervisor supervisor) {
-        supervisorDao.save(supervisor, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void updateSupervisor(DexSupervisor supervisor) {
-        supervisorDao.update(supervisor, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void removeSupervisor(DexSupervisor supervisor) {
-        supervisorDao.remove(supervisor, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    //==============================================================================================
-    // TECHNICIAN
-    //==============================================================================================
-
-    @Override
-    public DexTechnician findTechnicianByIdentityNo(String identityNo) {
-        return technicianDao.findTechnicianByIdentityNo(identityNo);
-    }
-
-    @Override
-    public DexTechnician findTechnicianByCode(String code) {
-        return technicianDao.findTechnicianByCode(code);
-    }
-
-    @Override
-    public List<DexTechnician> findTechnicians(Integer offset, Integer limit) {
-        return technicianDao.find(offset, limit);
-    }
-
-    @Override
-    public List<DexTechnician> findTechnicians(String filter, Integer offset, Integer limit) {
-        return technicianDao.find(filter, offset, limit);
-    }
-
-    @Override
-    public Integer countTechnician() {
-        return technicianDao.count();
-    }
-
-    @Override
-    public Integer countTechnician(String filter) {
-        return technicianDao.count(filter);
-    }
-
-    @Override
-    public void saveTechnician(DexTechnician technician) {
-        technicianDao.save(technician, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void updateTechnician(DexTechnician technician) {
-        technicianDao.update(technician, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-    @Override
-    public void removeTechnician(DexTechnician technician) {
-        technicianDao.remove(technician, securityService.getCurrentUser());
-        entityManager.flush();
-    }
-
-
 }

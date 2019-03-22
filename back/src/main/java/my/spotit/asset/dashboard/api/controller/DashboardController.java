@@ -66,4 +66,9 @@ public class DashboardController {
     public ResponseEntity<Integer> countAsset() {
         return ResponseEntity.ok(dashboardService.countAsset());
     }
+
+    @GetMapping("/location-count")
+    public ResponseEntity<Integer> countLocation() {
+        return ResponseEntity.ok(dashboardService.countLocation());
+    }
 }

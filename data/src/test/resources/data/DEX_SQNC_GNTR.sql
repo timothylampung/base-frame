@@ -1,4 +1,17 @@
-INSERT INTO dex_sqnc_gntr (id, code, current_value, description, increment_value, prefix, reference_format, sequence_format, c_ts, c_id, m_st)
-VALUES (nextval('sq_dex_sqnc_gntr'), 'workOrder.referenceNo', 5, 'Work Order Reference No', 1, 'WO', '{#a}-{#b}-{#j}', '000000', current_timestamp, 1, 1);
-INSERT INTO dex_sqnc_gntr (id, code, current_value, description, increment_value, prefix, reference_format, sequence_format, c_ts, c_id, m_st)
-VALUES (nextval('SQ_DEX_SQNC_GNTR'), 'maintenanceRequest.referenceNo', 5, 'Maintenance Request Reference No', 1, 'MR', '{#a}-{#b}-{#j}', '000000', current_timestamp, 1, 1);
+INSERT INTO DEX_SQNC_GNTR (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, C_TS, C_ID, M_ST)
+VALUES (NEXTVAL('SQ_DEX_SQNC_GNTR'), 'DexWorkOrder.referenceNo', 5, 'WORK ORDER REFERENCE NO', 1, 'WO', '{#a}-{#b}-{#j}', '000000', CURRENT_TIMESTAMP, 1, 1);
+
+INSERT INTO DEX_SQNC_GNTR (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, C_TS, C_ID, M_ST)
+VALUES (NEXTVAL('SQ_DEX_SQNC_GNTR'), 'DexMaintenanceRequest.referenceNo', 5, 'MAINTENANCE REQUEST REFERENCE NO', 1, 'MR', '{#A}-{#B}-{#J}', '000000', CURRENT_TIMESTAMP, 1, 1);
+
+-- LOCATION
+INSERT INTO DEX_SQNC_GNTR (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, C_TS, C_ID, M_ST)
+VALUES (NEXTVAL('SQ_DEX_SQNC_GNTR'), 'DexLocation.code', 5, 'LOCATION REFERENCE NO', 1, 'LCTN', '{#a}-{#b}-{#j}', '000000', CURRENT_TIMESTAMP, 1, 1);
+
+-- ASSET
+INSERT INTO DEX_SQNC_GNTR (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, C_TS, C_ID, M_ST)
+VALUES (NEXTVAL('SQ_DEX_SQNC_GNTR'), 'DexAsset.code', 5, 'ASSET REFERENCE NO', 1, 'AST', '{#a}-{#b}-{#j}', '000000', CURRENT_TIMESTAMP, 1, 1);
+
+-- STAFF
+INSERT INTO DEX_SQNC_GNTR (ID, CODE, CURRENT_VALUE, DESCRIPTION, INCREMENT_VALUE, PREFIX, REFERENCE_FORMAT, SEQUENCE_FORMAT, C_TS, C_ID, M_ST)
+VALUES (NEXTVAL('SQ_DEX_SQNC_GNTR'), 'DexStaff.code', 5, 'ASSET REFERENCE NO', 1, 'ST', '{#a}-{#b}-{#j}', '000000', CURRENT_TIMESTAMP, 1, 1);
