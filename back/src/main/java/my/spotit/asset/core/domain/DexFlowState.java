@@ -18,7 +18,7 @@ public enum DexFlowState {
     SELECTED,               // 10
     EVALUATED,              // 11
     CANCELLED,              // 12
-    PUBLISHED,              // 13
+    MAINTAINED,              // 13
     REJECTED,               // 14
     REMOVED,                // 15
     COMPLETED,              // 16

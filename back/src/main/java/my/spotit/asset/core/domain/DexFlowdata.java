@@ -20,7 +20,7 @@ import javax.persistence.Embeddable;
  * UQ - UPPER_QUERIER
  * UV - UPPER_VERIFIER
  * UC - UPPER_CHECKER
- * PS - PUBLISHER
+ * PS - MAINTAINER
  * RM - REMOVER
  * EV - EVALUATOR
  * SL - SELECTOR
@@ -64,8 +64,8 @@ public class DexFlowdata implements Serializable {
     @Column(name = "CL_ID")
     private Long cancelerId;
 
-    @Column(name = "PS_ID")
-    private Long publisherId;
+    @Column(name = "MT_ID")
+    private Long maintainerId;
 
     @Column(name = "RM_ID")
     private Long removerId;
@@ -106,8 +106,8 @@ public class DexFlowdata implements Serializable {
     @Column(name = "UV_TS")
     private Timestamp upperVerifiedDate;
 
-    @Column(name = "PS_TS")
-    private Timestamp publishedDate;
+    @Column(name = "MT_TS")
+    private Timestamp maintainedDate;
 
     @Column(name = "RM_TS")
     private Timestamp removedDate;
@@ -143,12 +143,12 @@ public class DexFlowdata implements Serializable {
         this.cancelerId = cancelerId;
     }
 
-    public Long getPublisherId() {
-        return publisherId;
+    public Long getMaintainerId() {
+        return maintainerId;
     }
 
-    public void setPublisherId(Long posterId) {
-        this.publisherId = posterId;
+    public void setMaintainerId(Long posterId) {
+        this.maintainerId = posterId;
     }
 
     public Long getRequesterId() {
@@ -311,12 +311,12 @@ public class DexFlowdata implements Serializable {
         this.verifiedDate = verifiedDate;
     }
 
-    public Timestamp getPublishedDate() {
-        return publishedDate;
+    public Timestamp getMaintainedDate() {
+        return maintainedDate;
     }
 
-    public void setPublishedDate(Timestamp publishedDate) {
-        this.publishedDate = publishedDate;
+    public void setMaintainedDate(Timestamp maintainedDate) {
+        this.maintainedDate = maintainedDate;
     }
 
     public Long getUpperVerifierId() {
@@ -363,7 +363,7 @@ public class DexFlowdata implements Serializable {
                 ", verifierId=" + verifierId +
                 ", approverId=" + approverId +
                 ", cancelerId=" + cancelerId +
-                ", publisherId=" + publisherId +
+                ", maintainerId=" + maintainerId +
                 ", removerId=" + removerId +
                 '}';
     }

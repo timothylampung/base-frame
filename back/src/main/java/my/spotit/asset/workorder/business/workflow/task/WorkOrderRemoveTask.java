@@ -32,5 +32,6 @@ public class WorkOrderRemoveTask extends WorkOrderTaskSupport {
         order.getFlowdata().setRemovedDate(new Timestamp(System.currentTimeMillis()));
         order.getFlowdata().setRemoverId(securityService.getCurrentUser().getId());
         workOrderService.updateWorkOrder(order);
+
     }
 }

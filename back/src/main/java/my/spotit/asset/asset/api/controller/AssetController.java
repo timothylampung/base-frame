@@ -129,7 +129,7 @@ public class AssetController {
 //==============================================================================================
 
     @GetMapping(value = "/locations", params = {"page", "filter"})
-    public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page, @RequestParam String filter) {
+    public ResponseEntity<LocationResult> findPagedLocations(@RequestParam Integer page, @RequestParam(defaultValue = "%") String filter) {
         LOG.debug("findPagedLocations: {}", page);
         Integer count = assetService.countLocation(filter);
         List<DexLocation> locations = assetService.findLocations(filter, ((page - 1) * LIMIT), LIMIT);

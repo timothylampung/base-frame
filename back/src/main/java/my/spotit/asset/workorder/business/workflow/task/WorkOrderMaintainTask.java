@@ -15,21 +15,21 @@ import java.sql.Timestamp;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@Component("workOrder_approve_ST")
-public class WorkOrderApproveTask extends WorkOrderTaskSupport {
+@Component("workOrder_maintain_ST")
+public class WorkOrderMaintainTask extends WorkOrderTaskSupport {
 
-    private static final Logger LOG = getLogger(WorkOrderApproveTask.class);
+    private static final Logger LOG = getLogger(WorkOrderMaintainTask.class);
 
     public void execute(DelegateExecution execution) {
-        LOG.debug("approving work order");
+        LOG.debug("maintain work order");
 
         Long orderId = (Long) execution.getVariable(DexConstants.ORDER_ID);
         DexWorkOrder order = workOrderService.findWorkOrderById(orderId);
 
         // update flow state
-        order.getFlowdata().setState(DexFlowState.APPROVED);
-        order.getFlowdata().setApprovedDate(new Timestamp(System.currentTimeMillis()));
-        order.getFlowdata().setApproverId(securityService.getCurrentUser().getId());
+        order.getFlowdata().setState(DexFlowState.MAINTAINED);
+        order.getFlowdata().setMaintainedDate(new Timestamp(System.currentTimeMillis()));
+        order.getFlowdata().setMaintainerId(securityService.getCurrentUser().getId());
         workOrderService.updateWorkOrder(order);
 
         applicationContext.publishEvent(new WorkOrderCompletedEvent(order));

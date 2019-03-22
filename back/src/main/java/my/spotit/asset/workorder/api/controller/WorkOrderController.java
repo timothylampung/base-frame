@@ -1,5 +1,7 @@
 package my.spotit.asset.workorder.api.controller;
 
+import my.spotit.asset.DexConstants;
+import my.spotit.asset.workflow.business.service.WorkflowConstants;
 import org.flowable.task.api.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -165,6 +167,14 @@ public class WorkOrderController {
     public void completeWorkOrderTask(@PathVariable String taskId) {
         Task task = workOrderService.findWorkOrderTaskByTaskId(taskId);
         workflowService.completeTask(task);
+    }
+
+    @PostMapping(value = "/work-orders/remove-task/{taskId}")
+    public void removeWorkOrderTask(@PathVariable String taskId) {
+        Task task = workOrderService.findWorkOrderTaskByTaskId(taskId);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(WorkflowConstants.REMOVE_DECISION, true);
+        workflowService.completeTask(task, map);
     }
 
     @PostMapping(value = "/work-orders/release-task/{taskId}")
