@@ -76,6 +76,7 @@ export class MaintenanceRequestNewPage implements OnInit {
                         message : 'You Have New Maintenance Request',
                         id: 0,
                         recieverEmail: 'tech1@spotit.my',
+                        senderEmail: 'tech1@spotit.my',
                     })
                 }
             });
