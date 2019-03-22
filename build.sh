@@ -18,3 +18,14 @@ rm -rf /opt/tomcat/webapps/spotit
 echo "COPYING TARGET WAR TO TOMCAT"
 cp /root/projects/spotit-web/back/target/spotit.war /opt/tomcat/webapps/
 echo "COMPLETED!"
+
+cd /opt/tomcat/bin
+echo "RESTARTING TOMCAT!"
+sh shutdown.sh
+echo "TOMCAT SERVICE STOPPED"
+sh startup.sh
+echo "TOMCAT SERVICE STARTED"
+
+cd /opt/tomcat/logs
+tail -f catalina.out
+
