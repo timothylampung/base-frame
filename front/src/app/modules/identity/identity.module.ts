@@ -8,17 +8,12 @@ import {UserListPage} from "./principals/user/user-list.page";
 import {IdentityService} from "../../services/identity.service";
 import {GroupListPage} from './principals/groups/group-list.page';
 import {GroupEffect} from './principals/groups/group.effect';
-import {StaffListPage} from "./staffs/staff-list.page";
-import {StaffEffects} from "./staffs/staff.effect";
-import {SupervisorListPage} from "./supervisors/supervisor-list.page";
-import {TechnicianListPage} from "./technicians/technician-list.page";
-import {TechnicianEffects} from "./technicians/technician.effect";
-import {FacilityManagerListPage} from "./facilitymanager/facility-manager-list.page";
-import {FacilityManagerEffects} from "./facilitymanager/facility-manager.effect";
-import {SupervisorEffects} from "./supervisors/supervisor.effect";
-import {ActorAutocompleteComponent} from "./actors/actor-autocomplete.component";
-import {StaffAutocompleteComponent} from "./staffs/staff-autocomplete.component";
-import {StaffUploaderDialog} from "./staffs/staff-uploader.dialog";
+import {CommonModule} from "../common/common.module";
+import {UserCreatorDialog} from "./principals/user/dialog/user-creator.dialog";
+import {MessageService} from "primeng/api";
+import {SystemService} from "../../services";
+
+
 
 @NgModule({
     imports: [
@@ -27,32 +22,24 @@ import {StaffUploaderDialog} from "./staffs/staff-uploader.dialog";
         EffectsModule.forFeature([
             UserEffect,
             GroupEffect,
-            StaffEffects,
-            TechnicianEffects,
-            FacilityManagerEffects,
-            SupervisorEffects,
-        ])
+        ]),
+        CommonModule,
     ],
     declarations: [
-        ActorAutocompleteComponent,
-        StaffAutocompleteComponent,
         UserListPage,
+        UserCreatorDialog,
         GroupListPage,
-        StaffListPage,
-        StaffUploaderDialog,
-        GroupListPage,
-        SupervisorListPage,
-        TechnicianListPage,
-        FacilityManagerListPage,
     ],
-    entryComponents: [
-        StaffUploaderDialog,
+    entryComponents:[
     ],
     exports: [
-        ActorAutocompleteComponent,
-        StaffAutocompleteComponent
+
     ],
-    providers: [IdentityService]
+    providers: [
+        IdentityService,
+        MessageService,
+        SystemService,
+    ]
 })
 export class IdentityModule {
     constructor() {

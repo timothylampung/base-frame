@@ -5,9 +5,10 @@ export interface Actor extends MetaObject {
     code: string;
     accountNo: string;
     name: string;
+    identityNo: string;
     email: string;
     office: string;
-    phone: number;
+    phone: string;
     mobile: string;
     fax: string;
     address1: string;

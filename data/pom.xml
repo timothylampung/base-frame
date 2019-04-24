@@ -259,7 +259,7 @@
                         </goals>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/postgres</url>
+                            <url>jdbc:postgresql://159.65.3.103:5432/spotit</url>
                             <username>postgres</username>
                             <password>postgres</password>
                             <autocommit>true</autocommit>
@@ -277,7 +277,7 @@
                         </goals>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/spotit</url>
+                            <url>jdbc:postgresql://159.65.3.103:5432/spotit</url>
                             <username>spotit</username>
                             <password>spotit</password>
                             <autocommit>true</autocommit>

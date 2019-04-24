@@ -1,0 +1,63 @@
+<ng-container [formGroup]="creatorForm">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Name</label>
+            </div>
+            <div class="ui-g-8">
+                        <span class="md-inputfield">
+                            <input type="text"
+                                   formControlName="name"
+                                   placeholder="Faris"
+                                   pInputText>
+                        </span>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Full Name</label>
+            </div>
+            <div class="ui-g-8">
+                        <span class="md-inputfield">
+                            <input type="text"
+                                   formControlName="realName"
+                                   placeholder="Ahmad Faris bin Baharudin"
+                                   pInputText>
+                        </span>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Password</label>
+            </div>
+            <div class="ui-g-8">
+                        <span class="md-inputfield">
+                            <input type="text"
+                                   formControlName="password"
+                                   placeholder="xxxxxx"
+                                   pInputText>
+                        </span>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label>Email</label>
+            </div>
+            <div class="ui-g-8">
+                        <span class="md-inputfield">
+                            <input type="text"
+                                   formControlName="email"
+                                   placeholder="faris89@gmail.com"
+                                   pInputText>
+                        </span>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button [disabled]="!creatorForm.valid" type="button" pButton icon="fa fa-check"
+                (click)="submit()"
+                [label]="'Save'"></button>
+    </div>
+</p-footer>

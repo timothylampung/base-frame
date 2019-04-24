@@ -1,0 +1,136 @@
+<div class="layout-topbar">
+    <a class="logo" href="/">
+        <img src="assets/layout/images/logo.png" alt="california-logo"/>
+    </a>
+    <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)">
+        <i class="fa fa-align-left"></i>
+    </a>
+
+    <!--<a id="layout-megamenu-button" href="#" (click)="app.onMegaMenuButtonClick($event)">-->
+        <!--<i class="fa fa-angle-down"></i>-->
+        <!--<span class="mega-menu-title">Mega Menu</span>-->
+    <!--</a>-->
+    <!---->
+    <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)" *ngIf="app.profileMode==='top'">
+        <img src="assets/layout/images/avatar.png" height="74px" width="74px" alt="california-layout">
+        <span>Sapiei Abidin</span>
+    </a>
+
+    <ul  id="topbar-usermenu" class="usermenu usermenu-overlay fadeInDown" [ngClass]="{'usermenu-active': app.topbarMenuActive}">
+        <li #profile [ngClass]="{'menuitem-active':app.activeTopbarItem === profile}">
+            <a href="#" (click)="app.onTopbarItemClick($event,profile)">
+                <i class="fa fa-fw fa-user"></i>
+                <span class="topbar-item-name">Profile</span>
+            </a>
+        </li>
+        <li #settings [ngClass]="{'menuitem-active':app.activeTopbarItem === settings}">
+            <a href="#" (click)="app.onTopbarItemClick($event,settings)">
+                <i class="fa fa-fw fa-cog"></i>
+                <span class="topbar-item-name">Settings</span>
+                <i class="layout-menuitem-toggler fa fa-fw fa-angle-down"></i>
+            </a>
+            <ul class="fadeInDown">
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-paint-brush"></i>
+                        <span>Change Theme</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-star-o"></i>
+                        <span>Favorites</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-lock"></i>
+                        <span>Lock Screen</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-picture-o"></i>
+                        <span>Wallpaper</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li #messages [ngClass]="{'menuitem-active':app.activeTopbarItem === messages}">
+            <a href="#" (click)="app.onTopbarItemClick($event,messages)">
+                <i class="fa fa-fw fa-envelope-o"></i>
+                <span class="topbar-item-name">Messages</span>
+                <i class="layout-menuitem-toggler fa fa-fw fa-angle-down"></i>
+            </a>
+            <ul class="fadeInDown">
+                <li role="menuitem">
+                    <a href="#" class="topbar-message" (click)="app.onTopbarSubItemClick($event)">
+                        <img src="assets/layout/images/avatar1.png" width="25"/>
+                        <span>Give me a call</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" class="topbar-message" (click)="app.onTopbarSubItemClick($event)">
+                        <img src="assets/layout/images/avatar2.png" width="25"/>
+                        <span>Sales reports attached</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" class="topbar-message" (click)="app.onTopbarSubItemClick($event)">
+                        <img src="assets/layout/images/avatar3.png" width="25"/>
+                        <span>About your invoice</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" class="topbar-message" (click)="app.onTopbarSubItemClick($event)">
+                        <img src="assets/layout/images/avatar2.png" width="25"/>
+                        <span>Meeting today at 10pm</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" class="topbar-message" (click)="app.onTopbarSubItemClick($event)">
+                        <img src="assets/layout/images/avatar4.png" width="25"/>
+                        <span>Out of office</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li #notifications [ngClass]="{'menuitem-active':app.activeTopbarItem === notifications}">
+            <a href="#" (click)="app.onTopbarItemClick($event,notifications)">
+                <i class="fa fa-fw fa-bell-o"></i>
+                <span class="topbar-item-name">Notifications</span>
+                <i class="layout-menuitem-toggler fa fa-fw fa-angle-down"></i>
+            </a>
+            <ul class="fadeInDown">
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-tasks"></i>
+                        <span>Pending tasks</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-calendar-check-o"></i>
+                        <span>Meeting today at 3pm</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-download"></i>
+                        <span>Download documents</span>
+                    </a>
+                </li>
+                <li role="menuitem">
+                    <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                        <i class="fa fa-fw fa-plane"></i>
+                        <span>Book flight</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <a id="right-sidebar-button" href="#" (click)="app.onRightPanelButtonClick($event)">
+        <i class="fa fa-ellipsis-v"></i>
+    </a>
+</div>

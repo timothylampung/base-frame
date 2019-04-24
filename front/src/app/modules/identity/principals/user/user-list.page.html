@@ -1,36 +1,51 @@
 <div class="ui-g">
     <div class="ui-g-12">
         <div class="card card-w-title">
-            <div class="ui-g form-group">
-                <h1>{{title}}</h1>
-                <div class="ui-g-12">
-                    <div class="ui-g-1">
-                        <label for="keyword">Search</label>
-                    </div>
-                    <div class="ui-g-6">
-                        <input [(ngModel)]="searchQuery" pInputText type="text" name="keyword" id="keyword">
-                    </div>
+
+            <p-dialog  header="User Detail Form"
+                       [(visible)]="displayDialog"
+                       [responsive]="true"
+                       showEffect="fade"
+                       [focusOnShow]="false"
+                       [modal]="true"
+                       [width]="600"
+                       [contentStyle]="{'overflow':'visible'}">
+                <dex-user-creator-dialog [user]="selectedRow"
+                                          (onSubmit)="dialogClosed($event)"></dex-user-creator-dialog>
+            </p-dialog>
+
+            <p-toolbar>
+
+                <div class="ui-toolbar-group-left">
+                    <p-header><h4>{{title}}</h4></p-header>
                 </div>
-                <div class="ui-g-12 ui-button-toolbar-mr">
-                    <button pButton type="button" label="Search"
-                            icon="fa fa-search"
-                            (click)="search()"></button>
+
+                <div class="ui-toolbar-group-right" style="padding-top: 50px">
+                    <button pButton class="ui-button-success"
+                            type="button"
+                            [label]="'Add User'"
+                            icon="fa fa-plus"
+                            (click)="createUser()">
+                    </button>
                 </div>
-            </div>
+
+            </p-toolbar>
         </div>
         <div class="card card-w-title">
             <p-table #dt
                      [columns]="cols"
-                     [value]="(users$ | async).data"
+                     [value]="users$ | async"
                      [selectionMode]="'single'">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
+                        <th style="width: 5%">No</th>
                         <th style="width: 20%">Name</th>
-                        <th style="width: 80%">Email</th>
+                        <th style="width: 75%">Email</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData>
+                <ng-template let-i="rowIndex + 1" pTemplate="body" let-rowData>
                     <tr [pSelectableRow]="rowData">
+                        <td>{{i}}</td>
                         <td>
                             {{rowData?.name}}
                         </td>
@@ -41,6 +56,5 @@
                 </ng-template>
             </p-table>
         </div>
-        <p-paginator (onPageChange)="page($event)" [rows]="10" [totalRecords]="(users$ | async).totalSize"></p-paginator>
     </div>
 </div>

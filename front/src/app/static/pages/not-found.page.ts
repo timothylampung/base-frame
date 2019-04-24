@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'dex-not-found',
+    selector: 'cng-not-found',
     templateUrl: './not-found.page.html',
     styleUrls: ['./not-found.page.css']
 })

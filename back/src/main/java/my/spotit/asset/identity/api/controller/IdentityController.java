@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 
-import my.spotit.asset.common.business.service.CommonService;
 import my.spotit.asset.core.api.ApplicationSuccess;
 import my.spotit.asset.identity.api.vo.Group;
 import my.spotit.asset.identity.api.vo.GroupMember;
@@ -55,15 +54,13 @@ public class IdentityController {
     private IdentityService identityService;
     private SecurityService securityService;
     private IdentityTransformer identityTransformer;
-    private CommonService commonService;
 
     @Autowired
     public IdentityController(IdentityService identityService, SecurityService securityService,
-                              IdentityTransformer identityTransformer, CommonService commonService) {
+                              IdentityTransformer identityTransformer) {
         this.identityService = identityService;
         this.securityService = securityService;
         this.identityTransformer = identityTransformer;
-        this.commonService = commonService;
     }
 
     // =============================================================================================

@@ -1,39 +1,33 @@
 import {ErrorHandler, NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppRoutes} from './app.routes';
-
-import {AppComponent} from './app.component';
-import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
-import {AppTopbarComponent} from './app.topbar.component';
-import {AppFooterComponent} from './app.footer.component';
-import {AppBreadcrumbComponent} from './app.breadcrumb.component';
-import {AppRightpanelComponent} from './app.rightpanel.component';
-import {AppInlineProfileComponent} from './app.profile.component';
-import {BreadcrumbService} from './breadcrumb.service';
-import {LoginPage} from './login/login.page';
-import {AppShellComponent} from './app-shell/app-shell.component';
-import {SharedModule} from './shared/shared.module';
-import {CoreModule} from './core/core.module';
-import {JwtHttpInterceptor} from './interceptors/jwt-http.interceptor';
-import {AuthErrorHandler} from './handlers/auth-error.handler';
-import {LoaderService} from './services/loader/loader.service';
-import {LoaderInterceptor} from './interceptors/loader.interceptor';
-import {LoaderComponent} from './services/loader/loader.component';
-import {NotFoundPage} from './static/pages/not-found.page';
-import {IdentityService} from './services/identity.service';
-import {IdentityModule} from './modules/identity/identity.module';
-import {CommonModule} from './modules/common/common.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutes } from './app.routes';
+import { BreadcrumbService } from './component/breadcrumb.service';
+import {AppComponent} from "./app.component";
+import {AppMenuComponent, AppSubMenuComponent} from "./component/app.menu.component";
+import {AppBreadcrumbComponent} from "./component/app.breadcrumb.component";
+import {AppFooterComponent} from "./component/app.footer.component";
+import {NotFoundPage} from "./static/pages/not-found.page";
+import {AppShellComponent} from "./app-shell/app-shell.component";
+import {LoginPage} from "./login/login.page";
+import {LoaderComponent} from "./services/loader/loader.component";
 import {AutofocusDirective} from "./directives/autofocus.directive";
-import {AssetModule} from "./modules/asset/asset.module";
-import {MaintenanceRequestModule} from "./modules/maintenance/maintenance-request.module";
-import {InventoryModule} from "./modules/inventory/inventory.module";
-import {WorkOrderModule} from "./modules/work-order/work-order.module";
-import {DashboardPage} from "./static/pages/dashboard.page";
-import {ReportModule} from "./modules/report/report.module";
-import {WebsocketService} from "./services/websocket.service";
+import {LoaderService} from "./services/loader/loader.service";
+import {IdentityService} from "./services/identity.service";
+import {JwtHttpInterceptor} from "./interceptors/jwt-http.interceptor";
+import {LoaderInterceptor} from "./interceptors/loader.interceptor";
+import {CoreModule} from "./core/core.module";
+import {SharedModule} from "./shared/shared.module";
+import {IdentityModule} from "./modules/identity/identity.module";
+import {AppTopBarComponent} from "./component/app.topbar.component";
+import {AppRightPanelComponent} from "./component/app.rightpanel.component";
+import {AppProfileComponent} from "./component/app.profile.component";
+import {AuthErrorHandler} from "./handlers/auth-error.handler";
+import {CommonModule} from "./modules/common/common.module";
+import {AppMegamenuComponent} from "./component/app.megamenu.component";
+
 
 @NgModule({
     imports: [
@@ -46,32 +40,26 @@ import {WebsocketService} from "./services/websocket.service";
         SharedModule,
         CommonModule,
         IdentityModule,
-        AssetModule,
-        MaintenanceRequestModule,
-        InventoryModule,
-        WorkOrderModule,
-        ReportModule,
     ],
     declarations: [
         AppComponent,
         AppMenuComponent,
+        AppMegamenuComponent,
         AppSubMenuComponent,
-        AppTopbarComponent,
+        AppTopBarComponent,
         AppFooterComponent,
         AppBreadcrumbComponent,
-        AppRightpanelComponent,
-        AppInlineProfileComponent,
+        AppRightPanelComponent,
         NotFoundPage,
         LoginPage,
-        DashboardPage,
         AppShellComponent,
+        AppProfileComponent,
         LoaderComponent,
-        AutofocusDirective
+        AutofocusDirective,
     ],
     providers: [
         BreadcrumbService,
         LoaderService,
-        WebsocketService,
         IdentityService,
         {provide: HTTP_INTERCEPTORS, useClass: JwtHttpInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
@@ -79,5 +67,4 @@ import {WebsocketService} from "./services/websocket.service";
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

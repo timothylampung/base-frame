@@ -1,9 +1,0 @@
-<p-dropdown #dd [options]="assetCategory"
-            [formControl]="innerFormControl"
-            [style]="{'width':'100%'}"
-            filterBy="value,label"
-            scrollHeight="400px">
-    <ng-template let-item pTemplate="item">
-        <span>{{item.value | assetCategoryPipe }}</span>
-    </ng-template>
-</p-dropdown>

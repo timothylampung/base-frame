@@ -1,34 +1,12 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {WebsocketService} from "./services/websocket.service";
-import {NotificationContext} from "./modules/notification/notification.model";
+import {Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy} from '@angular/core';
+import {ScrollPanel} from 'primeng/primeng';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges {
-
-    constructor(private websocketService: WebsocketService) {
-    }
-
-    ngOnInit() {
-        this.websocketService.connect();
-    }
-
-
-    send() {
-        this.websocketService.sendNotification({
-            context: NotificationContext.MAINTENANCE_REQUEST,
-            message: 'You Have New Maintenance Request',
-            id: 0,
-            recieverEmail: 'tech1@spotit.my',
-            senderEmail: 'fm2@spotit.my'
-        })
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes)
-    }
+export class AppComponent {
+  constructor() {}
 
 }

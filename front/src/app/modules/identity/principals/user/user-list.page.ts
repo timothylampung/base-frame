@@ -4,11 +4,10 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "./user.model";
-import {BreadcrumbService} from "../../../../breadcrumb.service";
-import {IdentityState, selectIdentityState} from "../../identity.state";
-import {selectUserResultState, selectUsers} from "./user.selector";
+import {BreadcrumbService} from "../../../../component/breadcrumb.service";
+import {IdentityState} from "../../identity.state";
+import {selectUsers} from "./user.selector";
 import {FindPagedUsersAction} from "./user.action";
-import {UserResult} from "./user-result.model";
 
 @Component({
     selector: 'dex-user-list-page',
@@ -16,34 +15,48 @@ import {UserResult} from "./user-result.model";
 })
 export class UserListPage implements OnInit {
 
-    users$: Observable<UserResult>;
+    users$: Observable<User[]>;
     searchForm: FormGroup;
-    title = 'Users';
+    title = 'User List';
+    displayDialog: boolean=false;
+
     cols = [
         {field: 'key', header: 'Key'},
         {field: 'value', header: 'Value'},
     ];
-    searchQuery : string = '';
+    breadcrumbs = [
+        {label: 'Pengurusan'},
+        {label: 'Pengguna', routerLink: ['/administration/users/list']}
+    ];
 
-
-    constructor(public fb: FormBuilder,
+    constructor(public breadcrumbService: BreadcrumbService,
+                public fb: FormBuilder,
                 public store: Store<IdentityState>,
                 public route: ActivatedRoute,
                 public router: Router) {
-        this.users$ = this.store.pipe(select(selectUserResultState));
+        this.breadcrumbService.setItems(this.breadcrumbs);
+        this.users$ = this.store.pipe(select(selectUsers));
     }
 
     ngOnInit() {
-        this.search();
+        this.searchForm = this.fb.group({
+            'keyword': [''],
+        });
+
+        this.store.dispatch(new FindPagedUsersAction({filter: '', page: 1}));
     }
 
     search() {
-        this.store.dispatch(new FindPagedUsersAction({filter: this.searchQuery, page: 1}));
+        this.store.dispatch(new FindPagedUsersAction({filter: this.searchForm.value.keyword, page: 1}));
     }
 
-    page(event) {
-        // console.log(event)
-        this.store.dispatch(new FindPagedUsersAction({filter: this.searchQuery, page: event.page + 1}));
+    createUser(){
+        this.displayDialog = true;
+    }
+
+    dialogClosed(result) {
+        console.log(result);
+        this.displayDialog = !result;
     }
 }
 

@@ -17,18 +17,11 @@ import {GroupResult} from "../modules/identity/principals/group-result.model";
 import {Group} from "../modules/identity/principals/group.model";
 import {GroupMember} from "../modules/identity/principals/group-member.model";
 import {Actor} from "../modules/identity/actors/actor.model";
-import {Staff, StaffResult} from "../modules/identity/staffs/staff.model";
-import {Technician, TechnicianResult} from "../modules/identity/technicians/technician.model";
-import {
-    FacilityManager,
-    FacilityManagerResult
-} from "../modules/identity/facilitymanager/facility-manager.model";
-import {Supervisor, SupervisorResult} from "../modules/identity/supervisors/supervisor.model";
-import {ActorResult} from "../modules/identity/actors/actor-result.model";
 
 @Injectable()
 export class IdentityService {
     private IDENTITY_API: string = environment.endpoint + '/api/identity';
+    private REGISTRATION_API: string = environment.endpoint + '/api/registration';
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -67,7 +60,7 @@ export class IdentityService {
 
     findPagedUsers(filter: string, page: number): Observable<UserResult> {
         console.log('findPagedUsers');
-        return this.http.get<UserResult>(this.IDENTITY_API + '/users?page=' + page + '&filter=' + filter);
+        return this.http.get<UserResult>(this.IDENTITY_API + '/users?page=' + page);
     }
 
     findUsers(): Observable<User[]> {
@@ -80,7 +73,7 @@ export class IdentityService {
     }
 
     saveUser(user: User): Observable<string> {
-        return this.http.post(this.IDENTITY_API + '/users', JSON.stringify(user),
+        return this.http.post(this.IDENTITY_API + '/user', JSON.stringify(user),
             {observe: 'body', responseType: 'text'});
     }
 
@@ -146,183 +139,14 @@ export class IdentityService {
         return this.http.get<Actor[]>(this.IDENTITY_API + '/actors');
     }
 
-    findPagedActors(filter: string, page: number): Observable<ActorResult> {
-        const url = `${this.IDENTITY_API}/actors?filter=${filter}&page=${page}`;
-        return this.http.get<ActorResult>(url);
-    }
-
     findActorByCode(code: string): Observable<Actor> {
-        const url = `${this.IDENTITY_API}/actors/${code}`;
-        return this.http.get<Actor>(url);
+        console.log('findActorByCode');
+        return this.http.get<Actor>(this.IDENTITY_API + '/actors/' + code);
     }
 
     findActorByIdentityNo(identityNo: string): Observable<Actor> {
         console.log('findActorByIdentityNo');
         return this.http.get<Actor>(this.IDENTITY_API + '/actors/' + identityNo);
-    }
-
-    // ===================================================================================================================
-    // STAFF
-    // ===================================================================================================================
-
-    findStaffs(): Observable<Staff[]> {
-        console.log('findStaffs');
-        return this.http.get<Staff[]>(this.IDENTITY_API + '/staffs');
-    }
-
-    findStaffByCode(code: string): Observable<Staff> {
-        return this.http.get<Staff>(this.IDENTITY_API + '/staffs/' + code);
-    }
-
-    findPagedStaffs(filter: string, page: number): Observable<StaffResult> {
-        console.log('findPagedStaffs');
-        return this.http.get<StaffResult>(this.IDENTITY_API + '/staffs',
-            {
-                params: {
-                    filter: filter,
-                    page: page.toString()
-                }
-            });
-    }
-
-    saveStaff(staff: Staff): Observable<string> {
-        return this.http.post(this.IDENTITY_API + '/staffs', JSON.stringify(staff),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    updateStaff(staff: Staff): Observable<string> {
-        return this.http.put(this.IDENTITY_API + '/staffs/' + staff.code, JSON.stringify(staff),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    removeStaff(staff: Staff): Observable<string> {
-        return this.http.delete(this.IDENTITY_API + '/staffs/' + staff.code,
-            {observe: 'body', responseType: 'text'});
-    }
-
-    uploadStaff(file: File) {
-        const formData = new FormData();
-        formData.append("file", file);
-        const url = `${this.IDENTITY_API}/staffs/upload`;
-        return this.http.post(url, formData);
-    }
-
-
-    // ===================================================================================================================
-    // TECHNICIAN
-    // ===================================================================================================================
-
-    findTechnicians(): Observable<Technician[]> {
-        console.log('findTechnicians');
-        return this.http.get<Technician[]>(this.IDENTITY_API + '/technicians');
-    }
-
-    findTechnicianByCode(code: string): Observable<Technician> {
-        return this.http.get<Technician>(this.IDENTITY_API + '/technicians/' + code);
-    }
-
-    findPagedTechnicians(filter: string, page: number): Observable<TechnicianResult> {
-        console.log('findPagedTechnicians');
-        return this.http.get<TechnicianResult>(this.IDENTITY_API + '/technicians',
-            {
-                params: {
-                    filter: filter,
-                    page: page.toString()
-                }
-            });
-    }
-
-    saveTechnician(technician: Technician): Observable<string> {
-        return this.http.post(this.IDENTITY_API + '/technicians', JSON.stringify(technician),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    updateTechnician(technician: Technician): Observable<string> {
-        return this.http.put(this.IDENTITY_API + '/technicians/' + technician.code, JSON.stringify(technician),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    removeTechnician(technician: Technician): Observable<string> {
-        return this.http.delete(this.IDENTITY_API + '/technicians/' + technician.code,
-            {observe: 'body', responseType: 'text'});
-    }
-
-    // ===================================================================================================================
-    // FACILITY MANAGER
-    // ===================================================================================================================
-
-    findFacilityManagers(): Observable<FacilityManager[]> {
-        console.log('findFacilityManagers');
-        return this.http.get<FacilityManager[]>(this.IDENTITY_API + '/facility-managers');
-    }
-
-    findFacilityManagerByCode(code: string): Observable<FacilityManager> {
-        return this.http.get<FacilityManager>(this.IDENTITY_API + '/facility-managers/' + code);
-    }
-
-    findPagedFacilityManagers(filter: string, page: number): Observable<FacilityManagerResult> {
-        console.log('findPagedFacilityManagers');
-        return this.http.get<FacilityManagerResult>(this.IDENTITY_API + '/facility-managers',
-            {
-                params: {
-                    filter: filter,
-                    page: page.toString()
-                }
-            });
-    }
-
-    saveFacilityManager(facilityManager: FacilityManager): Observable<string> {
-        return this.http.post(this.IDENTITY_API + '/facility-managers', JSON.stringify(facilityManager),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    updateFacilityManager(facilityManager: FacilityManager): Observable<string> {
-        return this.http.put(this.IDENTITY_API + '/facility-managers/' + facilityManager.code, JSON.stringify(facilityManager),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    removeFacilityManager(facilityManager: FacilityManager): Observable<string> {
-        return this.http.delete(this.IDENTITY_API + '/facility-managers/' + facilityManager.code,
-            {observe: 'body', responseType: 'text'});
-    }
-
-    // ===================================================================================================================
-    // SUPERVISORS
-    // ===================================================================================================================
-
-    findSupervisors(): Observable<Supervisor[]> {
-        console.log('findSupervisors');
-        return this.http.get<Supervisor[]>(this.IDENTITY_API + '/supervisors');
-    }
-
-    findSupervisorByCode(code: string): Observable<Supervisor> {
-        return this.http.get<Supervisor>(this.IDENTITY_API + '/supervisors/' + code);
-    }
-
-    findPagedSupervisors(filter: string, page: number): Observable<SupervisorResult> {
-        console.log('findPagedSupervisors');
-        return this.http.get<SupervisorResult>(this.IDENTITY_API + '/supervisors',
-            {
-                params: {
-                    filter: filter,
-                    page: page.toString()
-                }
-            });
-    }
-
-    saveSupervisor(supervisor: Supervisor): Observable<string> {
-        return this.http.post(this.IDENTITY_API + '/supervisors', JSON.stringify(supervisor),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    updateSupervisor(supervisor: Supervisor): Observable<string> {
-        return this.http.put(this.IDENTITY_API + '/supervisors/' + supervisor.code, JSON.stringify(supervisor),
-            {observe: 'body', responseType: 'text'});
-    }
-
-    removeSupervisor(supervisor: Supervisor): Observable<string> {
-        return this.http.delete(this.IDENTITY_API + '/supervisors/' + supervisor.code,
-            {observe: 'body', responseType: 'text'});
     }
 
     // ===================================================================================================================

@@ -6,6 +6,9 @@ import {GroupResult} from '../group-result.model';
 export const FIND_PAGED_GROUPS = '[Group] Find Paged Groups';
 export const FIND_PAGED_GROUPS_SUCCESS = '[Group] Find Paged Groups Success';
 export const FIND_PAGED_GROUPS_ERROR = '[Group] Find Paged Groups Error';
+export const FIND_ALL_GROUPS = '[Group] Find All Groups';
+export const FIND_ALL_GROUPS_SUCCESS = '[Group] Find All Groups Success';
+export const FIND_ALL_GROUPS_ERROR = '[Group] Find All Groups Error';
 export const SAVE_GROUP = '[Group] Save Group';
 export const SAVE_GROUP_SUCCESS = '[Group] Save Group Success';
 export const SAVE_GROUP_ERROR = '[Group] Save Group Error';
@@ -32,6 +35,27 @@ export class FindPagedGroupsSuccessAction implements Action {
 
 export class FindPagedGroupsErrorAction implements Action {
     readonly type: string = FIND_PAGED_GROUPS_ERROR;
+
+    constructor(public payload: ApplicationError) {
+    }
+}
+
+export class FindAllGroupsAction implements Action {
+    readonly type: string = FIND_ALL_GROUPS;
+
+    constructor() {
+    }
+}
+
+export class FindAllGroupsSuccessAction implements Action {
+    readonly type: string = FIND_ALL_GROUPS_SUCCESS;
+
+    constructor(public payload: Group[]) {
+    }
+}
+
+export class FindAllGroupsErrorAction implements Action {
+    readonly type: string = FIND_ALL_GROUPS_ERROR;
 
     constructor(public payload: ApplicationError) {
     }

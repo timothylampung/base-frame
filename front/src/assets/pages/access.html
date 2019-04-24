@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-      <script>document.write('<base href="' + document.location + '" />');</script>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <title>MPSP Kaunter</title>
+    <head>
+        <script>document.write('<base href="' + document.location + '" />');</script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <title>PrimeNG California - Error</title>
 
-      <link rel="stylesheet" type="text/css" href="../theme/theme-indigo.css">
-      <link rel="stylesheet" type="text/css" href="../layout/css/layout-indigo.css">
-      <link rel="stylesheet" type="text/css" href="primeng.min.css">
-  </head>
+        <link id="theme-css" rel="stylesheet" type="text/css" href="../theme/theme-blue.css">
+        <link id="layout-css" rel="stylesheet" type="text/css" href="../layout/css/layout-blue.css">
+        <link rel="stylesheet" type="text/css" href="primeng.min.css">
+    </head>
 
-  <body class="exception-body accessdenied-page">
-      <div class="exception-type">
-          <img src="../layout/images/401.svg">
-      </div>
+    <body class="exception-body">
+        <div class="exception-topbar">
+            <a href="#" class="logo">
+                <img src="../layout/images/logo.png" alt="california-layout"/>
+            </a>
+        </div>
 
-      <div class="card exception-panel">
-          <i class="material-icons">&#xE32A;</i>
-          <h1>Access Denied</h1>
-          <div class="exception-detail">You are not authorized to access this resource.</div>
-          <a href="/" class="ui-button secondary">
-              <span class="ui-button-text">Homepage</span>
-          </a>
-      </div>
-  </body>
+        <img class="exception-image" src="../layout/images/image-access.png" alt="california-layout" />
+
+        <div class="exception-panel">
+            <img class="exception-icon" src="../layout/images/icon-access.png" alt="california-layout" />
+            <h1 class="exception-summary">Access Denied</h1>
+            <p class="exception-detail">
+                You don't have the necessary permissons.<br>
+                Try to search again or use the Go to Dashboard button below.
+            </p>
+            <div>
+                <button type="button" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all ">
+                    <span class="ui-button-text ui-c"> Go to Dashboard </span>
+                </button>
+            </div>
+        </div>
+    </body>
+
 </html>

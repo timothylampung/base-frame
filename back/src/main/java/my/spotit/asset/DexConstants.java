@@ -17,6 +17,7 @@ public interface DexConstants {
     public static final String MAINTENANCE_REQUEST_REFERENCE_NO = "DexMaintenanceRequest.referenceNo";
     public static final String LOCATION_CODE = "DexLocation.code";
     public static final String ASSET_CODE = "DexAsset.code";
+    public static final String ASSET_CODE_CODE = "DexAssetCode.code";
     public static final String STAFF_CODE = "DexStaff.code";
 
     // common

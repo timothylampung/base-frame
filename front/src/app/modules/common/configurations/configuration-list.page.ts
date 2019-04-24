@@ -4,13 +4,13 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {selectConfigurations} from './configuration.selector';
-import {BreadcrumbService} from '../../../breadcrumb.service';
+import {BreadcrumbService} from '../../../component/breadcrumb.service';
 import {Configuration} from './configuration.model';
 import {FindPagedConfigurationsAction} from './configuration.action';
 import {CommonState} from '../common.state';
 
 @Component({
-    selector: 'dex-configuration-list-page',
+    selector: 'cng-configuration-list-page',
     templateUrl: './configuration-list.page.html'
 })
 export class ConfigurationListPage implements OnInit {

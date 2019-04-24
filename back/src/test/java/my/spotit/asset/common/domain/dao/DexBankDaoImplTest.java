@@ -2,10 +2,6 @@ package my.spotit.asset.common.domain.dao;
 
 import my.spotit.AbstractTest;
 
-import my.spotit.asset.common.domain.model.DexBank;
-import my.spotit.asset.common.domain.model.DexBankImpl;
-import my.spotit.asset.common.domain.model.DexBankStatus;
-import my.spotit.asset.common.domain.model.DexBankType;
 import my.spotit.asset.identity.domain.dao.DexUserDao;
 import my.spotit.asset.identity.domain.model.DexUser;
 import org.junit.Test;

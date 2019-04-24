@@ -13,6 +13,4 @@ export interface FlowData extends MetaObject {
     approver?: string;
     approvedDate?: Date;
     approverPosition?: string;
-    maintainedDate?: Date;
-    maintainedPosition?: string;
 }

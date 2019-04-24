@@ -2,8 +2,6 @@ package my.spotit.asset.common.business.service;
 
 import my.spotit.AbstractTest;
 
-import my.spotit.asset.common.domain.model.DexGradeCode;
-import my.spotit.asset.common.domain.model.DexGradeCodeImpl;
 import my.spotit.asset.helper.IdentityServiceHelper;
 import org.junit.After;
 import org.junit.Before;

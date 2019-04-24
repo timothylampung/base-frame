@@ -1,33 +1,32 @@
-<div class="layout-wrapper" [ngClass]="{'layout-compact':layoutCompact}" (click)="onLayoutClick()">
+<div class="layout-wrapper" (click)="onLayoutClick()"
+     [ngClass]="{'layout-wrapper-overlay-sidebar': isOverlay(),
+                'layout-wrapper-overlay-sidebar-active': overlayMenuActive,
+                'layout-wrapper-sidebar-inactive': staticMenuDesktopInactive,
+                'layout-wrapper-sidebar-mobile-active': staticMenuMobileActive}">
+    <app-topbar></app-topbar>
 
-    <div #layoutContainer class="layout-container"
-         [ngClass]="{'menu-layout-static': !isOverlay(),
-            'menu-layout-overlay': isOverlay(),
-            'layout-menu-overlay-active': overlayMenuActive,
-            'menu-layout-horizontal': isHorizontal(),
-            'menu-layout-slim': isSlim(),
-            'layout-menu-static-inactive': staticMenuDesktopInactive,
-            'layout-menu-static-active': staticMenuMobileActive}">
+    <app-megamenu></app-megamenu>
 
-        <app-topbar></app-topbar>
-
-        <div class="layout-menu" [ngClass]="{'layout-menu-dark':darkMenu}" (click)="onMenuClick($event)">
-            <p-scrollPanel #scrollPanel [style]="{height: '100%'}">
+    <div class="layout-sidebar" (click)="onMenuClick($event)"
+         [ngClass]="{'layout-sidebar-dark': menuMode !== 'light',
+         'layout-sidebar-gradient':  menuMode === 'gradient'}">
+        <p-scrollPanel #layoutMenuScroller [style]="{height: '100%' }">
+            <div class="sidebar-scroll-content">
+                <app-inline-profile *ngIf="profileMode=='inline'"></app-inline-profile>
                 <app-menu [reset]="resetMenu"></app-menu>
-            </p-scrollPanel>
-        </div>
-
-        <div class="layout-main">
-            <app-breadcrumb></app-breadcrumb>
-
-            <div class="layout-content">
-                <router-outlet></router-outlet>
             </div>
-        </div>
-
-        <app-rightpanel></app-rightpanel>
-
-        <div class="layout-mask"></div>
+        </p-scrollPanel>
     </div>
 
+    <app-rightpanel></app-rightpanel>
+
+    <div class="layout-main">
+        <app-breadcrumb></app-breadcrumb>
+
+        <div class="layout-main-content">
+            <router-outlet></router-outlet>
+        </div>
+
+        <!--<app-footer></app-footer>-->
+    </div>
 </div>

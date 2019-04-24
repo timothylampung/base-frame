@@ -1,13 +1,8 @@
 package my.spotit.asset.common.domain.dao;
 
 import my.spotit.AbstractTest;
-import my.spotit.asset.common.domain.model.DexVendor;
-import my.spotit.asset.common.domain.model.DexVendorImpl;
 import my.spotit.asset.helper.IdentityServiceHelper;
 import my.spotit.asset.identity.business.service.IdentityService;
-import my.spotit.asset.identity.domain.dao.DexStaffDao;
-import my.spotit.asset.identity.domain.model.DexActor;
-import my.spotit.asset.identity.domain.model.DexStaff;
 import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequest;
 import my.spotit.asset.maintenance.domain.model.DexMaintenanceRequestImpl;
 import org.junit.Test;
@@ -17,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
 import javax.persistence.EntityManager;
-
-import static org.junit.Assert.*;
 
 public class DexVendorDaoImplTest extends AbstractTest {
 

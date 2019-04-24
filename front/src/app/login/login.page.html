@@ -1,40 +1,58 @@
-<div class="login-body bg-style">
-    <div class="card login-panel ui-fluid">
-        <div class="ui-g">
-            <ng-container [formGroup]="loginForm">
-                <div class="ui-g-12 logo-style"></div>
+<div class="login-body">
+    <div class="login-topbar">
+        <a href="#" class="logo">
+            <img src="../../assets/layout/images/logo.png" alt="california-layout"/>
+        </a>
+    </div>
 
-                <div class="ui-g-12">
-              <span class="md-inputfield">
-                  <input pInputText
-                         id="username"
-                         type="text"
-                         autocomplete="off"
-                         formControlName="username">
-                  <label for="username">Username</label>
-              </span>
-                </div>
+    <img class="login-image" src="../../assets/layout/images/image-access.png" alt="california-layout" />
 
+    <div class="login-panel ui-fluid">
+        <div [formGroup]="loginForm" class="ui-g">
+            <div class="ui-g-12 login-icon-container">
+                <img class="login-icon" src="../../assets/layout/images/icon-login.png" alt="california-layout" />
+            </div>
+            <div class="ui-g-12 ui-lg-12 ui-md-12 logo-container">
+                <span class="login-summary">SIGN IN TO SAPIEI CLIC</span>
+                <div class="login-detail">
+                    <span>Welcome, please use the form to sign-in network.</span>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-12 ui-md-12">
+                <div class="input-wrapper">
+                    <label>Username</label>
+                    <input pInputText
+                           id="username"
+                           placeholder="Username"   autocomplete="off"
+                           type="text"
+                           class="ui-inputtext ui-widget"
+                           formControlName="username">
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-12 ui-md-12">
+                <div class="input-wrapper">
+                    <label>Password</label>
+                    <input pInputText
+                           id="password"
+                           type="password"
+                           placeholder="Password" autocomplete="off"
+                           class="ui-inputtext ui-widget"  formControlName="password">
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-12 ui-md-12 chkbox-container">
+                <div class="remember-me">
+                    <input type="checkbox" class="ui-chkbox ui-chkbox-box">
+                    <span>Remember me</span>
+                    <a href="#">Reset Password</a>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-12 ui-md-12 button-container">
+                <button    (click)="login()"
+                           [disabled]="!loginForm.valid || (isLoading$ | async)" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" >
+                    <span class="ui-button-text ui-c">Sign in</span>
+                </button>
 
-                <div class="ui-g-12">
-            <span class="md-inputfield">
-                <input pInputText
-                       id="password"
-                       type="password"
-                       autocomplete="off"
-                       formControlName="password">
-                <label for="password">Password</label>
-            </span>
-                </div>
-                <div class="ui-g-12">
-                    <button type="button"
-                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
-                            (click)="login()"
-                            [disabled]="!loginForm.valid || (isLoading$ | async)">
-                        <span class="ui-button-text ui-c">Sign In</span>
-                    </button>
-                </div>
-            </ng-container>
+            </div>
         </div>
     </div>
 </div>

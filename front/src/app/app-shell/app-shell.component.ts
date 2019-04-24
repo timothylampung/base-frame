@@ -1,31 +1,20 @@
-import {Component, ElementRef, NgZone, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, AfterViewInit, ElementRef, Renderer2, ViewChild, OnDestroy} from '@angular/core';
 import {ScrollPanel} from 'primeng/primeng';
-import {environment} from "../../environments/environment.dev";
-import {Notification, NotificationContext} from "../modules/notification/notification.model";
-
-enum MenuOrientation {
-    STATIC,
-    OVERLAY,
-    SLIM,
-    HORIZONTAL
-}
 
 @Component({
     selector: 'dex-app-shell',
     templateUrl: './app-shell.component.html',
     styleUrls: ['./app-shell.component.css']
 })
-export class AppShellComponent implements OnInit {
+export class AppShellComponent implements AfterViewInit {
 
-    layoutCompact = true;
+    layoutMode = 'static';
 
-    layoutMode: MenuOrientation = MenuOrientation.STATIC;
+    megaMenuMode = 'dark';
 
-    darkMenu = false;
+    menuMode = 'light';
 
     profileMode = 'inline';
-
-    rotateMenuButton: boolean;
 
     topbarMenuActive: boolean;
 
@@ -34,12 +23,6 @@ export class AppShellComponent implements OnInit {
     staticMenuDesktopInactive: boolean;
 
     staticMenuMobileActive: boolean;
-
-    rightPanelActive: boolean;
-
-    rightPanelClick: boolean;
-
-    layoutContainer: HTMLDivElement;
 
     layoutMenuScroller: HTMLDivElement;
 
@@ -51,139 +34,20 @@ export class AppShellComponent implements OnInit {
 
     resetMenu: boolean;
 
-    menuHoverActive: boolean;
+    rightPanelActive: boolean;
 
-    @ViewChild('layoutContainer') layourContainerViewChild: ElementRef;
+    rightPanelClick: boolean;
 
-    @ViewChild('scrollPanel') layoutMenuScrollerViewChild: ScrollPanel;
+    megaMenuActive: boolean;
 
-    rippleInitListener: any;
+    megaMenuClick: boolean;
 
-    rippleMouseDownListener: any;
+    @ViewChild('layoutMenuScroller') layoutMenuScrollerViewChild: ScrollPanel;
 
-    constructor(public renderer2: Renderer2, public zone: NgZone) {
-    }
-
-    ngOnInit() {
-        this.zone.runOutsideAngular(() => {
-            this.bindRipple();
-        });
-    }
-
-    bindRipple() {
-        this.rippleInitListener = this.init.bind(this);
-        document.addEventListener('DOMContentLoaded', this.rippleInitListener);
-    }
-
-    init() {
-        this.rippleMouseDownListener = this.rippleMouseDown.bind(this);
-        document.addEventListener('mousedown', this.rippleMouseDownListener, false);
-    }
-
-    rippleMouseDown(e) {
-        for (let target = e.target; target && target !== this; target = target['parentNode']) {
-            if (!this.isVisible(target)) {
-                continue;
-            }
-
-            // Element.matches() -> https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
-            if (this.selectorMatches(target, '.ripplelink, .ui-button')) {
-                const element = target;
-                this.rippleEffect(element, e);
-                break;
-            }
-        }
-    }
-
-    selectorMatches(el, selector) {
-        const p = Element.prototype;
-        const f = p['matches'] || p['webkitMatchesSelector'] || p['mozMatchesSelector'] || p['msMatchesSelector'] || function (s) {
-            return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
-        };
-        return f.call(el, selector);
-    }
-
-    isVisible(el) {
-        return !!(el.offsetWidth || el.offsetHeight);
-    }
-
-    rippleEffect(element, e) {
-        if (element.querySelector('.ink') === null) {
-            const inkEl = document.createElement('span');
-            this.addClass(inkEl, 'ink');
-
-            if (this.hasClass(element, 'ripplelink') && element.querySelector('span')) {
-                element.querySelector('span').insertAdjacentHTML('afterend', '<span class=\'ink\'></span>');
-            } else {
-                element.appendChild(inkEl);
-            }
-        }
-
-        const ink = element.querySelector('.ink');
-        this.removeClass(ink, 'ripple-animate');
-
-        if (!ink.offsetHeight && !ink.offsetWidth) {
-            const d = Math.max(element.offsetWidth, element.offsetHeight);
-            ink.style.height = d + 'px';
-            ink.style.width = d + 'px';
-        }
-
-        const x = e.pageX - this.getOffset(element).left - (ink.offsetWidth / 2);
-        const y = e.pageY - this.getOffset(element).top - (ink.offsetHeight / 2);
-
-        ink.style.top = y + 'px';
-        ink.style.left = x + 'px';
-        ink.style.pointerEvents = 'none';
-        this.addClass(ink, 'ripple-animate');
-    }
-
-    hasClass(element, className) {
-        if (element.classList) {
-            return element.classList.contains(className);
-        } else {
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
-        }
-    }
-
-    addClass(element, className) {
-        if (element.classList) {
-            element.classList.add(className);
-        } else {
-            element.className += ' ' + className;
-        }
-    }
-
-    removeClass(element, className) {
-        if (element.classList) {
-            element.classList.remove(className);
-        } else {
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-        }
-    }
-
-    getOffset(el) {
-        const rect = el.getBoundingClientRect();
-
-        return {
-            top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
-            left: rect.left + (window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0),
-        };
-    }
-
-    unbindRipple() {
-        if (this.rippleInitListener) {
-            document.removeEventListener('DOMContentLoaded', this.rippleInitListener);
-        }
-        if (this.rippleMouseDownListener) {
-            document.removeEventListener('mousedown', this.rippleMouseDownListener);
-        }
-    }
+    constructor(public renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        this.layoutContainer = <HTMLDivElement>this.layourContainerViewChild.nativeElement;
-        setTimeout(() => {
-            this.layoutMenuScrollerViewChild.moveBar();
-        }, 100);
+        setTimeout(() => {this.layoutMenuScrollerViewChild.moveBar(); }, 100);
     }
 
     onLayoutClick() {
@@ -192,40 +56,36 @@ export class AppShellComponent implements OnInit {
             this.topbarMenuActive = false;
         }
 
-        if (!this.menuClick) {
-            if (this.isHorizontal() || this.isSlim()) {
-                this.resetMenu = true;
-            }
+        if (!this.rightPanelClick) {
+            this.rightPanelActive = false;
+        }
 
+        if (!this.megaMenuClick) {
+            this.megaMenuActive = false;
+        }
+
+        if (!this.menuClick) {
             if (this.overlayMenuActive || this.staticMenuMobileActive) {
                 this.hideOverlayMenu();
             }
-
-            this.menuHoverActive = false;
-        }
-
-        if (!this.rightPanelClick) {
-            this.rightPanelActive = false;
         }
 
         this.topbarItemClick = false;
         this.menuClick = false;
         this.rightPanelClick = false;
+        this.megaMenuClick = false;
     }
 
     onMenuButtonClick(event) {
         this.menuClick = true;
-        this.rotateMenuButton = !this.rotateMenuButton;
         this.topbarMenuActive = false;
 
-        if (this.layoutMode === MenuOrientation.OVERLAY) {
+        if (this.layoutMode === 'overlay') {
             this.overlayMenuActive = !this.overlayMenuActive;
         } else {
             if (this.isDesktop()) {
-                this.staticMenuDesktopInactive = !this.staticMenuDesktopInactive;
-            } else {
-                this.staticMenuMobileActive = !this.staticMenuMobileActive;
-            }
+                this.staticMenuDesktopInactive = !this.staticMenuDesktopInactive; } else {
+                this.staticMenuMobileActive = !this.staticMenuMobileActive; }
         }
 
         event.preventDefault();
@@ -249,16 +109,14 @@ export class AppShellComponent implements OnInit {
         this.topbarItemClick = true;
 
         if (this.activeTopbarItem === item) {
-            this.activeTopbarItem = null;
-        } else {
-            this.activeTopbarItem = item;
-        }
+            this.activeTopbarItem = null; } else {
+            this.activeTopbarItem = item; }
 
         event.preventDefault();
     }
 
     onTopbarSubItemClick(event) {
-        console.log('event', event);
+        event.preventDefault();
     }
 
     onRightPanelButtonClick(event) {
@@ -271,8 +129,17 @@ export class AppShellComponent implements OnInit {
         this.rightPanelClick = true;
     }
 
+    onMegaMenuButtonClick(event) {
+        this.megaMenuClick = true;
+        this.megaMenuActive = !this.megaMenuActive;
+        event.preventDefault();
+    }
+
+    onMegaMenuClick() {
+        this.megaMenuClick = true;
+    }
+
     hideOverlayMenu() {
-        this.rotateMenuButton = false;
         this.overlayMenuActive = false;
         this.staticMenuMobileActive = false;
     }
@@ -291,36 +158,6 @@ export class AppShellComponent implements OnInit {
     }
 
     isOverlay() {
-        return this.layoutMode === MenuOrientation.OVERLAY;
+        return this.layoutMode === 'overlay';
     }
-
-    isHorizontal() {
-        return this.layoutMode === MenuOrientation.HORIZONTAL;
-    }
-
-    isSlim() {
-        return this.layoutMode === MenuOrientation.SLIM;
-    }
-
-    changeToStaticMenu() {
-        this.layoutMode = MenuOrientation.STATIC;
-    }
-
-    changeToOverlayMenu() {
-        this.layoutMode = MenuOrientation.OVERLAY;
-    }
-
-    changeToHorizontalMenu() {
-        this.layoutMode = MenuOrientation.HORIZONTAL;
-    }
-
-    changeToSlimMenu() {
-        this.layoutMode = MenuOrientation.SLIM;
-    }
-
-    ngOnDestroy() {
-        this.unbindRipple();
-    }
-
-
 }

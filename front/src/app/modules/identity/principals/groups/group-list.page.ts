@@ -6,12 +6,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Group} from '../group.model';
 import {selectGroups} from './group.selector';
 import {FindPagedGroupsAction} from './group.action';
-import {BreadcrumbService} from '../../../../breadcrumb.service';
 import {IdentityState} from '../../identity.state';
+import {BreadcrumbService} from "../../../../component/breadcrumb.service";
 
 
 @Component({
-    selector: 'dex-group-list-page',
+    selector: 'cng-group-list-page',
     templateUrl: './group-list.page.html'
 })
 export class GroupListPage implements OnInit {

@@ -1,373 +1,614 @@
-.dashboard {
+/*Overview*/
+$overviewTextColor:#ffffff;
 
-    .overview {
-        padding: 0 !important;
-        min-height: 140px;
+/*Stats*/
+$statsBgColor:#ffffff;
+$statsBorderColor:#d6d7d9;
+$statsIconBgColor:#ffffff;
+$statsSubtitleTextColor:#00bfe7;
+$statsSubtitleColor:#aeb0b5;
+
+/*Weekly Tasks*/
+$addtaskBgColor:#f6f6f5;
+$tasksIconColor:#aeb0b5;
+$daytagBgColor:#e4e2e0;
+
+/*Resolution Center*/
+$estimationTextColor:#aeb0b5;
+$estimatedHourTextColor:#e59393;
+
+/*Team*/
+$teamContentHoverBgColor:#f2f3f3;
+$teamPrimaryTextColor:#212121;
+$teamSecondaryTextColor:#aeb0b5;
+$contactIconBgColor:#0872b9;
+$contactIconColor:#ffffff;
+
+/*Chat*/
+$messagefromBorderColor:#4aa564;
+$messageownBorderColor:#e31c3d;
+$messageBgColor:#f4f4f4;
+$messageTimeTextColor:#aeb0b5;
+$messageBorderColor:#d6d7d9;
+$messageIconColor:#d6d7d9;
+
+
+/*Daily Sales*/
+$salesHoverBgColor:#f1f1f1;
+$salesColumnHeaderColor:#424242;
+$salesRowTextColor:#212121;
+$salesUpIconColor:#4caf50;
+$salesDownIconColor:#f44336;
+
+/*Timeline*/
+$timelineSeperatorColor:#dddddd;
+$loveNotificationBgColor:#f8dede;
+$loveNotificationTextColor:#cd2026;
+$checkedNotificationBgColor:#e1f3f8;
+$checkedNotificationTextColor:#00a6d2;
+$eventNotificationBgColor:#fff1d2;
+$eventNotificationTextColor:#f39f19;
+$notificationTimeColor:#5b616b;
+
+/* Profile */
+$profileTextColor:#212121;
+
+.dashboard {
+    .overview-box {
+        color: $overviewTextColor;
+        min-height: 120px;
         position: relative;
-        margin-bottom: 0px !important;
-        
-        .overview-content {
-            padding: 16px;
-            
-            .overview-title {
-                font-size: 18px;
-            }
-            
-            .overview-badge {
-                float: right;
-                color: $textSecondaryColor;
-            }
-            
-            .overview-detail {
-                display: block;
-                font-size: 24px;
-                margin-top: 5px;
-            }
-        }
-        
-        .overview-footer {
+        i {
+            float: right;
+            font-size: 21px;
             position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        img {
+            position: absolute;
+            right: 0;
+            width: 90px;
             bottom: 0;
+        }
+        .overview-title {
+            line-height: 20px;
+            font-size: 16px;
+            letter-spacing: 0.8px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        .overview-numbers {
+            line-height: 31px;
+            font-size: 24px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        .overview-ratios {
+            line-height: 18px;
+            font-size: 14px;
+            text-align: left;
+            opacity: 0.95;
+        }
+        &.monthly-sales {
             width: 100%;
-            
-            img {
-                display: block;
-            }
+            height: 100%;
+            box-sizing: border-box;
+            position: relative;
+            padding: 10px 10px 10px 20px;
+            @include background-gradient-with-degree(240deg, #ff7295, #fe875d);
+        }
+        &.monthly-views {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            position: relative;
+            padding: 10px 10px 10px 20px;
+            @include background-gradient-with-degree(240deg, #00aadf, #0071bc);
+        }
+        &.monthly-users {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            position: relative;
+            padding: 10px 10px 10px 20px;
+            @include background-gradient-with-degree(240deg, #4b7ecf, #8e70ee);
         }
     }
-    
-    .colorbox {
-        padding: 0 !important; 
+    .stats {
+        background-color: $statsBgColor;
+        min-height: 120px;
+        position: relative;
+        margin-top: 29px;
+        border-top: 7px solid $statsTopBorderColor;
+        border-bottom: solid 1px $statsBorderColor;
+        border-right: solid 1px $statsBorderColor;
+        border-left: solid 1px $statsBorderColor;
         text-align: center;
-        overflow: hidden;
-        margin-bottom: 0px !important;
-        
-        i {
-            font-size: 48px;
-            margin-top: 10px;
-            color: #ffffff;
-        }
-        
-        .colorbox-name {
-            font-size: 20px;
+        @include border-box();
+        .stats-icon {
             display: inline-block;
-            width: 100%;
-            margin: 4px 0 10px 0;
-            color: #ffffff;
+            position: relative;
+            top: -7px;
+            background: $statsIconBgColor;
+            padding: 0 5px;
+            height: 7px;
+            img {
+                position: relative;
+                top: -10px;
+                margin-bottom: -10px;
+            }
         }
-        
-        .colorbox-count {
-            color: #ffffff;
-            font-size: 36px;
+        .message-icon {
+            height: 34px;
+            width: 44px;
         }
-        
-        .colorbox-count {
+        .doc-icon {
+            height: 34px;
+            width: 25px;
+        }
+        .mark-icon {
+            height: 34px;
+            width: 25px;
+        }
+        img.profile-icon {
+            /*top: -15px;
+                margin-bottom: -5px;*/
+            height: 34px;
+            width: 34px;
+        }
+        .stats-numbers {
+            line-height: 25px;
+            font-size: 20px;
             font-weight: bold;
         }
-        
-        &.colorbox-1 {     
-            background-color: #4CAF50;
-                   
-            div:first-child {
-                background-color: #2E7D32;
-            }
+        .stats-title {
+            line-height: 21px;
+            font-size: 17px;
         }
-        
-        &.colorbox-2 { 
-            background-color: #03A9F4;
-                       
-            div:first-child {
-                background-color: #0277BD;
-            }
-        }
-        
-        &.colorbox-3 {  
-            background-color: #673AB7;
-                      
-            div:first-child {
-                background-color: #4527A0;
-            }
-        }
-        
-        &.colorbox-4 { 
-            background-color: #009688;
-                       
-            div:first-child {
-                background-color: #00695C;
+        .stats-subtitle {
+            line-height: 18px;
+            font-size: 14px;
+            color: $statsSubtitleColor;
+            span {
+                color: $statsSubtitleTextColor;
             }
         }
     }
-    
-    .task-list {
-        overflow: hidden;
-        
-        > .ui-panel {
-            min-height: 340px;
+    .ui-panel {
+        .ui-panel-title {
+            margin: 0;
         }
-        
         .ui-panel-content {
-            padding: 10px 0 !important;
+            padding: 17px;
         }
-        
+    }
+    .weekly-tasks {
         ul {
-            list-style-type: none;
-            margin: 0;
             padding: 0;
-            
+            margin: 0;
+            list-style-type: none;
             li {
-                padding: $inputOptionPadding;
-                border-bottom: 1px solid #dbdbdb;
-                
+                padding: 8px 0;
                 &:first-child {
-                    margin-top: 10px;
+                    padding-top: 0;
+                }
+                &:last-child {
+                    padding-bottom: 0;
+                }
+                .ui-chkbox {
+                    vertical-align: middle;
+                    margin-right: 6px;
+                }
+                >span {
+                    vertical-align: middle;
+                }
+                .weekly-task-status {
+                    float: right;
+                    i {
+                        font-size: 13px;
+                        color: $textSecondaryColor;
+                        margin-left: 6px;
+                        width: 16px;
+                    }
+                    .day {
+                        color: darken($tasksIconColor, 50%);
+                        background-color: $daytagBgColor;
+                        text-align: center;
+                        min-width: 60px;
+                        display: inline-block;
+                    }
                 }
             }
-            
-            .ui-chkbox {
-                vertical-align: middle;
-                margin-right: 5px;
-            }
-            
-            .task-name {
-                vertical-align: middle;
-            }
-            
-            i {
-                color: $textSecondaryColor;
-                float: right;
-            }
-        } 
+        }
     }
-    
-    .contact-form {
-        overflow: hidden;
-        
-        .ui-panel {
-            min-height: 340px;
+    .resolution-center {
+        padding-bottom: 8px;
+        .ui-inputfield {
+            display: block;
+            margin-top: 5px;
+            margin-bottom: 15px;
         }
-        
-        .ui-g-12 {
-            padding: 16px 10px;
+        .ui-outputlabel {
+            vertical-align: middle;
         }
-        
         .ui-button {
-            margin-top: 20px;
+            margin-top: 5px;
+            display: block;
         }
     }
-    
-    .contacts {
-        overflow: hidden;
-        
-        > .ui-panel {
-            min-height: 340px;
+    .team {
+        .ui-panel-content {
+            padding: 0;
         }
-        
-        .ui-panel-content{
-            padding: 15px 0 10px 0 !important;
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            li {
+                padding: 16px;
+                border-left: 3px solid rgba(0, 0, 0, 0);
+                @include clearfix();
+                &:hover {
+                    background-color: $teamContentHoverBgColor;
+                    border-color: $teamContentHoverBorderColor;
+                }
+                .team-box {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                .team-member {
+                    text-align: left;
+                    display: block;
+                    font-weight: 600;
+                    color: $teamPrimaryTextColor;
+                }
+                img {
+                    width: 35px;
+                    height: 35px;
+                    vertical-align: middle;
+                    display: inline-block;
+                    margin-right: 6px;
+                }
+                a {
+                    display: block;
+                    float: right;
+                    background-color: $contactIconBgColor;
+                    border-radius: 100%;
+                    height: 30px;
+                    width: 30px;
+                    line-height: 30px;
+                    margin-left: 6px;
+                    text-align: center;
+                    margin-top: 4px;
+                    i {
+                        line-height: inherit;
+                        font-size: 22px;
+                        color: $contactIconColor;
+                    }
+                }
+            }
         }
-        
+    }
+    .chart {
+        .ui-panel-content {
+            overflow: auto;
+        }
+    }
+    .chat {
+        margin-top: 20px;
+        .ui-panel-content {
+            padding: 0;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            li {
+                padding: 16px 0;
+                @include clearfix();
+                font-size: 0;
+                .message-meta {
+                    font-size: $fontSize;
+                    width: 160px;
+                    @include border-box();
+                    display: inline-block;
+                    vertical-align: top;
+                    padding: 8px;
+                    text-align: left;
+                    img {
+                        width: 48px;
+                        height: 48px;
+                        display: block;
+                    }
+                    .name {
+                        font-weight: 600;
+                    }
+                    .time {
+                        color: $teamSecondaryTextColor;
+                        display: block;
+                    }
+                }
+                .message {
+                    font-size: $fontSize;
+                    @include border-box();
+                    width: calc(100% - 160px);
+                    padding: 12px;
+                    background-color: $messageBgColor;
+                    display: inline-block;
+                    vertical-align: top;
+                }
+                &.message-from {
+                    .message-meta {
+                        border-left: 4px solid $messagefromBorderColor;
+                        img {
+                            float: left;
+                            margin-right: 8px;
+                        }
+                    }
+                }
+                &.message-own {
+                    .message-meta {
+                        border-right: 4px solid $messageownBorderColor;
+                        img {
+                            float: right;
+                            margin-left: 8px;
+                        }
+                    }
+                }
+            }
+        }
+        .write-message {
+            border-top: 1px solid $messageBorderColor;
+            margin-top: 10px;
+            position: relative;
+            i {
+                font-size: 24px;
+                color: $messageIconColor;
+                position: absolute;
+                left: 8px;
+                top: 50%;
+                margin-top: -14px;
+            }
+            input {
+                @include border-box();
+                border: 0 none;
+                width: 100%;
+                height: 40px;
+                font-size: 14px;
+                padding-left: 36px;
+                &:focus {
+                    outline: 0 none;
+                }
+            }
+        }
+    }
+    .daily-sales {
+        margin-top: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        thead {
+            text-align: right;
+            background-color: #ffffff;
+            th {
+                padding: 8px 16px;
+            }
+        }
+        tbody {
+            tr:nth-child(even) {
+                background: #ffffff
+            }
+            tr:nth-child(odd) {
+                background: #f1f1f1
+            }
+            td {
+                border-color: transparent;
+                padding: 8px 16px;
+            }
+        }
+        tr {
+            th {
+                font-weight: 600;
+                color: $salesColumnHeaderColor;
+            }
+        }
+        td {
+            color: $salesRowTextColor;
+            text-align: right;
+            &:first-child {
+                text-align: left;
+            }
+            &:last-child {
+                button:first-child {
+                    margin-right: 4px;
+                }
+            }
+            img {
+                width: 26px;
+                height: 26px;
+                padding: 8px;
+                vertical-align: middle;
+            }
+            .fa-angle-up {
+                color: $salesUpIconColor;
+                font-size: 22px;
+                padding-left: 10px;
+            }
+            .fa-angle-down {
+                color: $salesDownIconColor;
+                font-size: 22px;
+                padding-left: 10px;
+            }
+        }
+    }
+    .schedule {
+        margin-top: 20px;
+    }
+    .timeline {
+        &.ui-panel {
+            .ui-panel-content {
+                position: relative;
+                .timeline-line {
+                    position: absolute;
+                    left: 50%;
+                    width: 1px;
+                    height: 100%;
+                    margin-left: -1px;
+                    background: $timelineSeperatorColor;
+                    top: 0;
+                }
+            }
+        }
         ul {
             list-style-type: none;
             padding: 0;
-            margin: 0;
-            
+            position: relative;
             li {
-                border-bottom: 1px solid #d8d8d8;
-                
-                a {
-                    padding: 9px;
-                    width: 100%;
-                    box-sizing: border-box;
-                    text-decoration: none;
+                display: block;
+                position: relative;
+                width: 100%;
+                margin-bottom: 30px;
+                .timeline-message {
+                    width: 45%;
+                    overflow: hidden;
                     position: relative;
-                    display: block;
-                    @include border-radius(2px);
-                    @include transition(background-color .2s);
-                    
-                    .name {
-                        position: absolute;
-                        right: 10px;
-                        top: 10px;
-                        font-size: 18px;
-                        color: $textColor;
-                    }
-                    
-                    .email {
-                        position: absolute;
-                        right: 10px;
-                        top: 30px;
-                        font-size: 14px;
-                        color: $textSecondaryColor;
-                    }
-                    
-                    &:hover {
-                        cursor: pointer;
-                        background-color: #e8e8e8;;
-                    }
-                }
-                
-                &:last-child {
-                    border: 0;
-                }
-            }
-        }
-    }
-    
-    .activity-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        
-        li {
-            border-bottom: 1px solid #bdbdbd;
-            padding: 15px 0 9px 9px;
-            
-            .count {
-                font-size: 24px;
-                color: #ffffff;
-                background-color: #03A9F4;
-                font-weight: bold;
-                display: inline-block;
-                padding: 5px;
-                @include border-radius(2px);
-            }
-            
-            &:first-child {
-                border-top: 1px solid #bdbdbd;
-            }
-            
-            &:last-child {
-                border: 0;
-            }
-
-            .ui-g-6:first-child {
-                font-size: 18px;
-                padding-left: 0;
-            }
-            
-            .ui-g-6:last-child {
-                text-align: right;
-                color: $textSecondaryColor;
-            }
-        }
-    }
-    
-    .timeline {
-        height: 100%;
-        box-sizing: border-box;
-        
-        > .ui-g {
-            .ui-g-3 {
-                font-size: 14px;
-                position: relative;
-                border-right: 1px solid #bdbdbd;
-                
-                i {
-                    background-color: #ffffff;
-                    font-size: 36px;
-                    position: absolute;
-                    top: 0px;
-                    right: -18px;
-                }
-            }
-            
-            .ui-g-9 {
-                padding-left: 1.5em;
-                .event-owner {
-                    
-                }
-                
-                .event-text {
-                    color: $textSecondaryColor;
-                    font-size: 14px;
-                    display: block;
-                    padding-bottom: 20px;
-                }
-                
-                .event-content {
                     img {
+                        position: absolute;
                         width: 100%;
+                        height: auto;
+                        z-index: 0;
+                    }
+                    span {
+                        position: relative;
+                        z-index: 10;
+                        display: block;
+                        padding: 15px;
+                        &.love {
+                            color: $loveNotificationTextColor;
+                            background-color: $loveNotificationBgColor;
+                            font-weight: 600;
+                            text-align: right;
+                        }
+                        &.checked {
+                            font-weight: 600;
+                            color: $checkedNotificationTextColor;
+                            background-color: $checkedNotificationBgColor;
+                        }
+                        &.event {
+                            color: $eventNotificationTextColor;
+                            font-weight: 600;
+                            background-color: $eventNotificationBgColor;
+                        }
+                    }
+                }
+                .timeline-icon {
+                    z-index: 100;
+                    line-height: 30px;
+                    img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                    span {
+                        font-weight: 600;
+                        color: $notificationTimeColor;
+                    }
+                }
+                &.odd {
+                    .timeline-icon {
+                        position: absolute;
+                        left: 50%;
+                        margin-left: -16px;
+                        span {
+                            float: right;
+                        }
+                        img {
+                            float: left;
+                            margin-right: 15px;
+                        }
+                    }
+                    .timeline-message {
+                        float: left;
+                        span {
+                            padding: 15px;
+                            text-align: right;
+                        }
+                    }
+                }
+                &.even {
+                    .timeline-icon {
+                        position: absolute;
+                        right: 50%;
+                        margin-right: -16px;
+                        text-align: right;
+                        span {
+                            float: left;
+                        }
+                        img {
+                            float: right;
+                            margin-left: 15px;
+                        }
+                    }
+                    .timeline-message {
+                        float: right;
+                        span {
+                            padding: 15px;
+                        }
                     }
                 }
             }
         }
     }
-    
-    > div {
-        > .ui-panel {
-            @include content-shadow();
-        }
-    }    
-}
-
-.layout-rightpanel {    
-    .layout-rightpanel-header {
-        background: url("../images/dashboard/sidebar-image.jpg") no-repeat;
-        background-size: cover;
-        height: 118px;
-        padding: 20px 14px;
-        @include box-sizing(border-box);
-        
-        .weather-day, .weather-date {
-            color: #ffffff;
-            left: 14px;
-            font-size: 18px;
-            font-weight: 700;
-            padding-bottom: 4px;
+    .inventory-list {
+        .ui-panel-content {
+            padding: 0;
         }
     }
-    
-    .layout-rightpanel-content {
-        padding: 14px;
-        
-        h1 {
-            font-size: 18px;
-            margin: 0 0 4px 0;
-        }
-        
-        h2 {
-            font-size: 16px;
-            margin: 0;
-            color: $textSecondaryColor;
-            font-weight: normal;
-        }
-        
-        .weather-today {
-            text-align: center;
-            margin-top: 28px;
-            
-            .weather-today-value {
-                font-size: 36px;
-                vertical-align: middle;
-                margin-right: 14px;
-            }
-            
-            img {
-                vertical-align: middle;
-            }
-        }
-        
-        .weekly-weather {
-            list-style-type: none;
-            margin: 28px 0 0 0;
+    .profile-details {
+        .ui-panel-content {
             padding: 0;
-            
-            li {
-                padding: 8px 14px;
-                border-bottom: 1px solid #d8dae2;
-                position: relative;
-                
-                .weekly-weather-value {
-                    position: absolute;
-                    right: 40px;
-                }
-                
-                img {
-                    width: 24px;
-                    position: absolute;
-                    right: 0px;
-                    top: 4px;
-                }
+            text-align: center;
+        }
+        img {
+            width: 100%;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            top: -60px;
+            position: relative;
+        }
+        .profile-name {
+            font-weight: 600;
+            color: $profileTextColor;
+            text-align: center;
+            display: block;
+            margin-top: -75px;
+        }
+        .profile-role {
+            color: $profileTextColor;
+            text-align: center;
+            display: block;
+        }
+        .ui-button {
+            margin-top: 16px;
+            padding: 0px 35px;
+            margin-right: 0;
+        }
+        .profile-statistics-panel {
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            .profile-statistics {
+                font-weight: 600;
+                font-size: 16px;
+                display: block;
+            }
+            .statistics-title {
+                border-bottom: 4px solid transparent;
+                padding-bottom: 10px;
             }
         }
     }

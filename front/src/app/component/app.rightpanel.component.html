@@ -1,0 +1,148 @@
+<div id="layout-right-sidebar" [ngClass]="{'layout-right-sidebar-active': app.rightPanelActive}" (click)="app.onRightPanelClick()">
+    <p-scrollPanel #scrollRightPanel [style]="{height: '100%'}">
+          <div class="right-panel-scroll-content">
+              <p-tabView>
+                  <p-tabPanel leftIcon="fa fa-cog">
+                      <div class="submenu-title">
+                          <span>Settings</span>
+                      </div>
+                      <div class="submenu-content settings">
+                          <ul>
+                              <li>
+                                  <div class="order-settings ui-g-12">
+                                      <i class="fa fa-plus"></i>
+                                      <span>NEW ORDERS</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="sales-settings ui-g-12">
+                                      <i class="fa fa-line-chart"></i>
+                                      <span>TOTAL SALES</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="shipment-settings ui-g-12">
+                                      <i class="fa fa-ship"></i>
+                                      <span>PENDING SHIPMENTS</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="visitors-settings ui-g-12">
+                                      <i class="fa fa-user-circle"></i>
+                                      <span>UNIQUE VISITORS</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="history-settings ui-g-12">
+                                      <i class="fa fa-history"></i>
+                                      <span>SALES HISTORY</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="leads-settings ui-g-12">
+                                      <i class="fa fa-handshake-o"></i>
+                                      <span>ALL LEADS</span>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                  </p-tabPanel>
+                  <p-tabPanel leftIcon="fa fa-inbox">
+                      <div class="submenu-title">
+                          <span>Inbox</span>
+                      </div>
+                      <div class="submenu-content messages">
+                          <ul>
+                              <li>
+                                  <div>
+                                      <img src="assets/layout/images/avatar-john.png" alt="california-layout" />
+                                      <span class="time-stamp">1m</span>
+                                  </div>
+                                  <span class="messager-name">John Swisher</span>
+                                  <span class="message-text">Ab nobis, magnam sunt eum. Laudantium…</span>
+                              </li>
+                              <li>
+                                  <div>
+                                      <img src="assets/layout/images/avatar-warren.png" alt="california-layout" />
+                                      <span class="time-stamp">33m</span>
+                                  </div>
+                                  <span class="messager-name">Warren Shaw</span>
+                                  <span class="message-text">Ab nobis, magnam sunt eum. Laudantium…</span>
+                              </li>
+                              <li>
+                                  <div>
+                                      <img src="assets/layout/images/avatar-brenda.png" alt="california-layout" />
+                                      <span class="time-stamp">2h</span>
+                                  </div>
+                                  <span class="messager-name">Brenda Soto</span>
+                                  <span class="message-text">Ab nobis, magnam sunt eum. Laudantium…</span>
+                              </li>
+                              <li>
+                                  <div>
+                                      <img src="assets/layout/images/avatar-arlene.png" alt="california-layout" />
+                                      <span class="time-stamp">1d</span>
+                                  </div>
+                                  <span class="messager-name">Arlene Welch</span>
+                                  <span class="message-text">Ab nobis, magnam sunt eum. Laudantium…</span>
+                              </li>
+                          </ul>
+                      </div>
+                  </p-tabPanel>
+                  <p-tabPanel leftIcon="fa fa-calendar">
+                      <div class="submenu-title">
+                          <span>Events</span>
+                      </div>
+                      <div class="submenu-content events">
+                          <ul>
+                              <li>
+                                  <div class="calendar-event-date">
+                                      <span class="date">21</span>
+                                      <span class="date">OCT</span>
+                                  </div>
+                                  <div class="calendar-event-detail">
+                                      <span class="calendar-event-title">Project Meeting</span>
+                                      <i class="material-icons  fa fa-map-marker"></i>
+                                      <span class="calendar-event-location">Chicago</span>
+                                  </div>
+                              </li>
+
+                              <li>
+                                  <div class="calendar-event-date">
+                                      <span class="date">13</span>
+                                      <span class="date">NOV</span>
+                                  </div>
+                                  <div class="calendar-event-detail">
+                                      <span class="calendar-event-title">Presentation 1</span>
+                                      <i class="material-icons fa fa-map-marker"></i>
+                                      <span class="calendar-event-location">New York</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="calendar-event-date">
+                                      <span class="date">01</span>
+                                      <span class="date">DEC</span>
+                                  </div>
+                                  <div class="calendar-event-detail">
+                                      <span class="calendar-event-title">Presentation 2</span>
+                                      <i class="material-icons fa fa-map-marker"></i>
+                                      <span class="calendar-event-location">New York</span>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="calendar-event-date">
+                                      <span class="date">25</span>
+                                      <span class="date">DEC</span>
+                                  </div>
+                                  <div class="calendar-event-detail">
+                                      <span class="calendar-event-title">New Year Party</span>
+                                      <i class="material-icons fa fa-map-marker"></i>
+                                      <span class="calendar-event-location">San Francisco</span>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                  </p-tabPanel>
+              </p-tabView>
+          </div>
+    </p-scrollPanel>
+</div>

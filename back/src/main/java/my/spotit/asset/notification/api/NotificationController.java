@@ -4,7 +4,6 @@ package my.spotit.asset.notification.api;
 import my.spotit.asset.core.domain.DexDocument;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.identity.domain.model.DexUser;
-import my.spotit.asset.maintenance.business.service.MaintenanceRequestService;
 import my.spotit.asset.notification.api.vo.Notification;
 import my.spotit.asset.notification.api.vo.NotificationContext;
 import my.spotit.asset.notification.api.vo.NotificationResult;
@@ -12,7 +11,6 @@ import my.spotit.asset.notification.business.NotificationService;
 import my.spotit.asset.notification.domain.model.DexNotification;
 import my.spotit.asset.notification.domain.model.DexNotificationContext;
 import my.spotit.asset.notification.domain.model.DexNotificationImpl;
-import my.spotit.asset.workorder.business.service.WorkOrderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,6 @@ import java.util.List;
 @Controller
 public class NotificationController {
 
-    private WorkOrderService workOrderService;
-    private MaintenanceRequestService maintenanceRequestService;
     private NotificationService notificationService;
     private NotificationTransformer notificationTransformer;
     private AuthenticationManager authenticationManager;
@@ -39,9 +35,7 @@ public class NotificationController {
 
 
     @Autowired
-    public NotificationController(WorkOrderService workOrderService, MaintenanceRequestService maintenanceRequestService, NotificationService notificationService, NotificationTransformer notificationTransformer, AuthenticationManager credentialManager, IdentityService identityService) {
-        this.workOrderService = workOrderService;
-        this.maintenanceRequestService = maintenanceRequestService;
+    public NotificationController(NotificationService notificationService, NotificationTransformer notificationTransformer, AuthenticationManager credentialManager, IdentityService identityService) {
         this.notificationService = notificationService;
         this.notificationTransformer = notificationTransformer;
         this.authenticationManager = credentialManager;
@@ -63,13 +57,6 @@ public class NotificationController {
             referenceNo = notification.getDocument().getReferenceNo();
         }
 
-        if (referenceNo != null) {
-            if (notification.getContext() == NotificationContext.MAINTENANCE_REQUEST) {
-                document = maintenanceRequestService.findMaintenanceRequestByReferenceNo(referenceNo);
-            } else {
-                document = workOrderService.findWorkOrderByReferenceNo(referenceNo);
-            }
-        }
 
         DexNotification nn = new DexNotificationImpl();
         nn.setContext(DexNotificationContext.get(notification.getContext().ordinal()));
@@ -84,20 +71,6 @@ public class NotificationController {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, credentials);
         Authentication authed = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authed);
-    }
-
-
-    @GetMapping(value = "/notifications/{email}")
-    public ResponseEntity<NotificationResult> findNotificationsByEmail(@PathVariable String email) {
-        List<DexNotification> notifications = notificationService.findNotificationsByRecieverEmail(email);
-        Integer counts = notificationService.countNotification(email);
-        return ResponseEntity.ok(new NotificationResult(counts, notificationTransformer.toNotificationVos(notifications)));
-    }
-
-    @GetMapping(value = "/notifications", params = {"id"})
-    public void markAsRead(@RequestParam Long id) {
-        DexNotification notification = notificationService.findNotificationById(id);
-        notificationService.markNotificationAsRead(notification);
     }
 
 }

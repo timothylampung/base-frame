@@ -15,7 +15,6 @@ import my.spotit.asset.identity.api.vo.Supervisor;
 import my.spotit.asset.identity.api.vo.User;
 import my.spotit.asset.identity.business.service.IdentityService;
 import my.spotit.asset.identity.domain.model.*;
-import my.spotit.asset.integration.mobile.identity.api.vo.MobileStaff;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,46 +85,10 @@ public class IdentityTransformer {
         return vo;
     }
 
-    public MobileStaff toMobileUserVo(DexUser e) {
-        if (null == e) return null;
-        MobileStaff vo = new MobileStaff();
-        vo.setId(e.getId());
-        vo.setName(e.getName());
-        vo.setRealName(e.getRealName());
-        vo.setEmail(e.getEmail());
-        vo.setPassword(e.getPassword());
-        vo.setPrincipalType(PrincipalType.get(e.getPrincipalType().ordinal()));
-
-        if (e.getActor() instanceof DexStaff) {
-            DexStaff actor = (DexStaff) e.getActor();
-            if (actor != null) {
-                vo.setActorId(actor.getId());
-                vo.setActorType(ActorType.get(actor.getActorType().ordinal()));
-                vo.setAddress1(actor.getAddress1());
-                vo.setAddress2(actor.getAddress2());
-                vo.setAddress3(actor.getAddress3());
-                vo.setCode(actor.getCode());
-                vo.setFax(actor.getFax());
-                vo.setIdentityNo(actor.getIdentityNo());
-                vo.setMobile(actor.getMobile());
-                vo.setPhone(actor.getPhone());
-                vo.setPositionCode(commonTransformer.toPositionCodeVo(actor.getPositionCode()));
-            }
-        }
-        coreTransformer.toMetadata(e, vo);
-        return vo;
-    }
 
     public List<User> toUserVos(List<DexUser> e) {
         List<User> vos = e.stream()
                 .map((e1) -> toUserVo(e1))
-                .collect(Collectors.toList());
-        return vos;
-    }
-
-    public List<MobileStaff> toMobileUserVos(List<DexUser> e) {
-        List<MobileStaff> vos = e.stream()
-                .map((e1) -> toMobileUserVo(e1))
                 .collect(Collectors.toList());
         return vos;
     }
